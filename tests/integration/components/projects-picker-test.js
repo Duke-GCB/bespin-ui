@@ -16,7 +16,7 @@ test('it renders with no projects', function(assert) {
 test('it renders with selected project', function(assert) {
   // Set any properties with this.set('myProperty', 'value');
   // Handle any actions with this.on('myAction', function(val) { ... });
-  this.set('project', {id:1, name:'Project1'};)
+  this.set('project', {id:1, name:'Project1'});
   this.set('projects', [this.get('project')]);
   this.render(hbs`{{projects-picker projects selectedProject=project }}`);
   assert.equal(this.$('p').text().trim(), 'Selected Project: Project1', 'selected project name matches');
