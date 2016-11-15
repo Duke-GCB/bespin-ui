@@ -1,0 +1,15 @@
+<article class="project-detail-row panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title project-name">{{project.name}}</h3>
+  </div>
+  <div class="panel-body">
+    <span class="project-description">lorem ipsum blah blah blah</span>
+    <div class="project-selection pull-right">
+      {{#if selected}}
+        <span class="glyphicon glyphicon-ok"></span>
+      {{/if}}
+    </div>
+  </div>
+</article>
+{{yield}}
+

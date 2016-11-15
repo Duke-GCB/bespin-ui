@@ -1,0 +1,5 @@
+{{#each projects as |project|}}
+  {{#project-detail-row project selectedProject (action "pick")}}{{/project-detail-row}}
+{{/each}}
+<p>Selected Project: {{selectedProject.name}}</p>
+{{yield}}
