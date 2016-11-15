@@ -5,20 +5,19 @@ moduleForComponent('projects-picker', 'Integration | Component | projects picker
   integration: true
 });
 
-test('it renders', function(assert) {
+test('it renders with no projects', function(assert) {
   // Set any properties with this.set('myProperty', 'value');
   // Handle any actions with this.on('myAction', function(val) { ... });
+  this.set('projects', []);
+  this.render(hbs`{{projects-picker projects }}`);
+  assert.equal(this.$('').text().trim(), 'Selected Project:', 'renders only the selected project');
+});
 
-  this.render(hbs`{{projects-picker}}`);
-
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#projects-picker}}
-      template block text
-    {{/projects-picker}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+test('it renders with selected project', function(assert) {
+  // Set any properties with this.set('myProperty', 'value');
+  // Handle any actions with this.on('myAction', function(val) { ... });
+  this.set('project', {id:1, name:'Project1'};)
+  this.set('projects', [this.get('project')]);
+  this.render(hbs`{{projects-picker projects selectedProject=project }}`);
+  assert.equal(this.$('p').text().trim(), 'Selected Project: Project1', 'selected project name matches');
 });

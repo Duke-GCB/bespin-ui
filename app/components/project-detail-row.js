@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 const ProjectDetailRow = Ember.Component.extend({
   selected: Ember.computed('{project,selectedProject}', function () {
-    return this.get('project') == this.get('selectedProject');
+    return this.get('project') === this.get('selectedProject');
   }),
   actions: {
     pick() {
