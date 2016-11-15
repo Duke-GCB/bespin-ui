@@ -1,6 +1,4 @@
-<ul>
-  {{#each projects as |project|}}
-    <li>{{project.id}} - {{project.name}}</li>
-  {{/each}}
-</ul>
+{{#each projects as |project|}}
+  <article class="project">{{project.id}} - {{project.name}}</article>
+{{/each}}
 {{yield}}
