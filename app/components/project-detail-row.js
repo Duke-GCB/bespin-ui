@@ -4,8 +4,10 @@ const ProjectDetailRow = Ember.Component.extend({
   selected: Ember.computed('{project,selectedProject}', function () {
     return this.get('project') == this.get('selectedProject');
   }),
-  click() {
-    this.get('onPick')(this.get('project'));
+  actions: {
+    pick() {
+      this.get('onPick')(this.get('project'));
+    }
   }
 });
 

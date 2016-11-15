@@ -5,20 +5,28 @@ moduleForComponent('project-detail-row', 'Integration | Component | project deta
   integration: true
 });
 
-test('it renders', function(assert) {
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
+test('it renders project name', function(assert) {
+  this.set('project', {'id': 1, name:'foo'});
+  this.set('selectedProject', {'id': 2, name: 'bar'});
+  this.render(hbs`{{project-detail-row project selectedProject }}`);
+  assert.equal(this.$('.project-name').text().trim(), 'foo', 'project name is rendered');
+  assert.equal(this.$('.glyphicon-ok').length, 0, 'selected icon is not present');
+});
 
-  this.render(hbs`{{project-detail-row}}`);
+test('it renders selected state', function(assert) {
+  this.set('project', {'id': 1, name:'foo'});
+  this.set('selectedProject', this.get('project'));
+  this.render(hbs`{{project-detail-row project selectedProject}}`);
+  assert.equal(this.$('.glyphicon-ok').length, 1, 'selected icon is present');
+});
 
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#project-detail-row}}
-      template block text
-    {{/project-detail-row}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+test('it handles click action', function(assert) {
+  assert.expect(1); // Expect onPick to be called
+  this.set('project', {'id': 1, name:'foo'});
+  this.set('selectedProject', this.get('project'));
+  this.set('onPick', function() {
+    assert.ok(true, 'onPick was called');
+  });
+  this.render(hbs`{{project-detail-row project selectedProject onPick}}`);
+  this.$('.project-detail-row').click();
 });
