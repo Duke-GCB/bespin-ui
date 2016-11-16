@@ -7,7 +7,7 @@ export default Ember.Controller.extend({
       let { identification, password } = this.getProperties('identification','password');
       // This may need to change
       this.get('session').authenticate('authenticator:drf-token-authenticator', identification, password).catch((reason) => {
-        this.set('errorMessage', reason.error || reason);
+        this.set('errorMessage', reason);
       });
     }
   }
