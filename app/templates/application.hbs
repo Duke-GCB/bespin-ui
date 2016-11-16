@@ -12,6 +12,13 @@
     {{#bs-navbar-content}}
       {{#bs-navbar-nav}}
         {{#bs-nav-item}}{{#link-to 'projects'}}Projects{{/link-to}}{{/bs-nav-item}}
+        {{#bs-nav-item}}
+          {{#if session.isAuthenticated}}
+              <a {{action 'invalidateSession'}}>Logout</a>
+          {{else}}
+            {{#link-to 'login'}}Login{{/link-to}}
+          {{/if}}
+        {{/bs-nav-item}}
       {{/bs-navbar-nav}}
     {{/bs-navbar-content}}
   {{/bs-navbar}}
