@@ -1,14 +1,18 @@
 <article class="project-detail-row panel panel-default" {{action "pick" on="click"}}>
   <div class="panel-heading">
-    <h3 class="panel-title project-name">{{project.name}}</h3>
+    <div class="panel-title">
+      <span class="project-name">{{project.name}}</span>
+      <span class="pull-right">
+      {{#if selected}}
+        <span class="glyphicon glyphicon-ok"></span>
+      {{else}}
+        <span class="glyphicon"></span>
+      {{/if}}
+      </span>
+    </div>
   </div>
   <div class="panel-body">
     <span class="project-description">{{project.description}}</span>
-    <div class="project-selection pull-right">
-      {{#if selected}}
-        <span class="glyphicon glyphicon-ok"></span>
-      {{/if}}
-    </div>
   </div>
 </article>
 {{yield}}
