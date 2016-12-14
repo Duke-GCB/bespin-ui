@@ -1,7 +1,6 @@
-# Bespin-ui
+# Bespin-UI
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+An [ember.js](http://emberjs.com/) application frontend for [bespin-api](https://github.com/Duke-GCB/bespin-api).
 
 ## Prerequisites
 
