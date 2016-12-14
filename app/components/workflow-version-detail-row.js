@@ -6,4 +6,4 @@ WorkflowVersionDetailRow.reopenClass({
   positionalParams: ['version']
 });
 
-export default WorkflowVersionDetailRow
+export default WorkflowVersionDetailRow;
