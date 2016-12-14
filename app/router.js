@@ -9,6 +9,7 @@ const Router = Ember.Router.extend({
 Router.map(function() {
   this.route('projects');
   this.route('login');
+  this.route('workflows');
 });
 
 export default Router;
