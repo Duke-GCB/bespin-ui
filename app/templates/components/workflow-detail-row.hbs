@@ -13,6 +13,11 @@
   </div>
   <div class="panel-body">
     <span class="workflow-description">Workflow description</span>
+    <span class="workflow-versions">
+      {{#each workflow.versions as |version|}}
+        {{#workflow-version-detail-row version}}{{/workflow-version-detail-row}}
+      {{/each}}
+    </span>
   </div>
 </article>
 {{yield}}

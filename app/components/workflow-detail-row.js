@@ -6,4 +6,4 @@ WorkflowDetailRow.reopenClass({
   positionalParams: ['workflow']
 });
 
-export default WorkflowDetailRow
+export default WorkflowDetailRow;

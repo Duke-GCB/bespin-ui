@@ -10,6 +10,7 @@ Router.map(function() {
   this.route('projects');
   this.route('login');
   this.route('workflows');
+  this.route('workflow-versions');
 });
 
 export default Router;
