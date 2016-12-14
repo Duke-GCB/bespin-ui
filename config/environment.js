@@ -2,7 +2,7 @@
 
 module.exports = function(environment) {
   var ENV = {
-    modulePrefix: 'bespin-ember',
+    modulePrefix: 'bespin-ui',
     environment: environment,
     rootURL: '/',
     locationType: 'auto',

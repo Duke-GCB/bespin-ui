@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import Base from 'ember-simple-auth/authenticators/base';
-import ENV from 'bespin-ember/config/environment'; // Yes this is how to do it
+import ENV from 'bespin-ui/config/environment'; // Yes this is how to do it
 
 export default Base.extend({
   // These are expected to return promises
