@@ -26,7 +26,7 @@ export default DS.JSONAPIAdapter.extend(DataAdapterMixin, {
   pathForType(type) {
     let dasherized = Ember.String.dasherize(type);
     let pluralized = Ember.String.pluralize(dasherized);
-    console.log(`type: ${dasherized} -> path: ${pluralized}`);
+    console.log(`type: ${type} -> path: ${pluralized}`);
     return pluralized;
   }
 });
