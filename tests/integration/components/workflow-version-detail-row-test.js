@@ -5,20 +5,11 @@ moduleForComponent('workflow-version-detail-row', 'Integration | Component | wor
   integration: true
 });
 
-test('it renders', function(assert) {
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
+test('it renders workflow version details', function(assert) {
+  let version = {version: 34, url: 'http://example.edu/workflows/workflow.cwl'};
+  this.set('version' ,version);
+  this.render(hbs`{{workflow-version-detail-row version}}`);
 
-  this.render(hbs`{{workflow-version-detail-row}}`);
-
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#workflow-version-detail-row}}
-      template block text
-    {{/workflow-version-detail-row}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+  assert.equal(this.$('.workflow-version-version').text().trim(), '34');
+  assert.equal(this.$('.workflow-version-url').text().trim(), 'http://example.edu/workflows/workflow.cwl');
 });
