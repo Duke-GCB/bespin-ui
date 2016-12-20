@@ -1,0 +1,6 @@
+<div class="workflow-versions">
+  {{#each versions as |version|}}
+    {{#workflow-version-detail-row version}}{{/workflow-version-detail-row}}
+  {{/each}}
+</div>
+{{yield}}
