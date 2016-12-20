@@ -1,0 +1,6 @@
+<ul>
+  {{#each jobs as |job|}}
+    <li>{{job.id}}, state: {{job.state}}, version: {{job.workflowVersion.id}}</li>
+  {{/each}}
+</ul>
+{{yield}}

@@ -1,6 +1,2 @@
-<ul>
-{{#each model as |job|}}
-  <li>{{job.id}}, state: {{job.state}}, version: {{job.workflowVersion.id}}</li>
-{{/each}}
-</ul>
+{{#jobs-list model}}{{/jobs-list}}
 {{outlet}}
