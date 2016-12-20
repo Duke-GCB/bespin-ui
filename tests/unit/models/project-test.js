@@ -6,6 +6,7 @@ moduleForModel('project', 'Unit | Model | project', {
 });
 
 test('it exists', function(assert) {
+  // Not much to test in project model yet
   let model = this.subject();
   // let store = this.store();
   assert.ok(!!model);
