@@ -3,7 +3,7 @@
     <div class="panel-title">
       <span class="workflow-name">{{workflow.name}}</span>
       <span class="pull-right">
-        {{#if selected}}
+        {{#if workflow.selected}}
           <span class="glyphicon glyphicon-ok"></span>
         {{else}}
           <span class="glyphicon"></span>
@@ -12,7 +12,7 @@
     </div>
   </div>
   <div class="panel-body">
-    <span class="workflow-description">Workflow description</span>
+    <span class="workflow-description">{{workflow.description}}</span>
     <span class="workflow-versions">
       {{#each workflow.versions as |version|}}
         {{#workflow-version-detail-row version}}{{/workflow-version-detail-row}}
