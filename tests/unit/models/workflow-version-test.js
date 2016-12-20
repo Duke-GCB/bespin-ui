@@ -2,7 +2,7 @@ import { moduleForModel, test } from 'ember-qunit';
 
 moduleForModel('workflow-version', 'Unit | Model | workflow version', {
   // Specify the other units that are required for this test.
-  needs: ['model:workflow']
+  needs: ['model:workflow', 'model:job']
 });
 
 test('it exists', function(assert) {
