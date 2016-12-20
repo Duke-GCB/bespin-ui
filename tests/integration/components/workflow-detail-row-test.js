@@ -32,6 +32,17 @@ test('it renders block content', function(assert) {
       Block Content
     {{/workflow-detail-row}}
   `);
-
   assert.equal(this.$('.workflow-content').text().trim(), 'Block Content');
+});
+
+
+test('it selectes on click', function(assert) {
+  assert.expect(1);
+  let workflow = {name:'Workflow 123', description: 'Sample workflow', selected: false};
+  this.set('workflow', workflow);
+  this.set('onPick', function() {
+    assert.ok(true, 'onPick was called');
+  });
+  this.render(hbs`{{workflow-detail-row workflow null onPick}}`);
+  this.$('.workflow-detail-row').click();
 });

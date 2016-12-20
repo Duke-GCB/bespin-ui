@@ -1,0 +1,7 @@
+{{#each workflows as |workflow|}}
+  {{#workflow-detail-row workflow selectedWorkflow (action "pick")}}
+    {{#workflow-version-detail-row workflow.versions.last}}{{/workflow-version-detail-row}}
+  {{/workflow-detail-row}}
+{{/each}}
+<p>Selected Workflow: {{selectedWorkflow.name}}</p>
+{{yield}}
