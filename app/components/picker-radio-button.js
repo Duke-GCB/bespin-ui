@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import EmberRadioButton from 'ember-radio-buttons';
 
 export default EmberRadioButton.extend({
