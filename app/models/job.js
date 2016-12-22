@@ -2,6 +2,7 @@ import DS from 'ember-data';
 
 export default DS.Model.extend({
   workflowVersion: DS.belongsTo('workflow-version'),
+  name: DS.attr('string'),
   created: DS.attr('date'),
   state: DS.attr('string'),
   step: DS.attr('string'),
