@@ -11,7 +11,9 @@ Router.map(function() {
   this.route('login');
   this.route('workflows');
   this.route('workflow-versions');
-  this.route('jobs');
+  this.route('jobs', function() {
+    this.route('new');
+  });
 });
 
 export default Router;
