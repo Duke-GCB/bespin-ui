@@ -1,18 +1,22 @@
-<article class="workflow-detail-row panel panel-default" {{action "pick" on="click"}}>
+<div class="col-md-4">
+<article class="workflow-detail-row panel panel-default">
   <div class="panel-heading">
     <div class="panel-title">
-      <span class="workflow-name">{{workflow.name}}</span>
-      <span class="pull-right">
-        {{#if workflow.selected}}
-          <span class="glyphicon glyphicon-ok"></span>
-        {{else}}
-          <span class="glyphicon"></span>
-        {{/if}}
-      </span>
+        <label for="{{concat elementId '-radio' }}" class="workflow-name">{{workflow.name}}</label>
     </div>
   </div>
   <div class="panel-body">
-    <span class="workflow-description">{{workflow.description}}</span>
-    <span class="workflow-content">{{yield}}</span>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-1 radio vertical-center">
+          {{picker-radio-button id=(concat elementId '-radio') value=workflow name='selectedWorkflow' onChange=(action "pick")}}
+        </div>
+        <div class="col-xs-11">
+          <span class="workflow-description">{{workflow.description}}</span>
+          <span class="workflow-content">{{yield}}</span>
+        </div>
+      </div>
+    </div>
   </div>
 </article>
+</div>
