@@ -1,9 +1,8 @@
-<div class="container row">
+<div class="row">
 {{#each workflows as |workflow|}}
   {{#workflow-picker-detail-row workflow selectedWorkflow (action "pick")}}
     {{#workflow-version-detail-row workflow.latestVersion}}{{/workflow-version-detail-row}}
   {{/workflow-picker-detail-row}}
 {{/each}}
 </div>
-<p class="selected-workflow">Selected Workflow: {{selectedWorkflow.name}}</p>
 {{yield}}

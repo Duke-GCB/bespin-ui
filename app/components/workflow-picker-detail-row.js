@@ -12,4 +12,4 @@ WorkflowPickerDetailRow .reopenClass({
   positionalParams: ['workflow', 'selectedWorkflow', 'onPick']
 });
 
-export default WorkflowPickerDetailRow ;
+export default WorkflowPickerDetailRow;

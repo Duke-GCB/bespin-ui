@@ -4,13 +4,13 @@ let WorkflowPickerComponent = Ember.Component.extend({
   selectedWorkflow: null,
   actions: {
     pick(workflow) {
-      this.set('selectedWorkflow', workflow);
+      this.get('onPick')(workflow);
     }
   }
 });
 
 WorkflowPickerComponent.reopenClass({
-  positionalParams: ['workflows']
+  positionalParams: ['workflows', 'onPick']
 });
 
 export default WorkflowPickerComponent;
