@@ -11,5 +11,6 @@ test('it renders workflow version details', function(assert) {
   this.render(hbs`{{workflow-version-detail-row version}}`);
 
   assert.equal(this.$('.workflow-version-version').text().trim(), '34');
-  assert.equal(this.$('.workflow-version-url').text().trim(), 'http://example.edu/workflows/workflow.cwl');
+  assert.equal(this.$('.workflow-version-url').attr('href'), 'http://example.edu/workflows/workflow.cwl');
+  assert.equal(this.$('.workflow-version-description').text().trim(), 'Empty description');
 });

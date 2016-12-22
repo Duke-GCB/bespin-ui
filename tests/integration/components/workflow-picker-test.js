@@ -16,9 +16,9 @@ test('it renders with selected workflow', function(assert) {
   this.set('selectedWorkflow', workflows[0]);
   this.set('workflows', workflows);
   this.render(hbs`{{workflow-picker workflows selectedWorkflow=selectedWorkflow}}`);
-  assert.equal(this.$('p').text().trim(), 'Selected Workflow: Workflow 1', 'selected workflow name matches');
+  assert.equal(this.$('p.selected-workflow').text().trim(), 'Selected Workflow: Workflow 1', 'selected workflow name matches');
 
   this.set('selectedWorkflow', workflows[1]);
   this.render(hbs`{{workflow-picker workflows selectedWorkflow=selectedWorkflow}}`);
-  assert.equal(this.$('p').text().trim(), 'Selected Workflow: Workflow 2', 'selected workflow name matches');
+  assert.equal(this.$('p.selected-workflow').text().trim(), 'Selected Workflow: Workflow 2', 'selected workflow name matches');
 });
