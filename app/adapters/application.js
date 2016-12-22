@@ -3,7 +3,7 @@ import Ember from 'ember';
 import DataAdapterMixin from 'ember-simple-auth/mixins/data-adapter-mixin'; // This is what causes the authorizer to be picked up
 import ENV from 'bespin-ui/config/environment'; // This is how we load config variables from our environment.js file
 
-export default DS.JSONAPIAdapter.extend(DataAdapterMixin, {
+export default DS.RESTAdapter.extend(DataAdapterMixin, {
   /*
     This adapter is customized for bespin-api running Django REST Framework
    */

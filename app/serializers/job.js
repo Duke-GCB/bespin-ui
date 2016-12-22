@@ -1,7 +1,7 @@
 import DS from 'ember-data';
 import Ember from 'ember';
 
-export default DS.JSONAPISerializer.extend({
+export default DS.RESTSerializer.extend({
   _keyFor(key) {
     let underscored = Ember.String.underscore(key);
     return underscored;
