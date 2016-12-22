@@ -21,7 +21,7 @@
       <label class="control-label">Worfklow Input JSON</label>
       {{bs-textarea value=job.workflowInputJson}}
     {{/bs-form-group}}
-    {{#bs-button type="primary"}}Create{{/bs-button}}
+    {{#bs-button type="primary" action="create" }}Create{{/bs-button}}
   {{/bs-form}}
 </div>
 <p>Job details:
@@ -33,4 +33,8 @@
     <li>Input JSON: {{job.workflowInputJson}}</li>
   </ul>
 </p>
+<p>Errors</p>
+{{#each errors as |error|}}
+  {{error}}
+{{/each}}
 {{yield}}
