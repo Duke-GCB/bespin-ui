@@ -6,16 +6,11 @@
       </div>
     </div>
     <div class="panel-body">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-xs-1 radio vertical-center">
-            {{picker-radio-button id=(concat elementId '-radio') value=workflow name='selectedWorkflow' onChange=(action "pick")}}
-          </div>
-          <div class="col-xs-11">
-            <span class="workflow-description">{{workflow.description}}</span>
-            <span class="workflow-content">{{yield}}</span>
-          </div>
-        </div>
+      <div class="radio">
+        <label class="workflow-content">
+          {{picker-radio-button id=(concat elementId '-radio') value=workflow name='selectedWorkflow' onChange=(action "pick")}}
+          {{yield}}
+        </label>
       </div>
     </div>
   </article>
