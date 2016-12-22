@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const WorkflowDetailRow = Ember.Component.extend({
+const WorkflowPickerDetailRow = Ember.Component.extend({
   actions: {
     pick() {
       this.get('onPick')(this.get('workflow'));
@@ -8,8 +8,8 @@ const WorkflowDetailRow = Ember.Component.extend({
   }
 });
 
-WorkflowDetailRow.reopenClass({
+WorkflowPickerDetailRow .reopenClass({
   positionalParams: ['workflow', 'selectedWorkflow', 'onPick']
 });
 
-export default WorkflowDetailRow;
+export default WorkflowPickerDetailRow ;
