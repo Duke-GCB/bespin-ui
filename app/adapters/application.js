@@ -10,6 +10,10 @@ export default DS.RESTAdapter.extend(DataAdapterMixin, {
   authorizer: 'authorizer:drf-token-authorizer', // Adds token authorization to requests
   host: ENV.APP.API_HOST,
   namespace: ENV.APP.API_NAMESPACE,
+  headers: {
+    'Accept': 'application/vnd.rootobject+json',
+    'Content-type': 'application/vnd.rootobject+json'
+  },
   buildURL(modelName, id, snapshot, requestType, query) {
     var url = this._super(modelName, id, snapshot, requestType, query);
     // Enforce trailing slashes

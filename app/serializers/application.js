@@ -11,5 +11,8 @@ export default DS.RESTSerializer.extend({
   },
   keyForAttribute(attr) {
     return this._keyFor(attr);
+  },
+  payloadKeyFromModelName(modelName) {
+    return Ember.String.pluralize(modelName);
   }
 });

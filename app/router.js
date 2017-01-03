@@ -9,7 +9,11 @@ const Router = Ember.Router.extend({
 Router.map(function() {
   this.route('projects');
   this.route('login');
-  this.route('workflows');
+  this.route('workflows', function() {
+    this.route('show', {
+      path: '/:workflow_id'
+    });
+  });
   this.route('workflow-versions');
   this.route('jobs', function() {
     this.route('new');
