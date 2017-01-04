@@ -18,6 +18,7 @@ Router.map(function() {
   this.route('jobs', function() {
     this.route('new', function() {
       this.route('select-workflow');
+      this.route('select-inputs');
     });
   });
 });
