@@ -1,0 +1,13 @@
+{{#bs-form}}
+  {{#bs-form-group class='job-name'}}
+    <label class="control-label">Name:</label>
+    {{bs-input type=text value=job.name}}
+  {{/bs-form-group}}
+  {{#bs-form-group class='job-kind'}}
+    <label class="control-label">Kind:</label>
+    {{#workflow-picker workflows (action "workflowChanged")}}{{/workflow-picker}}
+  {{/bs-form-group}}
+  {{#bs-button type="default" action="cancel" }}Cancel{{/bs-button}}
+  {{#bs-button type="primary" action="next" class="pull-right"}}Next{{/bs-button}}
+{{/bs-form}}
+{{yield}}

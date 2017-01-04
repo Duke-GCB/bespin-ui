@@ -1,40 +1,8 @@
 <div class="container-fluid">
-  <h2>Create Job</h2>
-  {{#bs-form}}
-    {{#bs-form-group}}
-      <label class="control-label">Name:</label>
-      {{bs-input type=text value=job.name}}
-    {{/bs-form-group}}
-    {{#bs-form-group}}
-      <label class="control-label">Kind:</label>
-      {{#workflow-picker workflows (action "workflowChanged")}}{{/workflow-picker}}
-    {{/bs-form-group}}
-    {{#bs-form-group}}
-      <label class="control-label">VM Flavor</label>
-      {{bs-input type=text value=job.vmFlavor}}
-    {{/bs-form-group}}
-    {{#bs-form-group}}
-      <label class="control-label">VM Project Name</label>
-      {{bs-input type=text value=job.vmProjectName}}
-    {{/bs-form-group}}
-    {{#bs-form-group}}
-      <label class="control-label">Worfklow Input JSON</label>
-      {{bs-textarea value=job.workflowInputJson}}
-    {{/bs-form-group}}
-    {{#bs-button type="primary" action="create" }}Create{{/bs-button}}
-  {{/bs-form}}
+  <h3>Creating job</h3>
+  <p>Please provide a name and select the kind of workflow you'd like to run</p>
+  {{jobs.select-workflow job workflows}}
 </div>
-<p>Job details:
-  <ul>
-    <li>Name: {{job.name}}</li>
-    <li>Workflow Version ID: {{job.workflowVersion.id}}</li>
-    <li>VM Flavor: {{job.vmFlavor}}</li>
-    <li>VM Project: {{job.vmProjectName}}</li>
-    <li>Input JSON: {{job.workflowInputJson}}</li>
-  </ul>
-</p>
-<p>Errors</p>
-{{#each errors as |error|}}
-  {{error}}
-{{/each}}
+<hr/>
+{{jobs.debug-details job}}
 {{yield}}

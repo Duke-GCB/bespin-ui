@@ -16,7 +16,9 @@ Router.map(function() {
   });
   this.route('workflow-versions');
   this.route('jobs', function() {
-    this.route('new');
+    this.route('new', function() {
+      this.route('select-workflow');
+    });
   });
 });
 

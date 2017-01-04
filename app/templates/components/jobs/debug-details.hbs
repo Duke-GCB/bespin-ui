@@ -1,0 +1,15 @@
+<div class="container-fluid">
+  <h3>Job details (for debugging purposes)</h3>
+  <ul>
+    <li>Name: {{job.name}}</li>
+    <li>Workflow Version ID: {{job.workflowVersion.id}}</li>
+    <li>VM Flavor: {{job.vmFlavor}}</li>
+    <li>VM Project: {{job.vmProjectName}}</li>
+    <li>Input JSON: {{job.workflowInputJson}}</li>
+  </ul>
+</div>
+<p>Errors</p>
+{{#each errors as |error|}}
+  {{error}}
+{{/each}}
+{{yield}}
