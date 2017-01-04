@@ -5,7 +5,6 @@ const DDSProjectPicker = Ember.Component.extend({
   selectedProject: null,
   actions: {
     pick(project) {
-      console.log('picked project' + project);
       this.set('selectedProject', project);
     }
   }

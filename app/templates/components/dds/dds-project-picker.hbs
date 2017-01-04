@@ -1,6 +1,7 @@
-<select class="form-control">
-{{#each projects as |project|}}
-  <option>{{project.name}}</option>
-{{/each}}
-</select>
+{{#x-select class='form-control' on-click=(action "pick") value=selectedProject as |xs|}}
+  {{#xs.option value=null}}-- Select a Project --{{/xs.option}}
+  {{#each projects as |project|}}
+    {{#xs.option value=project}}{{project.name}}{{/xs.option}}
+  {{/each}}
+{{/x-select}}
 {{yield}}
