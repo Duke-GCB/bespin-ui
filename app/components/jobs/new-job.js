@@ -1,5 +1,8 @@
 import Ember from 'ember';
 
+
+// This is now useless
+
 const NewJob = Ember.Component.extend({
   job: null,
   errors: [],

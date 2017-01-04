@@ -19,6 +19,7 @@ Router.map(function() {
     this.route('new', function() {
       this.route('select-workflow');
       this.route('select-inputs');
+      this.route('select-input-files');
     });
   });
 });
