@@ -3,12 +3,17 @@ import Ember from 'ember';
 const stepRoutes = ['jobs.new.select-workflow','jobs.new.select-input-files'];
 
 const NewJobWizard = Ember.Component.extend({
-  step: 0, // So that next() forwards to step 0
+  router: null,
+  step: 0,
+  errors: [],
   stepToRoute(step) {
     return stepRoutes[step];
   },
   routeToStep(route) {
-    return stepRoutes.indexOf(route);
+    let step = stepRoutes.indexOf(route);
+    step = Math.min(stepRoutes.length - 1, step);
+    step = Math.max(0, step);
+    return step;
   },
   desiredRoute: Ember.computed('step', function() {
     return this.stepToRoute(this.get('step'));
@@ -19,14 +24,14 @@ const NewJobWizard = Ember.Component.extend({
   },
   init() {
     this._super(...arguments);
-    this.set('router', Ember.getOwner(this).lookup('router:main'));
-    this.set('errors', []);
-    this.get('router').addObserver('currentPath', () => { this.updateStep(); });
     this.updateStep();
   },
-  stepChanged: Ember.observer('step', function() {
-    this.get('router').transitionTo(this.get('desiredRoute'));
+  routerPathChanged: Ember.observer('router.currentPath', function() {
+    this.updateStep();
   }),
+  stepChanged: Ember.on('init', Ember.observer('step', function() {
+    this.get('router').transitionTo(this.get('desiredRoute'));
+  })),
   actions: {
     next() {
       this.set('step', this.get('step') + 1);
@@ -38,7 +43,7 @@ const NewJobWizard = Ember.Component.extend({
 });
 
 NewJobWizard.reopenClass({
-  positionalParams: ['job','workflows']
+  positionalParams: ['job', 'workflows', 'router']
 });
 
 export default NewJobWizard;

@@ -5,7 +5,7 @@ export default Ember.Route.extend({
   model() {
     return RSVP.hash({
       job: this.get('store').createRecord('job'),
-      workflows: this.get('store').findAll('workflow')
+      workflows: this.get('store').findAll('workflow'),
     });
   }
 });
