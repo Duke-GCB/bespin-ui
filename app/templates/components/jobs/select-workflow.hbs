@@ -1,6 +1,5 @@
 <h3>Creating job</h3>
 <p>Please provide a name and select the kind of workflow you'd like to run</p>
-{{#bs-form}}
   {{#bs-form-group class='job-name'}}
     <label class="control-label">Name:</label>
     {{bs-input type=text value=job.name}}
@@ -9,7 +8,4 @@
     <label class="control-label">Kind:</label>
     {{#workflow-picker workflows (action "workflowChanged")}}{{/workflow-picker}}
   {{/bs-form-group}}
-  {{#bs-button type="default" action="cancel" }}Cancel{{/bs-button}}
-  {{#bs-button type="primary" action="next" class="pull-right"}}Next{{/bs-button}}
-{{/bs-form}}
 {{yield}}
