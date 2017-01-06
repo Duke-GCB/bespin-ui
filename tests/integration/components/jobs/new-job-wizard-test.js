@@ -30,10 +30,16 @@ test('it switches routes on next step', function(assert) {
   this.$('.next-button').click();
 });
 
-test('it changes route when step changes', function(assert) {
-  assert.ok(true);
-});
-
 test('it switches routes on prev step', function(assert) {
-  assert.ok(true);
+  assert.expect(2);
+  this.set('job', {name: 'myjob'});
+  this.set('workflows', []);
+  this.set('router', {transitionTo(route) {
+    assert.equal(route, 'jobs.new.select-input-files');
+  }, currentPath: 'jobs.new.select-input-files'});
+  this.render(hbs`{{jobs/new-job-wizard job workflows router}}`);
+  this.set('router', {transitionTo(route) {
+    assert.equal(route, 'jobs.new.select-workflow');
+  }, currentPath: 'jobs.new.select-input-files'});
+  this.$('.back-button').click();
 });
