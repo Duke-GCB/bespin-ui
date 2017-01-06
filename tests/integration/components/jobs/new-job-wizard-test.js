@@ -1,16 +1,14 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import Ember from 'ember';
 
 moduleForComponent('jobs/new-job-wizard', 'Integration | Component | jobs/new job wizard', {
   integration: true,
 });
 
-
 test('it renders buttons', function(assert) {
   this.set('job', {name: 'myjob'});
   this.set('workflows', []);
-  this.set('router', {});
+  this.set('router', {transitionTo() {}, currentPath: ''});
   this.render(hbs`{{jobs/new-job-wizard job workflows router}}`);
   assert.equal(this.$('.back-button').text().trim(), 'Back');
   assert.equal(this.$('.next-button').text().trim(), 'Next');
