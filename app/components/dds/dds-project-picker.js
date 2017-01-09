@@ -5,13 +5,13 @@ const DDSProjectPicker = Ember.Component.extend({
   selectedProject: null,
   actions: {
     pick(project) {
-      this.set('selectedProject', project);
+      this.get('onPick')(project);
     }
   }
 });
 
 DDSProjectPicker.reopenClass({
-  positionalParams: ['projects','selectedProject']
+  positionalParams: ['projects','selectedProject', 'onPick']
 });
 
 export default DDSProjectPicker;

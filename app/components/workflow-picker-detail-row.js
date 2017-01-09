@@ -8,7 +8,7 @@ const WorkflowPickerDetailRow = Ember.Component.extend({
   }
 });
 
-WorkflowPickerDetailRow .reopenClass({
+WorkflowPickerDetailRow.reopenClass({
   positionalParams: ['workflow', 'selectedWorkflow', 'onPick']
 });
 
