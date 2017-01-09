@@ -2,13 +2,16 @@ import Ember from 'ember';
 
 const DDSFilePicker = Ember.Component.extend({
   store: Ember.inject.service(),
-  files: [],
+  pickedResources: [], //Ember.MutableArray(),
   actions: {
-    addFile(file) {
-
-    },
-    removeFile(file) {
-
+    toggleResource(resource) {
+      Ember.Logger.log(`Toggled resource ${resource.name} with id ${resource.id}`);
+      let pickedResources = this.get('pickedResources');
+      if(pickedResources.includes(resource)) {
+        pickedResources.removeObject(resource);
+      } else {
+        pickedResources.addObject(resource);
+      }
     }
   },
   projectChanged: Ember.observer('project', function() {

@@ -1,4 +1,11 @@
 {{#each resources as |resource|}}
-  {{resource.kind}} : {{resource.name}} ({{resource.id}})
+  {{dds.dds-resource-tree resource (action 'toggleResource')}}
 {{/each}}
+
+<h3>Selected Files in {{project.name}}</h3>
+<ul>
+{{#each pickedResources as |picked|}}
+  <li>{{picked.name}}</li>
+{{/each}}
+</ul>
 {{yield}}
