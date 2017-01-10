@@ -1,11 +1,13 @@
-<h3>Creating job</h3>
+{{#bs-form as |form|}}
+  <h3>Creating job</h3>
 <p>Please provide a name and select the kind of workflow you'd like to run</p>
-  {{#bs-form-group class='job-name'}}
+  {{#form.group class='job-name'}}
     <label class="control-label">Name:</label>
-    {{bs-input type=text value=job.name}}
-  {{/bs-form-group}}
-  {{#bs-form-group class='job-kind'}}
+    {{input class="form-control" type=text value=job.name}}
+  {{/form.group}}
+  {{#form.group class='job-kind'}}
     <label class="control-label">Kind:</label>
     {{#workflow-picker workflows (action "workflowChanged")}}{{/workflow-picker}}
-  {{/bs-form-group}}
+  {{/form.group}}
 {{yield}}
+{{/bs-form}}

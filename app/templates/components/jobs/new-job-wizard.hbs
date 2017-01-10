@@ -1,7 +1,5 @@
-{{#bs-form}}
-  {{yield}}
-  {{#bs-button type="default" action="prev" class="back-button"}}Back{{/bs-button}}
-  {{#bs-button type="primary" action="next" class="pull-right next-button"}}Next{{/bs-button}}
-{{/bs-form}}
+{{yield}}
+{{#bs-button type="default" onClick=(action 'prev')class="back-button"}}Back{{/bs-button}}
+{{#bs-button type="primary" onClick=(action 'next') class="pull-right next-button"}}Next{{/bs-button}}
 
 <p class="step">Step: {{step}}</p>
