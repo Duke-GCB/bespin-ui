@@ -1,14 +1,10 @@
-{{resource.name}}
-{{#if resource.isFolder}}
-  {{#bs-button type='default' action='expand'}}Expand{{/bs-button}}
-{{else}}
-  {{#bs-button type='default' action='pick'}}Pick{{/bs-button}}
-{{/if}}
+{{dds.dds-resource-node resource expanded pickedResources action='resourceClicked'}}
 {{#if expanded}}
-  <ul>
+  <ul class="list-unstyled">
     {{#each children as |child|}}
-      <li>{{dds.dds-resource-tree child (action onPick)}}</li>
+      <li>{{dds.dds-resource-tree child pickedResources (action onPick) }}</li>
     {{/each}}
   </ul>
 {{/if}}
 {{yield}}
+

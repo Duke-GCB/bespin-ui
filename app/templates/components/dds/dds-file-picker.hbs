@@ -1,6 +1,8 @@
+<ul class="tree list-unstyled">
 {{#each resources as |resource|}}
-  {{dds.dds-resource-tree resource (action 'toggleResource')}}
+  {{dds.dds-resource-tree resource pickedResources (action 'toggleResource')}}
 {{/each}}
+</ul>
 
 <h4>Selected Files in {{project.name}}</h4>
 <ul>

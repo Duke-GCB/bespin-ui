@@ -1,6 +1,8 @@
 import Ember from 'ember';
 
 const DDSResourceTree = Ember.Component.extend({
+  tagName: 'span',
+  classNames: ['dds-resource-tree'],
   expanded: false,
   onPick: () => {},
   store: Ember.inject.service('store'),
@@ -23,18 +25,26 @@ const DDSResourceTree = Ember.Component.extend({
       this.fetchChildren();
     }
   }),
+  expand(){
+    this.set('expanded', !this.get('expanded'));
+  },
+  pick() {
+    this.get('onPick')(this.get('resource'));
+  },
+
   actions: {
-    expand(){
-      this.set('expanded', !this.get('expanded'));
+    resourceClicked() {
+      if(this.get('resource.isFile')) {
+        this.pick();
+      } else {
+        this.expand();
+      }
     },
-    pick() {
-      this.get('onPick')(this.get('resource'));
-    }
   }
 });
 
 DDSResourceTree.reopenClass({
-  positionalParams: ['resource', 'onPick']
+  positionalParams: ['resource', 'pickedResources', 'onPick']
 });
 
 export default DDSResourceTree;
