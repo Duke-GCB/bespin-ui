@@ -5,7 +5,6 @@ const DDSFilePicker = Ember.Component.extend({
   pickedResources: [], //Ember.MutableArray(),
   actions: {
     toggleResource(resource) {
-      Ember.Logger.log(`Toggled resource ${resource.name} with id ${resource.id}`);
       let pickedResources = this.get('pickedResources');
       if(pickedResources.includes(resource)) {
         pickedResources.removeObject(resource);

@@ -1,0 +1,9 @@
+{{#bs-form as |form|}}
+  {{yield}}
+  {{#form.group class='select-project'}}
+    {{dds.dds-project-picker projects project (action 'projectPicked')}}
+  {{/form.group}}
+  {{#form.group class='select-files'}}
+    {{dds.dds-file-picker project}}
+  {{/form.group}}
+{{/bs-form}}

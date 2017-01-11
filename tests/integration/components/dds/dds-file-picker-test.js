@@ -8,5 +8,4 @@ moduleForComponent('dds/dds-file-picker', 'Integration | Component | dds/dds fil
 test('it renders', function(assert) {
   this.render(hbs`{{dds/dds-file-picker}}`);
   assert.ok(this.$().text());
-
 });

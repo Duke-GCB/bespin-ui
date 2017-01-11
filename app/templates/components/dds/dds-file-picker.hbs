@@ -3,11 +3,4 @@
   {{dds.dds-resource-tree resource pickedResources (action 'toggleResource')}}
 {{/each}}
 </ul>
-
-<h4>Selected Files in {{project.name}}</h4>
-<ul>
-{{#each pickedResources as |picked|}}
-  <li>{{picked.name}}</li>
-{{/each}}
-</ul>
 {{yield}}

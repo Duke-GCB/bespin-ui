@@ -1,12 +1,4 @@
-{{#bs-form as |form|}}
+{{#dds.dds-project-files-picker projects project pickedFiles}}
   <h3>Select input files</h3>
   <p>Please select input files for this workflow from a Duke Data Service project</p>
-  {{#form.group class='select-project'}}
-    {{dds.dds-project-picker projects project (action 'projectPicked')}}
-  {{/form.group}}
-  {{#form.group class='select-files'}}
-    {{dds.dds-file-picker project}}
-  {{/form.group}}
-  {{yield}}
-  <p>Selected project:{{project.name}}</p>
-{{/bs-form}}
+{{/dds.dds-project-files-picker}}
