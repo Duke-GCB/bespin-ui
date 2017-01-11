@@ -8,17 +8,15 @@ moduleForComponent('dds/dds-resource-node', 'Integration | Component | dds/dds r
 test('it renders', function(assert) {
   // Set any properties with this.set('myProperty', 'value');
   // Handle any actions with this.on('myAction', function(val) { ... });
+  //   positionalParams: ['resource', 'expanded', 'pickedResources']
+  this.set('resource', {name:'file.txt'});
+  this.render(hbs`{{dds/dds-resource-node resource}}`);
+  assert.equal(this.$('.dds-resource-name').text().trim(), 'file.txt');
+});
 
-  this.render(hbs`{{dds/dds-resource-node}}`);
-
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#dds/dds-resource-node}}
-      template block text
-    {{/dds/dds-resource-node}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+test('it sends action on click', function(assert) {
+  this.set('resource', {name:'file.txt'});
+  this.render(hbs`{{dds/dds-resource-node resource action='testAction'}}`);
+  this.on('testAction', function() { assert.ok(true); });
+  this.$('.dds-resource-name').click();
 });

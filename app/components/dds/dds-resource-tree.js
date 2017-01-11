@@ -4,9 +4,13 @@ const DDSResourceTree = Ember.Component.extend({
   tagName: 'span',
   classNames: ['dds-resource-tree'],
   expanded: false,
+  children: null,
+  pickedResources: [],
   onPick: () => {},
   store: Ember.inject.service('store'),
-  fetchedOnce: false,
+  fetchedOnce: Ember.computed('children', function () {
+    return this.get('children') != null;
+  }),
   fetchChildren() {
     if(this.get('resource.isFile')) {
       // Don't do anything if a file
