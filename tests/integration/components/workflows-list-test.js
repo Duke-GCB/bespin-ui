@@ -6,9 +6,6 @@ moduleForComponent('workflows-list', 'Integration | Component | workflows list',
 });
 
 test('it renders', function(assert) {
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
-
   let versions = [{'version': 1}, {'version': 2}];
   let workflow = {name: 'Workflow 123', description: 'Sample workflow', selected: false, versions: versions};
   this.set('workflows', [workflow]);

@@ -6,8 +6,6 @@ moduleForComponent('workflow-picker-detail-row', 'Integration | Component | work
 });
 
 test('it renders workflow details', function(assert) {
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
   this.set('workflow', {name: 'Workflow 123', selected: false});
   this.render(hbs`{{workflow-picker-detail-row workflow}}`);
   assert.equal(this.$('.workflow-name').text().trim(), 'Workflow 123');

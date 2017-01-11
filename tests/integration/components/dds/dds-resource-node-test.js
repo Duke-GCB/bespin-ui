@@ -6,9 +6,6 @@ moduleForComponent('dds/dds-resource-node', 'Integration | Component | dds/dds r
 });
 
 test('it renders', function(assert) {
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
-  //   positionalParams: ['resource', 'expanded', 'pickedResources']
   this.set('resource', {name:'file.txt'});
   this.render(hbs`{{dds/dds-resource-node resource}}`);
   assert.equal(this.$('.dds-resource-name').text().trim(), 'file.txt');

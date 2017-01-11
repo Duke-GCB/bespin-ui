@@ -31,8 +31,6 @@ test('it fetches only on first expansion', function(assert) {
   this.set('resource', {name: 'folder', kind:'dds-folder'});
   let expanded = false;
   this.set('expanded', expanded);
-  // let children = [{name: 'file1.txt', kind:'dds-file'}, {name: 'file2.txt', kind: 'dds-file'}];
-  // this.set('children', children);
   this.render(hbs`{{dds/dds-resource-tree resource store=store expanded=expanded}}`);
   assert.equal(this.get('expanded'), false);
   assert.equal(this.$('li.dds-resource-list-item').length, 0);

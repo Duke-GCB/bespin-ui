@@ -6,8 +6,6 @@ moduleForComponent('workflow-versions-list', 'Integration | Component | workflow
 });
 
 test('it renders', function(assert) {
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
   let versions = [{'version': 1}, {'version': 2}];
   this.set('versions', versions);
   this.render(hbs`{{workflow-versions-list versions}}`);

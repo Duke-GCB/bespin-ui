@@ -6,8 +6,6 @@ moduleForComponent('jobs-list', 'Integration | Component | jobs list', {
 });
 
 test('it renders', function(assert) {
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
   this.set('jobs', [{id:1}, {id:2}, {id:3}]);
   this.render(hbs`{{jobs-list jobs}}`);
   assert.equal(this.$('thead tr').length, 1, 'should create one header row');

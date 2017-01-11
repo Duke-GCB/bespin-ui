@@ -6,9 +6,6 @@ moduleForComponent('dds/dds-expand-button', 'Integration | Component | dds/dds e
 });
 
 test('it renders', function(assert) {
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
-
   this.render(hbs`{{dds/dds-expand-button}}`);
 
   assert.equal(this.$().text().trim(), '');

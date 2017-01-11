@@ -6,8 +6,6 @@ moduleForComponent('job-detail-row', 'Integration | Component | job detail row',
 });
 
 test('it renders', function(assert) {
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
   const job = {id:1,name:'job', workflowVersion: {workflow: {name:'RNA-seq'}}};
   this.set('job',job);
   this.render(hbs`{{job-detail-row job}}`);
