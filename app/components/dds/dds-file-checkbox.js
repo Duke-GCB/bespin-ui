@@ -7,7 +7,7 @@ const DDSFileCheckbox = Ember.Component.extend({
   picked: Ember.computed('pickedResources.[]','resource', function() {
     const pickedResources = this.get('pickedResources');
     const resource = this.get('resource');
-    return pickedResources.contains(resource);
+    return pickedResources.includes(resource);
   })
 });
 
