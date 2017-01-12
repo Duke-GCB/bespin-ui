@@ -1,6 +1,6 @@
 <ul class="tree list-unstyled">
 {{#each resources as |resource|}}
-  {{dds.dds-resource-tree resource pickedFiles (action 'toggleResource')}}
+  {{dds.dds-resource-tree resource pickedFiles (action 'toggleFile')}}
 {{/each}}
 </ul>
 {{yield}}
