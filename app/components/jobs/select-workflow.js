@@ -10,7 +10,7 @@ const SelectWorkflow = Ember.Component.extend({
 });
 
 SelectWorkflow.reopenClass({
-  positionalParams: ['job','workflows']
+  positionalParams: ['workflows', 'job']
 });
 
 export default SelectWorkflow;
