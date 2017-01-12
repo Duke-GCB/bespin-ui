@@ -1,6 +1,6 @@
 import DS from 'ember-data';
 import Ember from 'ember';
-let DDSKinds = {file:'dds-file', folder: 'dds-folder'};
+const DDSKinds = {file:'dds-file', folder: 'dds-folder'};
 
 export default DS.Model.extend({
   kind: DS.attr('string'),
