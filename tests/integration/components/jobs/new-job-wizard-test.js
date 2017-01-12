@@ -6,22 +6,18 @@ moduleForComponent('jobs/new-job-wizard', 'Integration | Component | jobs/new jo
 });
 
 test('it renders buttons', function(assert) {
-  this.set('job', {name: 'myjob'});
-  this.set('workflows', []);
   this.set('router', {transitionTo() {}, currentPath: ''});
-  this.render(hbs`{{jobs/new-job-wizard job workflows router}}`);
+  this.render(hbs`{{jobs/new-job-wizard router}}`);
   assert.equal(this.$('.back-button').text().trim(), 'Back');
   assert.equal(this.$('.next-button').text().trim(), 'Next');
 });
 
 test('it switches routes on next step', function(assert) {
   assert.expect(2);
-  this.set('job', {name: 'myjob'});
-  this.set('workflows', []);
   this.set('router', {transitionTo(route) {
     assert.equal(route, 'jobs.new.select-workflow');
   }, currentPath: 'jobs.new.index'});
-  this.render(hbs`{{jobs/new-job-wizard job workflows router}}`);
+  this.render(hbs`{{jobs/new-job-wizard router}}`);
   this.set('router', {transitionTo(route) {
     assert.equal(route, 'jobs.new.select-input-files');
   }, currentPath: 'jobs.new.select-workflow'});
@@ -30,12 +26,10 @@ test('it switches routes on next step', function(assert) {
 
 test('it switches routes on prev step', function(assert) {
   assert.expect(2);
-  this.set('job', {name: 'myjob'});
-  this.set('workflows', []);
   this.set('router', {transitionTo(route) {
     assert.equal(route, 'jobs.new.select-input-files');
   }, currentPath: 'jobs.new.select-input-files'});
-  this.render(hbs`{{jobs/new-job-wizard job workflows router}}`);
+  this.render(hbs`{{jobs/new-job-wizard router}}`);
   this.set('router', {transitionTo(route) {
     assert.equal(route, 'jobs.new.select-workflow');
   }, currentPath: 'jobs.new.select-input-files'});
