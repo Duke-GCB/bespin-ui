@@ -8,6 +8,6 @@ export default Ember.Route.extend({
     // by default this sets the model property of the controller to the model
     this._super(controller, model);
     const parentModel = this.modelFor('jobs/new');
-    controller.set('job', parentModel.job);
+    controller.set('job', parentModel);
   }
 });

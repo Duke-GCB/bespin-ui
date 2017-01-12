@@ -1,11 +1,14 @@
 import Ember from 'ember';
-import RSVP from 'rsvp';
 
 export default Ember.Route.extend({
   model() {
-    return RSVP.hash({
-      job: this.get('store').createRecord('job'),
-      pickedFiles: []
-    });
+    return this.get('store').createRecord('job');
+  },
+  setupController(controller, model) {
+    this._super(controller, model);
+    controller.set('pickedFiles', []);
+    controller.set('router', Ember.getOwner(controller).lookup('router:main'));
+
+    // controller.set('router', Ember.getOwner(controller).lookup('router:main'));
   }
 });

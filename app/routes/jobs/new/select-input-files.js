@@ -9,7 +9,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     // by default this sets the model property of the controller to the model
     this._super(controller, model);
     const parentModel = this.modelFor('jobs/new');
-    controller.set('job', parentModel.job);
-    controller.set('pickedFiles', parentModel.pickedFiles);
+    controller.set('job', parentModel);
+    controller.set('pickedFiles', this.controllerFor('jobs/new').pickedFiles);
   }
 });
