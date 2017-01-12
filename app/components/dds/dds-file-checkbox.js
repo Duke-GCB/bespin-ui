@@ -2,17 +2,17 @@ import Ember from 'ember';
 
 const DDSFileCheckbox = Ember.Component.extend({
   resource: null,
-  pickedResources: [],
+  pickedFiles: [],
   tagName: 'span',
-  picked: Ember.computed('pickedResources.[]','resource', function() {
-    const pickedResources = this.get('pickedResources');
+  picked: Ember.computed('pickedFiles.[]','resource', function() {
+    const pickedFiles = this.get('pickedFiles');
     const resource = this.get('resource');
-    return pickedResources.includes(resource);
+    return pickedFiles.includes(resource);
   })
 });
 
 DDSFileCheckbox.reopenClass({
-  positionalParams: ['resource','pickedResources']
+  positionalParams: ['resource','pickedFiles']
 });
 
 export default DDSFileCheckbox;

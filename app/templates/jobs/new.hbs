@@ -1,5 +1,6 @@
-{{#jobs.new-job-wizard model.job model.workflows router}}
+{{#jobs.new-job-wizard model.job model.workflows router model.pickedFiles}}
   {{outlet}}
 {{/jobs.new-job-wizard}}
 <hr/>
 {{jobs.debug-details model.job}}
+{{jobs.debug-details model.job model.pickedFiles}}

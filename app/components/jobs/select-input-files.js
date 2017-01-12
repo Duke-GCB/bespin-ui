@@ -2,10 +2,11 @@ import Ember from 'ember';
 
 const SelectInputFiles = Ember.Component.extend({
   project: null,
+  pickedFiles: null
 });
 
 SelectInputFiles.reopenClass({
-  positionalParams: ['projects']
+  positionalParams: ['projects', 'pickedFiles']
 });
 
 export default SelectInputFiles;

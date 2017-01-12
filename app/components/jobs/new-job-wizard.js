@@ -3,7 +3,10 @@ import Ember from 'ember';
 const stepRoutes = ['jobs.new.select-workflow','jobs.new.select-input-files'];
 
 const NewJobWizard = Ember.Component.extend({
+  job: null,
+  workflows: [],
   router: null,
+  pickedFiles: [],
   step: 0,
   errors: [],
   stepToRoute(step) {
@@ -43,7 +46,7 @@ const NewJobWizard = Ember.Component.extend({
 });
 
 NewJobWizard.reopenClass({
-  positionalParams: ['job', 'workflows', 'router']
+  positionalParams: ['job', 'workflows', 'router', 'pickedFiles']
 });
 
 export default NewJobWizard;

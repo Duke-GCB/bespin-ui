@@ -2,14 +2,14 @@ import Ember from 'ember';
 
 const DDSFilePicker = Ember.Component.extend({
   store: Ember.inject.service(),
-  pickedResources: [], //Ember.MutableArray(),
+  pickedFiles: [],
   actions: {
-    toggleResource(resource) {
-      let pickedResources = this.get('pickedResources');
-      if(pickedResources.includes(resource)) {
-        pickedResources.removeObject(resource);
+    toggleResource(file) {
+      let pickedFiles = this.get('pickedFiles');
+      if(pickedFiles.includes(file)) {
+        pickedFiles.removeObject(file);
       } else {
-        pickedResources.addObject(resource);
+        pickedFiles.addObject(file);
       }
     }
   },
@@ -23,7 +23,7 @@ const DDSFilePicker = Ember.Component.extend({
 });
 
 DDSFilePicker.reopenClass({
-  positionalParams: ['project']
+  positionalParams: ['project', 'pickedFiles']
 });
 
 export default DDSFilePicker;
