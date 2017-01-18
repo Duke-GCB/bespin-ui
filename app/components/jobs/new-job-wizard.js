@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const stepRoutes = ['jobs.new.select-workflow','jobs.new.select-input-files'];
+const stepRoutes = ['jobs.new.workflows','jobs.new.select-input-files'];
 
 const NewJobWizard = Ember.Component.extend({
   router: null,

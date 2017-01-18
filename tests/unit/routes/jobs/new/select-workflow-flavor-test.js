@@ -1,6 +1,6 @@
 import { moduleFor, test } from 'ember-qunit';
 
-moduleFor('route:jobs/new/select-workflow', 'Unit | Route | jobs/new/select workflow', {
+moduleFor('route:jobs/new/select-workflow-flavor', 'Unit | Route | jobs/new/select workflow flavor', {
   // Specify the other units that are required for this test.
   // needs: ['controller:foo']
 });

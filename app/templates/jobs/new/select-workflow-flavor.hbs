@@ -1,0 +1,6 @@
+select a workflow flavor
+{{#each questionnaires as |q|}}
+  {{q.description}} {{q.workflowVersion}} {{q.questions}}
+{{/each}}
+
+{{outlet}}

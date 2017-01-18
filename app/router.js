@@ -17,7 +17,7 @@ Router.map(function() {
   this.route('workflow-versions');
   this.route('jobs', function() {
     this.route('new', function() {
-      this.route('select-workflow');
+      this.route('workflows');
       this.route('select-inputs');
       this.route('select-input-files');
     });
