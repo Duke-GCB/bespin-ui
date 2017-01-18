@@ -1,5 +1,37 @@
-{{#jobs.new-job-wizard router}}
-  {{outlet}}
-{{/jobs.new-job-wizard}}
-<hr/>
-{{jobs.debug-details model pickedFiles}}
+{{#unless workflowVersion}}
+  <!-- workflow not selected-->
+  {{#item-chooser workflows (action 'workflowChanged')
+                 title="Please select the kind of workflow you'd like to run"
+                 label="Kind"}}
+  {{/item-chooser}}
+
+
+{{else}}
+  {{#unless questionnaire}}
+    <!-- no questionnaire selected yet -->
+    {{item-chooser questionnaires (action 'questionnaireChanged')
+                   title="Please select the flavor of workflow you'd like to run"
+                   label="Flavor"
+    }}
+  {{else}}
+    <!-- has a questionnaire -->
+  {{/unless}}
+{{/unless}}
+
+  Workflow {{workflowVersion.description}}
+  <ol>
+    {{#each questionnaires as |questionnaire|}}
+      <li>{{questionnaire.description}} id: {{questionnaire.id}}</li>
+    {{/each}}
+  </ol>
+questionnaires
+<p>
+  selected questionnaire: {{questionnaire.description}}
+  Questions:
+  <ol>
+  {{#each questionnaire.questions as |question|}}
+    <li>{{question.name}}</li>
+  {{/each}}
+</ol>
+</p>
+{{outlet}}

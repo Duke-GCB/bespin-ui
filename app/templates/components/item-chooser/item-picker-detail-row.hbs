@@ -1,0 +1,17 @@
+<div class="col-md-4">
+  <article class="item-picker-detail-row panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">
+        <label for="{{concat elementId '-radio' }}" class="item-title">{{title}}</label>
+      </div>
+    </div>
+    <div class="panel-body">
+      <div class="radio">
+        <label class="item-content">
+          {{picker-radio-button id=(concat elementId '-radio') value=item name='selectedItem' onChange=(action "pick")}}
+          {{yield (hash detail=(component 'workflow-version-detail-row' version))}}
+        </label>
+      </div>
+    </div>
+  </article>
+</div>
