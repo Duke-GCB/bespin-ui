@@ -7,5 +7,6 @@ export default DS.Model.extend({
   created: DS.attr('date'),
   url: DS.attr('string'),
   version: DS.attr('string'),
-  jobs: DS.hasMany('job')
+  jobs: DS.hasMany('job'),
+  questionnaires: DS.hasMany('job-questionnaire')
 });
