@@ -7,8 +7,6 @@
                   itemTitleKey="name"
                   detailComponent=(component 'workflow-version-detail-row')}}
   {{/item-chooser}}
-
-
 {{else}}
   {{#unless questionnaire}}
     <!-- no questionnaire selected yet -->
@@ -19,24 +17,13 @@
                    itemTitleKey="description"
                    detailComponent=(component 'workflow-flavor-detail-row')}}
   {{else}}
-    <!-- has a questionnaire -->
+    <!-- has a questionnaire, prompt for questions -->
+    Questions:
+    <ol>
+      {{#each questionnaire.questions as |question|}}
+        <li>{{question.name}}</li>
+      {{/each}}
+    </ol>
   {{/unless}}
 {{/unless}}
-
-  Workflow {{workflowVersion.description}}
-  <ol>
-    {{#each questionnaires as |questionnaire|}}
-      <li>{{questionnaire.description}} id: {{questionnaire.id}}</li>
-    {{/each}}
-  </ol>
-questionnaires
-<p>
-  selected questionnaire: {{questionnaire.description}}
-  Questions:
-  <ol>
-  {{#each questionnaire.questions as |question|}}
-    <li>{{question.name}}</li>
-  {{/each}}
-</ol>
-</p>
 {{outlet}}
