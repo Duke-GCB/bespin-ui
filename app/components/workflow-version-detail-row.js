@@ -1,9 +1,11 @@
 import Ember from 'ember';
 
-const WorkflowVersionDetailRow = Ember.Component.extend({});
+const WorkflowVersionDetailRow = Ember.Component.extend({
+  workflow: null
+});
 
 WorkflowVersionDetailRow.reopenClass({
-  positionalParams: ['version']
+  positionalParams: ['workflow']
 });
 
 export default WorkflowVersionDetailRow;

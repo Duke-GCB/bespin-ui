@@ -9,8 +9,8 @@
       <div class="radio">
         <label class="item-content">
           {{picker-radio-button id=(concat elementId '-radio') value=item name='selectedItem' onChange=(action "pick")}}
-          {{yield (hash detail=(component 'workflow-version-detail-row' version))}}
-        </label>
+            {{yield}}
+          </label>
       </div>
     </div>
   </article>

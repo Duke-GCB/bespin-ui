@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 const ItemChooser = Ember.Component.extend({
   title: '',
+  itemTitleKey: '',
   selectedItem: null,
   items: [],
   onChoose() {},
@@ -20,7 +21,7 @@ const ItemChooser = Ember.Component.extend({
 });
 
 ItemChooser.reopenClass({
-  positionalParams: ['items', 'onChoose', 'title']
+  positionalParams: ['items', 'onChoose', 'onCancel']
 });
 
 export default ItemChooser;

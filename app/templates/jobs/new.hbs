@@ -1,18 +1,23 @@
 {{#unless workflowVersion}}
   <!-- workflow not selected-->
-  {{#item-chooser workflows (action 'workflowChanged')
-                 title="Please select the kind of workflow you'd like to run"
-                 label="Kind"}}
+  {{#item-chooser workflows
+                  (action 'workflowChanged')
+                  title="Please select the kind of workflow you'd like to run"
+                  label="Kind"
+                  itemTitleKey="name"
+                  detailComponent=(component 'workflow-version-detail-row')}}
   {{/item-chooser}}
 
 
 {{else}}
   {{#unless questionnaire}}
     <!-- no questionnaire selected yet -->
-    {{item-chooser questionnaires (action 'questionnaireChanged')
+    {{item-chooser questionnaires
+                   (action 'questionnaireChanged')
                    title="Please select the flavor of workflow you'd like to run"
                    label="Flavor"
-    }}
+                   itemTitleKey="description"
+                   detailComponent=(component 'workflow-flavor-detail-row')}}
   {{else}}
     <!-- has a questionnaire -->
   {{/unless}}

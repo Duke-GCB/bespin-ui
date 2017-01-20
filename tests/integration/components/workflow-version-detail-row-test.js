@@ -6,9 +6,9 @@ moduleForComponent('workflow-version-detail-row', 'Integration | Component | wor
 });
 
 test('it renders workflow version details', function(assert) {
-  let version = {version: 34, url: 'http://example.edu/workflows/workflow.cwl'};
-  this.set('version' ,version);
-  this.render(hbs`{{workflow-version-detail-row version}}`);
+  let workflow = {latestVersion: {version: 34, url: 'http://example.edu/workflows/workflow.cwl'} };
+  this.set('workflow', workflow);
+  this.render(hbs`{{workflow-version-detail-row workflow}}`);
 
   assert.equal(this.$('.workflow-version-version').text().trim(), '34');
   assert.equal(this.$('.workflow-version-url').attr('href'), 'http://example.edu/workflows/workflow.cwl');

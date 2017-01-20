@@ -10,7 +10,7 @@ let ItemPickerList = Ember.Component.extend({
 });
 
 ItemPickerList.reopenClass({
-  positionalParams: ['items', 'onPick']
+  positionalParams: ['items', 'onPick', 'detailComponent']
 });
 
 export default ItemPickerList;
