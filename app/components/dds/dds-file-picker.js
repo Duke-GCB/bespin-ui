@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 const DDSFilePicker = Ember.Component.extend({
-  store: Ember.inject.service(),
+  store: Ember.inject.service(), // Needs access to store to query for children
   resources: [], // Can be files or folders
   pickedFiles: [],
   actions: {

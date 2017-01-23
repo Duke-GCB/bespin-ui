@@ -15,6 +15,12 @@ export default Ember.Controller.extend({
       if(questionnaire) {
         this.set('questionnaire_id', questionnaire.get('id'));
       }
+    },
+    questionAnswered(jobAnswer) {
+      // newAnswer is a job-answer and it has been saved
+      let answerSet = this.get('model');
+      answerSet.get('answers').pushObject(jobAnswer); // But what if it's already there?
+      answerSet.save();
     }
   },
 
@@ -45,4 +51,17 @@ export default Ember.Controller.extend({
       return null;
     }
   }),
+
+  // Read-only answers that are already determinedby the questionnaire
+  questionnaireAnswers: Ember.computed('questionnaire_id', function() {
+    const questionnaire_id = this.get('questionnaire_id');
+    if(questionnaire_id) {
+      return this.get('store').query('job-answer', {
+        questionnaire: questionnaire_id
+      });
+    } else {
+      return null;
+    }
+  }),
+
 });

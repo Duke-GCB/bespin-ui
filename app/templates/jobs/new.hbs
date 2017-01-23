@@ -18,12 +18,16 @@
                    detailComponent=(component 'workflow-flavor-detail-row')}}
   {{else}}
     <!-- has a questionnaire, prompt for questions -->
-    Questions:
-    <ol>
-      {{#each questionnaire.questions as |question|}}
-        <li>{{question.name}}</li>
-      {{/each}}
-    </ol>
+    <p>
+      Questions:
+      <ol>
+        {{#each questionnaire.questions as |question|}}
+        <li>{{questionnaire.question-row question
+                                         questionnaireAnswers
+                                         (action 'questionAnswered')}}</li>
+        {{/each}}
+      </ol>
+    </p>
   {{/unless}}
 {{/unless}}
 {{outlet}}

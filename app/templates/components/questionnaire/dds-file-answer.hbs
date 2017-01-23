@@ -1,0 +1,9 @@
+{{#bs-form as |form|}}
+  {{#form.group class='job-kind'}}
+    <label class="control-label">{{label}}:</label>
+    {{dds.dds-project-files-picker projects project pickedFiles}}
+  {{/form.group}}
+  {{#bs-button type="default" onClick=(action 'cancel') class="back-button"}}Cancel{{/bs-button}}
+  {{#bs-button type="primary" disabled=(if isValid false true) onClick=(action 'next') class="pull-right next-button"}}Next{{/bs-button}}
+{{/bs-form}}
+{{yield}}

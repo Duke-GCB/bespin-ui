@@ -6,6 +6,7 @@ export default Ember.Route.extend({
   },
   setupController(controller, model) {
     this._super(controller, model);
+    // Here we set workflows to all the workflows in the store
     controller.set('workflows', this.get('store').findAll('workflow'));
   }
 });

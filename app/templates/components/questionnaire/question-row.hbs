@@ -1,0 +1,8 @@
+<span class="question-name">{{question.name}}</span>
+{{#unless questionnaireAnswer}}
+  {{#if question.isFile}}
+    <!-- ['projects', 'project','pickedFiles'] -->
+    {{questionnaire.dds-file-answer question.occurs (action 'answered')}}
+  {{/if}}
+{{/unless}}
+{{yield}}

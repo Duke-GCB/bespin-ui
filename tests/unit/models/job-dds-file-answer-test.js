@@ -1,6 +1,6 @@
 import { moduleForModel, test } from 'ember-qunit';
 
-moduleForModel('dds-file-answer', 'Unit | Model | dds file answer', {
+moduleForModel('job-dds-file-answer', 'Unit | Model | job dds file answer', {
   // Specify the other units that are required for this test.
   needs: ['model:job-answer', 'model:dds-project', 'model:dds-resource']
 });
