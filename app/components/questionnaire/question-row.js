@@ -15,21 +15,26 @@ const QuestionRow = Ember.Component.extend({
     answered(typedJobAnswers, kind) {
       let store = this.get('store');
       let question = this.get('question');
-      // typedJobAnswers is an array of {answer:typedJobAnswer, index: i, kind: 'dds_file'}
+      let callback = this.get('questionAnswered');
       typedJobAnswers.forEach(function(typedJobAnswer, index) {
         let jobAnswer = store.createRecord('job-answer', {
           index: index,
           kind: kind,
           question: question
         });
-        jobAnswer.save().then(function() {
+        function failure(reason) {
+          Ember.Logger.log(`Failed because of ${reason}, ${Ember.inspect(reason)}`);
+        }
+        function success(savedJobAnswer) {
           // Can't set the typedJobAnswer's answer until we have an ID for the jobAnswer
-          typedJobAnswer.set('answer', jobAnswer);
-          typedJobAnswer.save();
-        });
+          typedJobAnswer.set('answer', savedJobAnswer);
+          typedJobAnswer.save().catch(failure);
+          // Tell the callback that we have an answer
+          // be careful not to save again in the callback or else we'll get async again...
+          callback(savedJobAnswer);
+        }
+        jobAnswer.save().then(success).catch(failure);
       });
-      // Will have multiple answers
-      this.get('questionAnswered')(typedJobAnswers);
     }
   }
 });

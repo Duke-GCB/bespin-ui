@@ -16,11 +16,19 @@ export default Ember.Controller.extend({
         this.set('questionnaire_id', questionnaire.get('id'));
       }
     },
-    questionAnswered(jobAnswer) {
-      // newAnswer is a job-answer and it has been saved
+    questionAnswered(answer) {
+      // answer is a job-answer and it has been saved, so we just add it to the list
       let answerSet = this.get('model');
-      answerSet.get('answers').pushObject(jobAnswer); // But what if it's already there?
-      answerSet.save();
+      // Should this be an observer?
+      answerSet.set('questionnaire', this.get('questionnaire'));
+      answerSet.get('answers').pushObject(answer); // But what if it's already there?
+    },
+    save() {
+      this.get('model').save().then(() => {
+        this.set('errors', null);
+      }).catch((reason) => {
+        this.set('errors', reason);
+      });
     }
   },
 

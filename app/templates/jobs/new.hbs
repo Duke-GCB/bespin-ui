@@ -28,6 +28,8 @@
         {{/each}}
       </ol>
     </p>
+    {{#bs-button type="default" onClick=(action 'save') class="save-button"}}Save{{/bs-button}}
+    {{errors}}
   {{/unless}}
 {{/unless}}
 {{outlet}}
