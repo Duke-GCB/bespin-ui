@@ -14,7 +14,6 @@ moduleForComponent('questionnaire/dds-file-answer', 'Integration | Component | q
           resolve([{id:'abc-123'}]);
         });
       },
-
     }));
   }
 });

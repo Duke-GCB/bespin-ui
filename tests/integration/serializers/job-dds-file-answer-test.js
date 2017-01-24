@@ -14,6 +14,6 @@ test('serializer handles the job-dds-file-answer special cases', function(assert
   assert.equal(kfr('job-dds-file-answer', 'file'), 'file_id', 'Translates file to file_id on job-dds-file-answer');
   assert.equal(kfr('job-dds-file-answer', 'project'), 'project_id', 'Translates project to project_id on job-dds-file-answer');
   assert.equal(kfr('job-dds-file-answer', 'name'), 'name', 'Preserves other keys on job-dds-file-answer');
-  assert.equal(kfr('job-answer', 'file'), 'file', 'Does not translate file on other models')
+  assert.equal(kfr('job-answer', 'file'), 'file', 'Does not translate file on other models');
 });
 

@@ -1,8 +1,20 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import Ember from 'ember';
 
 moduleForComponent('questionnaire/question-row', 'Integration | Component | questionnaire/question row', {
-  integration: true
+  integration: true,
+  beforeEach: function() {
+    this.set('store', Ember.Object.create({
+      callCount: 0,
+      createRecord(kind, props) {
+        this.set('callCount', this.get('callCount') + 1);
+        return new Ember.RSVP.Promise(function (resolve) {
+          resolve(Ember.Object.create(props));
+        });
+      },
+    }));
+  }
 });
 
 test('it renders', function(assert) {
