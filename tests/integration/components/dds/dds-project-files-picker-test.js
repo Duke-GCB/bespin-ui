@@ -5,8 +5,7 @@ moduleForComponent('dds/dds-project-files-picker', 'Integration | Component | dd
   integration: true
 });
 
-test('it renders', function(assert) {
-  // Template block usage:
+test('it renders two form groups', function(assert) {
   this.render(hbs`{{dds/dds-project-files-picker}}`);
-  assert.ok(this.$().text().trim());
+  assert.equal(this.$('.form-group').length, 2);
 });
