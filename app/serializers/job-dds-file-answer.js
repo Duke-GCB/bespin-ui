@@ -10,5 +10,4 @@ export default ApplicationSerializer.extend({
       return this._super(key, relationship);
     }
   },
-
 });
