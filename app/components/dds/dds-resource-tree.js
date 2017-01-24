@@ -24,7 +24,6 @@ const DDSResourceTree = Ember.Component.extend({
     });
   },
   didToggleExpanded: Ember.observer('expanded', function() {
-    Ember.Logger.log('toggled expanded');
     if(!this.get('fetchedOnce')) {
       this.fetchChildren();
     }

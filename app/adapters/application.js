@@ -30,7 +30,6 @@ export default DS.RESTAdapter.extend(DataAdapterMixin, {
   pathForType(type) {
     let dasherized = Ember.String.dasherize(type);
     let pluralized = Ember.String.pluralize(dasherized);
-    console.log(`type: ${type} -> path: ${pluralized}`);
     return pluralized;
   }
 });

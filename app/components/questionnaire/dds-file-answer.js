@@ -6,11 +6,9 @@ const DDSFileAnswer = Ember.Component.extend({
   store: Ember.inject.service(), // Needs to load dds-projects from the store.
   isValid: Ember.computed('pickedFiles.length', 'occurs', function() {
     let isValid = this.get('occurs') === this.get('pickedFiles.length');
-    Ember.Logger.log(`isValid: ${isValid}`);
     return isValid;
   }),
-  answers: Ember.computed('pickedFiles[]', function() {
-    Ember.Logger.log('regenerating answers from pickedFiles');
+  answers: Ember.computed('pickedFiles.[]', function() {
     let store = this.get('store');
     let pickedFiles = this.get('pickedFiles');
     let credential = this.get('ddsUserCredentials').get('firstObject');

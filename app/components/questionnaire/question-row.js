@@ -23,7 +23,7 @@ const QuestionRow = Ember.Component.extend({
           question: question
         });
         function failure(reason) {
-          Ember.Logger.log(`Failed because of ${reason}, ${Ember.inspect(reason)}`);
+          Ember.Logger.error(`Failed because of ${reason}, ${Ember.inspect(reason)}`);
         }
         function success(savedJobAnswer) {
           // Can't set the typedJobAnswer's answer until we have an ID for the jobAnswer
