@@ -1,4 +1,5 @@
 import DS from 'ember-data';
+import Ember from 'ember';
 
 export default DS.Model.extend({
   key: DS.attr('string'),
@@ -6,5 +7,4 @@ export default DS.Model.extend({
   dataType: DS.attr('string'),
   occurs: DS.attr('number'),
   isFile: Ember.computed('dataType', function() { return this.get('dataType') === 'File'; })
-
 });
