@@ -9,7 +9,11 @@ const QuestionRow = Ember.Component.extend({
   questionnaireAnswer: Ember.computed('question', 'questionnaireAnswers.[]', function() {
     let question = this.get('question');
     let answers = this.get('questionnaireAnswers');
-    return answers.findBy('question.id', question.get('id'));
+    if(!!question && !!answers) {
+      return answers.findBy('question.id', question.get('id'));
+    } else {
+      return null;
+    }
   }),
   actions: {
     answered(typedJobAnswers, kind) {

@@ -1,4 +1,5 @@
 import { moduleForModel, test } from 'ember-qunit';
+import { testRelationship } from '../../helpers/test-relationships';
 import Ember from 'ember';
 
 moduleForModel('workflow', 'Unit | Model | workflow', {
@@ -12,13 +13,7 @@ test('it exists', function(assert) {
   assert.ok(!!model);
 });
 
-test('it has many workflow-versions', function(assert) {
-  const Workflow = this.store().modelFor('workflow');
-  const relationship = Ember.get(Workflow, 'relationshipsByName').get('versions');
-  assert.equal(relationship.key, 'versions', 'has relationship with workflow-version');
-  assert.equal(relationship.kind, 'hasMany', 'kind of relationship is hasMany');
-  assert.equal(relationship.type, 'workflow-version', 'Type of related object is workflow-version');
-});
+testRelationship('workflow', {key: 'versions', kind: 'hasMany', type: 'workflow-version'});
 
 test('it computes latest version', function(assert) {
   let workflow = this.subject();

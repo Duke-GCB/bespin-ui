@@ -1,7 +1,7 @@
 <div class="row">
   {{#each items as |item|}}
     {{#item-chooser.item-picker-detail-row item selectedItem (action "pick") itemTitleKey}}
-      {{component detailComponent item}}
+      <span class="detail-component">{{component detailComponent item}}</span>
     {{/item-chooser.item-picker-detail-row}}
   {{/each}}
 </div>
