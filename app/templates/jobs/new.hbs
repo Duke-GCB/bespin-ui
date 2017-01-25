@@ -20,13 +20,13 @@
     <!-- has a questionnaire, prompt for questions -->
     <p>
       Questions:
-      <ol>
+      <ul class="list-unstyled">
         {{#each questionnaire.questions as |question|}}
         <li>{{questionnaire.question-row question
                                          questionnaireAnswers
                                          (action 'questionAnswered')}}</li>
         {{/each}}
-      </ol>
+      </ul>
     </p>
     {{#bs-button type="default" onClick=(action 'save') class="save-button"}}Save{{/bs-button}}
     {{errors}}

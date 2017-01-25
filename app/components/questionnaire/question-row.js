@@ -6,11 +6,15 @@ const QuestionRow = Ember.Component.extend({
   question: null,
   questionnaireAnswers: [],
   questionAnswered: function() {},
-  questionnaireAnswer: Ember.computed('question', 'questionnaireAnswers.[]', function() {
+  hasReadOnlyAnswers:Ember.computed('readOnlyAnswers.[]', function() {
+    let length = this.get('readOnlyAnswers.length');
+    return length > 0;
+  }),
+  readOnlyAnswers: Ember.computed('question', 'questionnaireAnswers.[]', function() {
     let question = this.get('question');
     let answers = this.get('questionnaireAnswers');
-    if(!!question && !!answers) {
-      return answers.findBy('question.id', question.get('id'));
+    if (!!question && !!answers) {
+      return answers.filterBy('question.id', question.get('id'));
     } else {
       return null;
     }
