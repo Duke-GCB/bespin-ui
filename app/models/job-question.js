@@ -6,5 +6,6 @@ export default DS.Model.extend({
   name: DS.attr('string'),
   dataType: DS.attr('string'),
   occurs: DS.attr('number'),
-  isFile: Ember.computed('dataType', function() { return this.get('dataType') === 'File'; })
+  isFile: Ember.computed('dataType', function() { return this.get('dataType') === 'File'; }),
+  isString: Ember.computed('dataType', function() { return this.get('dataType') === 'string'; })
 });

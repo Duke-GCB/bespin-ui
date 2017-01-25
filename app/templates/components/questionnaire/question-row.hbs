@@ -3,5 +3,8 @@
   {{#if question.isFile}}
     {{questionnaire.dds-file-answer question.occurs (action 'answered')}}
   {{/if}}
+  {{#if question.isString}}
+    {{questionnaire.string-answer ""}}
+  {{/if}}
 {{/unless}}
 {{yield}}
