@@ -12,9 +12,9 @@ function testRelationship(modelName, rel) {
 }
 
 function testRelationships(modelName, relationships) {
-  for (let rel of relationships) {
+  relationships.forEach(function(rel) {
     testRelationship(modelName, rel);
-  }
+  });
 }
 
 export {
