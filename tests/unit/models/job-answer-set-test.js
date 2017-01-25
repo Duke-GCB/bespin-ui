@@ -1,4 +1,5 @@
 import { moduleForModel, test } from 'ember-qunit';
+import testRelationships from '../../helpers/test-relationships';
 import Ember from 'ember';
 
 moduleForModel('job-answer-set', 'Unit | Model | job answer set', {
@@ -12,20 +13,15 @@ test('it exists', function(assert) {
   assert.ok(!!model);
 });
 
-test('it belongs to a job-questionnaire', function(assert) {
-  const JobAnswerSet = this.store().modelFor('job-answer-set');
-  const relationship = Ember.get(JobAnswerSet, 'relationshipsByName').get('questionnaire');
-  assert.equal(relationship.key, 'questionnaire', 'has relationship with job-questionnaire');
-  assert.equal(relationship.kind, 'belongsTo', 'kind of relationship is belongsTo');
-  assert.equal(relationship.type, 'job-questionnaire', 'Type of related object is job-questionnaire');
-});
+const testRels = [
+  {key: 'questionnaire', kind: 'belongsTo', type: 'job-questionnaire'},
+  {key: 'answers', kind: 'hasMany', type: 'job-answer'},
+];
 
-test('it has many job-answers', function(assert) {
+testRelationships('job-answer-set', testRels);
+
+test('it has no inverse relationship to job-answers', function(assert) {
   const JobAnswerSet = this.store().modelFor('job-answer-set');
   const relationship = Ember.get(JobAnswerSet, 'relationshipsByName').get('answers');
-  assert.equal(relationship.key, 'answers', 'has relationship with job-answer');
-  assert.equal(relationship.kind, 'hasMany', 'kind of relationship is belongsTo');
-  assert.equal(relationship.type, 'job-answer', 'Type of related object is job-answer');
   assert.equal(relationship.inverse, null, 'No inverse relationship');
-
 });

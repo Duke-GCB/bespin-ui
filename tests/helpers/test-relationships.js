@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import { test } from 'ember-qunit';
 
-function testRelationship(rel, modelName) {
+function testRelationship(modelName, rel) {
   test(`it has relationship: ${rel.kind} ${rel.type}`, function(assert) {
     const Model = this.store().modelFor(modelName);
     const relationship = Ember.get(Model, 'relationshipsByName').get(rel.key);
@@ -13,9 +13,14 @@ function testRelationship(rel, modelName) {
 
 function testRelationships(modelName, relationships) {
   for (let rel of relationships) {
-    testRelationship(rel, modelName);
+    testRelationship(modelName, rel);
   }
 }
+
+export {
+  testRelationship,
+  testRelationships
+};
 
 export default testRelationships;
 

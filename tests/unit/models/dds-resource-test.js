@@ -1,4 +1,5 @@
 import { moduleForModel, test } from 'ember-qunit';
+import { testRelationship } from '../../helpers/test-relationships';
 import Ember from 'ember';
 moduleForModel('dds-resource', 'Unit | Model | dds resource', {
   needs: ['model:dds-project']
@@ -24,10 +25,4 @@ test('it computes folder kind', function(assert){
   assert.notOk(model.get('isFile'));
 });
 
-test('it belongs to a dds-project', function(assert) {
-  const DDSResource = this.store().modelFor('dds-resource');
-  const relationship = Ember.get(DDSResource, 'relationshipsByName').get('project');
-  assert.equal(relationship.key, 'project', 'has relationship with dds-project');
-  assert.equal(relationship.kind, 'belongsTo', 'kind of relationship is belongsTo');
-  assert.equal(relationship.type, 'dds-project', 'Type of related object is dds-project');
-});
+testRelationship('dds-resource', {key: 'project', kind: 'belongsTo', type: 'dds-project'});
