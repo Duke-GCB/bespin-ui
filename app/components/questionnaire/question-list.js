@@ -1,12 +1,12 @@
 import Ember from 'ember';
 
 const QuestionList = Ember.Component.extend({
-  questions: []
+  questionnaire: null
 
 });
 
 QuestionList.reopenClass({
-  positionalParams: ['questions']
+  positionalParams: ['questionnaire']
 });
 
 export default QuestionList;

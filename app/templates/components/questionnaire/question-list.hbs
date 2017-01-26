@@ -1,6 +1,6 @@
 <ul class="list-unstyled">
-  {{#each questions as |question|}}
-    <li>{{questionnaire.question-row question}}
+  {{#each questionnaire.questions as |question|}}
+    <li>{{questionnaire.question-row question questionnaire}}
     </li>
   {{/each}}
 </ul>

@@ -1,0 +1,7 @@
+{{#if readOnly}}
+  <p>I have {{ pluralize answers.length (concat 'read-only ' kind)}} answers to display</p>
+{{else}}
+  <p>I have {{ pluralize answers.length (concat 'NEW ' kind)}} answers for you to fill in</p>
+{{/if}}
+
+{{yield}}

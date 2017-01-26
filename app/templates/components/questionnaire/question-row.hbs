@@ -1,10 +1,11 @@
+This question has {{pluralize systemProvidedAnswers.length 'answers'}}.
 {{#if question.isFile}}
-  {{questionnaire.file-answers question.occurs}}
+  {{questionnaire.file-answers question.occurs systemProvidedAnswers}}
 {{/if}}
 {{#if question.isString}}
-  {{questionnaire.string-answers question.occurs}}
+  {{questionnaire.string-answers question.occurs systemProvidedAnswers}}
 {{/if}}
 {{#if question.isInteger}}
-  {{questionnaire.integer-answers question.occurs}}
+  {{questionnaire.integer-answers question.occurs systemProvidedAnswers}}
 {{/if}}
 {{yield}}

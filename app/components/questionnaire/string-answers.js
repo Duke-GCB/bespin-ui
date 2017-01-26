@@ -1,11 +1,6 @@
 import Ember from 'ember';
+import AnswersBase from './answers-base';
 
-const StringAnswers = Ember.Component.extend({
-  occurs: 0
+export default AnswersBase.extend({
+  kind: 'string'
 });
-
-StringAnswers.reopenClass({
-  positionalParams: ['occurs']
-});
-
-export default StringAnswers;

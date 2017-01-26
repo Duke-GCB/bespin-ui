@@ -1,11 +1,6 @@
 import Ember from 'ember';
+import AnswersBase from './answers-base';
 
-const FileAnswers = Ember.Component.extend({
-  occurs: 0
+export default AnswersBase.extend({
+  kind: 'file'
 });
-
-FileAnswers.reopenClass({
-  positionalParams: ['occurs']
-});
-
-export default FileAnswers;
