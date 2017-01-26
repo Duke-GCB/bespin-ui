@@ -10,13 +10,12 @@ const AnswersBase = Ember.Component.extend({
   kind: null,
   systemProvidedAnswers: null, // Just for THIS question
   userProvidedAnswers: null,
-  answers: Ember.computed('systemProvidedAnswers', function() {
-    let systemProvidedAnswers = this.get('systemProvidedAnswers');
-    if (systemProvidedAnswers) {
-      return systemProvidedAnswers;
+  answers: Ember.computed('readOnly', 'systemProvidedAnswers', 'userProvidedAnswers', function() {
+    let readOnly = this.get('readOnly');
+    if (readOnly) {
+      return this.get('systemProvidedAnswers');
     } else {
-      Ember.Logger.debug('make some new answers');
-      return userProvidedAnswers;
+      return this.get('userProvidedAnswers');
     }
   }),
 });
