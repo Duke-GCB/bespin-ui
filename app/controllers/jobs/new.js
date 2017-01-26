@@ -54,7 +54,7 @@ export default Ember.Controller.extend({
   questionnaire: Ember.computed('questionnaire_id', function() {
     const questionnaire_id = this.get('questionnaire_id');
     if(questionnaire_id) {
-      return this.get('store').findRecord('job-questionnaire', questionnaire_id);
+      return this.get('store').findRecord('job-questionnaire', questionnaire_id, {include: 'questions'});
     } else {
       return null;
     }
@@ -71,5 +71,6 @@ export default Ember.Controller.extend({
       return null;
     }
   }),
+
 
 });

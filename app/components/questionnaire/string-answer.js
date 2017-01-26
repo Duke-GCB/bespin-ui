@@ -1,17 +1,18 @@
 import Ember from 'ember';
 
 const StringAnswer = Ember.Component.extend({
-  resource: null,
+  disabled: true,
   tagName: 'span',
+  stringAnswer: null,
   actions: {
-    answered(value) {
-      console.log(value);
+    answered() {
+      Ember.Logger.log('answered');
     }
   }
 });
 
 StringAnswer.reopenClass({
-  positionalParams: ['value']
+  positionalParams: ['stringAnswer', 'disabled']
 });
 
 export default StringAnswer;

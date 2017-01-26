@@ -1,9 +1,0 @@
-{{#bs-form as |form|}}
-  {{#form.group class='job-kind'}}
-    <label class="control-label">{{label}}</label>
-    {{#each answers as |answer|}}
-      {{questionnaire.read-only-answer answer}}
-    {{/each}}
-  {{/form.group}}
-{{/bs-form}}
-{{yield}}

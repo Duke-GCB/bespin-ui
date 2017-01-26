@@ -1,11 +1,10 @@
-{{#if hasReadOnlyAnswers}}
-  {{questionnaire.read-only-answers readOnlyAnswers label=question.name}}
-{{else}}
-  {{#if question.isFile}}
-    {{questionnaire.dds-file-answer question.occurs (action 'answered') label=question.name}}
-  {{/if}}
-  {{#if question.isString}}
-    {{questionnaire.string-answer ""}}
-  {{/if}}
+{{#if question.isFile}}
+  {{questionnaire.file-answers question.occurs}}
+{{/if}}
+{{#if question.isString}}
+  {{questionnaire.string-answers question.occurs}}
+{{/if}}
+{{#if question.isInteger}}
+  {{questionnaire.integer-answers question.occurs}}
 {{/if}}
 {{yield}}
