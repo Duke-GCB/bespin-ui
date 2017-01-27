@@ -5,7 +5,7 @@ const WorkflowVersionDetailRow = Ember.Component.extend({
 });
 
 WorkflowVersionDetailRow.reopenClass({
-  positionalParams: ['version']
+  positionalParams: ['workflow']
 });
 
 export default WorkflowVersionDetailRow;
