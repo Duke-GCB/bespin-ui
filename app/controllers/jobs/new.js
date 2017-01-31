@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import QuestionnaireUtil from '../../utils/questionnaire-util';
 
 export default Ember.Controller.extend({
   queryParams: ['workflow_version_id', 'questionnaire_id'],
@@ -16,15 +17,11 @@ export default Ember.Controller.extend({
         this.set('questionnaire_id', questionnaire.get('id'));
       }
     },
-    questionAnswered(answer) {
-      // answer is a job-answer and it has been saved, so we just add it to the list
-      let answerSet = this.get('model');
-      // Should this be an observer?
-      answerSet.set('questionnaire', this.get('questionnaire'));
-      answerSet.get('answers').pushObject(answer); // But what if it's already there?
-    },
     save() {
-      this.get('model').save().then(() => {
+      const questionnaire = this.get('questionnaire');
+      const answerSet = this.get('model');
+      answerSet.set('questionnaire', questionnaire);
+      answerSet.save().then(() => {
         this.set('errors', null);
       }).catch((reason) => {
         this.set('errors', reason);
@@ -72,5 +69,11 @@ export default Ember.Controller.extend({
     }
   }),
 
-
+  questionnaireUtil: Ember.computed('store', 'questionnaire', function() {
+    const questionnaire = this.get('questionnaire');
+    const store = this.get('store');
+    if(questionnaire) {
+      return QuestionnaireUtil.create({store: store, questionnaire: questionnaire});
+    }
+  })
 });

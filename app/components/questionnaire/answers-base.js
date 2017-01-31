@@ -10,14 +10,6 @@ const AnswersBase = Ember.Component.extend({
   }),
   systemProvidedAnswers: null, // Just for THIS question
   userProvidedAnswers: null,
-  answers: Ember.computed('readOnly', 'systemProvidedAnswers', 'userProvidedAnswers', function() {
-    let readOnly = this.get('readOnly');
-    if (readOnly) {
-      return this.get('systemProvidedAnswers');
-    } else {
-      return this.get('userProvidedAnswers');
-    }
-  }),
   // Now for the typedAnswerValues, e.g. stringAnswer
   answerValues: Ember.computed('readOnly', 'answers.[]', 'modelName', function() {
     const answers = this.get('answers');

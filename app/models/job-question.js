@@ -15,5 +15,12 @@ export default DS.Model.extend({
     } else {
       return 'string';
     }
+  }),
+  modelForUserAnswerValue: Ember.computed('dataType', function() {
+    if(this.get('isFile')) {
+      return 'job-dds-file-answer';
+    } else {
+      return 'job-string-answer';
+    }
   })
 });

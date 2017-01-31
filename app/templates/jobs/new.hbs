@@ -18,7 +18,11 @@
                    detailComponent=(component 'workflow-flavor-detail-row')}}
   {{else}}
     <!-- has a questionnaire, prompt for questions -->
-    {{questionnaire.question-list questionnaire}}
+    <ul>
+    {{#each questionnaireUtil.questionProxies as |questionProxy|}}
+      <li>question: {{questionProxy.question.name}} system: {{questionProxy.systemAnswerValuePairs.length}} user: {{questionProxy.userAnswerValuePairs.length}}</li>
+    {{/each}}
+    </ul>
     {{#bs-button type="default" onClick=(action 'save') class="save-button"}}Save{{/bs-button}}
     {{errors}}
   {{/unless}}

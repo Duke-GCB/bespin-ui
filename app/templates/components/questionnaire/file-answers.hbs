@@ -1,4 +1,8 @@
-{{#each answerValues as |answerValue|}}
-  {{questionnaire.string-answer answerValue readOnly}}
-{{/each}}
+{{#if readOnly}}
+  {{#each answerValues as |answerValue|}}
+    {{questionnaire.string-answer answerValue readOnly}}
+  {{/each}}
+{{else}}
+  {{questionnaire.dds-file-answers answerValues}}
+{{/if}}
 {{yield}}
