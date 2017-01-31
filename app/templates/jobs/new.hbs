@@ -20,6 +20,7 @@
     <!-- has a questionnaire, prompt for questions -->
     {{questionnaire.question-list questionnaireUtil}}
     {{#bs-button type="default" onClick=(action 'save') class="save-button"}}Save{{/bs-button}}
+    {{job.id}}
     {{errors}}
   {{/unless}}
 {{/unless}}

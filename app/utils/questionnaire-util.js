@@ -130,7 +130,6 @@ export default Ember.Object.extend({
     But, since the job-answer-set contains job-answers, we must save them (and their values) first
    */
   save() {
-
     let questionProxies = this.get('questionProxies');
     let promises = questionProxies.map(questionProxy => {
       return questionProxy.save();
@@ -138,6 +137,8 @@ export default Ember.Object.extend({
     let jobAnswerSet = this.get('jobAnswerSet');
     return Ember.RSVP.all(promises).then(() => {
       return jobAnswerSet.save();
+    }).then(jobAnswerSet => {
+      return jobAnswerSet.createJob();
     });
-  }
+  },
 });

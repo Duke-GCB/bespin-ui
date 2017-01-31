@@ -19,12 +19,13 @@ export default Ember.Controller.extend({
     },
     save() {
       const questionnaireUtil = this.get('questionnaireUtil');
-      questionnaireUtil.save().then(() => {
+      questionnaireUtil.save().then((job) => {
         this.set('errors', null);
+        this.set('job', job);
       }).catch((reason) => {
         this.set('errors', reason);
       });
-    }
+    },
   },
 
   workflowVersion: Ember.computed('workflow_version_id', function() {
