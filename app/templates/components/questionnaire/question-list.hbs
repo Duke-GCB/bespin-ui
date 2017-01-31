@@ -1,7 +1,6 @@
 <ul class="list-unstyled">
-  {{#each questionnaire.questions as |question|}}
-    <li>{{questionnaire.question-row question questionnaire answerSet}}
-    </li>
+  {{#each questionnaireUtil.questionProxies as |questionProxy|}}
+    <li>{{questionnaire.question-row questionProxy}}</li>
   {{/each}}
 </ul>
 {{yield}}

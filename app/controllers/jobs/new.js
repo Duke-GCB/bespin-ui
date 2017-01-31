@@ -18,10 +18,8 @@ export default Ember.Controller.extend({
       }
     },
     save() {
-      const questionnaire = this.get('questionnaire');
-      const answerSet = this.get('model');
-      answerSet.set('questionnaire', questionnaire);
-      answerSet.save().then(() => {
+      const questionnaireUtil = this.get('questionnaireUtil');
+      questionnaireUtil.save().then(() => {
         this.set('errors', null);
       }).catch((reason) => {
         this.set('errors', reason);

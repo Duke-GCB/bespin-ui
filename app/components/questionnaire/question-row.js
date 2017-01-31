@@ -1,17 +1,13 @@
 import Ember from 'ember';
 
 const QuestionRow = Ember.Component.extend({
-  store: Ember.inject.service(),
   classNames: ['well','well-sm'],
-  question: null,
-  questionnaire: null,
-  answerSet: null,
-  userProvidedAnswers: [],
-  systemProvidedAnswers: []
+  questionProxy: null,
+  question: Ember.computed.alias('questionProxy.question')
 });
 
 QuestionRow.reopenClass({
-  positionalParams: ['question', 'questionnaire', 'answerSet']
+  positionalParams: ['questionProxy']
 });
 
 export default QuestionRow;

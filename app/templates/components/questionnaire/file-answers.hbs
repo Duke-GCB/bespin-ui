@@ -1,8 +1,8 @@
 {{#if readOnly}}
-  {{#each answerValues as |answerValue|}}
-    {{questionnaire.string-answer answerValue readOnly}}
+  {{#each answerValuePairs as |answerValuePair|}}
+    {{questionnaire.string-answer answerValuePair readOnly}}
   {{/each}}
 {{else}}
-  {{questionnaire.dds-file-answers answerValues}}
+  {{questionnaire.dds-file-answers answerValuePairs}}
 {{/if}}
 {{yield}}

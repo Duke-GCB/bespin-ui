@@ -1,11 +1,11 @@
 {{question.name}}:
 {{#if question.isFile}}
-  {{questionnaire.file-answers question.occurs systemProvidedAnswers userProvidedAnswers}}
+  {{questionnaire.file-answers questionProxy}}
 {{/if}}
 {{#if question.isString}}
-  {{questionnaire.string-answers question.occurs systemProvidedAnswers userProvidedAnswers}}
+  {{questionnaire.string-answers questionProxy}}
 {{/if}}
 {{#if question.isInteger}}
-  {{questionnaire.integer-answers question.occurs systemProvidedAnswers userProvidedAnswers}}
+  {{questionnaire.integer-answers questionProxy}}
 {{/if}}
 {{yield}}
