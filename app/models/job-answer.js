@@ -3,7 +3,8 @@ import Ember from 'ember';
 
 const AnswerKinds = {
   String: 'string',
-  DDSFile: 'dds_file'
+  DDSFile: 'dds_file',
+  DDSOutputDirectory: 'dds_output_directory',
 };
 
 export default DS.Model.extend({
@@ -16,6 +17,9 @@ export default DS.Model.extend({
   }),
   isDDSFile: Ember.computed('kind', function() {
     return this.get('kind') === AnswerKinds.DDSFile;
-  })
+  }),
+  isDDSOutputDirectory: Ember.computed('kind', function() {
+    return this.get('kind') === AnswerKinds.DDSOutputDirectory;
+  }),
 
 });
