@@ -41,7 +41,7 @@ export default Ember.Object.extend({
     let store = this.get('store');
     let questionnaire = this.get('questionnaire');
     // makes an answer set from a questionnaire and resolves when done
-    let questions = questionnaire.get('questions').toArray();
+    let questions = questionnaire.get('questions');
     let systemJobAnswers = store.query('job-answer', {questionnaire: questionnaire.get('id')});
     let jobAnswerSet = Ember.RSVP.resolve(store.createRecord('job-answer-set', {questionnaire: questionnaire}));
 
@@ -125,7 +125,12 @@ export default Ember.Object.extend({
       });
     });
   },
+  /*
+    Saving ultimately saves the job-answer-set
+    But, since the job-answer-set contains job-answers, we must save them (and their values) first
+   */
   save() {
+
     let questionProxies = this.get('questionProxies');
     let promises = questionProxies.map(questionProxy => {
       return questionProxy.save();

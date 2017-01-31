@@ -55,23 +55,13 @@ export default Ember.Controller.extend({
     }
   }),
 
-  // Read-only answers that are already determinedby the questionnaire
-  questionnaireAnswers: Ember.computed('questionnaire_id', function() {
-    const questionnaire_id = this.get('questionnaire_id');
-    if(questionnaire_id) {
-      return this.get('store').query('job-answer', {
-        questionnaire: questionnaire_id
-      });
-    } else {
-      return null;
-    }
-  }),
-
   questionnaireUtil: Ember.computed('store', 'questionnaire', function() {
     const questionnaire = this.get('questionnaire');
     const store = this.get('store');
     if(questionnaire) {
       return QuestionnaireUtil.create({store: store, questionnaire: questionnaire});
+    } else {
+      return null;
     }
   })
 });
