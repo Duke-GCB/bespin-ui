@@ -1,0 +1,9 @@
+{{#bs-form as |form|}}
+  {{#form.group class='job-kind'}}
+    <label class="control-label">{{label}}</label>
+    {{#each answerValuePairs as |answerValuePair|}}
+      {{questionnaire.dds-output-directory-answer answerValuePair projects ddsUserCredentials}}
+    {{/each}}
+  {{/form.group}}
+{{/bs-form}}
+{{yield}}

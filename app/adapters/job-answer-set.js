@@ -9,7 +9,7 @@ export default ApplicationAdapter.extend({
   },
 
   urlForCreateJobAction(id) {
-    return `${this.buildURL('job-answer-set', id)}create_job/`; // should be create-job
+    return `${this.buildURL('job-answer-set', id)}create-job/`;
   }
 
 });

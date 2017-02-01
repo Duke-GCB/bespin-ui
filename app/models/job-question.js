@@ -11,10 +11,10 @@ const QuestionDataTypes = {
 
 export default DS.Model.extend({
   typesToModels: [
-    { dataType: QuestionDataTypes.String,  userAnswerModel: 'job-string-answer'},
-    { dataType: QuestionDataTypes.Integer, userAnswerModel: 'job-string-answer'},
-    { dataType: QuestionDataTypes.File, userAnswerModel: 'job-dds-file-answer'},
-    { dataType: QuestionDataTypes.Directory, userAnswerModel: 'job-dds-output-directory-answer'}
+    { dataType: QuestionDataTypes.String,  userAnswerKind: 'string', userAnswerModel: 'job-string-answer'},
+    { dataType: QuestionDataTypes.Integer, userAnswerKind: 'string', userAnswerModel: 'job-string-answer'},
+    { dataType: QuestionDataTypes.File, userAnswerKind: 'dds_file', userAnswerModel: 'job-dds-file-answer'},
+    { dataType: QuestionDataTypes.Directory, userAnswerKind: 'dds_output_directory', userAnswerModel: 'job-dds-output-directory-answer'}
   ],
   key: DS.attr('string'),
   name: DS.attr('string'),
@@ -24,17 +24,17 @@ export default DS.Model.extend({
   isString: Ember.computed('dataType', function() { return this.get('dataType') === QuestionDataTypes.String; }),
   isInteger: Ember.computed('dataType', function() { return this.get('dataType') === QuestionDataTypes.Integer; }),
   isDirectory: Ember.computed('dataType', function() { return this.get('dataType') === QuestionDataTypes.Directory; }),
-  userAnswerKind: Ember.computed('dataType', function() {
-    if(this.get('isFile')) {
-      return 'dds_file'; // Users answering file questions must respond with a dds_file
-    } else {
-      return 'string';
-    }
-  }),
-  modelForUserAnswerValue: Ember.computed('dataType', function() {
-    let dataType = this.get('dataType')
+
+  typeHash: Ember.computed('dataType', function() {
+    let dataType = this.get('dataType');
     let typesToModels = this.get('typesToModels');
-    let foundType = typesToModels.findBy('dataType', dataType).userAnswerModel;
-    return foundType;
+    return typesToModels.findBy('dataType', dataType);
+  }),
+
+  userAnswerKind: Ember.computed('typeHash', function() {
+    return this.get('typeHash').userAnswerKind;
+  }),
+  modelForUserAnswerValue: Ember.computed('typeHash', function() {
+    return this.get('typeHash').userAnswerModel;
   })
 });

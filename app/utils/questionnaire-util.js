@@ -69,7 +69,6 @@ export default Ember.Object.extend({
       // Build up our user answers list into the jobAnswerSet, so they are bound for later
 
       let systemQuestionIds = systemJobAnswers.mapBy('question.id');
-      let systemQuestions = systemJobAnswers.mapBy('question');
       let questionProxies = questions.map(question => {
         let questionProxy = QuestionProxy.create({question: question});
         let questionId = question.get('id');
