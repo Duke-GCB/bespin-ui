@@ -21,6 +21,9 @@ Router.map(function() {
       this.route('select-inputs');
       this.route('select-input-files');
     });
+    this.route('show', {
+      path: '/:job_id'
+    });
   });
 });
 

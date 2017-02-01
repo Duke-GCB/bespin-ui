@@ -11,7 +11,7 @@ const DDSFileAnswer = Ember.Component.extend({
     });
     this.get('store').findAll('dds-user-credential').then(credentials => {
       this.set('ddsUserCredentials', credentials.get('firstObject'));
-    })
+    });
   },
   didReceiveAttrs() {
     this._super(...arguments);
@@ -19,7 +19,6 @@ const DDSFileAnswer = Ember.Component.extend({
   },
   actions: {
     filesChanged(pickedFiles) {
-      let store = this.get('store');
       // merge our picked files into answer values
       let answerValuePairs = this.get('answerValuePairs');
       let credentials = this.get('ddsUserCredentials');

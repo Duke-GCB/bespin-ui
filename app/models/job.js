@@ -10,6 +10,6 @@ export default DS.Model.extend({
   vmFlavor: DS.attr('string'),
   vmInstanceName: DS.attr('string'),
   vmProjectName: DS.attr('string'),
-  workflowInputJson: DS.attr('string'), // These will be JSON - can we add a transform?
+  jobOrder: DS.attr('string'), // These will be JSON - can we add a transform?
   outputDir: DS.attr('string') // Don't have an API for this yet, how do we create output dirs?
 });

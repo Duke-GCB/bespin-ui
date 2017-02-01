@@ -19,7 +19,7 @@ export default Ember.Controller.extend({
     },
     save() {
       const questionnaireUtil = this.get('questionnaireUtil');
-      questionnaireUtil.save().then((job) => {
+      questionnaireUtil.save().then(() => {
         this.set('errors', null);
         this.transitionToRoute('jobs');
       }).catch((reason) => {

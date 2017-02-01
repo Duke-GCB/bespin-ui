@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 const DDSOutputDirectoryAnswers = Ember.Component.extend({
   store: Ember.inject.service(), // Needs to load dds-projects from the store.
   answerValuePairs: [],
@@ -8,7 +10,7 @@ const DDSOutputDirectoryAnswers = Ember.Component.extend({
     });
     this.get('store').findAll('dds-user-credential').then(credentials => {
       this.set('ddsUserCredentials', credentials.get('firstObject'));
-    })
+    });
   },
   didReceiveAttrs() {
     this._super(...arguments);

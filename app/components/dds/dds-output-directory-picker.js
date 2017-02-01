@@ -5,7 +5,7 @@ const DDSOutputDirectoryPicker = Ember.Component.extend({
   project: null,
   directoryName: null,
   changed() {
-    this.get('onChange')(this.get('project'), this.get('directoryName'))
+    this.get('onChange')(this.get('project'), this.get('directoryName'));
   },
   actions: {
     projectChanged(project) {

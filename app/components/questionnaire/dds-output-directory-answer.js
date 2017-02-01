@@ -23,4 +23,4 @@ DDSOutputDirectoryAnswer.reopenClass({
   positionalParams: ['answerValuePair', 'projects', 'ddsUserCredentials']
 });
 
-export default DDSOutputDirectoryAnswer
+export default DDSOutputDirectoryAnswer;

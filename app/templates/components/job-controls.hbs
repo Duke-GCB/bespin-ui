@@ -1,0 +1,4 @@
+{{#each buttons as |button|}}
+  {{#bs-button type=button.type onClick=(action button.action) disabled=(if button.enabled false true)}}{{button.title}}{{/bs-button}}
+{{/each}}
+{{yield}}

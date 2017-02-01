@@ -24,9 +24,9 @@ const AnswerValuePair = Ember.Object.extend({
   jobAnswer: null,
   jobAnswerValue: null,
   save() {
-    return this.get('jobAnswer').save().then(saved => {
+    return this.get('jobAnswer').save().then(()=> {
       return this.get('jobAnswerValue').save();
-    })
+    });
   }
 });
 
@@ -52,7 +52,6 @@ export default Ember.Object.extend({
     };
     Ember.RSVP.hash(promises).then(resolved => {
       const jobStringAnswers = store.query('job-string-answer', {answers: resolved.systemJobAnswers.mapBy('id')});
-      const jobDDSFileAnswers = store.query('job-dds-file-answer', {answers: resolved.systemJobAnswers.mapBy('id')});
 
       // Carry forward stuff we already have
       let promises = {
@@ -60,12 +59,11 @@ export default Ember.Object.extend({
         jobAnswerSet: resolved.jobAnswerSet,
         systemJobAnswers: resolved.systemJobAnswers,
         jobStringAnswers: jobStringAnswers,
-        jobDDSFileAnswers: jobDDSFileAnswers
       };
       return Ember.RSVP.hash(promises);
     }).then(resolved => {
       // Have all data
-      const {jobAnswerSet, systemJobAnswers, jobStringAnswers, jobDDSFileAnswers, questions} = resolved;
+      const {jobAnswerSet, systemJobAnswers, jobStringAnswers, questions} = resolved;
       // Build up our user answers list into the jobAnswerSet, so they are bound for later
 
       let systemQuestionIds = systemJobAnswers.mapBy('question.id');
