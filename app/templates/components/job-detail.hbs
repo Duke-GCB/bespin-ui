@@ -15,6 +15,12 @@
           <dd>{{job.lastUpdated}}</dd>
           <dt>State</dt>
           <dd>{{job.state}}</dd>
+          {{#if jobErrors}}
+            <dt>Errors</dt>
+            {{#each jobErrors as |jobError|}}
+              <dd><pre>{{jobError.content}}</pre></dd>
+            {{/each}}
+          {{/if}}
           <dt>Step</dt>
           <dd>{{job.step}}</dd>
           <dt>VM Flavor</dt>
@@ -22,11 +28,13 @@
           <dt>VM Instance Name</dt>
           <dd>{{job.vmInstanceName}}</dd>
           <dt>Job Order JSON</dt>
-          <dd>{{job.jobOrder}}</dd>
+          <dd><pre>{{job.jobOrder}}</pre></dd>
         </dl>
       </div>
     </div>
   </div>
+</div>
+<div class="row">
   <div class="col-md-12">
     {{job-controls job}}
   </div>
