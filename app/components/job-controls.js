@@ -35,8 +35,8 @@ const JobControls = Ember.Component.extend({
       actionToEnable = 'start';
     } else if(state === 'R') { // Running
       actionToEnable = 'cancel';
-    } else if(state === 'F' || state === 'C' || state == 'E') { // Finished, Canceled, Error
-      actionToEnable = 'restart'
+    } else if(state === 'F' || state === 'C' || state === 'E') { // Finished, Canceled, Error
+      actionToEnable = 'restart';
     }
     buttons.findBy('action', actionToEnable).enabled = true;
     return buttons;
