@@ -1,4 +1,18 @@
-{{#each buttons as |button|}}
-  {{#bs-button type=button.type onClick=(action button.action) disabled=(if button.enabled false true)}}{{button.title}}{{/bs-button}}
-{{/each}}
+<div class="row">
+  <div class="col-md-9">
+    {{#if message}}
+      {{#bs-alert type="success"}}{{message}}{{/bs-alert}}
+    {{/if}}
+    {{#if error}}
+      {{#bs-alert type="danger"}}{{error}}{{/bs-alert}}
+    {{/if}}
+  </div>
+  <div class="col-md-3">
+    <span class="pull-right">
+    {{#each buttons as |button|}}
+      {{#bs-button type=button.type onClick=(action button.action) disabled=(if button.enabled false true)}}{{button.title}}{{/bs-button}}
+    {{/each}}
+    </span>
+  </div>
+</div>
 {{yield}}

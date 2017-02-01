@@ -1,16 +1,26 @@
 import Ember from 'ember';
 
 const JobControls = Ember.Component.extend({
+  error: null,
+  message: null,
   actions: {
     start() {
-      Ember.Logger.log('start');
+      this.get('job').start().then(this.success.bind(this), this.failure.bind(this));
     },
     cancel() {
-      Ember.Logger.log('cancel');
+      this.get('job').cancel().then(this.success.bind(this), this.failure.bind(this));
     },
     restart() {
-      Ember.Logger.log('restart');
+      this.get('job').restart().then(this.success.bind(this), this.failure.bind(this));
     }
+  },
+  failure(error) {
+    this.set('error', error);
+    this.set('message', null);
+  },
+  success(result) {
+    this.set('error', null);
+    this.set('message', result);
   },
   buttons: Ember.computed('job.state', function() {
     let state = this.get('job.state');

@@ -11,5 +11,17 @@ export default DS.Model.extend({
   vmInstanceName: DS.attr('string'),
   vmProjectName: DS.attr('string'),
   jobOrder: DS.attr('string'), // These will be JSON - can we add a transform?
-  outputDir: DS.attr('string') // Don't have an API for this yet, how do we create output dirs?
+  outputDir: DS.attr('string'), // Don't have an API for this yet, how do we create output dirs?
+  start() {
+    let adapter = this.store.adapterFor(this.constructor.modelName);
+    return adapter.start(this.get('id'));
+  },
+  cancel() {
+    let adapter = this.store.adapterFor(this.constructor.modelName);
+    return adapter.cancel(this.get('id'));
+  },
+  restart() {
+    let adapter = this.store.adapterFor(this.constructor.modelName);
+    return adapter.restart(this.get('id'));
+  }
 });
