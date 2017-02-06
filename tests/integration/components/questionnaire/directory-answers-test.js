@@ -1,24 +1,16 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import storeStub from '../../../helpers/store-stub';
 
 moduleForComponent('questionnaire/directory-answers', 'Integration | Component | questionnaire/directory answers', {
-  integration: true
+  integration: true,
+  beforeEach: function() {
+    this.register('service:store', storeStub);
+    this.inject.service('store', {as: 'store'});
+  }
 });
 
 test('it renders', function(assert) {
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
-
   this.render(hbs`{{questionnaire/directory-answers}}`);
-
   assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#questionnaire/directory-answers}}
-      template block text
-    {{/questionnaire/directory-answers}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
 });
