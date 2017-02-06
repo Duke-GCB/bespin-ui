@@ -42,9 +42,16 @@ test('it renders job details', function(assert) {
 });
 
 test('it pretty-prints JSON', function(assert) {
-  let prettified = '{\n  "foo": [\n    "bar"\n  ]\n}';
+  let prettified_indent2 = '{\n  "foo": [\n    "bar"\n  ]\n}';
   this.render(hbs`{{job-detail job}}`);
-  assert.equal(this.$('.job-order pre').text(), prettified);
+  assert.equal(this.$('.job-order pre').text(), prettified_indent2);
+
+  this.render(hbs`{{job-detail job indent=2}}`);
+  assert.equal(this.$('.job-order pre').text(), prettified_indent2);
+
+  let prettified_indent4 = '{\n    "foo": [\n        "bar"\n    ]\n}';
+  this.render(hbs`{{job-detail job indent=4}}`);
+  assert.equal(this.$('.job-order pre').text(), prettified_indent4);
 });
 
 test('it shows errors', function (assert) {
