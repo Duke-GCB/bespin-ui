@@ -4,7 +4,11 @@ const JobDetail = Ember.Component.extend({
   job: null,
   jobErrors: [],
   prettyJobOrder: Ember.computed('job.jobOrder', function() {
-    return JSON.stringify(JSON.parse(this.get('job.jobOrder')), undefined, 2);
+    try {
+      return JSON.stringify(JSON.parse(this.get('job.jobOrder')), undefined, 2);
+    } catch(e)  { // May not be valid JSON
+      return this.get('job.jobOrder');
+    }
   })
 });
 

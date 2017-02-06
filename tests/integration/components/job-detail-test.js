@@ -1,24 +1,59 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import Ember from 'ember';
 
 moduleForComponent('job-detail', 'Integration | Component | job detail', {
-  integration: true
+  integration: true,
+  beforeEach() {
+    let job = Ember.Object.create({
+      id: 1234,
+      name: 'FooBar',
+      created: '2016-12-31',
+      lastUpdated: '2017-01-31',
+      state: 'N',
+      step: 'X',
+      vmFlavor: 'm1.xlarge',
+      vmInstanceName: 'job-1234',
+      jobOrder: '{"foo":["bar"]}'
+    });
+    this.set('job', job);
+    this.set('jobErrors', []);
+  }
 });
 
 test('it renders', function(assert) {
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
-
   this.render(hbs`{{job-detail}}`);
+  assert.equal(this.$('.job-detail').length, 1);
+});
 
-  assert.equal(this.$().text().trim(), '');
+test('it renders job details', function(assert) {
+  this.render(hbs`{{job-detail job}}`);
+  let job = this.get('job');
+  let assertText = (className, jobKey) => {
+    assert.equal(this.$('.' + className).text(), job.get(jobKey), `job.${jobKey} rendered into .${className}`);
+  };
+  assertText('job-name', 'name');
+  assertText('job-created', 'created');
+  assertText('job-last-updated', 'lastUpdated');
+  assertText('job-state', 'state');
+  assertText('job-step', 'step');
+  assertText('job-vm-flavor', 'vmFlavor');
+  assertText('job-vm-instance-name', 'vmInstanceName');
+});
 
-  // Template block usage:
-  this.render(hbs`
-    {{#job-detail}}
-      template block text
-    {{/job-detail}}
-  `);
+test('it pretty-prints JSON', function(assert) {
+  let prettified = '{\n  "foo": [\n    "bar"\n  ]\n}';
+  this.render(hbs`{{job-detail job}}`);
+  assert.equal(this.$('.job-order pre').text(), prettified);
+});
 
-  assert.equal(this.$().text().trim(), 'template block text');
+test('it shows errors', function (assert) {
+  this.set('jobErrors', [
+    {content: 'Error 1'},
+    {content: 'Error 2'}
+  ]);
+  this.render(hbs`{{job-detail job jobErrors}}`);
+  assert.equal(this.$('.job-error').length, 2);
+  assert.equal(this.$('.job-error:eq(0)').text(), 'Error 1');
+  assert.equal(this.$('.job-error:eq(1)').text(), 'Error 2');
 });

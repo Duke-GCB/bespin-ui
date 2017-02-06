@@ -1,41 +1,41 @@
-<div class="row">
+<div class="row job-detail">
   <div class="col-md-12">
     <h4>Job Details</h4>
     <div class="panel panel-default">
       <div class="panel-heading">
-        <div class="panel-title">{{job.name}}</div>
+        <div class="panel-title"><span class="job-name">{{job.name}}</span></div>
       </div>
       <div class="panel-body">
         <dl class="dl-horizontal">
           <dt>Workflow</dt>
-          <dd>{{job.workflowVersion.workflow.name}} (v{{job.workflowVersion.version}})</dd>
+          <dd class="job-workflow-version">{{job.workflowVersion.workflow.name}} (v{{job.workflowVersion.version}})</dd>
           <dt>Created</dt>
-          <dd>{{job.created}}</dd>
+          <dd class="job-created">{{job.created}}</dd>
           <dt>Last Updated</dt>
-          <dd>{{job.lastUpdated}}</dd>
+          <dd class="job-last-updated">{{job.lastUpdated}}</dd>
           <dt>State</dt>
-          <dd>{{job.state}}</dd>
+          <dd class="job-state">{{job.state}}</dd>
           {{#if jobErrors}}
             <dt>Errors</dt>
             {{#each jobErrors as |jobError|}}
-              <dd><pre>{{jobError.content}}</pre></dd>
+              <dd class="job-error"><pre>{{jobError.content}}</pre></dd>
             {{/each}}
           {{/if}}
           <dt>Step</dt>
-          <dd>{{job.step}}</dd>
+          <dd class="job-step">{{job.step}}</dd>
           <dt>VM Flavor</dt>
-          <dd>{{job.vmFlavor}}</dd>
+          <dd class="job-vm-flavor">{{job.vmFlavor}}</dd>
           <dt>VM Instance Name</dt>
-          <dd>{{job.vmInstanceName}}</dd>
+          <dd class="job-vm-instance-name">{{job.vmInstanceName}}</dd>
           <dt>Job Order JSON</dt>
-          <dd><pre>{{prettyJobOrder}}</pre></dd>
+          <dd class="job-order"><pre>{{prettyJobOrder}}</pre></dd>
         </dl>
       </div>
     </div>
   </div>
 </div>
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-12 job-controls">
     {{job-controls job}}
   </div>
 </div>
