@@ -1,10 +1,10 @@
-import questionAnswering from 'bespin-ui/utils/question-answering';
+import questionnaireUtil from 'bespin-ui/utils/questionnaire-util';
 import { module, test } from 'qunit';
 
-module('Unit | Utility | question answering');
+module('Unit | Utility | questionnaire-util');
 
 // Replace this with your real tests.
 test('it works', function(assert) {
-  let result = questionAnswering();
+  let result = quesionnaireUtil();
   assert.ok(result);
 });
