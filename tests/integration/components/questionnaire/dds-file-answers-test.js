@@ -1,19 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import Ember from 'ember';
-
-const storeStub = Ember.Service.extend({
-  callCount: 0,
-  modelsCalled: [],
-  findAll(modelName) {
-    // For projects!
-    this.get('modelsCalled').push(modelName);
-    this.set('callCount', this.get('callCount') + 1);
-    return new Ember.RSVP.Promise(function (resolve) {
-      resolve([{id:'abc-123', kind: modelName}]);
-    });
-  }
-});
+import storeStub from '../../../helpers/store-stub';
 
 moduleForComponent('questionnaire/dds-file-answer', 'Integration | Component | questionnaire/dds file answers', {
   integration: true,
