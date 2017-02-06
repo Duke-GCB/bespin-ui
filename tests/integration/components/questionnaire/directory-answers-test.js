@@ -1,11 +1,11 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import storeStub from '../../../helpers/store-stub';
+import StoreStub from '../../../helpers/store-stub';
 
 moduleForComponent('questionnaire/directory-answers', 'Integration | Component | questionnaire/directory answers', {
   integration: true,
   beforeEach: function() {
-    this.register('service:store', storeStub);
+    this.register('service:store', StoreStub);
     this.inject.service('store', {as: 'store'});
   }
 });
