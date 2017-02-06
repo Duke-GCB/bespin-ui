@@ -5,20 +5,23 @@ moduleForComponent('dds/dds-output-directory-picker', 'Integration | Component |
   integration: true
 });
 
-test('it renders', function(assert) {
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
-
+test('it renders a form', function(assert) {
   this.render(hbs`{{dds/dds-output-directory-picker}}`);
+  assert.equal(this.$('form').length, 1);
+});
 
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#dds/dds-output-directory-picker}}
-      template block text
-    {{/dds/dds-output-directory-picker}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+test('it registers changes to directoryName', function(assert) {
+  // This component doesn't do much
+  // projects, directoryName, onChange
+  let oldName = 'ABC';
+  let newName = 'XYZ';
+  let onChange = function(project, directoryName) {
+    assert.equal(directoryName, newName);
+  };
+  this.set('onChange', onChange);
+  this.set('oldName', oldName);
+  this.render(hbs`{{dds/dds-output-directory-picker [] oldName onChange}}`);
+  this.$('input').val(newName);
+  this.$('input').change(); // Required to trigger the update
+  this.$('input').keypress(); // Triggers onChange
 });
