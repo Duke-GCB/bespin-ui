@@ -32,11 +32,6 @@ const AnswerValuePair = Ember.Object.extend({
 
 const QuestionnaireUtil = Ember.Object.extend({
   questionProxies: [],
-
-  init() {
-    this._super(...arguments);
-    this.load();
-  },
   load() {
     let store = this.get('store');
     let questionnaire = this.get('questionnaire');
@@ -50,7 +45,7 @@ const QuestionnaireUtil = Ember.Object.extend({
       jobAnswerSet: jobAnswerSet,
       systemJobAnswers: systemJobAnswers
     };
-    Ember.RSVP.hash(promises).then(resolved => {
+    return Ember.RSVP.hash(promises).then(resolved => {
       const jobStringAnswers = store.query('job-string-answer', {answers: resolved.systemJobAnswers.mapBy('id')});
 
       // Carry forward stuff we already have

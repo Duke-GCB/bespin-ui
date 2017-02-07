@@ -57,11 +57,16 @@ export default Ember.Controller.extend({
     }
   }),
 
-  questionnaireUtil: Ember.computed('store', 'questionnaire', function() {
+  questionnaireUtil: Ember.computed('questionnaire', function() {
     const questionnaire = this.get('questionnaire');
     const questionnaireService = this.get('questionnaireService');
     if(questionnaire) {
-      return questionnaireService.factory(questionnaire);
+      // By making this a computed property, we effectively make it lazily loaded based on the questionnaire
+      let util = questionnaireService.factory(questionnaire);
+      // The load() function returns a promise (for easier testing), but we don't observe it here directly
+      util.load();
+      // Instead we return the built util, and let its promises resolve in the background
+      return util;
     } else {
       return null;
     }

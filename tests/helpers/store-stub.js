@@ -28,6 +28,7 @@ export default Ember.Service.extend({
 
   createFunction(modelName, params) {
     let object = Ember.Object.create(params);
+    object.set('__model_kind', modelName);
     return object;
   },
 
