@@ -15,6 +15,7 @@ test('it works', function(assert) {
   assert.ok('true');
   let store = StoreStub.create();
   let questionnaire = Ember.Object.create();
-  let qutil = QuestionnaireUtil.create({store: store, questionnaire: questionnaire});
+  let questionnaireService = this.subject();
+  let qutil = questionnaireService.factory(questionnaire);
   assert.ok(qutil);
 });
