@@ -5,6 +5,6 @@ module('Unit | Utility | questionnaire-util');
 
 // Replace this with your real tests.
 test('it works', function(assert) {
-  let result = quesionnaireUtil();
+  let result = questionnaireUtil();
   assert.ok(result);
 });
