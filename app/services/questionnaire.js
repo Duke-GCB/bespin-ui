@@ -30,7 +30,7 @@ const AnswerValuePair = Ember.Object.extend({
   }
 });
 
-export default Ember.Object.extend({
+const QuestionnaireUtil = Ember.Object.extend({
   questionProxies: [],
 
   init() {
@@ -123,8 +123,8 @@ export default Ember.Object.extend({
     });
   },
   /*
-    Saving ultimately saves the job-answer-set
-    But, since the job-answer-set contains job-answers, we must save them (and their values) first
+   Saving ultimately saves the job-answer-set
+   But, since the job-answer-set contains job-answers, we must save them (and their values) first
    */
   save() {
     let questionProxies = this.get('questionProxies');
@@ -139,3 +139,13 @@ export default Ember.Object.extend({
     });
   },
 });
+
+export default Ember.Service.extend({
+  store: Ember.inject.service(),
+  factory(questionnaire) {
+    return QuestionnaireUtil.create({store: this.get('store'),
+      questionnaire: questionnaire});
+  }
+});
+
+

@@ -1,7 +1,8 @@
 import Ember from 'ember';
-import QuestionnaireUtil from '../../utils/questionnaire-util';
+
 
 export default Ember.Controller.extend({
+  questionnaireService: Ember.inject.service('questionnaire'),
   queryParams: ['workflow_version_id', 'questionnaire_id'],
   workflow_version_id: null,
   questionnaire_id: null,
@@ -58,9 +59,9 @@ export default Ember.Controller.extend({
 
   questionnaireUtil: Ember.computed('store', 'questionnaire', function() {
     const questionnaire = this.get('questionnaire');
-    const store = this.get('store');
+    const questionnaireService = this.get('questionnaireService');
     if(questionnaire) {
-      return QuestionnaireUtil.create({store: store, questionnaire: questionnaire});
+      return questionnaireService.factory(questionnaire);
     } else {
       return null;
     }

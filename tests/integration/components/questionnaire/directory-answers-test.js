@@ -4,7 +4,7 @@ import StoreStub from '../../../helpers/store-stub';
 
 moduleForComponent('questionnaire/directory-answers', 'Integration | Component | questionnaire/directory answers', {
   integration: true,
-  beforeEach: function() {
+  beforeEach() {
     this.register('service:store', StoreStub);
     this.inject.service('store', {as: 'store'});
   }
