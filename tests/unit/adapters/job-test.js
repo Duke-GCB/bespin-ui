@@ -1,12 +1,37 @@
 import { moduleFor, test } from 'ember-qunit';
 
 moduleFor('adapter:job', 'Unit | Adapter | job', {
-  // Specify the other units that are required for this test.
-  // needs: ['serializer:foo']
+  needs: ['service:session'],
 });
 
-// Replace this with your real tests.
 test('it exists', function(assert) {
   let adapter = this.subject();
   assert.ok(adapter);
+});
+
+test('it POSTS the start action', function(assert) {
+  let adapter = this.subject();
+  adapter.set('ajax', (url, method) => {
+    assert.equal(url, '/jobs/3/start/');
+    assert.equal(method, 'POST');
+  });
+  adapter.start(3);
+});
+
+test('it POSTS the restart action', function(assert) {
+  let adapter = this.subject();
+  adapter.set('ajax', (url, method) => {
+    assert.equal(url, '/jobs/35/restart/');
+    assert.equal(method, 'POST');
+  });
+  adapter.restart(35);
+});
+
+test('it POSTS the cancel action', function(assert) {
+  let adapter = this.subject();
+  adapter.set('ajax', (url, method) => {
+    assert.equal(url, '/jobs/7/cancel/');
+    assert.equal(method, 'POST');
+  });
+  adapter.cancel(7);
 });
