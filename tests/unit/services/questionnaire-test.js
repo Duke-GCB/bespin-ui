@@ -18,29 +18,29 @@ const testQuestionnaire = Ember.Object.create({
 });
 
 // Replace this with your real tests.
-test('it instantiates a questionnaire util', function(assert) {
+test('it instantiates a questionnaire service', function(assert) {
   let questionnaireService = this.subject();
-  let qutil = questionnaireService.factory(testQuestionnaire);
-  assert.ok(qutil);
+  let qproxy = questionnaireService.makeProxy(testQuestionnaire);
+  assert.ok(qproxy);
 });
 
 test('it creates a jobAnswerSet with the provided questionnaire', function(assert) {
   let questionnaireService = this.subject();
-  let qutil = questionnaireService.factory(testQuestionnaire);
+  let qproxy = questionnaireService.makeProxy(testQuestionnaire);
   let done = assert.async();
-  qutil.load().then(function() {
-    assert.equal(qutil.get('jobAnswerSet.questionnaire.id'), 'qr1');
+  qproxy.load().then(function() {
+    assert.equal(qproxy.get('jobAnswerSet.questionnaire.id'), 'qr1');
     done();
   });
 });
 
 test('it builds question proxies for each question', function(assert) {
   let questionnaireService = this.subject();
-  let qutil = questionnaireService.factory(testQuestionnaire);
+  let qproxy = questionnaireService.makeProxy(testQuestionnaire);
   let done = assert.async();
-  qutil.load().then(function() {
-    assert.equal(qutil.get('questionProxies.length'), 2);
-    let proxies = qutil.get('questionProxies');
+  qproxy.load().then(function() {
+    assert.equal(qproxy.get('questionProxies.length'), 2);
+    let proxies = qproxy.get('questionProxies');
     assert.equal(proxies[0].get('question'), testQuestionnaire.get('questions')[0]);
     assert.equal(proxies[1].get('question'), testQuestionnaire.get('questions')[1]);
     done();
@@ -49,9 +49,9 @@ test('it builds question proxies for each question', function(assert) {
 
 test('it builds a question proxy with filled-in answer-value pairs for system questions', function(assert) {
   let questionnaireService = this.subject();
-  let qutil = questionnaireService.factory(testQuestionnaire);
+  let qproxy = questionnaireService.makeProxy(testQuestionnaire);
   // Here we need to override the store query to return nothing for system answers and something for user questions
-  qutil.set('store.queryFunction', function(modelName, params) {
+  qproxy.set('store.queryFunction', function(modelName, params) {
     // System answers are tied to a questionnaire, user answers are not
     if(modelName === 'job-answer') {
       let result = Ember.Object.create({
@@ -75,8 +75,8 @@ test('it builds a question proxy with filled-in answer-value pairs for system qu
   });
 
   let done = assert.async();
-  qutil.load().then(function() {
-    let proxy = qutil.get('questionProxies')[0];
+  qproxy.load().then(function() {
+    let proxy = qproxy.get('questionProxies')[0];
 
     assert.equal(proxy.get('systemAnswerValuePairs.length'), 1, 'should have one system answer value pair');
     assert.equal(proxy.get('userAnswerValuePairs.length'), 0, 'should have zero user answer value pairs');
@@ -92,15 +92,15 @@ test('it builds a question proxy with filled-in answer-value pairs for system qu
 
 test('it builds a question proxy with empty user answer-value pairs for non-system questions', function(assert) {
   let questionnaireService = this.subject();
-  let qutil = questionnaireService.factory(testQuestionnaire);
+  let qproxy = questionnaireService.makeProxy(testQuestionnaire);
   // Here we need to override the store query to return nothing for system answers and something for user questions
-  qutil.set('store.queryFunction', function() {
+  qproxy.set('store.queryFunction', function() {
     return []; // Force user answers by never returning anything to system-answer queries
   });
 
   let done = assert.async();
-  qutil.load().then(function() {
-    let proxy = qutil.get('questionProxies')[1];
+  qproxy.load().then(function() {
+    let proxy = qproxy.get('questionProxies')[1];
 
     assert.equal(proxy.get('systemAnswerValuePairs.length'), 0, 'should have zero system answer value pair');
     assert.equal(proxy.get('userAnswerValuePairs.length'), 3, 'should have 3 user answer value pairs');

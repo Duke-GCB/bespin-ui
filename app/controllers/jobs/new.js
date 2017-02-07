@@ -19,8 +19,8 @@ export default Ember.Controller.extend({
       }
     },
     save() {
-      const questionnaireUtil = this.get('questionnaireUtil');
-      questionnaireUtil.save().then(() => {
+      const questionnaireProxy = this.get('questionnaireProxy');
+      questionnaireProxy.save().then(() => {
         this.set('errors', null);
         this.transitionToRoute('jobs');
       }).catch((reason) => {
@@ -57,16 +57,16 @@ export default Ember.Controller.extend({
     }
   }),
 
-  questionnaireUtil: Ember.computed('questionnaire', function() {
+  questionnaireProxy: Ember.computed('questionnaire', function() {
     const questionnaire = this.get('questionnaire');
     const questionnaireService = this.get('questionnaireService');
     if(questionnaire) {
       // By making this a computed property, we effectively make it lazily loaded based on the questionnaire
-      let util = questionnaireService.factory(questionnaire);
+      let proxy = questionnaireService.makeProxy(questionnaire);
       // The load() function returns a promise (for easier testing), but we don't observe it here directly
-      util.load();
-      // Instead we return the built util, and let its promises resolve in the background
-      return util;
+      proxy.load();
+      // Instead we return the built proxy, and let its promises resolve in the background
+      return proxy;
     } else {
       return null;
     }

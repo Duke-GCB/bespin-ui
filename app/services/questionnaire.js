@@ -137,7 +137,7 @@ const QuestionnaireUtil = Ember.Object.extend({
 
 export default Ember.Service.extend({
   store: Ember.inject.service(),
-  factory(questionnaire) {
+  makeProxy(questionnaire) {
     return QuestionnaireUtil.create({store: this.get('store'),
       questionnaire: questionnaire});
   }

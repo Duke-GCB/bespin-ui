@@ -1,6 +1,4 @@
-<ul class="list-unstyled">
-  {{#each questionnaireUtil.questionProxies as |questionProxy|}}
-    <li>{{questionnaire.question-row questionProxy}}</li>
-  {{/each}}
-</ul>
+{{#each questionProxies as |questionProxy|}}
+  {{questionnaire.question-row questionProxy}}
+{{/each}}
 {{yield}}
