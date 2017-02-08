@@ -7,6 +7,9 @@ export default DS.Model.extend({
   createJob() {
     let modelName = this.constructor.modelName;
     let adapter = this.store.adapterFor(modelName);
-    return adapter.createJob(this.get('id'));
+    let job = adapter.createJob(this.get('id')).then((data) =>{
+      this.store.pushPayload('job', data);
+    });
+    return job;
   }
 });
