@@ -27,7 +27,7 @@ test('it has no inverse relationship to job-answers', function(assert) {
 });
 
 test('it sends create-job action to the adapter', function(assert) {
-  assert.expect(4);
+  assert.expect(6);
   let done = assert.async();
   this.store().set('adapterFor', (modelName) => {
     return Ember.Object.create({
@@ -35,17 +35,23 @@ test('it sends create-job action to the adapter', function(assert) {
         assert.equal(modelName, 'job-answer-set');
         assert.equal(id, 'answerSetId', 'should call adapter.createJob() with id');
         return new Ember.RSVP.Promise((resolve) => {
-          resolve({id: 'newJobId'});
+          resolve({jobs: {id: 'newJobId'}});
         });
       }
     });
   });
   this.store().set('pushPayload', (modelName, data) => {
-    assert.equal(data.id, 'newJobId', 'it calls push payload with the result of the createJob promise');
+    assert.equal(data.jobs.id, 'newJobId', 'it calls push payload with the result of the createJob promise');
     assert.equal(modelName, 'job', 'it calls pushPayload with job as the model name');
-    done();
+  });
+  this.store().set('peekRecord', (modelName, id) => {
+    assert.equal(modelName, 'job', 'After pushing payload, peeks at store for a job');
+    assert.equal(id, 'newJobId', 'After pushing payload, peeks at store for job with id newJobId');
+    return {id: id, type: modelName};
   });
   let model = this.subject();
   model.set('id', 'answerSetId');
-  model.createJob();
+  model.createJob().then(() => {
+    done();
+  });
 });

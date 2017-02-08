@@ -30,9 +30,9 @@ export default Ember.Controller.extend({
     },
     save() {
       const questionnaireProxy = this.get('questionnaireProxy');
-      questionnaireProxy.save().then(() => {
+      questionnaireProxy.save().then((job) => {
         this.set('errors', null);
-        this.transitionToRoute('jobs');
+        this.transitionToRoute('jobs.show', job);
       }).catch((reason) => {
         this.set('errors', reason);
       });
