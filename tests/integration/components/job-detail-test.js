@@ -11,7 +11,7 @@ moduleForComponent('job-detail', 'Integration | Component | job detail', {
       created: '2016-12-31',
       lastUpdated: '2017-01-31',
       state: 'N',
-      step: 'X',
+      step: 'R',
       vmFlavor: 'm1.xlarge',
       vmInstanceName: 'job-1234',
       jobOrder: '{"foo":["bar"]}'
@@ -35,8 +35,8 @@ test('it renders job details', function(assert) {
   assertText('job-name', 'name');
   assertText('job-created', 'created');
   assertText('job-last-updated', 'lastUpdated');
-  assertText('job-state', 'state');
-  assertText('job-step', 'step');
+  assert.equal(this.$('.job-state').text(), 'New');
+  assert.equal(this.$('.job-step').text(), 'Running Workflow');
   assertText('job-vm-flavor', 'vmFlavor');
   assertText('job-vm-instance-name', 'vmInstanceName');
 });

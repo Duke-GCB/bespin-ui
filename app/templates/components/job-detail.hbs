@@ -14,7 +14,7 @@
           <dt>Last Updated</dt>
           <dd class="job-last-updated">{{job.lastUpdated}}</dd>
           <dt>State</dt>
-          <dd class="job-state">{{job.state}}</dd>
+          <dd class="job-state">{{decode-job-state job.state}}</dd>
           {{#if jobErrors}}
             <dt>Errors</dt>
             {{#each jobErrors as |jobError|}}
@@ -22,7 +22,7 @@
             {{/each}}
           {{/if}}
           <dt>Step</dt>
-          <dd class="job-step">{{job.step}}</dd>
+          <dd class="job-step">{{decode-job-step job.step}}</dd>
           <dt>VM Flavor</dt>
           <dd class="job-vm-flavor">{{job.vmFlavor}}</dd>
           <dt>VM Instance Name</dt>
