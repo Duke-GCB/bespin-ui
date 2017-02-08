@@ -1,5 +1,5 @@
 <td class="job-detail-cell-selected">{{job.selected}}</td>
-<td class="job-detail-cell-id">{{job.id}}</td>
+<td class="job-detail-cell-id">{{#link-to "jobs.show" job class="job-show-link"}}{{job.id}}{{/link-to}}</td>
 <td class="job-detail-cell-name">{{job.name}}</td>
 <td class="job-detail-cell-workflow-name">{{job.workflowVersion.workflow.name}}</td>
 <td class="job-detail-cell-status">{{job.state}}</td>

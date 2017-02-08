@@ -13,5 +13,7 @@ test('it renders', function(assert) {
   assert.equal(this.$('.job-detail-cell-id').text().trim(), '1');
   assert.equal(this.$('.job-detail-cell-name').text().trim(), 'job');
   assert.equal(this.$('.job-detail-cell-workflow-name').text().trim(), 'RNA-seq');
+  // Without routing, the link-to doesn't generate a href
+  assert.equal(this.$('a.job-show-link').length, 1, 'Should generate a link for the job details');
 
 });
