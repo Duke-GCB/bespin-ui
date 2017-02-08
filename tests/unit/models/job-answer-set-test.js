@@ -25,3 +25,18 @@ test('it has no inverse relationship to job-answers', function(assert) {
   const relationship = Ember.get(JobAnswerSet, 'relationshipsByName').get('answers');
   assert.equal(relationship.inverse, null, 'No inverse relationship');
 });
+
+test('it sends create-job action to the adapter', function(assert) {
+  assert.expect(2);
+  this.store().set('adapterFor', (modelName) => {
+    return {
+      createJob(id) {
+        assert.equal(modelName, 'job-answer-set');
+        assert.equal(id, 'answerSetId', 'should call adapter.createJob() with id');
+      }
+    };
+  });
+  let model = this.subject();
+  model.set('id', 'answerSetId');
+  model.createJob();
+});

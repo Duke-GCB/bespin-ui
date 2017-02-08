@@ -1,6 +1,7 @@
 import { moduleForModel, test } from 'ember-qunit';
 import { testRelationship } from '../../helpers/test-relationships';
 import Ember from 'ember';
+
 moduleForModel('dds-resource', 'Unit | Model | dds resource', {
   needs: ['model:dds-project']
 });
