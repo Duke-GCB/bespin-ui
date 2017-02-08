@@ -27,14 +27,23 @@ test('it has no inverse relationship to job-answers', function(assert) {
 });
 
 test('it sends create-job action to the adapter', function(assert) {
-  assert.expect(2);
+  assert.expect(4);
+  let done = assert.async();
   this.store().set('adapterFor', (modelName) => {
-    return {
+    return Ember.Object.create({
       createJob(id) {
         assert.equal(modelName, 'job-answer-set');
         assert.equal(id, 'answerSetId', 'should call adapter.createJob() with id');
+        return new Ember.RSVP.Promise((resolve) => {
+          resolve({id: 'newJobId'});
+        });
       }
-    };
+    });
+  });
+  this.store().set('pushPayload', (modelName, data) => {
+    assert.equal(data.id, 'newJobId', 'it calls push payload with the result of the createJob promise');
+    assert.equal(modelName, 'job', 'it calls pushPayload with job as the model name');
+    done();
   });
   let model = this.subject();
   model.set('id', 'answerSetId');
