@@ -40,8 +40,7 @@ export default Ember.Controller.extend({
     const workflow_version_id = this.get('workflow_version_id');
     if(workflow_version_id) {
       return this.get('store').query('job-questionnaire', {
-        filter:
-          {workflow_version_id: workflow_version_id}
+        workflow_version: workflow_version_id
       });
     } else {
       return null;
