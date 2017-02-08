@@ -2,6 +2,7 @@
   <!-- workflow not selected-->
   {{#item-chooser workflows
                   (action 'workflowChanged')
+                  (action 'backToJobsList')
                   title="Please select the kind of workflow you'd like to run"
                   label="Kind"
                   itemTitleKey="name"
@@ -12,6 +13,7 @@
     <!-- no questionnaire selected yet -->
     {{item-chooser questionnaires
                    (action 'questionnaireChanged')
+                   (action 'clearWorkflowVersion')
                    title="Please select the flavor of workflow you'd like to run"
                    label="Flavor"
                    itemTitleKey="description"

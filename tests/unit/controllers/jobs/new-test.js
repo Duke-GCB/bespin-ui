@@ -102,3 +102,23 @@ test('it computes a questionnaireProxy when questionnaire_id is set', function(a
   assert.ok(proxy, 'Should return a proxy when questionnaire id is null');
   assert.equal(proxy.get('name'), 'QuestionnaireProxyStub', 'should create a QuestionnaireProxyStub');
 });
+
+test('it handles clear actions', function(assert) {
+  let controller = this.subject();
+
+  // questionnaire
+  controller.set('questionnaire_id', 64);
+  assert.ok(controller.get('questionnaire'));
+  controller.send('clearQuestionnaire');
+  assert.notOk(controller.get('questionnaire'), 'clearQuestionnaire action should clear questionnaire');
+
+  // Since questionnaire depends on workflowVersion, clearing the workflow version should clear questionnaire
+  controller.set('workflow_version_id', 256);
+  controller.set('questionnaire_id', 64);
+  assert.ok(controller.get('questionnaire'));
+  assert.ok(controller.get('workflowVersion'));
+  controller.send('clearWorkflowVersion');
+  assert.notOk(controller.get('workflowVersion'), 'clearWorkflowVersion action should clear workflowVersion');
+  assert.notOk(controller.get('questionnaire'), 'clearWorkflowVersion action should also clear questionnaire');
+
+});

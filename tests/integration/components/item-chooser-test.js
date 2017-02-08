@@ -9,18 +9,18 @@ test('it renders', function(assert) {
   this.render(hbs`{{item-chooser title='Title' label='Hi'}}`);
   assert.equal(this.$('h3').text().trim(), 'Title');
   assert.equal(this.$('.control-label').text().trim(), 'Hi:');
-  assert.equal(this.$('.back-button').text().trim(), 'Cancel');
+  assert.equal(this.$('.back-button').text().trim(), 'Back');
   assert.equal(this.$('.next-button').text().trim(), 'Next');
 });
 
 test('it handles actions', function(assert) {
   assert.expect(2);
   this.set('items', []);
-  this.set('onChoose', function() { assert.ok(true); });
-  this.set('onCancel', function() { });
-  this.render(hbs`{{item-chooser items onChoose onCancel}}`);
+  this.set('onNext', function() { assert.ok(true); });
+  this.set('onBack', function() { });
+  this.render(hbs`{{item-chooser items onNext onBack}}`);
   this.$('.next-button').click();
-  this.set('onChoose', function() { });
-  this.set('onCancel', function() { assert.ok(true); });
+  this.set('onNext', function() { });
+  this.set('onBack', function() { assert.ok(true); });
   this.$('.back-button').click();
 });

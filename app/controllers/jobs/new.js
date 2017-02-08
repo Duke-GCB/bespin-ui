@@ -18,6 +18,16 @@ export default Ember.Controller.extend({
         this.set('questionnaire_id', questionnaire.get('id'));
       }
     },
+    backToJobsList() {
+      this.transitionToRoute('jobs');
+    },
+    clearWorkflowVersion() {
+      this.set('workflow_version_id', null);
+      this.set('questionnaire_id', null);
+    },
+    clearQuestionnaire() {
+      this.set('questionnaire_id', null);
+    },
     save() {
       const questionnaireProxy = this.get('questionnaireProxy');
       questionnaireProxy.save().then(() => {

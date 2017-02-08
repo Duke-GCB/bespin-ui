@@ -5,14 +5,14 @@ const ItemChooser = Ember.Component.extend({
   itemTitleKey: '',
   selectedItem: null,
   items: [],
-  onChoose() {},
-  onCancel() {},
+  onNext() {},
+  onBack() {},
   actions: {
     next() {
-      this.get('onChoose')(this.get('selectedItem'));
+      this.get('onNext')(this.get('selectedItem'));
     },
-    cancel() {
-      this.get('onCancel')();
+    back() {
+      this.get('onBack')();
     },
     selectionChanged(item) {
       this.set('selectedItem', item);
@@ -21,7 +21,7 @@ const ItemChooser = Ember.Component.extend({
 });
 
 ItemChooser.reopenClass({
-  positionalParams: ['items', 'onChoose', 'onCancel']
+  positionalParams: ['items', 'onNext', 'onBack']
 });
 
 export default ItemChooser;
