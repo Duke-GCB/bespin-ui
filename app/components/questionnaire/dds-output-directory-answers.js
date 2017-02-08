@@ -1,21 +1,12 @@
 import Ember from 'ember';
 
 const DDSOutputDirectoryAnswers = Ember.Component.extend({
-  store: Ember.inject.service(), // Needs to load dds-projects from the store.
+  ddsProjects: Ember.inject.service(),
+  ddsUserCredentials: Ember.inject.service(),
+  projects: Ember.computed.alias('ddsProjects.projects'),
+  primaryCredential: Ember.computed.alias('ddsUserCredentials.primaryCredential'),
   answerValuePairs: [],
   project: null, // Required for a dds-project-files-picker but not bound
-  load() {
-    this.get('store').findAll('dds-project').then(projects => {
-      this.set('projects', projects);
-    });
-    this.get('store').findAll('dds-user-credential').then(credentials => {
-      this.set('ddsUserCredentials', credentials.get('firstObject'));
-    });
-  },
-  didReceiveAttrs() {
-    this._super(...arguments);
-    this.load();
-  }
 });
 
 DDSOutputDirectoryAnswers.reopenClass({

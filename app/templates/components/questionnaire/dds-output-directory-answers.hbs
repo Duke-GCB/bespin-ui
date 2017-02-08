@@ -2,7 +2,7 @@
   {{#form.group class='job-kind'}}
     <label class="control-label">{{label}}</label>
     {{#each answerValuePairs as |answerValuePair|}}
-      {{questionnaire.dds-output-directory-answer answerValuePair projects ddsUserCredentials}}
+      {{questionnaire.dds-output-directory-answer answerValuePair projects primaryCredential}}
     {{/each}}
   {{/form.group}}
 {{/bs-form}}
