@@ -9,4 +9,4 @@ ENV TZ=US/Eastern
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 ADD dist /usr/local/apache2/htdocs
-ADD rewrite.conf /usr/local/apache2/conf/extra/rewrite.conf
+ADD apache/rewrite.conf /usr/local/apache2/conf/extra/rewrite.conf
