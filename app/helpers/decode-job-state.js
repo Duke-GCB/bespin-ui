@@ -2,10 +2,13 @@ import Ember from 'ember';
 
 const JobStates = {
   N: 'New',
+  S: 'Starting',
   R: 'Running',
   F: 'Finished',
   E: 'Error',
-  C: 'Canceled'
+  c: 'Canceling',
+  C: 'Canceled',
+  r: 'Restarting',
 };
 
 export function decodeJobState(state) {
