@@ -39,3 +39,27 @@ ul.tree li:last-child:before {
 .dds-resource-node {
   cursor: pointer;
 }
+
+.dds-resource-file-details:before {
+  content: "(";
+}
+
+.dds-resource-file-details:after{
+  content: ")";
+}
+
+.dds-resource-file-details span:after {
+  content: ", ";
+}
+
+.dds-resource-file-details span:last-child:after {
+  content: "";
+}
+
+.dds-resource-file-version:before {
+  content: "v";
+}
+
+.dds-resource-file-details {
+  font-style: italic;
+}
