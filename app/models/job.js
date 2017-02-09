@@ -1,4 +1,5 @@
 import DS from 'ember-data';
+import Ember from 'ember';
 
 export default DS.Model.extend({
   workflowVersion: DS.belongsTo('workflow-version'),
@@ -14,8 +15,9 @@ export default DS.Model.extend({
   outputDir: DS.attr('string'), // Don't have an API for this yet, how do we create output dirs?
 
   updateAfterAction(data) {
-    Ember.Logger.log(Ember.inspect(data.jobs));
-    this.set('state', data.jobs.status); // Temp hack!
+    // The action methods respond with an updated job, so we must update the local store
+    // with that payload. Remember, pushPayload doesn't return.
+    this.store.pushPayload('job', data);
     return Ember.RSVP.resolve(this.store.peekRecord(this.constructor.modelName, this.get('id')));
   },
 
