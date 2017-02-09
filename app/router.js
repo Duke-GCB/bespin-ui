@@ -9,6 +9,22 @@ const Router = Ember.Router.extend({
 Router.map(function() {
   this.route('projects');
   this.route('login');
+  this.route('workflows', function() {
+    this.route('show', {
+      path: '/:workflow_id'
+    });
+  });
+  this.route('workflow-versions');
+  this.route('jobs', function() {
+    this.route('new', function() {
+      this.route('workflows');
+      this.route('select-inputs');
+      this.route('select-input-files');
+    });
+    this.route('show', {
+      path: '/:job_id'
+    });
+  });
 });
 
 export default Router;

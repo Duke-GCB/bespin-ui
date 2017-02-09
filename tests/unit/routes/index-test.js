@@ -5,10 +5,10 @@ moduleFor('route:index', 'Unit | Route | index', {
   // needs: ['controller:foo']
 });
 
-test('should transition to projects route', function(assert) {
+test('should transition to jobs route', function(assert) {
   let route = this.subject({
     replaceWith(routeName) {
-      assert.equal(routeName, 'projects','replace with route name projects');
+      assert.equal(routeName, 'jobs','replace with route name jobs');
     }
   });
   route.beforeModel();

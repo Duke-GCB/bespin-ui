@@ -1,14 +1,14 @@
-{{#bs-form}}
-  {{#bs-form-group}}
+{{#bs-form as |form|}}
+  {{#form.group as |group|}}
     <label for="identification">Username</label>
-    {{#bs-input id='identification' placeholder='Enter Username' value=identification}}{{/bs-input}}
-  {{/bs-form-group}}
-  {{#bs-form-group}}
+    {{input class='form-control' id='identification' placeholder='Enter Username' value=identification}}
+  {{/form.group}}
+  {{#form.group as |group|}}
     <label for="password">Password</label>
-    {{#bs-input id='password' placeholder='Enter Password' type='password' value=password}}{{/bs-input}}
-  {{/bs-form-group}}
+    {{input class='form-control' id='password' type='password' placeholder='Enter Password' value=password}}
+  {{/form.group}}
   {{#if errorMessage}}
     {{#bs-alert type='danger' dismissible=false}}Unable to authenticate: {{errorMessage}}{{/bs-alert}}
   {{/if}}
-  {{#bs-button type='default' action='authenticate'}}Login{{/bs-button}}
+  {{#bs-button type='default' onClick=(action 'authenticate')}}Login{{/bs-button}}
 {{/bs-form}}

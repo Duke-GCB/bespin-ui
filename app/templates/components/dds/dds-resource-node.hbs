@@ -1,0 +1,6 @@
+{{#if resource.isFolder}}
+  {{dds.dds-expand-button expanded}}
+{{else}}
+  {{dds.dds-file-checkbox resource pickedResources}}
+{{/if}}
+<span class="dds-resource-name">{{resource.name}}</span>

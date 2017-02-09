@@ -1,0 +1,10 @@
+<caption>Jobs</caption>
+<thead>
+  {{#job-header-row}}{{/job-header-row}}
+</thead>
+<tbody>
+{{#each jobs as |job|}}
+  {{#job-detail-row job}}{{/job-detail-row}}
+{{/each}}
+</tbody>
+{{yield}}
