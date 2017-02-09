@@ -14,5 +14,5 @@ test('it decodes job states', function(assert) {
   assert.equal(decodeJobState('c'), 'Canceling');
   assert.equal(decodeJobState('C'), 'Canceled');
   assert.equal(decodeJobState('r'), 'Restarting');
-  assert.equal(decodeJobState('_unknown_'), '_unknown_', 'it returns input for unknown steps');
+  assert.equal(decodeJobState('_unknown_'), '_unknown_', 'it returns input for unknown states');
 });
