@@ -39,3 +39,7 @@ ul.tree li:last-child:before {
 .dds-resource-node {
   cursor: pointer;
 }
+
+.dds-resource-file-details {
+  font-style: italic;
+}

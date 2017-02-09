@@ -4,3 +4,8 @@
   {{dds.dds-file-checkbox resource pickedResources}}
 {{/if}}
 <span class="dds-resource-name">{{resource.name}}</span>
+{{#if resource.isFile}}
+  <span class="dds-resource-file-details">
+    (<span class="dds-resource-file-size">{{number-to-human-size resource.size}}</span>, v<span class="dds-resource-file-version">{{resource.version}}</span>)
+  </span>
+{{/if}}
