@@ -9,4 +9,6 @@ ENV TZ=US/Eastern
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 ADD dist-docker /usr/local/apache2/htdocs
-ADD apache/rewrite.conf /usr/local/apache2/conf/extra/rewrite.conf
+
+# As a single-page app, ember needs to catch all URLs
+RUN echo "FallbackResource index.html" >> /usr/local/apache2/conf/httpd.conf
