@@ -10,5 +10,8 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 ADD dist-docker /usr/local/apache2/htdocs
 
-# As a single-page app, ember needs to catch all URLs
-RUN echo "FallbackResource index.html" >> /usr/local/apache2/conf/httpd.conf
+# Replace httpd.conf with our own
+ADD apache2/httpd.conf /usr/local/apache2/conf/httpd.conf
+
+# Test the httpd config
+RUN apachectl -t
