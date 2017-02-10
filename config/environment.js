@@ -45,7 +45,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    ENV.APP.API_HOST = 'http://127.0.0.1:8000';
+    ENV.APP.API_HOST = 'http://10.109.253.112:8000';
     ENV.APP.API_NAMESPACE = 'api';
   }
 
