@@ -16,6 +16,7 @@ app
 bower.json
 bower_components
 config
+dist
 ember-cli-build.js
 mirage
 node_modules
