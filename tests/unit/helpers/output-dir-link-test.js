@@ -10,7 +10,9 @@ test('it generates dataservice project url from output dir object', function(ass
   let outputDir = Ember.Object.create({
     id: 5,
     dir_name: "dir",
-    project_id: 'dc269c4e-28df-487c-9cb9-37ad95db1fdb',
+    project: {
+      id: 'dc269c4e-28df-487c-9cb9-37ad95db1fdb'
+    },
     job: 70,
     dds_user_credentials: 17
   });

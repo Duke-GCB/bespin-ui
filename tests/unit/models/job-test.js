@@ -4,7 +4,10 @@ import Ember from 'ember';
 
 moduleForModel('job', 'Unit | Model | job', {
   // Specify the other units that are required for this test.
-  needs: ['model:workflow-version']
+  needs: [
+    'model:workflow-version',
+    'model:job-output-dir'
+  ]
 });
 
 test('it exists', function(assert) {
@@ -13,7 +16,18 @@ test('it exists', function(assert) {
   assert.ok(!!model);
 });
 
+test('it computes finished', function(assert) {
+  let job = this.subject();
+  Ember.run(() => {
+    job.set('state', 'S');
+    assert.notOk(job.get('finished'));
+    job.set('state', 'F');
+    assert.ok(job.get('finished'));
+  });
+});
+
 testRelationship('job', {key: 'workflowVersion', kind: 'belongsTo', type: 'workflow-version'});
+testRelationship('job', {key: 'outputDir', kind: 'belongsTo', type: 'job-output-dir'});
 
 test('it sends actions to the adapter', function(assert) {
   assert.expect(15); // 5asserts for each action

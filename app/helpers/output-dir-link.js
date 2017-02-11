@@ -5,8 +5,8 @@ function projectLinkTag(projectId) {
 }
 
 export function outputDirLink(params) {
-  if(params && params.length > 0 && params[0].get('project_id')) {
-    return projectLinkTag(params[0].get('project_id'));
+  if(params && params.length > 0 && params[0] && params[0].get('project.id')) {
+    return projectLinkTag(params[0].get('project.id'));
   } else {
     return '';
   }
