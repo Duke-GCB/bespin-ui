@@ -15,6 +15,10 @@
           <dd class="job-last-updated">{{job.lastUpdated}}</dd>
           <dt>State</dt>
           <dd class="job-state">{{decode-job-state job.state}}</dd>
+          {{#if job.finished}}
+            <dt>Results</dt>
+            <dd class="job-results"><a class="job-results-link" href="{{output-dir-link job.outputDir}}">{{job.outputDir.project.name}}/{{job.outputDir.dirName}}</a></dd>
+          {{/if}}
           {{#if jobErrors}}
             <dt>Errors</dt>
             {{#each jobErrors as |jobError|}}

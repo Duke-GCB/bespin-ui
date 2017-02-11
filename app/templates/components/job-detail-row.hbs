@@ -5,5 +5,5 @@
 <td class="job-detail-cell-status">{{decode-job-state job.state}}</td>
 <td class="job-detail-cell-created">{{job.created}}</td>
 <td class="job-detail-cell-updated">{{job.lastUpdated}}</td>
-<td class="job-detail-cell-results">{{#if job.finished}}<a href="{{output-dir-link job.outputDir}}">Results</a>{{/if}}</td>
+<td class="job-detail-cell-results">{{#if job.finished}}<a class="job-results-link" href="{{output-dir-link job.outputDir}}">Results</a>{{/if}}</td>
 {{yield}}

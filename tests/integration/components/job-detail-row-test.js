@@ -21,7 +21,7 @@ test('it renders', function(assert) {
 test('it renders results link for finished jobs', function(assert) {
   this.set('job', {finished: true});
   this.render(hbs`{{job-detail-row job}}`);
-  assert.equal(this.$('.job-detail-cell-results a').text().trim(), 'Results', 'Should show results for finished job');
+  assert.equal(this.$('a.job-results-link').text().trim(), 'Results', 'Should show results for finished job');
 });
 
 test('it hides results link for finished jobs', function(assert) {
