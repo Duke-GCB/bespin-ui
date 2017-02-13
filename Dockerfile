@@ -9,4 +9,9 @@ ENV TZ=US/Eastern
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 ADD dist-docker /usr/local/apache2/htdocs
-ADD apache/rewrite.conf /usr/local/apache2/conf/extra/rewrite.conf
+
+# Replace httpd.conf with our own
+ADD apache2/httpd.conf /usr/local/apache2/conf/httpd.conf
+
+# Test the httpd config
+RUN apachectl -t
