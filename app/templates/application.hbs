@@ -11,7 +11,10 @@
     </div>
     {{#navbar.content}}
       {{#navbar.nav as |nav|}}
+        {{#nav.item}}{{#link-to 'jobs'}}Jobs{{/link-to}}{{/nav.item}}
         {{#nav.item}}{{#link-to 'workflows'}}Workflows{{/link-to}}{{/nav.item}}
+      {{/navbar.nav}}
+      {{#navbar.nav class="navbar-right" as |nav|}}
         {{#nav.item}}
           {{#if session.isAuthenticated}}
               <a {{action 'invalidateSession'}}>Logout</a>
