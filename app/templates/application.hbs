@@ -11,14 +11,15 @@
     </div>
     {{#navbar.content}}
       {{#navbar.nav as |nav|}}
-        {{#nav.item}}{{#link-to 'workflows'}}Workflows{{/link-to}}{{/nav.item}}
-        {{#nav.item}}
+        {{#nav.item}}{{#nav.link-to 'jobs'}}Jobs{{/nav.link-to}}{{/nav.item}}
+        {{#nav.item}}{{#nav.link-to 'workflows'}}Workflows{{/nav.link-to}}{{/nav.item}}
+      {{/navbar.nav}}
+      {{#navbar.nav class="navbar-right" as |nav|}}
           {{#if session.isAuthenticated}}
-              <a {{action 'invalidateSession'}}>Logout</a>
+            {{#nav.item}}<a {{action 'invalidateSession'}}>Logout</a>{{/nav.item}}
           {{else}}
-            {{#link-to 'login'}}Login{{/link-to}}
+            {{#nav.item}}{{#link-to 'login'}}Login{{/link-to}}{{/nav.item}}
           {{/if}}
-        {{/nav.item}}
       {{/navbar.nav}}
     {{/navbar.content}}
   {{/bs-navbar}}

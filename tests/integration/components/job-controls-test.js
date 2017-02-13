@@ -21,9 +21,9 @@ test('it enables start when New', function(assert) {
   assert.equal(this.$('button[disabled]').length, 2);
 });
 
-test('it enables restart when Finished, Canceled, or Error', function(assert) {
-  assert.expect(6);
-  let states = ['F','C','E'];
+test('it enables restart when Canceled, or Error', function(assert) {
+  assert.expect(4);
+  let states = ['C','E'];
   states.forEach(state => {
     let job = {id: 6, name: 'Job Six', state: state};
     this.set('job', job);
@@ -31,6 +31,15 @@ test('it enables restart when Finished, Canceled, or Error', function(assert) {
     assert.equal(this.$('button:not(:disabled)').text(), 'Restart');
     assert.equal(this.$('button[disabled]').length, 2);
   });
+});
+
+test('it enables nothing when Finished', function(assert) {
+  assert.expect(2);
+  let job = {id: 6, name: 'Job Six', state: 'F'};
+  this.set('job', job);
+  this.render(hbs`{{job-controls job}}`);
+  assert.equal(this.$('button:not(:disabled)').text(), '');
+  assert.equal(this.$('button[disabled]').length, 3);
 });
 
 test('it enables cancel when Running', function(assert) {
@@ -45,7 +54,7 @@ test('it displays job control results on click', function(assert) {
   let statesMessages = [
     { state: 'N', message: 'started' },
     { state: 'R', message: 'canceled' },
-    { state: 'F', message: 'restarted'}
+    { state: 'E', message: 'restarted'}
   ];
 
   let MockSucceedJob = Ember.Object.extend({

@@ -11,9 +11,14 @@ export default DS.Model.extend({
   vmFlavor: DS.attr('string'),
   vmInstanceName: DS.attr('string'),
   vmProjectName: DS.attr('string'),
-  jobOrder: DS.attr('string'), // These will be JSON - can we add a transform?
-  outputDir: DS.attr('string'), // Don't have an API for this yet, how do we create output dirs?
-
+  jobOrder: DS.attr('string'), // This is JSON, no need to test it
+  isNew: Ember.computed('state', function() {
+    return this.get('state') === 'N';
+  }),
+  isFinished: Ember.computed('state', function() {
+    return this.get('state') === 'F';
+  }),
+  outputDir: DS.belongsTo('job-output-dir'),
   updateAfterAction(data) {
     // The action methods respond with an updated job, so we must update the local store
     // with that payload. Remember, pushPayload doesn't return.

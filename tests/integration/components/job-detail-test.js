@@ -14,7 +14,11 @@ moduleForComponent('job-detail', 'Integration | Component | job detail', {
       step: 'R',
       vmFlavor: 'm1.xlarge',
       vmInstanceName: 'job-1234',
-      jobOrder: '{"foo":["bar"]}'
+      jobOrder: '{"foo":["bar"]}',
+      outputDir: Ember.Object.create({
+        project: {id: 'abv-123', name: 'project-name'},
+        dirName: 'results-dir'
+      })
     });
     this.set('job', job);
     this.set('jobErrors', []);
@@ -63,4 +67,17 @@ test('it shows errors', function (assert) {
   assert.equal(this.$('.job-error').length, 2);
   assert.equal(this.$('.job-error:eq(0)').text(), 'Error 1');
   assert.equal(this.$('.job-error:eq(1)').text(), 'Error 2');
+});
+
+test('it does not render results unless finished', function(assert) {
+  this.render(hbs`{{job-detail job}}`);
+  assert.equal(this.$('dd.job-results').length, 0);
+  assert.equal(this.$('a.job-results-link').length, 0);
+});
+
+test('it renders results when finished', function(assert) {
+  this.set('job.isFinished', true);
+  this.render(hbs`{{job-detail job}}`);
+  assert.equal(this.$('dd.job-results').length, 1);
+  assert.equal(this.$('a.job-results-link').text(), 'project-name/results-dir');
 });

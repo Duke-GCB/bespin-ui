@@ -6,7 +6,7 @@ moduleForComponent('workflow-flavor-detail-row', 'Integration | Component | work
 });
 
 test('it renders', function(assert) {
-  this.set('questionnaire', {'questions': [1,2,3]});
+  this.set('questionnaire', {description: 'Questionnaire Description'});
   this.render(hbs`{{workflow-flavor-detail-row questionnaire}}`);
-  assert.equal(this.$().text().trim(), 'Has 3 questions');
+  assert.equal(this.$().text().trim(), 'Questionnaire Description');
 });
