@@ -20,6 +20,7 @@
                    detailComponent=(component 'workflow-flavor-detail-row')}}
   {{else}}
     <!-- has a questionnaire, prompt for questions -->
+    {{questionnaire.question-list-header}}
     {{questionnaire.question-list questionnaireProxy}}
     {{#bs-button type="default" onClick=(action 'save') class="save-button"}}Save{{/bs-button}}
     {{errors}}
