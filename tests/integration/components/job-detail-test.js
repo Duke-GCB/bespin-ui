@@ -76,7 +76,7 @@ test('it does not render results unless finished', function(assert) {
 });
 
 test('it renders results when finished', function(assert) {
-  this.set('job.finished', true);
+  this.set('job.isFinished', true);
   this.render(hbs`{{job-detail job}}`);
   assert.equal(this.$('dd.job-results').length, 1);
   assert.equal(this.$('a.job-results-link').text(), 'project-name/results-dir');

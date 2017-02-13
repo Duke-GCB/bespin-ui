@@ -16,13 +16,23 @@ test('it exists', function(assert) {
   assert.ok(!!model);
 });
 
-test('it computes finished', function(assert) {
+test('it computes isFinished', function(assert) {
   let job = this.subject();
   Ember.run(() => {
     job.set('state', 'S');
-    assert.notOk(job.get('finished'));
+    assert.notOk(job.get('isFinished'));
     job.set('state', 'F');
-    assert.ok(job.get('finished'));
+    assert.ok(job.get('isFinished'));
+  });
+});
+
+test('it computes isNew', function(assert) {
+  let job = this.subject();
+  Ember.run(() => {
+    job.set('state', 'F');
+    assert.notOk(job.get('isNew'));
+    job.set('state', 'N');
+    assert.ok(job.get('isNew'));
   });
 });
 

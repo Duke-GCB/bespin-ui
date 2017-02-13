@@ -12,9 +12,11 @@ export default DS.Model.extend({
   vmInstanceName: DS.attr('string'),
   vmProjectName: DS.attr('string'),
   jobOrder: DS.attr('string'), // This is JSON, no need to test it
-  finished: Ember.computed('state', function() {
-    let state = this.get('state');
-    return state === 'F';
+  isNew: Ember.computed('state', function() {
+    return this.get('state') === 'N';
+  }),
+  isFinished: Ember.computed('state', function() {
+    return this.get('state') === 'F';
   }),
   outputDir: DS.belongsTo('job-output-dir'),
   updateAfterAction(data) {
