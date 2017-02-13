@@ -8,7 +8,6 @@ moduleForModel('job-output-dir', 'Unit | Model | job output dir', {
 
 test('it exists', function(assert) {
   let model = this.subject();
-  // let store = this.store();
   assert.ok(!!model);
 });
 
