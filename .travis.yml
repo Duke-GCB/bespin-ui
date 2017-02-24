@@ -3,7 +3,7 @@ language: node_js
 node_js:
   - "4"
 
-sudo: false
+sudo: required
 
 cache:
   directories:
@@ -22,3 +22,11 @@ install:
 
 script:
   - npm test
+
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "improve-docker-build" ]; then
+    docker login -u="$QUAY_USERNAME" -p="$QUAY_PASSWORD" quay.io;
+    ember build --environment production --output-path dist-docker/;
+    docker build -t quay.io/dukegcb/bespin-ui .;
+    docker push quay.io/dukegcb/bespin-ui;
+    fi
