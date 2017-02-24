@@ -29,5 +29,5 @@ script:
 after_success:
   - if [ "$TRAVIS_BRANCH" == "improve-docker-build" ]; then
     docker login -u="$QUAY_USERNAME" -p="$QUAY_PASSWORD" quay.io;
-    docker-build-and-push.sh;
+    ./docker-build-and-push.sh;
     fi
