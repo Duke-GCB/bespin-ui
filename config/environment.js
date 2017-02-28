@@ -45,7 +45,11 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    ENV.APP.API_HOST = 'http://10.109.253.112:8000';
+    // Rather than hard-coding the API host here, we require it to be an environment variable
+    if(!process.env['BESPIN_API_HOST']) {
+      throw '\n\nBuild Error:\n\nProduction builds require the environment variable BESPIN_API_HOST to be set.\n';
+    }
+    ENV.APP.API_HOST = process.env['BESPIN_API_HOST'];
     ENV.APP.API_NAMESPACE = 'api';
   }
 
