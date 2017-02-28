@@ -3,7 +3,10 @@ language: node_js
 node_js:
   - "4"
 
-sudo: false
+sudo: required
+
+services:
+  - docker
 
 cache:
   directories:
@@ -22,3 +25,9 @@ install:
 
 script:
   - npm test
+
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+    docker login -u="$QUAY_USERNAME" -p="$QUAY_PASSWORD" quay.io;
+    ./docker-build-and-push.sh;
+    fi
