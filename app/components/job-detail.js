@@ -3,7 +3,6 @@ import Ember from 'ember';
 const JobDetail = Ember.Component.extend({
   watcher: Ember.inject.service('bespin-job-watcher'),
   session: Ember.inject.service('session'),
-  socketRef: null,
   job: null,
   indent: 2,
   prettyJobOrder: Ember.computed('job.jobOrder', 'indent', function() {
