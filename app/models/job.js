@@ -19,6 +19,7 @@ export default DS.Model.extend({
     return this.get('state') === 'F';
   }),
   outputDir: DS.belongsTo('job-output-dir'),
+  jobErrors: DS.hasMany('job-error'),
   updateAfterAction(data) {
     // The action methods respond with an updated job, so we must update the local store
     // with that payload. Remember, pushPayload doesn't return.

@@ -6,7 +6,8 @@ moduleForModel('job', 'Unit | Model | job', {
   // Specify the other units that are required for this test.
   needs: [
     'model:workflow-version',
-    'model:job-output-dir'
+    'model:job-output-dir',
+    'model:job-error',
   ]
 });
 

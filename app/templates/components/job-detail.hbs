@@ -19,11 +19,11 @@
             <dt>Results</dt>
             <dd class="job-results"><a class="job-results-link" href="{{output-dir-link job.outputDir}}">{{job.outputDir.project.name}}/{{job.outputDir.dirName}}</a></dd>
           {{/if}}
-          {{#if jobErrors}}
-            <dt>Errors</dt>
-            {{#each jobErrors as |jobError|}}
-              <dd class="job-error"><pre>{{jobError.content}}</pre></dd>
-            {{/each}}
+          {{#if job.jobErrors}}
+              <dt>Errors</dt>
+              {{#each job.jobErrors as |jobError|}}
+                  <dd class="job-error"><pre>{{jobError.content}}</pre></dd>
+              {{/each}}
           {{/if}}
           <dt>Step</dt>
           <dd class="job-step">{{decode-job-step job.step}}</dd>

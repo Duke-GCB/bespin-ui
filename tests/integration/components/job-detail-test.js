@@ -2,6 +2,11 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import Ember from 'ember';
 
+const bespinJobWatcherStub = Ember.Service.extend({
+  startWatching() {},
+  stopWatching() {}
+});
+
 moduleForComponent('job-detail', 'Integration | Component | job detail', {
   integration: true,
   beforeEach() {
@@ -18,10 +23,15 @@ moduleForComponent('job-detail', 'Integration | Component | job detail', {
       outputDir: Ember.Object.create({
         project: {id: 'abv-123', name: 'project-name'},
         dirName: 'results-dir'
-      })
+      }),
+      jobErrors: [
+        {content:"Error 1"},
+        {content:"Error 2"},
+      ]
     });
     this.set('job', job);
     this.set('jobErrors', []);
+    this.register('service:bespin-job-watcher', bespinJobWatcherStub);
   }
 });
 
@@ -59,11 +69,7 @@ test('it pretty-prints JSON', function(assert) {
 });
 
 test('it shows errors', function (assert) {
-  this.set('jobErrors', [
-    {content: 'Error 1'},
-    {content: 'Error 2'}
-  ]);
-  this.render(hbs`{{job-detail job jobErrors}}`);
+  this.render(hbs`{{job-detail job}}`);
   assert.equal(this.$('.job-error').length, 2);
   assert.equal(this.$('.job-error:eq(0)').text(), 'Error 1');
   assert.equal(this.$('.job-error:eq(1)').text(), 'Error 2');
