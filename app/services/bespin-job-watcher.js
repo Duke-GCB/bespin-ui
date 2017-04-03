@@ -35,7 +35,7 @@ export default Ember.Service.extend({
     if (socket) {
       startWatchingJob(socket, token, jobId);
     } else {
-      var url = 'wss://' + ENV.APP.JOB_WATCHER_HOST + '/';
+      var url = ENV.APP.JOB_WATCHER_HOST;
       socket = this.get('websockets').socketFor(url);
       socket.on('open', function () {
         startWatchingJob(socket, token, jobId);
