@@ -2,6 +2,6 @@
 
 set -e
 
-export JOB_WATCHER_URL="ws://10.16.72.71"
+export JOB_WATCHER_URL="ws://bespin-ws.genome.duke.edu"
 ember build --environment production
 cd dist && tar -zcvf ../bespin-ui.tar.gz * && cd ..
