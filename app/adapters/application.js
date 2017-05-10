@@ -8,7 +8,7 @@ export default DS.RESTAdapter.extend(DataAdapterMixin, {
     This adapter is customized for bespin-api running Django REST Framework
    */
   authorizer: 'authorizer:drf-token-authorizer', // Adds token authorization to requests
-  host: ENV.APP.API_HOST,
+  host: ENV.APP.API_URL,
   namespace: ENV.APP.API_NAMESPACE,
   headers: {
     'Accept': 'application/vnd.rootobject+json',

@@ -29,7 +29,7 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
-    ENV.APP.API_HOST = 'http://127.0.0.1:8000';
+    ENV.APP.API_URL = 'http://127.0.0.1:8000';
     ENV.APP.API_NAMESPACE = 'api';
     ENV.APP.JOB_WATCHER_URL = 'ws://localhost:8080';
   }
@@ -46,10 +46,10 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    ENV.APP.API_HOST = '';
+    ENV.APP.API_URL = '';
     ENV.APP.API_NAMESPACE = 'api';
     if (!process.env['JOB_WATCHER_URL']) {
-       throw '\n\nBuild Error:\n\nProduction builds require the environment variable JOB_WATCHER_HOST to be set.\n';
+       throw '\n\nBuild Error:\n\nProduction builds require the environment variable JOB_WATCHER_URL to be set.\n';
     }
     ENV.APP.JOB_WATCHER_URL = process.env['JOB_WATCHER_URL'];
   }
