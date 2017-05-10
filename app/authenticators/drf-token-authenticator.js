@@ -20,9 +20,8 @@ export default Base.extend({
     // resolve with object containing token if successful, reject if not
     return new Ember.RSVP.Promise((resolve, reject) => {
       // Make an ajax call
-      // I guess we just use jquery?
       Ember.$.ajax({
-        url: ENV.APP.API_URL + '/api-auth-token/', // DRF endpoint, should be confirgurable
+        url: ENV.APP.API_URL + '/api-auth-token/',
         type: 'POST',
         data: JSON.stringify({
           username: username,
