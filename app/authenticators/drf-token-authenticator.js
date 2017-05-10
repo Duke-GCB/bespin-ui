@@ -22,7 +22,7 @@ export default Base.extend({
       // Make an ajax call
       // I guess we just use jquery?
       Ember.$.ajax({
-        url: ENV.APP.API_HOST + '/api-auth-token/', // DRF endpoint, should be confirgurable
+        url: ENV.APP.API_URL + '/api-auth-token/', // DRF endpoint, should be confirgurable
         type: 'POST',
         data: JSON.stringify({
           username: username,
