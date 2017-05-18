@@ -1,3 +1,8 @@
+/**
+ * Authenticator that reads token created by bespin-api.
+ * Typically an authenticator would have an authenticate method.
+ * We do not need this since bespin-api creates a cookie in the format needed by this authenticator.
+ */
 import Ember from 'ember';
 import Base from 'ember-simple-auth/authenticators/base';
 import ENV from 'bespin-ui/config/environment'; // Yes this is how to do it
@@ -13,34 +18,6 @@ export default Base.extend({
       } else {
         reject();
       }
-    });
-  },
-
-  authenticate(username, password) {
-    // resolve with object containing token if successful, reject if not
-    return new Ember.RSVP.Promise((resolve, reject) => {
-      // Make an ajax call
-      Ember.$.ajax({
-        url: ENV.APP.API_URL + '/api-auth-token/',
-        type: 'POST',
-        data: JSON.stringify({
-          username: username,
-          password: password
-        }),
-        contentType: 'application/json',
-        dataType: 'json'
-      }).then((response) => {
-        Ember.run(function() { //what is this?
-          resolve({
-            token: response.token
-          });
-        });
-      }, (xhr, status) => {
-        let response = xhr.responseText || status;
-        Ember.run(function() { // again what?
-          reject(response);
-        });
-      });
     });
   },
 
