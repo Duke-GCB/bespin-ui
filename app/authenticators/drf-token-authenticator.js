@@ -5,6 +5,7 @@
  */
 import Ember from 'ember';
 import Base from 'ember-simple-auth/authenticators/base';
+import ENV from 'bespin-ui/config/environment';
 
 export default Base.extend({
   // These are expected to return promises
@@ -17,6 +18,37 @@ export default Base.extend({
       } else {
         reject();
       }
+    });
+  },
+
+  /**
+   * Only used in development, production expects bespin-api to create the cookie for bespin-ui.
+   */
+  authenticate(username, password) {
+    // resolve with object containing token if successful, reject if not
+    return new Ember.RSVP.Promise((resolve, reject) => {
+      // Make an ajax call
+      Ember.$.ajax({
+        url: ENV.APP.API_URL + '/api-auth-token/',
+        type: 'POST',
+        data: JSON.stringify({
+          username: username,
+          password: password
+        }),
+        contentType: 'application/json',
+        dataType: 'json'
+      }).then((response) => {
+        Ember.run(function() { //what is this?
+          resolve({
+            token: response.token
+          });
+        });
+      }, (xhr, status) => {
+        let response = xhr.responseText || status;
+        Ember.run(function() { // again what?
+          reject(response);
+        });
+      });
     });
   },
 

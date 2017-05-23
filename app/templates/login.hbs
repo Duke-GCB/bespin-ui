@@ -1,5 +1,27 @@
 <div class="jumbotron text-center">
-    <h2>Bespin: Bioinformatics Workflow Service</h2>
-    <p>Automated running of bioinformatic workflows.</p>
-    <p><a class="btn btn-primary btn-lg" href="/auth/authorize/?next=/jobs" role="button">LOG IN</a></p>
+    <h2>Bespin: On-demand genomic workflows</h2>
+    <p>Bespin is a service of the <a target="_blank" href="https://genome.duke.edu/cores/computing">Computational Solutions Shared Resources</a> at the <a target="_blank" href="https://www.genome.duke.edu">Duke Center for Genomic and Computational Biology</a></p>
+
+    {{#if isDevelopmentMode}}
+      <div class="row">
+        <div class="col-md-4 col-md-offset-4 text-left">
+        {{#bs-form as |form|}}
+          {{#form.group as |group|}}
+              <label for="identification">Username</label>
+            {{input class='form-control' id='identification' placeholder='Enter Username' value=identification}}
+          {{/form.group}}
+          {{#form.group as |group|}}
+              <label for="password">Password</label>
+            {{input class='form-control' id='password' type='password' placeholder='Enter Password' value=password}}
+          {{/form.group}}
+          {{#if errorMessage}}
+            {{#bs-alert type='danger' dismissible=false}}Unable to authenticate: {{errorMessage}}{{/bs-alert}}
+          {{/if}}
+          {{#bs-button type='default' onClick=(action 'authenticate')}}Login{{/bs-button}}
+        {{/bs-form}}
+        </div>
+      </div>
+    {{else}}
+        <p><a class="btn btn-primary btn-lg" href="/auth/authorize/?next=/jobs" role="button">LOG IN</a></p>
+    {{/if}}
 </div>
