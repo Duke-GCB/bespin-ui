@@ -43,3 +43,7 @@ ul.tree li:last-child:before {
 .dds-resource-file-details {
   font-style: italic;
 }
+
+a.clickable {
+  cursor: pointer;
+}
