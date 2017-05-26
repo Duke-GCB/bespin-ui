@@ -4,7 +4,8 @@ export default DS.Model.extend({
   name: DS.attr('string'),
   description: DS.attr('string'),
   workflowVersion: DS.belongsTo('workflow-version'),
-  questions: DS.hasMany('job-question'),
-  // Answers not included because it's not in the questionnaire json
-
+  systemJobOrder: DS.attr('string'), // This is JSON
+  userFields: DS.attr('string'), // This is JSON
+  vmFlavor: DS.belongsTo('vm-flavor'),
+  vmProject: DS.belongsTo('vm-project')
 });
