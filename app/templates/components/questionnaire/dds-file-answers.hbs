@@ -1,7 +1,0 @@
-{{#bs-form as |form|}}
-  {{#form.group class='job-kind'}}
-    <label class="control-label">{{label}}</label>
-    {{dds.dds-project-files-picker projects (action 'filesChanged')}}
-  {{/form.group}}
-{{/bs-form}}
-{{yield}}

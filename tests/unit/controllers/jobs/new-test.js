@@ -1,23 +1,11 @@
 import { moduleFor, test } from 'ember-qunit';
 import Ember from 'ember';
 
-// Stub a questionnaire service
-const QuestionnaireStub = Ember.Service.extend({
-  makeProxy() {
-    return Ember.Object.create({
-      name: 'QuestionnaireProxyStub',
-      load() {}
-    });
-  }
-});
-
 moduleFor('controller:jobs/new', 'Unit | Controller | jobs/new', {
   // Specify the other units that are required for this test.
   // needs: ['controller:foo']
   beforeEach: function() {
-    this.register('service:questionnaire', QuestionnaireStub);
     this.inject.service('questionnaire', {as: 'questionnaire'});
-
     this.subject({
       store: {
         findRecord(recordModel, recordId) {
@@ -86,21 +74,6 @@ test('it filters questionnaires by workflow version', function(assert) {
   computedQuestionnaires = controller.get('questionnaires');
   assert.equal(computedQuestionnaires[0].get('params.workflow_version'), 7);
 
-});
-
-test('it computes a null questionnaireProxy when no questionnaire_id set', function(assert) {
-  let controller = this.subject();
-  controller.set('questionnaire_id', null);
-  let proxy = controller.get('questionnaireProxy');
-  assert.notOk(proxy, 'Should not return a proxy when questionnaire id is null');
-});
-
-test('it computes a questionnaireProxy when questionnaire_id is set', function(assert) {
-  let controller = this.subject();
-  controller.set('questionnaire_id', 64);
-  let proxy = controller.get('questionnaireProxy');
-  assert.ok(proxy, 'Should return a proxy when questionnaire id is null');
-  assert.equal(proxy.get('name'), 'QuestionnaireProxyStub', 'should create a QuestionnaireProxyStub');
 });
 
 test('it handles clear actions', function(assert) {

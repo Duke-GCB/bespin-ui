@@ -1,8 +1,6 @@
 import Ember from 'ember';
 
-
 export default Ember.Controller.extend({
-  questionnaireService: Ember.inject.service('questionnaire'),
   queryParams: ['workflow_version_id', 'questionnaire_id'],
   workflow_version_id: null,
   questionnaire_id: null,
@@ -29,14 +27,8 @@ export default Ember.Controller.extend({
       this.set('questionnaire_id', null);
     },
     save() {
-      const questionnaireProxy = this.get('questionnaireProxy');
-      questionnaireProxy.save().then((job) => {
-        this.set('errors', null);
-        this.transitionToRoute('jobs.show', job);
-      }).catch((reason) => {
-        this.set('errors', reason);
-      });
-    },
+      // TODO: re-implement filling out questionnaire
+    }
   },
 
   workflowVersion: Ember.computed('workflow_version_id', function() {
@@ -64,20 +56,6 @@ export default Ember.Controller.extend({
     } else {
       return null;
     }
-  }),
-
-  questionnaireProxy: Ember.computed('questionnaire', function() {
-    const questionnaire = this.get('questionnaire');
-    const questionnaireService = this.get('questionnaireService');
-    if(questionnaire) {
-      // By making this a computed property, we effectively make it lazily loaded based on the questionnaire
-      let proxy = questionnaireService.makeProxy(questionnaire);
-      // The load() function returns a promise (for easier testing), but we don't observe it here directly
-      proxy.load();
-      // Instead we return the built proxy, and let its promises resolve in the background
-      return proxy;
-    } else {
-      return null;
-    }
   })
+
 });

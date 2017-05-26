@@ -16,11 +16,7 @@ Router.map(function() {
   });
   this.route('workflow-versions');
   this.route('jobs', function() {
-    this.route('new', function() {
-      this.route('workflows');
-      this.route('select-inputs');
-      this.route('select-input-files');
-    });
+    this.route('new');
     this.route('show', {
       path: '/:job_id'
     });
