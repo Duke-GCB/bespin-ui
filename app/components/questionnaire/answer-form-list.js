@@ -16,6 +16,7 @@ const ComponentTypes = [
 
 const AnswerFormList = Ember.Component.extend({
   questionnaire: null,
+  userJobOrder: Ember.Object.create({}),
   fields: Ember.computed('questionnaire.userFieldsArray.@each', function() {
     return this.get('questionnaire.userFieldsArray').map(field => {
       let componentInfo = this.componentNameForType(field.type);
@@ -37,6 +38,14 @@ const AnswerFormList = Ember.Component.extend({
         return false
       }
     });
+  },
+  actions: {
+    provideAnswer(fieldName, value) {
+      this.get('userJobOrder').set(fieldName, value);
+    },
+    save() {
+      Ember.Logger.log(JSON.stringify(this.get('userJobOrder')));
+    }
   }
 });
 

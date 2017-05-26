@@ -1,7 +1,7 @@
 <ul>
   {{#each fields as |field|}}
-    <li>{{ field.name }}, {{ field.componentName }}</li>
-    {{component field.componentName}}
+    <li>{{component field.componentName field.name (action 'provideAnswer')}}</li>
   {{/each}}
 </ul>
+{{#bs-button onClick=(action 'save') }}debug{{/bs-button}}
 {{yield}}
