@@ -1,4 +1,5 @@
 import DS from 'ember-data';
+import Ember from 'ember';
 
 export default DS.Model.extend({
   name: DS.attr('string'),
@@ -7,5 +8,8 @@ export default DS.Model.extend({
   systemJobOrder: DS.attr('string'), // This is JSON
   userFields: DS.attr('string'), // This is JSON
   vmFlavor: DS.belongsTo('vm-flavor'),
-  vmProject: DS.belongsTo('vm-project')
+  vmProject: DS.belongsTo('vm-project'),
+  userFieldsArray: Ember.computed('userFields', function() {
+    return JSON.parse(this.get('userFields'));
+  })
 });

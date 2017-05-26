@@ -1,0 +1,7 @@
+<ul>
+  {{#each fields as |field|}}
+    <li>{{ field.name }}, {{ field.componentName }}</li>
+    {{component field.componentName}}
+  {{/each}}
+</ul>
+{{yield}}
