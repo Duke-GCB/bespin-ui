@@ -1,18 +1,16 @@
 import Ember from 'ember';
 
+/**
+ * Map of CWL specified types to the Ember UI components that can provide their data
+ * @type {[*]}
+ */
 const ComponentTypes = [
   {
-    typeName: 'string',
-    componentName: 'string',
-    description: 'A string'
-  },
-  {
-    typeName: { type: 'array', items: { type: 'array', items: 'File' } },
-    componentName: 'file-pair-list',
-    description: 'A list of file pairs'
+    typeName: { type: 'array', items: { type: 'array', items: 'File' } }, // From CWL
+    componentName: 'file-pair-list',  // Component to render
+    description: 'A list of file pairs' // Description
   }
   ];
-
 
 const AnswerFormList = Ember.Component.extend({
   questionnaire: null,
@@ -27,24 +25,28 @@ const AnswerFormList = Ember.Component.extend({
     });
   }),
   componentNameForType: function(type) {
-    Ember.Logger.log(`componentNameForType ${type}`);
     return ComponentTypes.find(each => {
-      Ember.Logger.log(`comparing ${Ember.inspect(each.typeName)} to ${Ember.inspect(type)}`);
-      if(Ember.compare(each.typeName, type) == 0) {
-        Ember.Logger.log('match');
+      if(Ember.compare(each.typeName, type) === 0) {
         return true;
       } else {
-        Ember.Logger.log('no match');
-        return false
+        return false;
       }
     });
   },
   actions: {
+    /*
+     provideAnswer is passed down to the individual component.
+     when user answers the question in the component, it is called
+    * */
     provideAnswer(fieldName, value) {
       this.get('userJobOrder').set(fieldName, value);
     },
     save() {
-      Ember.Logger.log(JSON.stringify(this.get('userJobOrder')));
+      /**
+       * Simply wired to a button that prints out the current userJobOrder object built up by provide answer
+       */
+      let userJobOrderJSON = JSON.stringify(this.get('userJobOrder'));
+      Ember.Logger.log(`User job order is ${userJobOrderJSON}`);
     }
   }
 });
