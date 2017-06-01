@@ -4,4 +4,7 @@
 {{/dds.dds-project-files-picker}}
 
 {{#bs-button onClick=(action 'provide')}}provide{{/bs-button}}
+{{#each filePairs as |filePair|}}
+  {{questionnaire/file-pair-row filePair}}
+{{/each}}
 {{yield}}
