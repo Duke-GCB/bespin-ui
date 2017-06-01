@@ -6,12 +6,17 @@ export default Ember.Service.extend({
     this.set('queryCalls', []);
     this.set('createCalls', []);
   },
-  findCalls: [],
-  queryCalls: [],
-  createCalls: [],
+  findCalls: null,
+  queryCalls: null,
+  createCalls: null,
   findCount: Ember.computed('findCalls.length', function() { return this.get('findCalls.length'); }),
   queryCount: Ember.computed('queryCalls.length', function() { return this.get('queryCalls.length'); }),
   createCount: Ember.computed('createCalls.length', function() { return this.get('createCalls.length'); }),
+
+  init() {
+    this.reset();
+    this._super(...arguments);
+  },
 
   // Functions that generate mock objects
   findAllFunction(modelName) {

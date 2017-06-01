@@ -1,8 +1,8 @@
-{{dds.dds-resource-node resource expanded pickedResources action='resourceClicked'}}
+{{dds.dds-resource-node resource expanded action='resourceClicked'}}
 {{#if expanded}}
   <ul class="dds-resource-list list-unstyled">
     {{#each children as |child|}}
-      <li class="dds-resource-list-item">{{dds.dds-resource-tree child pickedResources (action onPick)}}</li>
+      <li class="dds-resource-list-item">{{dds.dds-resource-tree child (action onPick)}}</li>
     {{/each}}
   </ul>
 {{/if}}

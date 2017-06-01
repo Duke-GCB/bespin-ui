@@ -3,12 +3,17 @@ import Ember from 'ember';
 const DDSResourceNode = Ember.Component.extend({
   resource: null,
   expanded: false,
-  pickedResources: [],
+  pickedResources: null,
   tagName: 'span',
   classNames: ['dds-resource-node'],
   click() {
     this.sendAction();
+  },
+  init() {
+    this.set('pickedResources', []);
+    this._super(...arguments);
   }
+
 });
 
 DDSResourceNode.reopenClass({
