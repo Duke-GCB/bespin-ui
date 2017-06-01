@@ -25,6 +25,14 @@ test('it overflows on a full pair', function (assert) {
   pairs.addFile('baz');
   assert.equal(pairs.get('length'), 2);
   assert.notOk(pairs.get('lastPair.isFull'));
+});
 
-
+test('it flattens all files', function(assert) {
+  let pairs = FilePairArray.create();
+  pairs.addFile('foo');
+  pairs.addFile('bar');
+  pairs.addFile('baz');
+  let allFiles = pairs.get('allFiles');
+  assert.equal(pairs.get('length'), 2);
+  assert.equal(allFiles.get('length'), 3);
 });

@@ -9,21 +9,20 @@ const FilePairList = Ember.Component.extend({
   provideAnswer: null,
   ddsProjects: Ember.inject.service(),
   projects: Ember.computed.alias('ddsProjects.projects'),
+  selectedResources: Ember.computed.alias('filePairArray.allFiles.[]'),
   filePairArray: null,
   filePairs: Ember.computed.alias('filePairArray.pairs'),
   actions: {
     addFile(file) {
-      Ember.Logger.log(`add file ${file.get('name')}`);
-      // Now add the file to the end of the list
-      // Now I have the data structures for the file pairs, need to create components on the right side that render those.
+      this.get('filePairArray').addFile(file);
     },
     provide() {
-      Ember.Logger.log('provide');
       this.get('provideAnswer')(this.get('fieldName'), this.get('pickedFiles'));
     }
   },
   init(){
     this._super(...arguments);
+    this.set('filePairArray', FilePairArray.create());
   }
 });
 

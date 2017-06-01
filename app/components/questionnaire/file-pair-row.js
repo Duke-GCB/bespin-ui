@@ -1,7 +1,12 @@
 import Ember from 'ember';
 
 const FilePairRow = Ember.Component.extend({
-  filePair: null
+  filePair: null,
+  actions: {
+    removeFile: function(index) {
+      this.get('filePair').removeAt(index);
+    }
+  }
 });
 
 FilePairRow.reopenClass({

@@ -47,3 +47,7 @@ ul.tree li:last-child:before {
 a.clickable {
   cursor: pointer;
 }
+
+span.is-selected {
+  opacity: 0.5;
+}

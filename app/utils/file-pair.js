@@ -33,8 +33,8 @@ const FilePair = Ember.Object.extend({
       return this.get('files').pushObject(file);
     }
   },
-  removeFile(file) {
-    return this.get('files').removeObject(file);
+  removeAt(index) {
+    return this.get('files').removeAt(index);
   },
   isFull: Ember.computed('files.length', function() {
     return this.get('files.length') === this.get('maxLength');

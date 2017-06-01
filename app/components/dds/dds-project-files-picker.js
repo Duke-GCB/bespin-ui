@@ -3,6 +3,7 @@ import Ember from 'ember';
 const DDSProjectFilesPicker = Ember.Component.extend({
   projects: null,
   project: null,
+  selectedResources: null,
   onFilePicked: function(/* file */) {},
   actions: {
     projectChanged(project) {
@@ -11,15 +12,11 @@ const DDSProjectFilesPicker = Ember.Component.extend({
     filePicked(file) {
       this.get('onFilePicked')(file);
     }
-  },
-  init() {
-    this.set('projects', []);
-    this._super(...arguments);
   }
 });
 
 DDSProjectFilesPicker.reopenClass({
-  positionalParams: ['projects', 'onFilePicked']
+  positionalParams: ['projects', 'selectedResources', 'onFilePicked']
 });
 
 export default DDSProjectFilesPicker;

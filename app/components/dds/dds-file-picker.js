@@ -5,6 +5,7 @@ const DDSFilePicker = Ember.Component.extend({
   store: Ember.inject.service(), // Needs access to store to query for children
   resources: null, // Can be files or folders
   filePicked: function(/* file */) {},
+  selectedResources: null,
   actions: {
     // Passed down to each node
     pickFile(file) { this.get('filePicked')(file); }
@@ -26,7 +27,7 @@ const DDSFilePicker = Ember.Component.extend({
 });
 
 DDSFilePicker.reopenClass({
-  positionalParams: ['project', 'filePicked']
+  positionalParams: ['project', 'selectedResources', 'filePicked']
 });
 
 export default DDSFilePicker;
