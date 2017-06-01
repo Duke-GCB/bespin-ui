@@ -1,3 +1,7 @@
-{{ fieldName }}
+<!-- component to pick an array of file pairs -->
+{{#dds.dds-project-files-picker projects (action 'addFile')}}
+
+{{/dds.dds-project-files-picker}}
+
 {{#bs-button onClick=(action 'provide')}}provide{{/bs-button}}
 {{yield}}
