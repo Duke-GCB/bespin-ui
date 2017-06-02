@@ -14,7 +14,7 @@ const FilePair = Ember.Object.extend({
   }),
   file2: Ember.computed('files.[]', function() {
     let files = this.get('files');
-    if (files && files.length >1) {
+    if (files && files.length > 1) {
       return files[1];
     } else {
       return null;
@@ -38,6 +38,9 @@ const FilePair = Ember.Object.extend({
   },
   isFull: Ember.computed('files.length', function() {
     return this.get('files.length') === this.get('maxLength');
+  }),
+  isEmpty: Ember.computed('files.length', function() {
+    return this.get('files.length') === 0;
   })
 });
 

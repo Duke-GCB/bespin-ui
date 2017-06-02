@@ -36,3 +36,12 @@ test('it flattens all files', function(assert) {
   assert.equal(pairs.get('length'), 2);
   assert.equal(allFiles.get('length'), 3);
 });
+
+test('it removes pairs', function(assert) {
+  let pairs = FilePairArray.create();
+  pairs.addFile('foo');
+  pairs.addFile('bar');
+  let pair = pairs.get('lastPair');
+  pairs.removePair(pair);
+  assert.equal(pairs.get('length'), 0);
+});

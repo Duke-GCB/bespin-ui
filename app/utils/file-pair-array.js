@@ -27,5 +27,8 @@ export default Ember.Object.extend({
       pairs.pushObject(pair);
     }
     return pair.addFile(file);
+  },
+  removePair(pair) {
+    return this.get('pairs').removeObject(pair);
   }
 });
