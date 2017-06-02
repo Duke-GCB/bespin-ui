@@ -8,7 +8,6 @@ export default Ember.Route.extend({
     }).then(function(resources) {
       let filePairArray = FilePairArray.create();
       resources.forEach(resource => {
-        Ember.Logger.log(`Adding ${Ember.inspect(resource)}`);
         filePairArray.addFile(resource);
       });
       return filePairArray;
