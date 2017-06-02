@@ -7,15 +7,17 @@ const FilePairRow = Ember.Component.extend({
   }),
   classNames: ['file-pair-row', 'well','well-sm'],
   filePair: null,
+  onRemove: (/*filePair*/) => {},
   actions: {
     removeFile: function(index) {
       this.get('filePair').removeAt(index);
+      this.get('onRemove')(this.get('filePair'));
     }
   }
 });
 
 FilePairRow.reopenClass({
-  positionalParams: ['filePair', 'pairIndex']
+  positionalParams: ['filePair', 'pairIndex', 'onRemove']
 });
 
 export default FilePairRow;

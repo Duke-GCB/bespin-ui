@@ -18,6 +18,11 @@ const FilePairList = Ember.Component.extend({
     },
     provide() {
       this.get('provideAnswer')(this.get('fieldName'), this.get('pickedFiles'));
+    },
+    fileRemoved(filePair) {
+      if(filePair.get('isEmpty')) {
+        this.get('filePairArray').removePair(filePair);
+      }
     }
   },
   init(){
