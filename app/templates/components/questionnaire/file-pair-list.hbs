@@ -1,10 +1,18 @@
 <!-- component to pick an array of file pairs -->
-{{#dds.dds-project-files-picker projects selectedResources (action 'addFile')}}
+<div class="row">
+  <div class="col-md-6">
+    <h5>Pick your read pairs from Duke Data Service</h5>
+    {{dds.dds-project-files-picker projects selectedResources (action 'addFile')}}
+  </div>
+  <div class="col-md-6">
+    <h5>Selected read pairs</h5>
+    {{#each filePairs as |filePair pairIndex|}}
+      {{questionnaire/file-pair-row filePair pairIndex}}
+    {{/each}}
 
-{{/dds.dds-project-files-picker}}
-
-{{#bs-button onClick=(action 'provide')}}provide{{/bs-button}}
-{{#each filePairs as |filePair|}}
-  {{questionnaire/file-pair-row filePair}}
-{{/each}}
+  </div>
+</div>
+<div class="row">
+  {{#bs-button onClick=(action 'provide')}}provide{{/bs-button}}
+</div>
 {{yield}}

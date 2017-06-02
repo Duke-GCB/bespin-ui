@@ -1,6 +1,11 @@
 import Ember from 'ember';
 
 const FilePairRow = Ember.Component.extend({
+  pairIndex: 0,
+  displayIndex: Ember.computed('pairIndex', function() {
+    return this.get('pairIndex') + 1;
+  }),
+  classNames: ['file-pair-row', 'well','well-sm'],
   filePair: null,
   actions: {
     removeFile: function(index) {
@@ -10,7 +15,7 @@ const FilePairRow = Ember.Component.extend({
 });
 
 FilePairRow.reopenClass({
-  positionalParams: ['filePair']
+  positionalParams: ['filePair', 'pairIndex']
 });
 
 export default FilePairRow;

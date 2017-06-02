@@ -22,7 +22,9 @@ const FilePairList = Ember.Component.extend({
   },
   init(){
     this._super(...arguments);
-    this.set('filePairArray', FilePairArray.create());
+    if(Ember.isEmpty(this.get('filePairArray'))) {
+      this.set('filePairArray', FilePairArray.create());
+    }
   }
 });
 

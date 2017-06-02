@@ -2,6 +2,8 @@ import Ember from 'ember';
 
 const FilePairFile = Ember.Component.extend({
   file: null,
+  tagName: 'li',
+  classNames: ['file-pair-file'],
   index: 0,
   onClick: () => {},
   actions: {

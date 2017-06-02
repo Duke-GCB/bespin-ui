@@ -1,5 +1,6 @@
+<p>Read {{ displayIndex }}</p>
 <ul>
-  <li>{{questionnaire/file-pair-file filePair.file1 0 (action 'removeFile')}}</li>
-  <li>{{questionnaire/file-pair-file filePair.file2 1 (action 'removeFile')}}</li>
+  {{questionnaire/file-pair-file filePair.file1 0 (action 'removeFile')}}
+  {{questionnaire/file-pair-file filePair.file2 1 (action 'removeFile')}}
 </ul>
 {{yield}}

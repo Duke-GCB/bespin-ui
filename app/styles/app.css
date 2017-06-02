@@ -51,3 +51,7 @@ a.clickable {
 span.is-selected {
   opacity: 0.5;
 }
+
+.file-pair-row li {
+  list-style: none;
+}
