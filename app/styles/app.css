@@ -48,8 +48,9 @@ a.clickable {
   cursor: pointer;
 }
 
-span.is-selected {
+span.is-disabled {
   opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .file-pair-row li {
