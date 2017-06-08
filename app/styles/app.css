@@ -53,6 +53,6 @@ span.is-disabled {
   cursor: not-allowed;
 }
 
-.file-pair-row li {
+.file-group-row li {
   list-style: none;
 }

@@ -6,8 +6,8 @@
   </div>
   <div class="col-md-6">
     <h5>Selected read pairs</h5>
-    {{#each filePairs as |filePair pairIndex|}}
-      {{questionnaire/file-pair-row filePair pairIndex (action 'fileRemoved')}}
+    {{#each groups as |group groupIndex|}}
+      {{questionnaire/file-group-row group groupIndex (action 'removeAt')}}
     {{/each}}
 
   </div>

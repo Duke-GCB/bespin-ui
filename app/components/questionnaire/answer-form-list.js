@@ -7,7 +7,7 @@ import Ember from 'ember';
 const ComponentTypes = [
   {
     typeName: { type: 'array', items: { type: 'array', items: 'File' } }, // From CWL
-    componentName: 'file-pair-list',  // Component to render
+    componentName: 'file-group-list',  // Component to render
     description: 'A list of file pairs' // Description
   }
   ];

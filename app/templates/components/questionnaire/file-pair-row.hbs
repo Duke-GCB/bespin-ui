@@ -1,6 +1,0 @@
-<p>Read {{ displayIndex }}</p>
-<ul>
-  {{#if filePair.file1}}{{questionnaire/file-pair-file filePair.file1 0 (action 'removeFile')}}{{/if}}
-  {{#if filePair.file2}}{{questionnaire/file-pair-file filePair.file2 1 (action 'removeFile')}}{{/if}}
-</ul>
-{{yield}}

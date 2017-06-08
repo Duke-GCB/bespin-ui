@@ -1,16 +1,12 @@
 import Ember from 'ember';
-import FilePairArray from 'bespin-ui/utils/file-pair-array';
+import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
-export default Ember.Route.extend({
+export default Ember.Route.extend(AuthenticatedRouteMixin, {
   model(params) {
     return this.get('store').query('dds-resource', {
        folder_id: params.folder_id
-    }).then(function(resources) {
-      let filePairArray = FilePairArray.create();
-      resources.forEach(resource => {
-        filePairArray.addFile(resource);
-      });
-      return filePairArray;
+    }).then(files => {
+      return files.toArray();
     });
   }
 });
