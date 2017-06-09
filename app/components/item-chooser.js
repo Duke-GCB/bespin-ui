@@ -18,11 +18,6 @@ const ItemChooser = Ember.Component.extend({
       this.set('selectedItem', item);
     }
   },
-  init() {
-    this.set('items', []);
-    this._super(...arguments);
-  }
-
 });
 
 ItemChooser.reopenClass({

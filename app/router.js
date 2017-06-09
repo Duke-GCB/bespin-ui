@@ -14,9 +14,17 @@ Router.map(function() {
       path: '/:workflow_id'
     });
   });
-  this.route('workflow-versions');
+  this.route('workflows');
   this.route('jobs', function() {
-    this.route('new');
+    this.route('new', function() {
+      this.route('select-workflow');
+      this.route('select-questionnaire', {
+        path: '/select-questionnaire/:workflow_version_id'
+      });
+      this.route('build-answer-set', {
+        path: '/build-answer-set/:questionnaire_id'
+      });
+    });
     this.route('show', {
       path: '/:job_id'
     });

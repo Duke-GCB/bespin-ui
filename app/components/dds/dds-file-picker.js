@@ -19,11 +19,7 @@ const DDSFilePicker = Ember.Component.extend({
     }).then((resources) => {
       this.set('resources', resources);
     });
-  })),
-  init() {
-    this.set('resources', []);
-    this._super(...arguments);
-  }
+  }))
 });
 
 DDSFilePicker.reopenClass({

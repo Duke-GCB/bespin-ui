@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 let ItemPickerList = Ember.Component.extend({
+  items: null,
   selectedItem: null,
   actions: {
     pick(item) {
