@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import ddsFileWrapper from 'bespin-ui/utils/dds-file-wrapper';
 
 const FileGroupList = Ember.Component.extend({
   /**
@@ -6,7 +7,8 @@ const FileGroupList = Ember.Component.extend({
    */
   groupSize: 2,
   fieldName: null,
-  provideAnswer: null,
+  provideAnswer: (/* fieldName, value */) => {},
+  provideFiles: () => {}, // returns an array of DDSJobInputFiles
   ddsProjects: Ember.inject.service(),
   projects: Ember.computed.alias('ddsProjects.projects'),
   selectedResources: Ember.computed.alias('files.[]'),
@@ -30,7 +32,12 @@ const FileGroupList = Ember.Component.extend({
       this.get('files').pushObject(file);
     },
     provide() {
-      /* TODO */
+      // Call provideAnswer with our fieldName and the assembled value
+      // Convert the pair array to a CWL job Order
+      let groups = this.get('groups').map(function (group) {
+        return group.map(ddsFileWrapper);
+      });
+      this.get('provideAnswer')(this.get('fieldName'), groups);
     },
     removeAt(groupIndex, fileIndex) {
       let index = this.get('groupSize') * groupIndex + fileIndex;
