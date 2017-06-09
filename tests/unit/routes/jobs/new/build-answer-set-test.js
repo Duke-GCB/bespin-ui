@@ -20,7 +20,7 @@ test('it sets model to a job-answer-set created with a supplied questionnaire', 
       }
     }
   });
-  
+
   Ember.run(() => {
     route.model({questionnaire_id: 7}).then(model => {
       assert.equal(model.get('kind'), 'create_job-answer-set');
