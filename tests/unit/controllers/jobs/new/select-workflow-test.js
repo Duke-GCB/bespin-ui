@@ -2,11 +2,8 @@ import { moduleFor, test } from 'ember-qunit';
 import Ember from 'ember';
 
 moduleFor('controller:jobs/new/select-workflow', 'unit | controller | jobs/new/select workflow', {
-  // specify the other units that are required for this test.
-  // needs: ['controller:foo']
 });
 
-// replace this with your real tests.
 test('it exists', function(assert) {
   let controller = this.subject();
   assert.ok(controller);
