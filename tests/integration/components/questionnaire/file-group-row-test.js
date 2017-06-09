@@ -9,16 +9,9 @@ test('it renders', function(assert) {
   // Set any properties with this.set('myProperty', 'value');
   // Handle any actions with this.on('myAction', function(val) { ... });
 
-  this.render(hbs`{{questionnaire/file-group-row}}`);
+  this.render(hbs`{{questionnaire/file-group-row 0 0}}`);
+  assert.equal(this.$().text().trim(), 'Read 1', 'It computes the display index as group + 1');
 
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#questionnaire/file-group-row}}
-      template block text
-    {{/questionnaire/file-group-row}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+  this.render(hbs`{{questionnaire/file-group-row 3 8}}`);
+  assert.equal(this.$().text().trim(), 'Read 9', 'It computes the display index as group + 1');
 });

@@ -10,13 +10,14 @@ const ComponentTypes = [
     componentName: 'file-group-list',  // Component to render
     description: 'A list of file pairs' // Description
   }
-  ];
+];
 
 const AnswerFormList = Ember.Component.extend({
   questionnaire: null,
   userJobOrder: Ember.Object.create({}),
   fields: Ember.computed('questionnaire.userFieldsArray.@each', function() {
-    return this.get('questionnaire.userFieldsArray').map(field => {
+    const userFieldsArray = this.get('questionnaire.userFieldsArray') || [];
+    return userFieldsArray.map(field => {
       let componentInfo = this.componentNameForType(field.type);
       return Ember.Object.create({
         name: field.name,
