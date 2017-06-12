@@ -6,6 +6,8 @@ export default DS.Model.extend({
   questionnaire: DS.belongsTo('job-questionnaire'),
   jobName: DS.attr('string'),
   userJobOrder: DS.attr('string'), // This is JSON.
+  stageGroup: DS.belongsTo('job-file-stage-group'),
+
   createJob() {
     let modelName = this.constructor.modelName;
     let adapter = this.store.adapterFor(modelName);

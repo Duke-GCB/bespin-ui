@@ -8,6 +8,7 @@ moduleForModel('job', 'Unit | Model | job', {
     'model:workflow-version',
     'model:job-output-dir',
     'model:job-error',
+    'model:job-file-stage-group'
   ]
 });
 
@@ -39,6 +40,7 @@ test('it computes isNew', function(assert) {
 
 testRelationship('job', {key: 'workflowVersion', kind: 'belongsTo', type: 'workflow-version'});
 testRelationship('job', {key: 'outputDir', kind: 'belongsTo', type: 'job-output-dir'});
+testRelationship('job', {key: 'stageGroup', kind: 'belongsTo', type: 'job-file-stage-group'});
 
 test('it sends actions to the adapter', function(assert) {
   assert.expect(15); // 5asserts for each action

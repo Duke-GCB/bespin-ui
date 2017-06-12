@@ -32,6 +32,7 @@ Router.map(function() {
   this.route('file-picking-test', {
     path: 'file-picking-test/:folder_id'
   });
+  this.route('dds-job-input-file');
 });
 
 export default Router;

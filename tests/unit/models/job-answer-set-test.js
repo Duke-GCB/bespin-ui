@@ -10,7 +10,7 @@ TEST
  */
 moduleForModel('job-answer-set', 'Unit | Model | job answer set', {
   // Specify the other units that are required for this test.
-  needs: ['model:job-questionnaire']
+  needs: ['model:job-questionnaire', 'model:job-file-stage-group']
 });
 
 test('it exists', function(assert) {
@@ -21,6 +21,7 @@ test('it exists', function(assert) {
 
 const testRels = [
   {key: 'questionnaire', kind: 'belongsTo', type: 'job-questionnaire'},
+  {key: 'stageGroup', kind: 'belongsTo', type: 'job-file-stage-group'}
 ];
 
 testRelationships('job-answer-set', testRels);

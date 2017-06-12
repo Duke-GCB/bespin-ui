@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import ddsFileWrapper from 'bespin-ui/utils/dds-file-wrapper';
 
 const FileGroupList = Ember.Component.extend({
   /**
@@ -35,7 +34,9 @@ const FileGroupList = Ember.Component.extend({
       // Call provideAnswer with our fieldName and the assembled value
       // Convert the pair array to a CWL job Order
       let groups = this.get('groups').map(function (group) {
-        return group.map(ddsFileWrapper);
+        return group.map(function(file, index) {
+          return file.cwlFileObject(index);
+        });
       });
       this.get('provideAnswer')(this.get('fieldName'), groups);
     },
