@@ -15,3 +15,7 @@ test('it renders', function(assert) {
   this.render(hbs`{{questionnaire/file-group-row 3 8}}`);
   assert.equal(this.$().text().trim(), 'Read 9', 'It computes the display index as group + 1');
 });
+
+test('it handles click action', function (assert) {
+  assert.ok(false, 'Not yet implemented');
+});

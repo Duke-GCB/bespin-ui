@@ -18,5 +18,24 @@ test('it renders', function(assert) {
   this.render(hbs`{{questionnaire/file-group-list}}`);
   assert.equal(this.$('.file-group-list-picker h5').text().trim(), 'Pick your read pairs from Duke Data Service');
   assert.equal(this.$('.file-group-list-selections h5').text().trim(), 'Selected read pairs');
+});
 
+test('it computes groups from file array', function (assert) {
+  assert.ok(false, 'Not yet implemented');
+});
+
+test('it computes answer with field name and files', function (assert) {
+  assert.ok(false, 'Not yet implemented');
+});
+
+test('it computes inputFiles array from groups, matching names of files', function (assert) {
+  assert.ok(false, 'Not yet implemented');
+});
+
+test('it handles removeAt action', function (assert) {
+  assert.ok(false, 'Not yet implemented');
+});
+
+test('it handles addFile action', function (assert) {
+  assert.ok(false, 'Not yet implemented');
 });

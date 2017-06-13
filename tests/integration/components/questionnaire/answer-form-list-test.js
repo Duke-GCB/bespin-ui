@@ -13,3 +13,24 @@ test('it renders', function(assert) {
 
   assert.equal(this.$().text().trim(), 'Save');
 });
+
+
+test('it computes fields property', function (assert) {
+  assert.ok(false, 'Not yet implemented');
+});
+
+test('it calculates componentNameForType', function (assert) {
+  assert.ok(false, 'Not yet implemented');
+});
+
+test('it handles provideAnswer action', function (assert) {
+  assert.ok(false, 'Not yet implemented');
+});
+
+test('it handles provideInputFiles action', function (assert) {
+  assert.ok(false, 'Not yet implemented');
+});
+
+test('it handles save action', function (assert) {
+  assert.ok(false, 'Not yet implemented');
+});

@@ -22,3 +22,7 @@ test('it renders', function(assert) {
 
   assert.equal(this.$().text().trim(), 'template block text');
 });
+
+test('it handles click action', function (assert) {
+  assert.ok(false, 'Not yet implemented');
+});
