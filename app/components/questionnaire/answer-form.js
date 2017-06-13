@@ -4,7 +4,7 @@ const AnswerForm = Ember.Component.extend({
 });
 
 AnswerForm.reopenClass({
-  positionalParams: ['questionnaire']
+  positionalParams: ['answerSet']
 });
 
 export default AnswerForm;

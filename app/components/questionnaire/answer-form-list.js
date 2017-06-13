@@ -13,7 +13,9 @@ const ComponentTypes = [
 ];
 
 const AnswerFormList = Ember.Component.extend({
-  questionnaire: null,
+  answerSet: null,
+  questionnaire: Ember.computed.alias('answerSet.questionnaire'),
+  stageGroup: Ember.computed.alias('answerSet.stageGroup'),
   userJobOrder: Ember.Object.create({}),
   fields: Ember.computed('questionnaire.userFieldsArray.@each', function() {
     const userFieldsArray = this.get('questionnaire.userFieldsArray') || [];
@@ -39,8 +41,15 @@ const AnswerFormList = Ember.Component.extend({
      provideAnswer is passed down to the individual component.
      when user answers the question in the component, it is called
     * */
-    provideAnswer(fieldName, value) {
-      this.get('userJobOrder').set(fieldName, value);
+    provideAnswer(answer) {
+      this.get('userJobOrder').setProperties(answer);
+    },
+    provideInputFiles(inputFiles) {
+      let stageGroup = this.get('stageGroup');
+      inputFiles.forEach(inputFile => {
+        inputFile.set('stageGroup', stageGroup);
+      });
+      // now the input files are linked to the stage group
     },
     save() {
       /**
@@ -48,12 +57,13 @@ const AnswerFormList = Ember.Component.extend({
        */
       let userJobOrderJSON = JSON.stringify(this.get('userJobOrder'));
       Ember.Logger.log(`User job order is ${userJobOrderJSON}`);
+      // Need to save the answer set and the input files.
     }
   }
 });
 
 AnswerFormList.reopenClass({
-  positionalParams: ['questionnaire']
+  positionalParams: ['answerSet']
 });
 
 export default AnswerFormList;
