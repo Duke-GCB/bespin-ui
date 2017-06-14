@@ -4,10 +4,10 @@ import Ember from 'ember';
  * Map of CWL specified types to the Ember UI components that can provide their data
  * @type {[*]}
  */
-const ComponentTypes = [
+const ComponentInfos = [
   {
-    typeName: { type: 'array', items: { type: 'array', items: 'File' } }, // From CWL
-    componentName: 'file-group-list',  // Component to render
+    cwlType: { type: 'array', items: { type: 'array', items: 'File' } }, // From CWL
+    name: 'file-group-list',  // Component to render
     description: 'A list of file pairs' // Description
   }
 ];
@@ -19,21 +19,32 @@ const AnswerFormList = Ember.Component.extend({
   userJobOrder: Ember.Object.create({}),
   fields: Ember.computed('questionnaire.userFieldsArray.@each', function() {
     const userFieldsArray = this.get('questionnaire.userFieldsArray') || [];
-    return userFieldsArray.map(field => {
-      let componentInfo = this.componentNameForType(field.type);
-      return Ember.Object.create({
-        name: field.name,
-        componentName: `questionnaire/${componentInfo.componentName}`
-      });
-    });
-  }),
-  componentNameForType: function(type) {
-    return ComponentTypes.find(each => {
-      if(Ember.compare(each.typeName, type) === 0) {
-        return true;
+    const fieldsToComponents = userFieldsArray.map(field => {
+      let componentInfo = this.componentInfoForCwlType(field.type);
+      if(Ember.isEmpty(componentInfo)) {
+        return null;
       } else {
-        return false;
+        return Ember.Object.create({
+          name: field.name,
+          componentName: `questionnaire/${componentInfo.name}`
+        });
       }
+    });
+    // Strip out any fields for which we don't have a component
+    return fieldsToComponents.compact();
+  }),
+  /**
+   * Look up the component name to use to render a form field for the given CWL type
+   * May return null
+   * @param type
+   * @returns {*}
+   */
+  componentInfoForCwlType: function(cwlType) {
+    return ComponentInfos.find(each => {
+      // Ember does not have a comparison function for objects, so instead we'll compare their JSON representations
+      // This should be fine for small types
+      // TODO: Keep as JSON from the beginning, since these are JSON in the model.
+      return JSON.stringify(each.cwlType) === JSON.stringify((cwlType));
     });
   },
   actions: {
