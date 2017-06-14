@@ -23,6 +23,13 @@ test('it renders', function(assert) {
   assert.equal(this.$().text().trim(), 'template block text');
 });
 
-test('it handles click action', function (assert) {
-  assert.ok(false, 'Not yet implemented');
+test('it calls supplied click action', function (assert) {
+  this.on('clickHandler', function(index) {
+    assert.equal(index, 42);
+  });
+
+  this.set('file', {});
+  this.set('index', 42);
+  this.render(hbs`{{questionnaire/file-group-file file index (action 'clickHandler')}}`);
+  this.$('.dds-remove-button').click();
 });

@@ -16,6 +16,3 @@ test('it renders', function(assert) {
   assert.equal(this.$().text().trim(), 'Read 9', 'It computes the display index as group + 1');
 });
 
-test('it handles click action', function (assert) {
-  assert.ok(false, 'Not yet implemented');
-});
