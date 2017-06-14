@@ -5,8 +5,17 @@ export default DS.Model.extend({
   // job-answer has no belongsTo relationship with job-answer-set because job-answer may be on
   questionnaire: DS.belongsTo('job-questionnaire'),
   jobName: DS.attr('string'),
-  userJobOrder: DS.attr('string'), // This is JSON.
+  userJobOrderJson: DS.attr('string'), // This is JSON.
   stageGroup: DS.belongsTo('job-file-stage-group'),
+
+  userJobOrder: Ember.computed('userJobOrderJson', {
+    get() {
+      return JSON.parse(this.get('userJobOrderJson'));
+    },
+    set(key, value) {
+      this.set('userJobOrderJson', JSON.stringify(value));
+    }
+  }),
 
   createJob() {
     let modelName = this.constructor.modelName;

@@ -16,7 +16,7 @@ const AnswerFormList = Ember.Component.extend({
   answerSet: null,
   questionnaire: Ember.computed.alias('answerSet.questionnaire'),
   stageGroup: Ember.computed.alias('answerSet.stageGroup'),
-  userJobOrder: Ember.Object.create({}),
+  userJobOrder: Ember.computed.alias('answerSet.userJobOrder'),
   fields: Ember.computed('questionnaire.userFieldsArray.@each', function() {
     const userFieldsArray = this.get('questionnaire.userFieldsArray') || [];
     const fieldsToComponents = userFieldsArray.map(field => {
@@ -33,6 +33,7 @@ const AnswerFormList = Ember.Component.extend({
     // Strip out any fields for which we don't have a component
     return fieldsToComponents.compact();
   }),
+
   /**
    * Look up the component name to use to render a form field for the given CWL type
    * May return null
@@ -43,7 +44,6 @@ const AnswerFormList = Ember.Component.extend({
     return ComponentInfos.find(each => {
       // Ember does not have a comparison function for objects, so instead we'll compare their JSON representations
       // This should be fine for small types
-      // TODO: Keep as JSON from the beginning, since these are JSON in the model.
       return JSON.stringify(each.cwlType) === JSON.stringify((cwlType));
     });
   },

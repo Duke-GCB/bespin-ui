@@ -5,11 +5,14 @@ export default DS.Model.extend({
   name: DS.attr('string'),
   description: DS.attr('string'),
   workflowVersion: DS.belongsTo('workflow-version'),
-  systemJobOrder: DS.attr('string'), // This is JSON
-  userFields: DS.attr('string'), // This is JSON
+  systemJobOrderJson: DS.attr('string'), // This is JSON
+  systemJobOrder: Ember.computed('systemJobOrderJson', function() {
+    return JSON.parse(this.get('systemJobOrderJson'));
+  }),
+  userFieldsJson: DS.attr('string'), // This is JSON
   vmFlavor: DS.belongsTo('vm-flavor'),
   vmProject: DS.belongsTo('vm-project'),
-  userFieldsArray: Ember.computed('userFields', function() {
-    return JSON.parse(this.get('userFields'));
+  userFieldsArray: Ember.computed('userFieldsJson', function() {
+    return JSON.parse(this.get('userFieldsJson'));
   })
 });
