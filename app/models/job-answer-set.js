@@ -5,12 +5,15 @@ export default DS.Model.extend({
   // job-answer has no belongsTo relationship with job-answer-set because job-answer may be on
   questionnaire: DS.belongsTo('job-questionnaire'),
   jobName: DS.attr('string'),
-  userJobOrderJson: DS.attr('string'), // This is JSON.
+  userJobOrderJson: DS.attr('string', { // This is JSON.
+    // The JSON-encoded job order may be empty, so we default to '{}'
+    defaultValue() { return '{}'; }
+  }),
   stageGroup: DS.belongsTo('job-file-stage-group'),
-
   userJobOrder: Ember.computed('userJobOrderJson', {
     get() {
-      return JSON.parse(this.get('userJobOrderJson'));
+      // Also, we promote it to an Ember.Object for methods like setProperties
+      return Ember.Object.create(JSON.parse(this.get('userJobOrderJson')));
     },
     set(key, value) {
       this.set('userJobOrderJson', JSON.stringify(value));

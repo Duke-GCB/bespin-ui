@@ -9,6 +9,5 @@ test('it renders', function(assert) {
   // Set any properties with this.set('myProperty', 'value');
   // Handle any actions with this.on('myAction', function(val) { ... });
   this.render(hbs`{{questionnaire/answer-form-list}}`);
-  assert.equal(this.$().text().trim(), 'Save');
+  assert.equal(this.$().text().trim(), '');
 });
-

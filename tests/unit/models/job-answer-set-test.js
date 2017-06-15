@@ -55,3 +55,23 @@ test('it sends create-job action to the adapter', function(assert) {
     done();
   });
 });
+
+test('it defaults userJobOrder to an empty object', function (assert) {
+  let model = this.subject();
+  assert.deepEqual(model.get('userJobOrder'), Ember.Object.create());
+});
+
+test('it parses userJobOrderJson to an Ember object', function (assert) {
+  let emberObject = Ember.Object.create({foo:'bar', numbers:[1,2,3]});
+  let model = this.subject({userJobOrderJson: JSON.stringify(emberObject)});
+  assert.deepEqual(model.get('userJobOrder'), emberObject);
+});
+
+test('it serializes userJobOrder to JSON on set', function(assert) {
+  Ember.run(() => {
+    let model = this.subject();
+    let testObject = Ember.Object.create({baz:'bat', numbers:[4,5,6]});
+    model.set('userJobOrder', testObject);
+    assert.equal(model.get('userJobOrderJson'), JSON.stringify(testObject));
+  });
+});

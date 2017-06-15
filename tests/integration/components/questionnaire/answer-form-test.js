@@ -11,5 +11,5 @@ test('it renders', function(assert) {
 
   this.render(hbs`{{questionnaire/answer-form}}`);
 
-  assert.equal(this.$().text().trim(), 'Save');
+  assert.equal(this.$().text().trim(), '');
 });

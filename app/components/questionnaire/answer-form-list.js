@@ -61,14 +61,6 @@ const AnswerFormList = Ember.Component.extend({
         inputFile.set('stageGroup', stageGroup);
       });
       // now the input files are linked to the stage group
-    },
-    save() {
-      /**
-       * Simply wired to a button that prints out the current userJobOrder object built up by provide answer
-       */
-      let userJobOrderJSON = JSON.stringify(this.get('userJobOrder'));
-      Ember.Logger.log(`User job order is ${userJobOrderJSON}`);
-      // Need to save the answer set and the input files.
     }
   }
 });

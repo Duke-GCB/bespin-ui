@@ -14,7 +14,7 @@ test('it renders', function(assert) {
   /*let component =*/ this.subject();
   // Renders the component to the page
   this.render();
-  assert.equal(this.$().text().trim(), 'Save');
+  assert.equal(this.$().text().trim(), '');
 });
 
 test('it computes fields property', function (assert) {
