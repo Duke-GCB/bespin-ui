@@ -13,7 +13,7 @@ export default Ember.Controller.extend({
         // TODO: THIS IS NOT WORKING.
         return Ember.RSVP.all(savedStageGroup.get('ddsFiles').invoke('save'));
         // TODO: save the URL files
-      }).then(savedDdsFiles => {
+      }).then((/* savedDdsFiles */)=> {
         return answerSet.save();
       }).then(savedAnswerSet => {
         return savedAnswerSet.createJob();
