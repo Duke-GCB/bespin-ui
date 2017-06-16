@@ -17,7 +17,6 @@ const DDSResourceNode = Ember.Component.extend({
       return false;
     }
     let resource = this.get('resource');
-    Ember.Logger.log(Ember.inspect(selectedResources));
     return selectedResources.includes(resource);
   }),
   click() {

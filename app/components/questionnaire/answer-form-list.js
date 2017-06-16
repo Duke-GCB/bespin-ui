@@ -16,7 +16,6 @@ const AnswerFormList = Ember.Component.extend({
   answerSet: null,
   questionnaire: Ember.computed.alias('answerSet.questionnaire'),
   stageGroup: Ember.computed.alias('answerSet.stageGroup'),
-  userJobOrder: Ember.computed.alias('answerSet.userJobOrder'),
   fields: Ember.computed('questionnaire.userFieldsArray.@each', function() {
     const userFieldsArray = this.get('questionnaire.userFieldsArray') || [];
     const fieldsToComponents = userFieldsArray.map(field => {
@@ -53,8 +52,12 @@ const AnswerFormList = Ember.Component.extend({
      when user answers the question in the component, it is called
     * */
     provideAnswer(answer) {
-      this.get('userJobOrder').setProperties(answer);
-      return Ember.RSVP.resolve(this.get('userJobOrder'));
+      const answerSet = this.get('answerSet');
+      // Promote to Ember.Object so that we can call setProperties
+      let userJobOrder = Ember.Object.create(answerSet.get('userJobOrderJson'));
+      userJobOrder.setProperties(answer);
+      answerSet.set('userJobOrderJson', userJobOrder);
+      return Ember.RSVP.resolve();
     },
     provideInputFiles(inputFiles) {
       return this.get('stageGroup')
