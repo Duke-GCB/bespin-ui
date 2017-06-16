@@ -44,11 +44,11 @@ test('it returns no component name for unknown types', function (assert) {
 });
 
 test('it handles provideAnswer action', function (assert) {
-  let answerSet = Ember.Object.create({userJobOrder: Ember.Object.create({prop1: 'val1'})});
+  let answerSet = Ember.Object.create({userJobOrderJson: Ember.Object.create({prop1: 'val1'})});
   let component = this.subject({answerSet: answerSet});
   component.send('provideAnswer', Ember.Object.create({prop2: 'val2'}));
-  assert.equal(component.get('answerSet.userJobOrder.prop1'), 'val1');
-  assert.equal(component.get('answerSet.userJobOrder.prop2'), 'val2');
+  assert.equal(component.get('answerSet.userJobOrderJson.prop1'), 'val1');
+  assert.equal(component.get('answerSet.userJobOrderJson.prop2'), 'val2');
 });
 
 test('it sets the answerSets stageGroup on inputFiles when calling provideInputFiles action', function (assert) {
