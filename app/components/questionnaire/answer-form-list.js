@@ -54,14 +54,19 @@ const AnswerFormList = Ember.Component.extend({
     * */
     provideAnswer(answer) {
       this.get('userJobOrder').setProperties(answer);
+      return Ember.RSVP.resolve(this.get('userJobOrder'));
     },
     provideInputFiles(inputFiles) {
-      let stageGroup = this.get('stageGroup');
-      inputFiles.forEach(inputFile => {
-        inputFile.set('stageGroup', stageGroup);
-        inputFile.save();
-      });
-      // now the input files are linked to the stage group
+      return this.get('stageGroup')
+        .then(stageGroup => { return stageGroup.save(); })
+        .then(stageGroup => {
+          return Ember.RSVP.all(
+            inputFiles.map(inputFile => {
+              inputFile.set('stageGroup', stageGroup);
+              return inputFile.save();
+            })
+          );
+        });
     }
   }
 });

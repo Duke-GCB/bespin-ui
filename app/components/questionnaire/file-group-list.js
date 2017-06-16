@@ -88,8 +88,17 @@ const FileGroupList = Ember.Component.extend({
       // 1. Call provideFiles with an array of DDSJobInputFiles
       // 2. Call provideAnswer a CWL object representing these files
       // The destinationPath in the DDSJobInputFile must match the path in the CWL Object
-      this.get('provideAnswer')(this.get('answer'));
-      this.get('provideInputFiles')(this.get('inputFiles'));
+      let provideAnswer = this.get('provideAnswer');
+      let answer = this.get('answer');
+      let provideInputFiles = this.get('provideInputFiles');
+      let inputFiles = this.get('inputFiles');
+
+      return Ember.RSVP.all(
+        [
+          provideAnswer(answer),
+          provideInputFiles(inputFiles)
+        ]
+      );
     },
     removeAt(groupIndex, fileIndex) {
       let index = this.get('groupSize') * groupIndex + fileIndex;
