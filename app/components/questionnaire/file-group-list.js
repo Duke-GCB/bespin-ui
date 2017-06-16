@@ -105,7 +105,7 @@ const FileGroupList = Ember.Component.extend({
 });
 
 FileGroupList.reopenClass({
-  positionalParams: ['fieldName','provideAnswer']
+  positionalParams: ['fieldName','provideAnswer','provideInputFiles']
 });
 
 export default FileGroupList;

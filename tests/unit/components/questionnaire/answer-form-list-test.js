@@ -52,11 +52,12 @@ test('it handles provideAnswer action', function (assert) {
 });
 
 test('it sets the answerSets stageGroup on inputFiles when calling provideInputFiles action', function (assert) {
-  let stageGroup = Ember.Object.create({id:'stage-group-1'});
+  assert.expect(5);
+  let stageGroup = Ember.Object.create({id:'stage-group-1', save() { assert.ok(true); }});
   let answerSet = Ember.Object.create({stageGroup: stageGroup});
   let inputFiles = [
-    Ember.Object.create({stageGroup:null, name: 'file1'}),
-    Ember.Object.create({stageGroup:null, name: 'file2'}),
+    Ember.Object.create({stageGroup:null, name: 'file1', save() { assert.ok(true); }}),
+    Ember.Object.create({stageGroup:null, name: 'file2', save() { assert.ok(true); }}),
   ];
   let component = this.subject({answerSet: answerSet});
   component.send('provideInputFiles', inputFiles);

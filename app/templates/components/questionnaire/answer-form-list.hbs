@@ -1,6 +1,6 @@
 <ul>
   {{#each fields as |field|}}
-    <li>{{component field.componentName field.name (action 'provideAnswer')}}</li>
+    <li>{{component field.componentName field.name (action 'provideAnswer') (action 'provideInputFiles')}}</li>
   {{/each}}
 </ul>
 {{yield}}

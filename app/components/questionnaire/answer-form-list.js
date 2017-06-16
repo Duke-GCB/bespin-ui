@@ -59,6 +59,7 @@ const AnswerFormList = Ember.Component.extend({
       let stageGroup = this.get('stageGroup');
       inputFiles.forEach(inputFile => {
         inputFile.set('stageGroup', stageGroup);
+        inputFile.save();
       });
       // now the input files are linked to the stage group
     }
