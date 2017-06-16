@@ -18,11 +18,11 @@ test('it renders', function(assert) {
 });
 
 test('it computes fields property', function (assert) {
-  let userFieldsArray = [
+  let userFields = [
     {type: { type: 'array', items: { type: 'array', items: 'File' } }, name: 'fieldName1' },
     {type: 'fieldType2', name: 'fieldName2' }
   ];
-  let questionnaire = Ember.Object.create({ userFieldsArray: userFieldsArray});
+  let questionnaire = Ember.Object.create({ userFieldsJson: userFields});
   let answerSet = Ember.Object.create({questionnaire: questionnaire});
   let component = this.subject({answerSet: answerSet});
   let fields = component.get('fields');

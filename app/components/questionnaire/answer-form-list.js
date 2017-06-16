@@ -16,9 +16,9 @@ const AnswerFormList = Ember.Component.extend({
   answerSet: null,
   questionnaire: Ember.computed.alias('answerSet.questionnaire'),
   stageGroup: Ember.computed.alias('answerSet.stageGroup'),
-  fields: Ember.computed('questionnaire.userFieldsArray.@each', function() {
-    const userFieldsArray = this.get('questionnaire.userFieldsArray') || [];
-    const fieldsToComponents = userFieldsArray.map(field => {
+  fields: Ember.computed('questionnaire.userFieldsJson.@each', function() {
+    const userFields = this.get('questionnaire.userFieldsJson') || [];
+    const fieldsToComponents = userFields.map(field => {
       let componentInfo = this.componentInfoForCwlType(field.type);
       if(Ember.isEmpty(componentInfo)) {
         return null;

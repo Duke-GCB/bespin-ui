@@ -5,7 +5,7 @@ export default DS.Model.extend({
   // job-answer has no belongsTo relationship with job-answer-set because job-answer may be on
   questionnaire: DS.belongsTo('job-questionnaire'),
   jobName: DS.attr('string'),
-  userJobOrderJson: DS.attr('jsonObject', { // This is JSON.
+  userJobOrderJson: DS.attr('json-object', { // This is JSON.
     // The JSON-encoded job order may be empty, so we default to '{}'
     defaultValue() { return {}; }
   }),
