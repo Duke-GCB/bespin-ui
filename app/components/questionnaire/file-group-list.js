@@ -107,6 +107,10 @@ const FileGroupList = Ember.Component.extend({
   },
   init(){
     this._super(...arguments);
+    // Force a load of the credentials service. This is a hack!
+    // And architecturally it's inconsistent, because this assumes a credential from the dds-user-credentials endpoint
+    // that may not be on the same DDS instance as the user's file browsing
+    this.get('ddsUserCredentials');
     if(Ember.isEmpty(this.get('files'))) {
       this.set('files', []);
     }
