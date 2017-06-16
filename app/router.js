@@ -29,9 +29,6 @@ Router.map(function() {
       path: '/:job_id'
     });
   });
-  this.route('file-picking-test', {
-    path: 'file-picking-test/:folder_id'
-  });
   this.route('dds-job-input-file');
 });
 
