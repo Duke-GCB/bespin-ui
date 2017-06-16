@@ -52,15 +52,39 @@ test('it handles provideAnswer action', function (assert) {
 });
 
 test('it sets the answerSets stageGroup on inputFiles when calling provideInputFiles action', function (assert) {
-  assert.expect(5);
-  let stageGroup = Ember.Object.create({id:'stage-group-1', save() { assert.ok(true); }});
-  let answerSet = Ember.Object.create({stageGroup: stageGroup});
-  let inputFiles = [
-    Ember.Object.create({stageGroup:null, name: 'file1', save() { assert.ok(true); }}),
-    Ember.Object.create({stageGroup:null, name: 'file2', save() { assert.ok(true); }}),
-  ];
+  let stageGroupSaved = assert.async();
+  let stageGroup1 = Ember.Object.create({
+    id:'stage-group-1',
+    save() {
+      assert.ok(true);
+      stageGroupSaved();
+      return this;
+    }
+  });
+
+  let file1Saved = assert.async();
+  let inputFile1 = Ember.Object.create({
+    name: 'file1',
+    stageGroup: null,
+    save() {
+      assert.equal(this.get('stageGroup.id'), 'stage-group-1');
+      file1Saved();
+      return this;
+    }
+  });
+
+  let file2Saved = assert.async();
+  let inputFile2 = Ember.Object.create({
+    name: 'file2',
+    stageGroup: null,
+    save() {
+      assert.equal(this.get('stageGroup.id'), 'stage-group-1');
+      file2Saved();
+      return this;
+    }
+  });
+
+  let answerSet = Ember.Object.create({stageGroup: Ember.RSVP.resolve(stageGroup1)});
   let component = this.subject({answerSet: answerSet});
-  component.send('provideInputFiles', inputFiles);
-  assert.equal(inputFiles[0].get('stageGroup'), stageGroup);
-  assert.equal(inputFiles[1].get('stageGroup'), stageGroup);
+  component.send('provideInputFiles', [inputFile1, inputFile2]);
 });
