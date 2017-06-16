@@ -4,6 +4,8 @@ const FileGroupList = Ember.Component.extend({
   /**
    * Encapsulates a file picker and a grouping/pairing control
    */
+  tagName: 'li',
+  classNames: ['file-group-list'],
   groupSize: 2,
   fieldName: null,
   provideAnswer: (/* cwl object */) => {}, // call with a CWL object

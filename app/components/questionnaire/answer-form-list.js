@@ -13,6 +13,8 @@ const ComponentInfos = [
 ];
 
 const AnswerFormList = Ember.Component.extend({
+  tagName: 'ul',
+  classNames: ['answer-form-list'],
   answerSet: null,
   questionnaire: Ember.computed.alias('answerSet.questionnaire'),
   stageGroup: Ember.computed.alias('answerSet.stageGroup'),
