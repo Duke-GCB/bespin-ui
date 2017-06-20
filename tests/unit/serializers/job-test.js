@@ -6,7 +6,8 @@ moduleForModel('job', 'Unit | Serializer | job', {
     'serializer:job',
     'model:workflow-version',
     'model:job-output-dir',
-    'model:job-error'
+    'model:job-error',
+    'model:job-file-stage-group'
   ]
 });
 

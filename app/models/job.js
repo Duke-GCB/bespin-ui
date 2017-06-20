@@ -12,6 +12,7 @@ export default DS.Model.extend({
   vmInstanceName: DS.attr('string'),
   vmProjectName: DS.attr('string'),
   jobOrder: DS.attr('string'), // This is JSON, no need to test it
+  stageGroup: DS.belongsTo('job-file-stage-group'),
   isNew: Ember.computed('state', function() {
     return this.get('state') === 'N';
   }),

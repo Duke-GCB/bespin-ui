@@ -3,8 +3,13 @@ import Ember from 'ember';
 
 export default DS.Model.extend({
   // job-answer has no belongsTo relationship with job-answer-set because job-answer may be on
-  answers: DS.hasMany('job-answer', { inverse: null }),
   questionnaire: DS.belongsTo('job-questionnaire'),
+  jobName: DS.attr('string'),
+  userJobOrderJson: DS.attr('json-object', { // This is JSON.
+    // The JSON-encoded job order may be empty, so we default to '{}'
+    defaultValue() { return {}; }
+  }),
+  stageGroup: DS.belongsTo('job-file-stage-group'),
   createJob() {
     let modelName = this.constructor.modelName;
     let adapter = this.store.adapterFor(modelName);

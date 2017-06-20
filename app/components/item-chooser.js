@@ -4,7 +4,7 @@ const ItemChooser = Ember.Component.extend({
   title: '',
   itemTitleKey: '',
   selectedItem: null,
-  items: [],
+  items: null,
   onNext() {},
   onBack() {},
   actions: {
@@ -17,7 +17,7 @@ const ItemChooser = Ember.Component.extend({
     selectionChanged(item) {
       this.set('selectedItem', item);
     }
-  }
+  },
 });
 
 ItemChooser.reopenClass({

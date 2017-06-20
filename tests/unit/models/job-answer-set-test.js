@@ -2,9 +2,15 @@ import { moduleForModel, test } from 'ember-qunit';
 import testRelationships from '../../helpers/test-relationships';
 import Ember from 'ember';
 
+/*
+TEST
+ jobName: DS.attr('string'),
+ userJobOrder: DS.attr('string'), // This is JSON.
+
+ */
 moduleForModel('job-answer-set', 'Unit | Model | job answer set', {
   // Specify the other units that are required for this test.
-  needs: ['model:job-answer', 'model:job-questionnaire']
+  needs: ['model:job-questionnaire', 'model:job-file-stage-group']
 });
 
 test('it exists', function(assert) {
@@ -15,16 +21,10 @@ test('it exists', function(assert) {
 
 const testRels = [
   {key: 'questionnaire', kind: 'belongsTo', type: 'job-questionnaire'},
-  {key: 'answers', kind: 'hasMany', type: 'job-answer'},
+  {key: 'stageGroup', kind: 'belongsTo', type: 'job-file-stage-group'}
 ];
 
 testRelationships('job-answer-set', testRels);
-
-test('it has no inverse relationship to job-answers', function(assert) {
-  const JobAnswerSet = this.store().modelFor('job-answer-set');
-  const relationship = Ember.get(JobAnswerSet, 'relationshipsByName').get('answers');
-  assert.equal(relationship.inverse, null, 'No inverse relationship');
-});
 
 test('it sends create-job action to the adapter', function(assert) {
   assert.expect(6);
@@ -54,4 +54,9 @@ test('it sends create-job action to the adapter', function(assert) {
   model.createJob().then(() => {
     done();
   });
+});
+
+test('it defaults userJobOrder to an empty object', function (assert) {
+  let model = this.subject();
+  assert.deepEqual(model.get('userJobOrderJson'), {});
 });

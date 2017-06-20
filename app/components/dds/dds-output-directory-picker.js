@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 const DDSOutputDirectoryPicker = Ember.Component.extend({
-  projects: [],
+  projects: null,
   project: null,
   directoryName: null,
   changed() {

@@ -1,0 +1,17 @@
+<!-- component to pick an array of file pairs -->
+<div class="row">
+  <div class="col-md-6 file-group-list-picker">
+    <h5>Pick your read pairs from Duke Data Service</h5>
+    {{dds.dds-project-files-picker projects selectedResources (action 'addFile')}}
+  </div>
+  <div class="col-md-6 file-group-list-selections">
+    <h5>Selected read pairs</h5>
+    {{#each groups as |group groupIndex|}}
+      {{questionnaire/file-group-row group groupIndex (action 'removeAt')}}
+    {{/each}}
+  </div>
+</div>
+<div class="row">
+  {{#bs-button onClick=(action 'provide')}}provide{{/bs-button}}
+</div>
+{{yield}}

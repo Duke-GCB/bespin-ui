@@ -1,22 +1,22 @@
 import Ember from 'ember';
 
 const DDSProjectFilesPicker = Ember.Component.extend({
-  projects: [],
+  projects: null,
   project: null,
-  pickedFiles: [],
-  onFilesChanged: function() {},
+  selectedResources: null,
+  onFilePicked: function(/* file */) {},
   actions: {
     projectChanged(project) {
       this.set('project', project);
     },
-    filesChanged() {
-      this.get('onFilesChanged')(this.get('pickedFiles'));
+    filePicked(file) {
+      this.get('onFilePicked')(file);
     }
   }
 });
 
 DDSProjectFilesPicker.reopenClass({
-  positionalParams: ['projects', 'onFilesChanged']
+  positionalParams: ['projects', 'selectedResources', 'onFilePicked']
 });
 
 export default DDSProjectFilesPicker;

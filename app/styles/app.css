@@ -47,3 +47,16 @@ ul.tree li:last-child:before {
 a.clickable {
   cursor: pointer;
 }
+
+span.is-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.answer-form-list li {
+  list-style: none;
+}
+
+.file-group-row li {
+  list-style: none;
+}

@@ -1,0 +1,4 @@
+{{#each fields as |field|}}
+  {{component field.componentName field.name (action 'provideAnswer') (action 'provideInputFiles')}}
+{{/each}}
+{{yield}}

@@ -1,0 +1,12 @@
+{{questionnaire/answer-form model}}
+{{#bs-button type="default" onClick=(action 'saveAndCreateJob') class="save-button"}}Save{{/bs-button}}
+
+{{! move this to another component }}
+{{#if model.errors}}
+  <ul class="job-answer-set-errors">
+    {{#each model.errors as |error|}}
+      <li>{{error}}</li>
+    {{/each}}
+  </ul>
+{{/if}}
+{{outlet}}

@@ -1,0 +1,7 @@
+<p>Read {{ displayIndex }}</p>
+<ul>
+{{#each group as |file fileIndex|}}
+  {{questionnaire/file-group-file file fileIndex (action 'click')}}
+{{/each}}
+</ul>
+{{yield}}

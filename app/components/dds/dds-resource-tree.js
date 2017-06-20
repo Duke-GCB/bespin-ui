@@ -3,9 +3,9 @@ import Ember from 'ember';
 const DDSResourceTree = Ember.Component.extend({
   tagName: 'span',
   classNames: ['dds-resource-tree'],
+  selectedResources: null,
   expanded: false,
   children: null,
-  pickedResources: [],
   onPick: () => {},
   store: Ember.inject.service('store'),
   fetchedOnce: Ember.computed('children', function () {
@@ -47,7 +47,7 @@ const DDSResourceTree = Ember.Component.extend({
 });
 
 DDSResourceTree.reopenClass({
-  positionalParams: ['resource', 'pickedResources', 'onPick']
+  positionalParams: ['resource', 'selectedResources', 'onPick']
 });
 
 export default DDSResourceTree;

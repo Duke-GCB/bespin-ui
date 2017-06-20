@@ -3,7 +3,7 @@ import testRelationships from '../../helpers/test-relationships';
 
 moduleForModel('job-questionnaire', 'Unit | Model | job questionnaire', {
   // Specify the other units that are required for this test.
-  needs: ['model:workflow-version', 'model:job-question']
+  needs: ['model:workflow-version', 'model:vm-flavor', 'model:vm-project']
 });
 
 test('it exists', function(assert) {
@@ -15,7 +15,8 @@ test('it exists', function(assert) {
 
 const testRels = [
   {key: 'workflowVersion', kind: 'belongsTo', type: 'workflow-version'},
-  {key: 'questions', kind: 'hasMany', type: 'job-question'},
+  {key: 'vmFlavor', kind: 'belongsTo', type: 'vm-flavor'},
+  {key: 'vmProject', kind: 'belongsTo', type: 'vm-project'}
 ];
 
 testRelationships('job-questionnaire', testRels);
