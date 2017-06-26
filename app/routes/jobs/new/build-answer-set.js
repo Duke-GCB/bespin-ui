@@ -10,7 +10,7 @@ export default Ember.Route.extend({
     };
     return Ember.RSVP.hash(promises).then(hash => {
       return store.createRecord('job-answer-set', {
-        jobName: 'FIXME',
+        jobName: '',
         questionnaire: hash.questionnaire,
         stageGroup: hash.stageGroup
       });
