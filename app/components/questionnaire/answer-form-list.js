@@ -16,10 +16,8 @@ const AnswerFormList = Ember.Component.extend({
   tagName: 'ul',
   classNames: ['answer-form-list'],
   answerSet: null,
-  questionnaire: Ember.computed.alias('answerSet.questionnaire'),
-  stageGroup: Ember.computed.alias('answerSet.stageGroup'),
-  fields: Ember.computed('questionnaire.userFieldsJson.@each', function() {
-    const userFields = this.get('questionnaire.userFieldsJson') || [];
+  fields: Ember.computed('answerSet.questionnaire.userFieldsJson.@each', function() {
+    const userFields = this.get('answerSet.questionnaire.userFieldsJson') || [];
     const fieldsToComponents = userFields.map(field => {
       let componentInfo = this.componentInfoForCwlType(field.type);
       if(Ember.isEmpty(componentInfo)) {
@@ -48,30 +46,17 @@ const AnswerFormList = Ember.Component.extend({
       return JSON.stringify(each.cwlType) === JSON.stringify((cwlType));
     });
   },
+
   actions: {
-    /*
-     provideAnswer is passed down to the individual component.
-     when user answers the question in the component, it is called
-    * */
-    provideAnswer(answer) {
+    answerChanged(answerComponent) {
+      // Answer components will send this action when their answer changes
+      // When that happens, update the answer and any input files
       const answerSet = this.get('answerSet');
-      // Promote to Ember.Object so that we can call setProperties
       let userJobOrder = Ember.Object.create(answerSet.get('userJobOrderJson'));
-      userJobOrder.setProperties(answer);
+      userJobOrder.setProperties(answerComponent.get('answer'));
       answerSet.set('userJobOrderJson', userJobOrder);
-      return Ember.RSVP.resolve();
-    },
-    provideInputFiles(inputFiles) {
-      return this.get('stageGroup')
-        .then(stageGroup => { return stageGroup.save(); })
-        .then(stageGroup => {
-          return Ember.RSVP.all(
-            inputFiles.map(inputFile => {
-              inputFile.set('stageGroup', stageGroup);
-              return inputFile.save();
-            })
-          );
-        });
+      // set the stage group in the files
+      answerComponent.get('inputFiles').setEach('stageGroup', answerSet.get('stageGroup'));
     }
   }
 });

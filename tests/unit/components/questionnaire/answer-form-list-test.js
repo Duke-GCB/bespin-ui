@@ -43,48 +43,20 @@ test('it returns no component name for unknown types', function (assert) {
   assert.notOk(fieldComponent);
 });
 
-test('it handles provideAnswer action', function (assert) {
+test('it handles answerChanged action', function (assert) {
   let answerSet = Ember.Object.create({userJobOrderJson: Ember.Object.create({prop1: 'val1'})});
   let component = this.subject({answerSet: answerSet});
-  component.send('provideAnswer', Ember.Object.create({prop2: 'val2'}));
+
+  let mockAnswerComponent = Ember.Object.create({
+    answer: Ember.Object.create({
+      prop2: 'val2'
+    }),
+    inputFiles: [
+      Ember.Object.create({stageGroup: null}),
+    ]
+  });
+
+  component.send('answerChanged', mockAnswerComponent);
   assert.equal(component.get('answerSet.userJobOrderJson.prop1'), 'val1');
   assert.equal(component.get('answerSet.userJobOrderJson.prop2'), 'val2');
-});
-
-test('it sets the answerSets stageGroup on inputFiles when calling provideInputFiles action', function (assert) {
-  let stageGroupSaved = assert.async();
-  let stageGroup1 = Ember.Object.create({
-    id:'stage-group-1',
-    save() {
-      assert.ok(true);
-      stageGroupSaved();
-      return this;
-    }
-  });
-
-  let file1Saved = assert.async();
-  let inputFile1 = Ember.Object.create({
-    name: 'file1',
-    stageGroup: null,
-    save() {
-      assert.equal(this.get('stageGroup.id'), 'stage-group-1');
-      file1Saved();
-      return this;
-    }
-  });
-
-  let file2Saved = assert.async();
-  let inputFile2 = Ember.Object.create({
-    name: 'file2',
-    stageGroup: null,
-    save() {
-      assert.equal(this.get('stageGroup.id'), 'stage-group-1');
-      file2Saved();
-      return this;
-    }
-  });
-
-  let answerSet = Ember.Object.create({stageGroup: Ember.RSVP.resolve(stageGroup1)});
-  let component = this.subject({answerSet: answerSet});
-  component.send('provideInputFiles', [inputFile1, inputFile2]);
 });
