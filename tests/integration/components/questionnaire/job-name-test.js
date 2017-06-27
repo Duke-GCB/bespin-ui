@@ -1,17 +1,17 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import Ember from 'ember';
 
 moduleForComponent('questionnaire/job-name', 'Integration | Component | questionnaire/job name', {
   integration: true
 });
 
-test('it renders', function(assert) {
-
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
-
-  this.render(hbs`{{questionnaire/job-name}}`);
-
-  assert.equal(this.$().text().trim(), 'Job Name:');
-
+test('it renders a job name', function(assert) {
+  let answerSet = Ember.Object.create({
+    jobName: 'test'
+  });
+  this.set('answerSet', answerSet);
+  this.render(hbs`{{questionnaire/job-name answerSet}}`);
+  assert.equal(this.$('label').text(), 'Job Name:');
+  assert.equal(this.$('#jobName').val(), 'test');
 });
