@@ -59,7 +59,7 @@ test('it handles addFile action', function (assert) {
   assert.expect(4);
   const mockDdsFile = Ember.Object.create({
     createJobInputFile(prefix, credential) {
-      assert.equal(prefix.startsWith('myField'), 0);
+      assert.equal(prefix.indexOf('myField'), 0);
       assert.equal(credential, 'myCredential');
     },
     cwlFileObject(prefix) {
