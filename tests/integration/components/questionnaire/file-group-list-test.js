@@ -16,7 +16,7 @@ moduleForComponent('questionnaire/file-group-list', 'Integration | Component | q
 
 test('it renders', function(assert) {
   this.render(hbs`{{questionnaire/file-group-list}}`);
-  assert.equal(this.$('.file-group-list-picker h5').text().trim(), 'Pick your read pairs from Duke Data Service');
-  assert.equal(this.$('.file-group-list-selections h5').text().trim(), 'Selected read pairs');
+  assert.equal(this.$('.file-group-list-picker label').text().trim(), 'Pick your read pairs from Duke Data Service');
+  assert.equal(this.$('.file-group-list-selections label').text().trim(), 'Selected read pairs');
 });
 
