@@ -2,6 +2,8 @@
 
 An [ember.js](http://emberjs.com/) application frontend for [bespin-api](https://github.com/Duke-GCB/bespin-api).
 
+[![Build Status](https://travis-ci.org/Duke-GCB/bespin-ui.svg?branch=master)](https://travis-ci.org/Duke-GCB/bespin-ui)
+
 ## Prerequisites
 
 You will need the following things properly installed on your computer.
@@ -14,7 +16,7 @@ You will need the following things properly installed on your computer.
 
 ## Installation
 
-* `git clone <repository-url>` this repository
+* `git clone git@github.com:Duke-GCB/bespin-ui.git` this repository
 * `cd bespin-ui`
 * `npm install`
 * `bower install`
@@ -24,11 +26,6 @@ You will need the following things properly installed on your computer.
 * Check the Bespin API endpoint configured in config/environment.js
 * `ember serve`
 * Visit your app at [http://localhost:4200](http://localhost:4200).
-
-
-### Code Generators
-
-Make use of the many generators for code, try `ember help generate` for more details
 
 ### Running Tests
 
@@ -42,13 +39,4 @@ Make use of the many generators for code, try `ember help generate` for more det
 
 ### Deploying
 
-Specify what it takes to deploy your app.
-
-## Further Reading / Useful Links
-
-* [ember.js](http://emberjs.com/)
-* [ember-cli](http://ember-cli.com/)
-* Development Browser Extensions
-  * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
-  * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
-
+* See [https://github.com/Duke-GCB/bespin-webapp-docker](Duke-GCB/bespin-webapp-docker).
