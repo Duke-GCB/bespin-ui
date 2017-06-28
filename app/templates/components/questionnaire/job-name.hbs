@@ -1,3 +1,9 @@
-<label for="jobName">Job Name:</label>
-{{input class='form-control' id='jobName' placeholder='Enter name for this job' value=answerSet.jobName}}
+<div class="col-md-12">
+  {{#bs-form as |form|}}
+    {{#form.group class='job-name-group'}}
+      <label for="{{concat elementId '-jobName'}}">Job Name:</label>
+      {{input class='form-control job-name-input' id=(concat elementId '-jobName') placeholder='Enter name for this job' value=answerSet.jobName}}
+    {{/form.group}}
+  {{/bs-form}}
+</div>
 {{yield}}

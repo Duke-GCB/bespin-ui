@@ -13,5 +13,5 @@ test('it renders a job name', function(assert) {
   this.set('answerSet', answerSet);
   this.render(hbs`{{questionnaire/job-name answerSet}}`);
   assert.equal(this.$('label').text(), 'Job Name:');
-  assert.equal(this.$('#jobName').val(), 'test');
+  assert.equal(this.$('.job-name-input').val(), 'test');
 });

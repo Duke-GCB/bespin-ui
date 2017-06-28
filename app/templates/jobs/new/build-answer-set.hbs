@@ -1,5 +1,7 @@
 {{questionnaire/answer-form model}}
-{{#bs-button type="default" onClick=(action 'saveAndCreateJob') class="save-button"}}Save{{/bs-button}}
+
+{{#bs-button type="default" onClick=(action 'back') class="back-button"}}Back{{/bs-button}}
+{{#bs-button type="primary" onClick=(action 'saveAndCreateJob') class="pull-right next-button"}}Save{{/bs-button}}
 
 {{! move this to another component }}
 {{#if model.errors}}

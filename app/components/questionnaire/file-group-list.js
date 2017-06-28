@@ -12,8 +12,8 @@ const FileGroupList = Ember.Component.extend({
   /**
    * Encapsulates a file picker and a grouping/pairing control
    */
-  tagName: 'li',
-  classNames: ['file-group-list'],
+  tagName: 'div',
+  classNames: ['file-group-list', 'row'],
   fileKindName: DEFAULT_FILE_KIND_NAME, // What kind of file are we picking?
   groupSize: DEFAULT_GROUP_SIZE,
   groupSizeName: Ember.computed('groupSize', function() {
