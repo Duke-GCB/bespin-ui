@@ -35,7 +35,7 @@ You will need the following things properly installed on your computer.
 ### Building
 
 * `ember build` (development)
-* `ember build --environment production` (production)
+* `JOB_WATCHER_URL="wss://bespin-ws.gcb.duke.edu" ember build --environment production` (production) (see `build-release.sh`)
 
 ### Deploying
 
