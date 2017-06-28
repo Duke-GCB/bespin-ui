@@ -1,5 +1,13 @@
 import Ember from 'ember';
 
-export default Ember.Component.extend({
-  tagName: 'h2'
+const AnswerFormHeader = Ember.Component.extend({
+  tagName: 'h2',
+  questionnaire: null,
+  title: Ember.computed.alias('questionnaire.name')
 });
+
+AnswerFormHeader.reopenClass({
+  positionalParams: ['questionnaire']
+});
+
+export default AnswerFormHeader;
