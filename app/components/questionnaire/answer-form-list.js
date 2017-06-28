@@ -55,8 +55,11 @@ const AnswerFormList = Ember.Component.extend({
       let userJobOrder = Ember.Object.create(answerSet.get('userJobOrderJson'));
       userJobOrder.setProperties(answerComponent.get('answer'));
       answerSet.set('userJobOrderJson', userJobOrder);
-      // set the stage group in the files
-      answerComponent.get('inputFiles').setEach('stageGroup', answerSet.get('stageGroup'));
+      // If the component has any inputFiles, set their stage group
+      const inputFiles = answerComponent.get('inputFiles');
+      if(inputFiles) {
+        answerComponent.get('inputFiles').setEach('stageGroup', answerSet.get('stageGroup'));
+      }
     }
   }
 });

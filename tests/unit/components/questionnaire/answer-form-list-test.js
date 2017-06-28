@@ -60,3 +60,43 @@ test('it handles answerChanged action', function (assert) {
   assert.equal(component.get('answerSet.userJobOrderJson.prop1'), 'val1');
   assert.equal(component.get('answerSet.userJobOrderJson.prop2'), 'val2');
 });
+
+test('it sets stageGroup on answerChanged', function(assert) {
+  const stageGroup = 'sg';
+  const answerSet = Ember.Object.create({
+    stageGroup: stageGroup,
+    userJobOrderJson: Ember.Object.create({})
+  });
+  const component = this.subject({answerSet: answerSet});
+
+  const inputFile1 = Ember.Object.create({});
+  const inputFile2 = Ember.Object.create({});
+
+  let mockAnswerComponent = Ember.Object.create({
+    answer: Ember.Object.create({}),
+    inputFiles: [
+      inputFile1,
+      inputFile2
+    ]
+  });
+  assert.notEqual(inputFile1.get('stageGroup'), stageGroup);
+  assert.notEqual(inputFile2.get('stageGroup'), stageGroup);
+  component.send('answerChanged', mockAnswerComponent);
+  assert.equal(inputFile1.get('stageGroup'), stageGroup);
+  assert.equal(inputFile2.get('stageGroup'), stageGroup);
+});
+
+test('it tolerates answerComponents without inputFiles', function(assert) {
+  let answerSet = Ember.Object.create({userJobOrderJson: Ember.Object.create({prop1: 'val1'})});
+  let component = this.subject({answerSet: answerSet});
+
+  let mockAnswerComponent = Ember.Object.create({
+    answer: Ember.Object.create({
+      prop2: 'val2'
+    }),
+  });
+
+  component.send('answerChanged', mockAnswerComponent);
+  assert.equal(component.get('answerSet.userJobOrderJson.prop1'), 'val1');
+  assert.equal(component.get('answerSet.userJobOrderJson.prop2'), 'val2');
+});
