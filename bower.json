@@ -1,8 +1,1 @@
-{
-  "name": "bespin-ui",
-  "dependencies": {
-    "ember": "~2.9.0",
-    "ember-cli-shims": "0.1.3",
-    "bootstrap": "~3.3.5"
-  }
-}
+{"name":"bespin-ui","dependencies":{}}
