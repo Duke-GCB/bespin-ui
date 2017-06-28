@@ -6,7 +6,17 @@ export default Ember.Controller.extend({
       // Must save all the things that compose an answer set
       let answerSet = this.get('model');
       // To call save on the related model, we must resolve it as a promise
-      answerSet.save().then(savedAnswerSet => {
+      // Save the input files and stage groups
+      answerSet.get('stageGroup').then(stageGroup => {
+        return stageGroup.save();
+      }).then((savedStageGroup) => {
+        return Ember.RSVP.all(
+          // save the dds files
+          savedStageGroup.get('ddsFiles').map(ddsFile => { return ddsFile.save(); })
+        );
+      }).then(() => {
+        return answerSet.save();
+      }).then(savedAnswerSet => {
         return savedAnswerSet.createJob();
       }).then(createdJob => {
         this.transitionToRoute('jobs.show', createdJob);

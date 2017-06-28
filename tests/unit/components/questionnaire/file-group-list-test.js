@@ -16,78 +16,69 @@ test('it renders', function(assert) {
   assert.ok(this.$());
 });
 
-test('it groups files groups by groupSize', function (assert) {
-  const files = [1,2,3,4,5,6];
-  const fileGroupList = this.subject({groupSize:3, files: files});
-  const groups = fileGroupList.get('groups');
-  assert.equal(groups.length, 2);
-  assert.deepEqual(groups, [[1,2,3],[4,5,6]]);
-});
-
-test('it groups files by groupSize even when not full', function (assert) {
-  const files = [1,2,3,4,5,6];
-  const fileGroupList = this.subject({groupSize:4, files: files});
-  const groups = fileGroupList.get('groups');
-  assert.equal(groups.length, 2);
-  assert.deepEqual(groups, [[1,2,3,4],[5,6]]);
-});
-
-
 test('it computes answer with field name and files', function (assert) {
   const fieldName = 'mock_files';
-  const MockFile = Ember.Object.extend({
-    cwlFileObject(prefix) { return prefix; }
+
+  const mockFileItems = Ember.Object.create({
+    cwlObjectValue: [2,3,1]
   });
-  const files = [MockFile.create(), MockFile.create(), MockFile.create()];
-  const expected = Ember.Object.create({
-    mock_files: [
-      ['mock_files_0_0','mock_files_0_1'],
-      ['mock_files_1_0']
-    ]});
-  const fileGroupList = this.subject({groupSize:2, files: files, fieldName: fieldName});
+
+  const fileGroupList = this.subject({groupSize: 2, fileItems: mockFileItems, fieldName: fieldName});
   const answer = fileGroupList.get('answer');
+
+  const expected = Ember.Object.create({
+    mock_files: [2,3,1]
+  });
   assert.deepEqual(answer, expected);
 
 });
 
-test('it computes inputFiles array from groups, matching names of files', function (assert) {
-  const fieldName = 'mock_files';
-  const MockFile = Ember.Object.extend({
-    createJobInputFile(prefix, credential) { return `${prefix}_${credential}`; }
+test('it computes inputFiles array from the fileItems', function (assert) {
+  const expected = ['foo', 'bar', 'baz'];
+  const mockFileItems = Ember.Object.create({
+    inputFiles: expected
   });
-  const files = [MockFile.create(), MockFile.create(), MockFile.create()];
-  const expected = [
-    'mock_files_0_0_c1',
-    'mock_files_0_1_c1',
-    'mock_files_1_0_c1'
-  ];
-  const fileGroupList = this.subject({
-    groupSize:2,
-    files: files,
-    fieldName: fieldName,
-    ddsUserCredentials: {
-      primaryCredential: 'c1'
-    }
-  });
+  const fileGroupList = this.subject({groupSize: 2, fileItems: mockFileItems, fieldName: 'field1'});
   const inputFiles = fileGroupList.get('inputFiles');
   assert.deepEqual(inputFiles, expected);
 });
 
 test('it handles removeAt action', function (assert) {
-  const files = [1,2,3,4,5,6];
-  const fileGroupList = this.subject({groupSize:4, files: files});
-  // [1,2,3,4], [5,6]
-  fileGroupList.send('removeAt', 0, 3);
-  // [1,2,3,5], [6]
-  const expected = [[1,2,3,5], [6]];
-  assert.deepEqual(fileGroupList.get('groups'), expected);
+  assert.expect(2);
+  const mockFileItems = Ember.Object.create({
+    removeFileItem(groupIndex, fileIndex) {
+      assert.equal(groupIndex, 3);
+      assert.equal(fileIndex, 0);
+    }
+  });
+  const fileGroupList = this.subject({groupSize:4, fileItems: mockFileItems});
+  fileGroupList.send('removeAt', 3, 0);
 });
 
 test('it handles addFile action', function (assert) {
-  const files = [1,2,3,4];
-  const fileGroupList = this.subject({groupSize:4, files: files});
-  fileGroupList.send('addFile', 5);
-  fileGroupList.send('addFile', 6);
-  const expected = [[1,2,3,4], [5,6]];
-  assert.deepEqual(fileGroupList.get('groups'), expected);
+  assert.expect(4);
+  const mockDdsFile = Ember.Object.create({
+    createJobInputFile(prefix, credential) {
+      assert.equal(prefix.indexOf('myField'), 0);
+      assert.equal(credential, 'myCredential');
+    },
+    cwlFileObject(prefix) {
+      assert.equal(prefix.indexOf('myField'), 0);
+    }
+  });
+
+  const mockFileItems = Ember.Object.create({
+    addFileItem(fileItem) {
+      assert.ok(fileItem);
+    }
+  });
+  const fileGroupList = this.subject({
+    groupSize:4,
+    fieldName: 'myField',
+    fileItems: mockFileItems,
+    ddsUserCredentials: Ember.Object.create({
+      primaryCredential: 'myCredential'
+    })
+  });
+  fileGroupList.send('addFile', mockDdsFile);
 });
