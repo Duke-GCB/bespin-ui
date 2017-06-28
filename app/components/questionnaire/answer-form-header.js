@@ -1,9 +1,10 @@
 import Ember from 'ember';
 
 const AnswerFormHeader = Ember.Component.extend({
-  tagName: 'h2',
+  classNames: ['row'],
   questionnaire: null,
-  title: Ember.computed.alias('questionnaire.name')
+  title: Ember.computed.alias('questionnaire.name'),
+  subtitle: Ember.computed.alias('questionnaire.description')
 });
 
 AnswerFormHeader.reopenClass({

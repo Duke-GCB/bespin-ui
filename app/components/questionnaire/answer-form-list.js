@@ -12,7 +12,6 @@ const ComponentInfos = [
 ];
 
 const AnswerFormList = Ember.Component.extend({
-  tagName: 'ul',
   classNames: ['answer-form-list'],
   answerSet: null,
   fields: Ember.computed('answerSet.questionnaire.userFieldsJson.@each', function() {
