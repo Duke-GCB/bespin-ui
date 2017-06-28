@@ -6,6 +6,8 @@
   <label>Selected {{ fileKindName }} {{ groupSizeName }}</label>
   {{#each groups as |group groupIndex|}}
     {{questionnaire/file-group-row group groupIndex (action 'removeAt')}}
+  {{else}}
+    {{questionnaire/empty-selection}}
   {{/each}}
 </div>
 {{yield}}

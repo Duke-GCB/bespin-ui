@@ -1,6 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import StoreStub from '../../../helpers/store-stub';
+import Ember from 'ember';
 
 moduleForComponent('questionnaire/file-group-list', 'Integration | Component | questionnaire/file group list', {
   integration: true,
@@ -20,3 +21,20 @@ test('it renders', function(assert) {
   assert.equal(this.$('.file-group-list-selections label').text().trim(), 'Selected read pairs');
 });
 
+test('it toggles empty selection', function(assert) {
+  Ember.run(() => {
+    this.set('fileItems', Ember.Object.create({
+      fileItemGroups: []
+    }));
+    this.render(hbs`{{questionnaire/file-group-list fileItems=fileItems}}`);
+
+    assert.equal(this.$('.empty-selection').length, 1, 'with no groups, should show the empty-selection component');
+    this.set('fileItems.fileItemGroups', [
+      [
+        {ddsFile: 'foo'},
+      ]
+    ]);
+    this.render(hbs`{{questionnaire/file-group-list fileItems=fileItems}}`);
+    assert.equal(this.$('.empty-selection').length, 0, 'with groups, should hide the empty-selection component');
+  });
+});
