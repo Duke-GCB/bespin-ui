@@ -10,6 +10,23 @@ test('it exists', function(assert) {
   assert.ok(controller);
 });
 
+test('it handles back action', function(assert) {
+  let controller = this.subject({
+    model: Ember.Object.create({
+      questionnaire: {
+        workflowVersion: {
+          id: 7
+        }
+      }
+  }),
+    transitionToRoute(routeName, workflowVersionId) {
+      assert.equal(routeName, 'jobs.new.select-questionnaire','back action should transition to select-questionnaire');
+      assert.equal(workflowVersionId, 7, 'back actoun should preserve workflow version');
+    }
+  });
+  controller.send('back');
+});
+
 test('it creates job and transitions to show route', function(assert) {
   assert.expect(3);
   let done = assert.async();

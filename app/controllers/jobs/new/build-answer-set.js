@@ -2,6 +2,10 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
   actions: {
+    back() {
+      let workflowVersionId = this.get('model.questionnaire.workflowVersion.id');
+      this.transitionToRoute('jobs.new.select-questionnaire', workflowVersionId);
+    },
     saveAndCreateJob() {
       // Must save all the things that compose an answer set
       let answerSet = this.get('model');
