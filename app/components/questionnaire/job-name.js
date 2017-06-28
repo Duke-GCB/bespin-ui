@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 const JobName = Ember.Component.extend({
-  classNames: ['row']
+  classNames: ['row', 'job-name']
 });
 
 JobName.reopenClass({
