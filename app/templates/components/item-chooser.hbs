@@ -2,9 +2,9 @@
   <h3>{{title}}</h3>
   {{#form.group class='job-kind'}}
     <label class="control-label">{{label}}:</label>
-    {{#item-chooser.item-picker-list items (action "selectionChanged") detailComponent itemTitleKey=itemTitleKey}}
+    {{#item-chooser/item-picker-list items (action "selectionChanged") detailComponent itemTitleKey=itemTitleKey}}
       {{yield}}
-    {{/item-chooser.item-picker-list}}
+    {{/item-chooser/item-picker-list}}
   {{/form.group}}
   {{#bs-button type="default" onClick=(action 'back') class="back-button"}}Back{{/bs-button}}
   {{#bs-button type="primary" onClick=(action 'next') class="pull-right next-button"}}Next{{/bs-button}}

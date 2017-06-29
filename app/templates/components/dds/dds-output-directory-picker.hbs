@@ -1,7 +1,7 @@
 {{#bs-form as |form|}}
   {{yield}}
   {{#form.group class='select-project'}}
-    {{dds.dds-project-picker projects project (action 'projectChanged')}}
+    {{dds/dds-project-picker projects project (action 'projectChanged')}}
   {{/form.group}}
   {{#form.group class='directory-name'}}
     {{input value=directoryName class='form-control' key-press='directoryNameChanged'}}
