@@ -1,6 +1,8 @@
 import { moduleFor, test } from 'ember-qunit';
 
-moduleFor('service:bespin-job-watcher', 'Unit | Service | bespin job watcher', {});
+moduleFor('service:bespin-job-watcher', 'Unit | Service | bespin job watcher', {
+  needs: ['service:websockets']
+});
 
 // Replace this with your real tests.
 test('startWatching wll send add command', function (assert) {
