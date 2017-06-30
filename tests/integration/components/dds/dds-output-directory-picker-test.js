@@ -20,7 +20,8 @@ test('it registers changes to directoryName', function(assert) {
   };
   this.set('onChange', onChange);
   this.set('oldName', oldName);
-  this.render(hbs`{{dds/dds-output-directory-picker [] oldName onChange}}`);
+  this.set('projects', [])
+  this.render(hbs`{{dds/dds-output-directory-picker projects oldName onChange}}`);
   this.$('input').val(newName);
   this.$('input').change(); // Required to trigger the update
   this.$('input').keypress(); // Triggers onChange

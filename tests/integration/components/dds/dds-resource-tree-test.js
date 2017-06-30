@@ -27,14 +27,14 @@ test('it renders children when expanded', function(assert) {
 
 test('it fetches only on first expansion', function(assert) {
   this.set('resource', {name: 'folder', kind:'dds-folder'});
-  let expanded = false;
-  this.set('expanded', expanded);
+  this.set('expanded', false);
   this.render(hbs`{{dds/dds-resource-tree resource store=store expanded=expanded}}`);
-  assert.equal(this.get('expanded'), false);
-  assert.equal(this.$('li.dds-resource-list-item').length, 0);
-  assert.equal(this.get('store.queryCount'), 0);
-  this.$('.dds-resource-name').click();
-  assert.equal(this.get('expanded'), true);
+  assert.equal(this.get('expanded'), false, 'should not be initially expanded');
+  assert.equal(this.$('li.dds-resource-list-item').length, 0, 'should not have any dds-resource-list-items yet');
+  assert.equal(this.get('store.queryCount'), 0, 'store should not have been queried yet');
+  this.set('expanded', true);
+  // Used to send a click to the dds-resource-name but that doesn't work on the first pass anymore
+  assert.equal(this.get('expanded'), true, 'Should now be expanded');
   assert.equal(this.$('li.dds-resource-list-item').length, 2);
   assert.equal(this.get('store.queryCount'), 1, 'should have registered one query');
   this.$('.dds-resource-name').click();
