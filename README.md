@@ -8,10 +8,9 @@ An [ember.js](http://emberjs.com/) application frontend for [bespin-api](https:/
 
 You will need the following things properly installed on your computer.
 
-* [Git](http://git-scm.com/)
-* [Node.js](http://nodejs.org/) (with NPM)
-* [Bower](http://bower.io/)
-* [Ember CLI](http://ember-cli.com/)
+* [Git](https://git-scm.com/)
+* [Node.js](https://nodejs.org/) (with NPM)
+* [Ember CLI](https://ember-cli.com/)
 * [PhantomJS](http://phantomjs.org/)
 
 ## Installation
@@ -19,7 +18,6 @@ You will need the following things properly installed on your computer.
 * `git clone git@github.com:Duke-GCB/bespin-ui.git` this repository
 * `cd bespin-ui`
 * `npm install`
-* `bower install`
 
 ## Running / Development
 
