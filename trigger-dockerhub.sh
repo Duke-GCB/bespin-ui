@@ -10,11 +10,7 @@ if [[ -z "$DOCKERHUB_TOKEN" ]] ; then
     exit 1
 fi
 
-if [[ "$TRAVIS_BRANCH" != "master" ]] ; then
-    echo "Triggering rebuild of Docker image dukegcb/bespin-web:latest"
-        curl -H "Content-Type: application/json" \
-             --data '{"docker_tag": "latest"}' \
-             -X POST $dockerapi/$DOCKERHUB_TOKEN/
-else
-    echo "Not triggering Docker Hub for branches other than master"
-fi
+echo "Triggering rebuild of Docker image dukegcb/bespin-web:latest"
+    curl -H "Content-Type: application/json" \
+         --data '{"docker_tag": "latest"}' \
+         -X POST $dockerapi/$DOCKERHUB_TOKEN/
