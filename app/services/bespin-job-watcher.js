@@ -50,7 +50,7 @@ export default Ember.Service.extend({
     if (socket) {
       stopWatchingJob(socket, token, jobId);
     } else {
-      console.log("Job watcher websocket not connected.");
+      Ember.Logger.log("Job watcher websocket not connected.");
     }
   },
   onMessage(event) {
@@ -63,7 +63,7 @@ export default Ember.Service.extend({
         job.reload();
       });
     } else {
-      console.log("Job Watcher Error:", response.data.message);
+      Ember.Logger.log("Job Watcher Error:", response.data.message);
     }
   },
   onClose() {

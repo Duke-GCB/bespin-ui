@@ -1,17 +1,23 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import Ember from 'ember';
+import StoreStub from '../../../helpers/store-stub';
 
 moduleForComponent('questionnaire/file-group-list', 'Unit | Component | questionnaire/file group list', {
   // Specify the other units that are required for this test
-  needs: ['component:dds.dds-project-files-picker', 'component:bs-button'],
-  unit: true
+  needs: ['component:dds.dds-project-files-picker',
+    'component:bs-button',
+    'service:dds-projects',
+    'service:dds-user-credentials'
+  ],
+  unit: true,
+  beforeEach() {
+    // inject the service
+    this.register('service:store', StoreStub);
+  }
 });
 
 test('it renders', function(assert) {
-
-  // Creates the component instance
-  /*let component =*/ this.subject();
-  // Renders the component to the page
+  this.subject();
   this.render();
   assert.ok(this.$());
 });
