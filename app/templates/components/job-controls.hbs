@@ -6,16 +6,20 @@
     {{#if error}}
       {{#bs-alert type="danger"}}<span class="error-message">{{error}}</span>{{/bs-alert}}
     {{/if}}
-    {{#if job.isNew}}
+    {{#if job.isAuthorized}}
       {{#bs-alert type="info"}}<span class="info-message">Your job is ready. Click <strong>Start</strong> to submit. You will be charged at a rate of $x per hour of computation. Results will be uploaded to Duke Data Service.</span>{{/bs-alert}}
     {{/if}}
   </div>
-  <div class="col-md-3">
-    <span class="pull-right">
-    {{#each buttons as |button|}}
-      {{#bs-button type=button.type onClick=(action button.action) disabled=(if button.enabled false true)}}{{button.title}}{{/bs-button}}
-    {{/each}}
-    </span>
-  </div>
+  {{#if job.isNew}}
+     {{#job-authorize job}}{{/job-authorize}}
+  {{else}}
+      <div class="col-md-3">
+        <span class="pull-right">
+          {{#each buttons as |button|}}
+            {{#bs-button type=button.type onClick=(action button.action) disabled=(if button.enabled false true)}}{{button.title}}{{/bs-button}}
+          {{/each}}
+        </span>
+      </div>
+  {{/if}}
 </div>
 {{yield}}

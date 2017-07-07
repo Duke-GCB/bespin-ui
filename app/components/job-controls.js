@@ -31,7 +31,7 @@ const JobControls = Ember.Component.extend({
     ];
 
     let actionToEnable = null;
-    if(state === 'N' ) { // New
+    if(state === 'A' ) { // New
       actionToEnable = 'start';
     } else if(state === 'R') { // Running
       actionToEnable = 'cancel';

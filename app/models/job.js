@@ -16,6 +16,9 @@ export default DS.Model.extend({
   isNew: Ember.computed('state', function() {
     return this.get('state') === 'N';
   }),
+  isAuthorized: Ember.computed('state', function() {
+    return this.get('state') === 'A';
+  }),
   isFinished: Ember.computed('state', function() {
     return this.get('state') === 'F';
   }),
@@ -40,5 +43,9 @@ export default DS.Model.extend({
   restart() {
     let adapter = this.store.adapterFor(this.constructor.modelName);
     return adapter.restart(this.get('id')).then(this.updateAfterAction.bind(this));
+  },
+  setRunToken(token) {
+    let adapter = this.store.adapterFor(this.constructor.modelName);
+    return adapter.setRunToken(this.get('id'), token).then(this.updateAfterAction.bind(this));
   }
 });
