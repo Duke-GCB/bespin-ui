@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 const JobStates = {
   N: 'New',
+  A: 'Authorized',
   S: 'Starting',
   R: 'Running',
   F: 'Finished',
