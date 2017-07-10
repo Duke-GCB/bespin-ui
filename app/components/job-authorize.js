@@ -1,11 +1,11 @@
 import Ember from 'ember';
 
 const JobAuthorize = Ember.Component.extend({
-  runJobToken: '',
+  token: '',
   actions: {
     authorize() {
-      const runJobToken = this.get('runJobToken');
-      this.get('job').setRunToken(runJobToken);
+      const token = this.get('token');
+      this.get('job').authorize(token);
     }
   }
 });

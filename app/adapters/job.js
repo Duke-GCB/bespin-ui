@@ -13,12 +13,12 @@ export default ApplicationAdapter.extend({
   restart(id) {
     return this.ajax(this.urlForJobControlAction(id, 'restart'), 'POST');
   },
-  setRunToken(id, token) {
+  authorize(id, token) {
     const payload = {
       "token": token
     };
     //our adapter specifies rootobject format so we must put payload inside a job
-    return this.ajax(this.urlForJobControlAction(id, 'set_run_token'), 'POST', {
+    return this.ajax(this.urlForJobControlAction(id, 'authorize'), 'POST', {
       data: {
         jobs: payload
       }

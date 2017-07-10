@@ -44,8 +44,8 @@ export default DS.Model.extend({
     let adapter = this.store.adapterFor(this.constructor.modelName);
     return adapter.restart(this.get('id')).then(this.updateAfterAction.bind(this));
   },
-  setRunToken(token) {
+  authorize(token) {
     let adapter = this.store.adapterFor(this.constructor.modelName);
-    return adapter.setRunToken(this.get('id'), token).then(this.updateAfterAction.bind(this));
+    return adapter.authorize(this.get('id'), token).then(this.updateAfterAction.bind(this));
   }
 });
