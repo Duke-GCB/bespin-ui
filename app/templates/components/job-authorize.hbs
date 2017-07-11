@@ -2,7 +2,7 @@
   {{#bs-form as |form|}}
     {{#form.group class='job-authorize-group form-inline pull-right' }}
         <label for="authorize-job">Enter job token:</label>
-        {{input class='form-control job-name-input' id='authorize-job' placeholder='Enter name for this job' value=runJobToken}}
+        {{input class='form-control job-name-input' id='authorize-job' value=runJobToken}}
         {{#bs-button type='primary' onClick=(action "authorize")}}Authorize{{/bs-button}}
     {{/form.group}}
   {{/bs-form}}
