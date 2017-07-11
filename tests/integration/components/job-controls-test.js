@@ -59,16 +59,16 @@ test('it displays job control results on click', function(assert) {
 
   let MockSucceedJob = Ember.Object.extend({
     state: null,
-    start() { return new Ember.RSVP.Promise((resolve) => { resolve('started'); }); },
-    restart() { return new Ember.RSVP.Promise((resolve) => { resolve('restarted'); }); },
-    cancel() { return new Ember.RSVP.Promise((resolve) => { resolve('cancelled'); }); }
+    start() { return Ember.RSVP.resolve(); },
+    restart() { return Ember.RSVP.resolve(); },
+    cancel() { return Ember.RSVP.resolve(); }
   });
 
   let MockFailJob = Ember.Object.extend({
     state: null,
-    start() { return new Ember.RSVP.Promise((resolve, reject) => { reject('started'); }); },
-    restart() { return new Ember.RSVP.Promise((resolve, reject) => { reject('restarted'); }); },
-    cancel() { return new Ember.RSVP.Promise((resolve, reject) => { reject('cancelled'); }); }
+    start() { return Ember.RSVP.reject('error') },
+    restart() { return Ember.RSVP.reject('error') },
+    cancel() { return Ember.RSVP.reject('error') }
   });
 
   statesMessages.forEach(stateMessage => {
