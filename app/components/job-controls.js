@@ -6,7 +6,7 @@ const JobControls = Ember.Component.extend({
   // The operation is set on success or failure since it is part of the state.
   operation: null,
   errorTitle: Ember.computed('operation', function() {
-    return `The job could not be ${this.get('operation')}`;
+    return `The job could not be ${this.get('operation')}:`;
   }),
   actions: {
     start() {
