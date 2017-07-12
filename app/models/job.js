@@ -45,12 +45,16 @@ export default DS.Model.extend({
   },
   authorize(token) {
     let adapter = this.store.adapterFor(this.constructor.modelName);
+    // authorize endpoint I/O assumes a job-tokens structure
+    // since non-admin users do not have access to GET a job-token we provide only the "token" value
     let jobTokens = {
       "job-tokens": {
         "token": token
       }
     };
     return adapter.authorize(this.get('id'), jobTokens).then((data) => {
+      // in addition to token information the response includes the job that was updated
+      // refresh this job
       this.updateAfterAction({
         "jobs": data['job-tokens']['job']
       });
