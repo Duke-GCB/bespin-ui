@@ -16,6 +16,9 @@ export default DS.Model.extend({
   isNew: Ember.computed('state', function() {
     return this.get('state') === 'N';
   }),
+  isAuthorized: Ember.computed('state', function() {
+    return this.get('state') === 'A';
+  }),
   isFinished: Ember.computed('state', function() {
     return this.get('state') === 'F';
   }),
@@ -28,7 +31,6 @@ export default DS.Model.extend({
     this.store.pushPayload('job', data);
     return Ember.RSVP.resolve(this.store.peekRecord(this.constructor.modelName, this.get('id')));
   },
-
   start() {
     let adapter = this.store.adapterFor(this.constructor.modelName);
     return adapter.start(this.get('id')).then(this.updateAfterAction.bind(this));
@@ -40,5 +42,22 @@ export default DS.Model.extend({
   restart() {
     let adapter = this.store.adapterFor(this.constructor.modelName);
     return adapter.restart(this.get('id')).then(this.updateAfterAction.bind(this));
+  },
+  authorize(token) {
+    let adapter = this.store.adapterFor(this.constructor.modelName);
+    // authorize endpoint I/O assumes a job-tokens structure
+    // since non-admin users do not have access to GET a job-token we provide only the "token" value
+    let jobTokens = {
+      "job-tokens": {
+        "token": token
+      }
+    };
+    return adapter.authorize(this.get('id'), jobTokens).then((data) => {
+      // in addition to token information the response includes the job that was updated
+      // refresh this job
+      this.updateAfterAction({
+        "jobs": data['job-tokens']['job']
+      });
+    });
   }
 });

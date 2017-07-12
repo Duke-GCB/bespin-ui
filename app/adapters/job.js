@@ -13,6 +13,11 @@ export default ApplicationAdapter.extend({
   restart(id) {
     return this.ajax(this.urlForJobControlAction(id, 'restart'), 'POST');
   },
+  authorize(id, jobTokens) {
+    return this.ajax(this.urlForJobControlAction(id, 'authorize'), 'POST', {
+      data: jobTokens
+    });
+  },
   urlForJobControlAction(id, action) {
     return `${this.buildURL('job', id)}${action}/`;
   }

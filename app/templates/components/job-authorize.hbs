@@ -1,0 +1,10 @@
+<div class="col-md-12">
+  {{#bs-form as |form|}}
+    {{#form.group class='job-authorize-group form-inline pull-right' }}
+        <label for="authorize-job">Enter job token:</label>
+        {{input class='form-control job-name-input' id='authorize-job' value=token}}
+        {{#bs-button type='primary' onClick=(action "authorize")}}Authorize{{/bs-button}}
+    {{/form.group}}
+  {{/bs-form}}
+</div>
+{{yield}}

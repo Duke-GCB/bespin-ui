@@ -13,8 +13,8 @@ test('it renders 3 buttons', function(assert) {
   assert.equal(this.$('button').length, 3, 'Renders 3 buttons');
 });
 
-test('it enables start when New', function(assert) {
-  let job = {id: 6, name: 'Job Six', state: 'N'};
+test('it enables start when Authorized', function(assert) {
+  let job = {id: 6, name: 'Job Six', state: 'A'};
   this.set('job', job);
   this.render(hbs`{{job-controls job}}`);
   assert.equal(this.$('button:not(:disabled)').text(), 'Start');
@@ -52,7 +52,7 @@ test('it enables cancel when Running', function(assert) {
 
 test('it displays job control results on click', function(assert) {
   let statesMessages = [
-    { state: 'N', message: 'started' },
+    { state: 'A', message: 'started' },
     { state: 'R', message: 'cancelled' },
     { state: 'E', message: 'restarted'}
   ];

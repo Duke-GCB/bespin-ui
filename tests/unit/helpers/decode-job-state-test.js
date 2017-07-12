@@ -5,8 +5,9 @@ import { module, test } from 'qunit';
 module('Unit | Helper | decode job state');
 
 test('it decodes job states', function(assert) {
-  assert.expect(9);
+  assert.expect(10);
   assert.equal(decodeJobState('N'), "New");
+  assert.equal(decodeJobState('A'), "Authorized");
   assert.equal(decodeJobState('S'), "Starting");
   assert.equal(decodeJobState('R'), "Running");
   assert.equal(decodeJobState('F'), 'Finished');
