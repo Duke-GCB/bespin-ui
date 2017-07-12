@@ -53,22 +53,22 @@ test('it enables cancel when Running', function(assert) {
 test('it displays job control results on click', function(assert) {
   let statesMessages = [
     { state: 'N', message: 'started' },
-    { state: 'R', message: 'canceled' },
+    { state: 'R', message: 'cancelled' },
     { state: 'E', message: 'restarted'}
   ];
 
   let MockSucceedJob = Ember.Object.extend({
     state: null,
-    start() { return new Ember.RSVP.Promise((resolve) => { resolve('started'); }); },
-    restart() { return new Ember.RSVP.Promise((resolve) => { resolve('restarted'); }); },
-    cancel() { return new Ember.RSVP.Promise((resolve) => { resolve('canceled'); }); }
+    start() { return Ember.RSVP.resolve(); },
+    restart() { return Ember.RSVP.resolve(); },
+    cancel() { return Ember.RSVP.resolve(); }
   });
 
   let MockFailJob = Ember.Object.extend({
     state: null,
-    start() { return new Ember.RSVP.Promise((resolve, reject) => { reject('fail-started'); }); },
-    restart() { return new Ember.RSVP.Promise((resolve, reject) => { reject('fail-restarted'); }); },
-    cancel() { return new Ember.RSVP.Promise((resolve, reject) => { reject('fail-canceled'); }); }
+    start() { return Ember.RSVP.reject('error') },
+    restart() { return Ember.RSVP.reject('error') },
+    cancel() { return Ember.RSVP.reject('error') }
   });
 
   statesMessages.forEach(stateMessage => {
@@ -76,7 +76,7 @@ test('it displays job control results on click', function(assert) {
     this.set('job', MockSucceedJob.create({state: stateMessage.state}));
     this.render(hbs`{{job-controls job}}`);
     this.$('button:not(:disabled)').click();
-    assert.equal(this.$('span.success-message').text(), stateMessage.message);
+    assert.equal(this.$('span.success-message').text(), `The job has been ${stateMessage.message}.`);
     assert.equal(this.$('span.error-message').length, 0);
 
     // Test for failure
@@ -84,7 +84,7 @@ test('it displays job control results on click', function(assert) {
     this.render(hbs`{{job-controls job}}`);
     this.$('button:not(:disabled)').click();
     assert.equal(this.$('span.success-message').length, 0);
-    assert.equal(this.$('span.error-message').text(), 'fail-' + stateMessage.message);
+    assert.equal(this.$('span.error-message').text().trim(), `The job could not be ${stateMessage.message}:`);
 
   });
 });

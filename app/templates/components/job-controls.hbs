@@ -1,12 +1,14 @@
 <div class="row">
   <div class="col-md-9">
-    {{#if message}}
-      {{#bs-alert type="success"}}<span class="success-message">{{message}}</span>{{/bs-alert}}
-    {{/if}}
     {{#if error}}
-      {{#bs-alert type="danger"}}<span class="error-message">{{error}}</span>{{/bs-alert}}
-    {{/if}}
-    {{#if job.isNew}}
+      {{#bs-alert type="danger"}}
+        <span class="error-message">
+          {{error-list error.errors errorTitle}}
+        </span>
+      {{/bs-alert}}
+    {{else if operation}}
+      {{#bs-alert type="success"}}<span class="success-message">The job has been {{operation}}.</span>{{/bs-alert}}
+    {{else if job.isNew}}
       {{#bs-alert type="info"}}<span class="info-message">Your job is ready. Click <strong>Start</strong> to submit. You will be charged at a rate of $x per hour of computation. Results will be uploaded to Duke Data Service.</span>{{/bs-alert}}
     {{/if}}
   </div>
