@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 const ErrorDetail = Ember.Component.extend({
   tagName: 'dl',
-  classNames: ['dl-horizontal'],
+  classNames: ['error-detail', 'dl-horizontal'],
   error: null
 });
 
