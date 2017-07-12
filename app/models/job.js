@@ -31,7 +31,6 @@ export default DS.Model.extend({
     this.store.pushPayload('job', data);
     return Ember.RSVP.resolve(this.store.peekRecord(this.constructor.modelName, this.get('id')));
   },
-
   start() {
     let adapter = this.store.adapterFor(this.constructor.modelName);
     return adapter.start(this.get('id')).then(this.updateAfterAction.bind(this));
@@ -46,6 +45,15 @@ export default DS.Model.extend({
   },
   authorize(token) {
     let adapter = this.store.adapterFor(this.constructor.modelName);
-    return adapter.authorize(this.get('id'), token).then(this.updateAfterAction.bind(this));
+    let jobTokens = {
+      "job-tokens": {
+        "token": token
+      }
+    };
+    return adapter.authorize(this.get('id'), jobTokens).then((data) => {
+      this.updateAfterAction({
+        "jobs": data['job-tokens']['job']
+      });
+    });
   }
 });
