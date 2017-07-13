@@ -12,7 +12,9 @@
   "scripts": {
     "build": "ember build",
     "start": "ember server",
-    "test": "ember test"
+    "test": "ember test",
+    "preversion": "./ensure-branch.sh master && git pull && npm test",
+    "postversion": "git push && git push --tags"
   },
   "devDependencies": {
     "bootstrap": "^3.3.7",
