@@ -49,13 +49,10 @@ To create a release from master and tag it:
 4. Tag the latest commit
 5. Push master and tags to GitHub, triggering the Travis CI build and Docker build
 
-Fortunately, [npm version](https://docs.npmjs.com/cli/version) can handle most of the busywork.
+[npm version](https://docs.npmjs.com/cli/version) can automate this process. By defining `preversion` and `postversion` scripts in `package.json`, publishing a release is done with one command
 
 ```
-git checkout master
-git pull
-npm version patch                 # Updates files, creates commit and tag
-git push origin master --tags     # Pushes the master branch and all tags
+npm version patch
 ```
 
-`npm version patch` will increment the patch version as described by semantic versioning. You can also use `major` or `minor` and customize the commit message.
+You can also use `major` or `minor` for different version increments, or customize the commit message with `-m`
