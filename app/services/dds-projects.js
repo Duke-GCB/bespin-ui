@@ -2,11 +2,9 @@ import Ember from 'ember';
 
 export default Ember.Service.extend({
   store: Ember.inject.service(),
-  projects: null,
-  init() {
-    this._super(...arguments);
-    this.get('store').findAll('dds-project').then(projects => {
-      this.set('projects', projects);
+  projects() {
+    return this.get('store').findAll('dds-project').then(projects => {
+      return Ember.RSVP.resolve(projects.sortBy('name'));
     });
   }
 });

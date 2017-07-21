@@ -9,11 +9,9 @@ import Ember from 'ember';
 
 export default Ember.Service.extend({
   store: Ember.inject.service(),
-  primaryCredential: null,
-  init() {
-    this._super(...arguments);
-    this.get('store').findAll('dds-user-credential').then(credentials => {
-      this.set('primaryCredential', credentials.get('firstObject'));
+  primaryCredential() {
+    return this.get('store').findAll('dds-user-credential').then(credentials => {
+      return Ember.RSVP.resolve(credentials.get('firstObject'));
     });
   }
 });

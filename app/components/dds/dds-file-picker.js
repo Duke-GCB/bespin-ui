@@ -17,7 +17,7 @@ const DDSFilePicker = Ember.Component.extend({
     this.get('store').query('dds-resource', {
       project_id: this.get('project.id')
     }).then((resources) => {
-      this.set('resources', resources);
+      this.set('resources', resources.sortBy('name'));
     });
   }))
 });
