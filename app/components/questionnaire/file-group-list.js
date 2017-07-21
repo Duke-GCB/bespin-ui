@@ -67,7 +67,6 @@ const FileGroupList = Ember.Component.extend({
       this.set('projects', projects);
     });
   }
-
 });
 
 FileGroupList.reopenClass({
