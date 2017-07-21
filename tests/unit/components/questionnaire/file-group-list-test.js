@@ -64,11 +64,17 @@ test('it handles addFile action', function (assert) {
   assert.expect(4);
   const mockDdsFile = Ember.Object.create({
     createJobInputFile(prefix, credential) {
-      assert.equal(prefix.indexOf('myField'), 0);
+      // Temporarily removing prefix to preserve original file names.
+      // See https://github.com/Duke-GCB/bespin-ui/issues/39
+      // assert.equal(prefix.indexOf('myField'), 0);
+      assert.equal(prefix,'');
       assert.equal(credential, 'myCredential');
     },
     cwlFileObject(prefix) {
-      assert.equal(prefix.indexOf('myField'), 0);
+      // Temporarily removing prefix to preserve original file names.
+      // See https://github.com/Duke-GCB/bespin-ui/issues/39
+      // assert.equal(prefix.indexOf('myField'), 0);
+      assert.equal(prefix, '');
     }
   });
 

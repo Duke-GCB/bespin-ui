@@ -17,7 +17,7 @@ export default DS.Model.extend({
   version_id: DS.attr('string'),
 
   getNameWithPrefix(prefix) {
-    return `${prefix}_${this.get('name')}`;
+    return `${prefix}${this.get('name')}`;
   },
 
   cwlFileObject(prefix) {
