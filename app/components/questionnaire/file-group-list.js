@@ -39,7 +39,9 @@ const FileGroupList = Ember.Component.extend({
   actions: {
     addFile(file) {
       const credential = this.get('credential');
-      const prefix = `${this.get('fieldName')}_${Date.now()}`;
+      // Temporarily removing prefix to preserve original file names.
+      // See https://github.com/Duke-GCB/bespin-ui/issues/39
+      const prefix = ''; // `${this.get('fieldName')}_${Date.now()}_`;
       const fileItem = FileItem.create({ddsFile: file, prefix: prefix, credential: credential});
       this.get('fileItems').addFileItem(fileItem);
       this.sendAction('answerChanged', this);

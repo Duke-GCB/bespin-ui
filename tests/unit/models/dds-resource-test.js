@@ -3,7 +3,7 @@ import { testRelationship } from '../../helpers/test-relationships';
 import Ember from 'ember';
 
 moduleForModel('dds-resource', 'Unit | Model | dds resource', {
-  needs: ['model:dds-project', 'model:dds-job-input-file', 'model:dds-user-credential']
+  needs: ['model:dds-project', 'model:dds-job-input-file', 'model:dds-user-credential', 'model:job-file-stage-group']
 });
 
 test('it exists', function(assert) {
@@ -32,14 +32,14 @@ test('it generates prefixed file names', function(assert) {
   let model = this.subject();
   Ember.run(() => {
     model.set('name', 'myfile.txt');
-    let prefixed = model.getNameWithPrefix('prefix');
+    let prefixed = model.getNameWithPrefix('prefix_');
     assert.equal(prefixed, 'prefix_myfile.txt');
   });
 });
 
 test('it generates a CWL File object', function(assert) {
   const ddsFile = this.subject({name: 'myfile.txt'});
-  const prefix = 'prefix';
+  const prefix = 'prefix_';
   const cwlFile = ddsFile.cwlFileObject(prefix);
   assert.ok(cwlFile);
   const expected = {
@@ -57,7 +57,7 @@ test('It works with map', function (assert) {
       this.store().createRecord('dds-resource', {name: 'file3.txt'})
     ];
     const wrapped = files.map((file, index) => {
-      return file.cwlFileObject(index);
+      return file.cwlFileObject(`${index}_`);
     });
     const expected = [
       {
@@ -88,7 +88,7 @@ test('It creates job input files with DDS IDs', function (assert) {
       project: project,
       id: fileId,
     });
-    const prefix = 'input1';
+    const prefix = 'input1_';
     const inputFile = ddsFile.createJobInputFile(prefix, cred);
 
     assert.equal(inputFile.get('destinationPath'), 'input1_file1.txt');
