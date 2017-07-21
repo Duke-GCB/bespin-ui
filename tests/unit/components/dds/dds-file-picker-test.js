@@ -13,11 +13,8 @@ const StoreStub = Ember.Service.extend({
 });
 
 moduleForComponent('dds/dds-file-picker', 'Unit | Component | dds/dds file picker', {
-  // Specify the other units that are required for this test
-  // needs: ['component:foo', 'helper:bar'],
   unit: true,
   beforeEach() {
-    // inject the service
     this.register('service:store', StoreStub);
   }
 });
