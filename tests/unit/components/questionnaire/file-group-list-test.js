@@ -24,7 +24,6 @@ test('it renders', function(assert) {
 
 test('it computes answer with field name and files', function (assert) {
   const fieldName = 'mock_files';
-
   const mockFileItems = Ember.Object.create({
     cwlObjectValue: [2,3,1]
   });
@@ -82,9 +81,7 @@ test('it handles addFile action', function (assert) {
     groupSize:4,
     fieldName: 'myField',
     fileItems: mockFileItems,
-    ddsUserCredentials: Ember.Object.create({
-      primaryCredential: 'myCredential'
-    })
+    credential: 'myCredential'
   });
   fileGroupList.send('addFile', mockDdsFile);
 });

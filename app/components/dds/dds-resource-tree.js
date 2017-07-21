@@ -19,7 +19,7 @@ const DDSResourceTree = Ember.Component.extend({
     this.get('store').query('dds-resource', {
       folder_id: this.get('resource.id')
     }).then((children) => {
-      this.set('children', children);
+      this.set('children', children.sortBy('name'));
       this.set('fetchedOnce', true);
     });
   },

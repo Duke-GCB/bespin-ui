@@ -22,7 +22,8 @@ const FileGroupList = Ember.Component.extend({
   fieldName: null,
   ddsProjects: Ember.inject.service(),
   ddsUserCredentials: Ember.inject.service(),
-  projects: Ember.computed.alias('ddsProjects.projects'),
+  credential: null, // populated on didInsertElement
+  projects: null, // populated on didInsertElement
   fileItems: null,
   selectedDdsFiles: Ember.computed.alias('fileItems.ddsFiles'),
   groups: Ember.computed.map('fileItems.fileItemGroups', function(fileItemGroup) {
@@ -37,7 +38,7 @@ const FileGroupList = Ember.Component.extend({
   inputFiles: Ember.computed.alias('fileItems.inputFiles.[]'),
   actions: {
     addFile(file) {
-      const credential = this.get('ddsUserCredentials.primaryCredential');
+      const credential = this.get('credential');
       const prefix = `${this.get('fieldName')}_${Date.now()}`;
       const fileItem = FileItem.create({ddsFile: file, prefix: prefix, credential: credential});
       this.get('fileItems').addFileItem(fileItem);
@@ -48,13 +49,23 @@ const FileGroupList = Ember.Component.extend({
       this.sendAction('answerChanged', this);
     }
   },
-  init(){
+
+  init() {
     this._super(...arguments);
-    // Force a load of the credentials service. This is a hack!
-    this.get('ddsUserCredentials');
     if(Ember.isEmpty(this.get('fileItems'))) {
       this.set('fileItems', FileItemList.create());
     }
+  },
+
+  // Per https://emberigniter.com/render-promise-before-it-resolves/
+  didInsertElement() {
+    this._super(...arguments);
+    this.get('ddsUserCredentials').primaryCredential().then(credential => {
+      this.set('credential', credential);
+    });
+    this.get('ddsProjects').projects().then(projects => {
+      this.set('projects', projects);
+    });
   }
 });
 
