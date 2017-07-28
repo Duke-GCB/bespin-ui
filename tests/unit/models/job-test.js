@@ -38,6 +38,16 @@ test('it computes isNew', function(assert) {
   });
 });
 
+test('it computes isErrored', function(assert) {
+  let job = this.subject();
+  Ember.run(() => {
+    job.set('state', 'N');
+    assert.notOk(job.get('isErrored'));
+    job.set('state', 'E');
+    assert.ok(job.get('isErrored'));
+  });
+});
+
 testRelationship('job', {key: 'workflowVersion', kind: 'belongsTo', type: 'workflow-version'});
 testRelationship('job', {key: 'outputDir', kind: 'belongsTo', type: 'job-output-dir'});
 testRelationship('job', {key: 'stageGroup', kind: 'belongsTo', type: 'job-file-stage-group'});
