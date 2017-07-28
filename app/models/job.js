@@ -22,6 +22,9 @@ export default DS.Model.extend({
   isFinished: Ember.computed('state', function() {
     return this.get('state') === 'F';
   }),
+  isErrored:  Ember.computed('state', function() {
+    return this.get('state') === 'E';
+  }),
   outputDir: DS.belongsTo('job-output-dir'),
   // Named jobErrors because DS.Model already has an errors property (contains validation error messages)
   jobErrors: DS.hasMany('job-error'),

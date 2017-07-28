@@ -68,11 +68,18 @@ test('it pretty-prints JSON', function(assert) {
   assert.equal(this.$('.job-order pre').text(), prettified_indent4);
 });
 
-test('it shows errors', function (assert) {
+test('it shows errors when job isErrored', function (assert) {
+  this.set('job.isErrored', true);
   this.render(hbs`{{job-detail job}}`);
   assert.equal(this.$('.job-error').length, 2);
   assert.equal(this.$('.job-error:eq(0)').text(), 'Error 1');
   assert.equal(this.$('.job-error:eq(1)').text(), 'Error 2');
+});
+
+test('it hides errors when not isErrored', function(assert) {
+  this.set('job.isErrored', false);
+  this.render(hbs`{{job-detail job}}`);
+  assert.equal(this.$('.job-error').length, 0);
 });
 
 test('it does not render results unless finished', function(assert) {
