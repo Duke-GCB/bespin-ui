@@ -34,6 +34,11 @@ const DDSResourceTree = Ember.Component.extend({
   pick() {
     this.get('onPick')(this.get('resource'));
   },
+  pickAllFiles() {
+    let files = this.get('children').filterBy('isFile');
+    let onPick = this.get('onPick');
+    files.forEach(onPick);
+  },
 
   actions: {
     resourceClicked() {
@@ -43,6 +48,9 @@ const DDSResourceTree = Ember.Component.extend({
         this.expand();
       }
     },
+    pickAllFilesClicked() {
+      this.pickAllFiles();
+    }
   }
 });
 
