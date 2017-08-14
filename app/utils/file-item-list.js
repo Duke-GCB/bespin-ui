@@ -21,6 +21,7 @@ const FileItem = Ember.Object.extend({
 
 const FileItemList = Ember.Object.extend({
   content: null,
+  unique: true,
   init() {
     this._super(...arguments);
     if(Ember.isEmpty(this.get('content'))) {
@@ -29,7 +30,14 @@ const FileItemList = Ember.Object.extend({
   },
   groupSize: 2,
   addFileItem(fileItem) {
-    this.get('content').pushObject(fileItem);
+    const content = this.get('content');
+    const unique = this.get('unique');
+    if(unique && content.includes(fileItem)) {
+      // we already have this item and must be unique
+      return false;
+    } else {
+      this.get('content').pushObject(fileItem);
+    }
   },
   removeFileItem(groupIndex, fileIndex) {
     let index = this.get('groupSize') * groupIndex + fileIndex;

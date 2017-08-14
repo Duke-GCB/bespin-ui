@@ -114,3 +114,19 @@ test('it creates flat list of inputFiles from fileItems regardless of group size
   fileGroupList.addFileItem(if4);
   assert.deepEqual(fileGroupList.get('inputFiles'), ['if1','if2','if3','if4']);
 });
+
+test('it prevents duplicates by default', function(assert) {
+  const if1 = Ember.Object.create({inputFile: 'if1'});
+  const fileGroupList = FileItemList.create({groupSize: 1, content: [if1]});
+  assert.equal(fileGroupList.get('content.length'), 1);
+  fileGroupList.addFileItem(if1);
+  assert.equal(fileGroupList.get('content.length'), 1);
+});
+
+test('it allows duplicates when configured', function(assert) {
+  const if1 = Ember.Object.create({inputFile: 'if1'});
+  const fileGroupList = FileItemList.create({groupSize: 1, unique: false, content: [if1]});
+  assert.equal(fileGroupList.get('content.length'), 1);
+  fileGroupList.addFileItem(if1);
+  assert.equal(fileGroupList.get('content.length'), 2);
+});
