@@ -8,7 +8,13 @@ const DDSFilePicker = Ember.Component.extend({
   selectedResources: null,
   actions: {
     // Passed down to each node
-    pickFile(file) { this.get('filePicked')(file); }
+    pickFile(file) { this.get('filePicked')(file); },
+    pickAllFilesClicked() { this.pickAllFiles(); }
+  },
+  pickAllFiles() {
+    let files = this.get('resources').filterBy('isFile');
+    let onPick = this.get('filePicked');
+    files.forEach(onPick);
   },
   projectChanged: Ember.on('init', Ember.observer('project', function() {
     if(! this.get('project.id')) {
