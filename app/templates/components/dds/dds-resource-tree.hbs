@@ -7,15 +7,6 @@
   {{/if}}
 {{/dds/dds-resource-node}}
 {{#if expanded}}
-  <ul class="dds-resource-list list-unstyled">
-    {{#if hasFiles}}
-      <li class="dds-resource-list-header">
-        {{dds/dds-resource-header action='pickAllFilesClicked'}}
-      </li>
-    {{/if}}
-    {{#each children as |child|}}
-      <li class="dds-resource-list-item">{{dds/dds-resource-tree child selectedResources (action onPick)}}</li>
-    {{/each}}
-  </ul>
+  {{dds/dds-file-picker project selectedResources (action onPick) resources=children}}
 {{/if}}
 {{yield}}
