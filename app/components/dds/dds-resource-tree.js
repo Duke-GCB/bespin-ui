@@ -8,13 +8,6 @@ const DDSResourceTree = Ember.Component.extend({
   children: null,
   onPick: () => {},
   store: Ember.inject.service('store'),
-  hasFiles: Ember.computed('children', function() {
-    const children = this.get('children');
-    if(children == null) {
-      return false;
-    }
-    return children.filterBy('isFile').get('length') > 0;
-  }),
   fetchedOnce: Ember.computed('children', function () {
     return this.get('children') != null;
   }),
@@ -41,12 +34,6 @@ const DDSResourceTree = Ember.Component.extend({
   pick() {
     this.get('onPick')(this.get('resource'));
   },
-  pickAllFiles() {
-    let files = this.get('children').filterBy('isFile');
-    let onPick = this.get('onPick');
-    files.forEach(onPick);
-  },
-
   actions: {
     resourceClicked() {
       if(this.get('resource.isFile')) {
@@ -55,9 +42,6 @@ const DDSResourceTree = Ember.Component.extend({
         this.expand();
       }
     },
-    pickAllFilesClicked() {
-      this.pickAllFiles();
-    }
   }
 });
 
