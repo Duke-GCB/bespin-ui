@@ -16,6 +16,13 @@ const DDSFilePicker = Ember.Component.extend({
     let onPick = this.get('filePicked');
     files.forEach(onPick);
   },
+  hasFiles: Ember.computed('resources', function() {
+    const children = this.get('resources');
+    if(children == null) {
+      return false;
+    }
+    return children.filterBy('isFile').get('length') > 0;
+  }),
   projectChanged: Ember.on('init', Ember.observer('project', function() {
     if(! this.get('project.id')) {
       return;
