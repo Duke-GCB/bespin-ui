@@ -29,14 +29,25 @@ const FileItemList = Ember.Object.extend({
     }
   },
   groupSize: 2,
+  includesFileItem(fileItem) {
+    // Check inclusion based on the ddsFile property by default
+    // If the fileItem does not have this property, fallback to object equality
+    const ddsFile = Ember.get(fileItem, 'ddsFile');
+    if(ddsFile) {
+      return this.get('ddsFiles').includes(ddsFile);
+    } else {
+      return this.get('content').includes(fileItem);
+    }
+  },
   addFileItem(fileItem) {
     const content = this.get('content');
     const unique = this.get('unique');
-    if(unique && content.includes(fileItem)) {
-      // we already have this item and must be unique
+    const exists = this.includesFileItem(fileItem);
+    if(unique && exists) {
+      // We require uniqueness but already have this fileItem
       return false;
     } else {
-      this.get('content').pushObject(fileItem);
+      return content.pushObject(fileItem);
     }
   },
   removeFileItem(groupIndex, fileIndex) {

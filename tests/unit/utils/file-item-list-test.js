@@ -130,3 +130,23 @@ test('it allows duplicates when configured', function(assert) {
   fileGroupList.addFileItem(if1);
   assert.equal(fileGroupList.get('content.length'), 2);
 });
+
+test('it checks inclusion based on ddsFile', function(assert) {
+  // Create two different objects with the same ddsFile
+  const f1 = Ember.Object.create({ddsFile: 'abc', id: 1});
+  const f2 = Ember.Object.create({ddsFile: 'abc', id: 2});
+  const f3 = Ember.Object.create({ddsFile: 'def', id: 1});
+  assert.notEqual(f1, f2);
+  assert.equal(f1.get('ddsFile'), f2.get('ddsFile'));
+  const fileItemList = FileItemList.create({content: [f1]});
+  assert.ok(fileItemList.includesFileItem(f2));
+  assert.notOk(fileItemList.includesFileItem(f3));
+});
+
+test('it falls back to simple inclusion when ddsFile not present', function(assert) {
+  const f1 = Ember.Object.create();
+  const f2 = Ember.Object.create();
+  assert.notEqual(f1, f2);
+  const fileItemList = FileItemList.create({content: [f1]});
+  assert.notOk(fileItemList.includesFileItem(f2));
+});
