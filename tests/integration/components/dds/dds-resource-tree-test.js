@@ -1,7 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import StoreStub from '../../../helpers/store-stub';
-
+import Ember from 'ember';
 
 moduleForComponent('dds/dds-resource-tree', 'Integration | Component | dds/dds resource tree', {
   integration: true,
@@ -10,7 +10,10 @@ moduleForComponent('dds/dds-resource-tree', 'Integration | Component | dds/dds r
     this.inject.service('store', {as: 'store'});
     this.get('store').reset();
     this.set('store.queryFunction', function() {
-      return [{name: 'file1.txt', kind: 'dds-file'}, {name: 'file2.txt', kind: 'dds-file'}];
+      return [
+        {name: 'file1.txt', kind: 'dds-file', isFile: true},
+        {name: 'file2.txt', kind: 'dds-file', isFile: true}
+        ];
     });
   }
 });
@@ -46,3 +49,11 @@ test('it fetches only on first expansion', function(assert) {
   assert.equal(this.get('store.queryCount'), 1);
 });
 
+test('it renders dds-resource-list-header button only when there are files', function(assert) {
+  this.set('children', [Ember.Object.create({isFile: true})]);
+  this.render(hbs`{{dds/dds-resource-tree children=children expanded=true}}`);
+  assert.equal(this.$('.dds-resource-list-header').length, 1);
+  this.set('children', [Ember.Object.create({isFile: false})]);
+  this.render(hbs`{{dds/dds-resource-tree children=children expanded=true}}`);
+  assert.equal(this.$('.dds-resource-list-header').length, 0);
+});
