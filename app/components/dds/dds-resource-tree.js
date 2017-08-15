@@ -29,14 +29,13 @@ const DDSResourceTree = Ember.Component.extend({
     }
   }),
   expand(){
-    this.set('expanded', !this.get('expanded'));
+    this.toggleProperty('expanded');
   },
   pick() {
     this.get('onPick')(this.get('resource'));
   },
-
   actions: {
-    resourceClicked() {
+    clicked() {
       if(this.get('resource.isFile')) {
         this.pick();
       } else {

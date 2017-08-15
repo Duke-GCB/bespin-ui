@@ -36,7 +36,7 @@ ul.tree li:last-child:before {
   border-left:1px solid rgb(100,100,100);
 }
 
-.dds-resource-node {
+.dds-resource-node, .dds-resource-header {
   cursor: pointer;
 }
 
@@ -51,4 +51,8 @@ a.clickable {
 span.is-disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.dds-button {
+  padding-right: 4px;
 }

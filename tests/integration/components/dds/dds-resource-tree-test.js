@@ -1,7 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import StoreStub from '../../../helpers/store-stub';
-
+import Ember from 'ember';
 
 moduleForComponent('dds/dds-resource-tree', 'Integration | Component | dds/dds resource tree', {
   integration: true,
@@ -10,7 +10,10 @@ moduleForComponent('dds/dds-resource-tree', 'Integration | Component | dds/dds r
     this.inject.service('store', {as: 'store'});
     this.get('store').reset();
     this.set('store.queryFunction', function() {
-      return [{name: 'file1.txt', kind: 'dds-file'}, {name: 'file2.txt', kind: 'dds-file'}];
+      return [
+        {name: 'file1.txt', kind: 'dds-file', isFile: true},
+        {name: 'file2.txt', kind: 'dds-file', isFile: true}
+        ];
     });
   }
 });
@@ -31,15 +34,26 @@ test('it fetches only on first expansion', function(assert) {
   this.render(hbs`{{dds/dds-resource-tree resource store=store expanded=expanded}}`);
   assert.equal(this.get('expanded'), false, 'should not be initially expanded');
   assert.equal(this.$('li.dds-resource-list-item').length, 0, 'should not have any dds-resource-list-items yet');
+  assert.equal(this.$('li.dds-resource-list-header').length, 0, 'should not show the resource list header yet');
   assert.equal(this.get('store.queryCount'), 0, 'store should not have been queried yet');
   this.set('expanded', true);
   // Used to send a click to the dds-resource-name but that doesn't work on the first pass anymore
   assert.equal(this.get('expanded'), true, 'Should now be expanded');
   assert.equal(this.$('li.dds-resource-list-item').length, 2);
+  assert.equal(this.$('li.dds-resource-list-header').length, 1);
   assert.equal(this.get('store.queryCount'), 1, 'should have registered one query');
   this.$('.dds-resource-name').click();
   assert.equal(this.get('expanded'), false);
   this.$('.dds-resource-name').click();
   assert.equal(this.get('expanded'), true);
   assert.equal(this.get('store.queryCount'), 1);
+});
+
+test('it renders dds-resource-list-header button only when there are files', function(assert) {
+  this.set('children', [Ember.Object.create({isFile: true})]);
+  this.render(hbs`{{dds/dds-resource-tree children=children expanded=true}}`);
+  assert.equal(this.$('.dds-resource-list-header').length, 1);
+  this.set('children', [Ember.Object.create({isFile: false})]);
+  this.render(hbs`{{dds/dds-resource-tree children=children expanded=true}}`);
+  assert.equal(this.$('.dds-resource-list-header').length, 0);
 });

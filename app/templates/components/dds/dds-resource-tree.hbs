@@ -1,5 +1,5 @@
-{{#dds/dds-resource-node resource expanded selectedResources action='resourceClicked'}}
-  {{! The node yields to allow the caller to pick what icon/button to render}}
+{{#dds/dds-resource-node resource expanded selectedResources action='clicked'}}
+  {{! The node yields to allow the caller (us) to pick what icon/button to render}}
   {{#if resource.isFolder}}
     {{dds/dds-expand-button expanded}}
   {{else}}
@@ -7,10 +7,6 @@
   {{/if}}
 {{/dds/dds-resource-node}}
 {{#if expanded}}
-  <ul class="dds-resource-list list-unstyled">
-    {{#each children as |child|}}
-      <li class="dds-resource-list-item">{{dds/dds-resource-tree child selectedResources (action onPick)}}</li>
-    {{/each}}
-  </ul>
+  {{dds/dds-file-picker project selectedResources (action onPick) children=children}}
 {{/if}}
 {{yield}}

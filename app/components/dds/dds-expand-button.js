@@ -3,7 +3,7 @@ import Ember from 'ember';
 const DDSExpandButton = Ember.Component.extend({
   expanded: false,
   tagName: 'span',
-  classNames: ['glyphicon','dds-expand-button'],
+  classNames: ['glyphicon','dds-expand-button','dds-button'],
   classNameBindings: ['expanded:glyphicon-folder-open:glyphicon-folder-close'],
   click() {
     this.sendAction();

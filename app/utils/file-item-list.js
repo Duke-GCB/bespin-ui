@@ -21,6 +21,7 @@ const FileItem = Ember.Object.extend({
 
 const FileItemList = Ember.Object.extend({
   content: null,
+  unique: true,
   init() {
     this._super(...arguments);
     if(Ember.isEmpty(this.get('content'))) {
@@ -28,8 +29,26 @@ const FileItemList = Ember.Object.extend({
     }
   },
   groupSize: 2,
+  includesFileItem(fileItem) {
+    // Check inclusion based on the ddsFile property by default
+    // If the fileItem does not have this property, fallback to object equality
+    const ddsFile = Ember.get(fileItem, 'ddsFile');
+    if(ddsFile) {
+      return this.get('ddsFiles').includes(ddsFile);
+    } else {
+      return this.get('content').includes(fileItem);
+    }
+  },
   addFileItem(fileItem) {
-    this.get('content').pushObject(fileItem);
+    const content = this.get('content');
+    const unique = this.get('unique');
+    const exists = this.includesFileItem(fileItem);
+    if(unique && exists) {
+      // We require uniqueness but already have this fileItem
+      return false;
+    } else {
+      return content.pushObject(fileItem);
+    }
   },
   removeFileItem(groupIndex, fileIndex) {
     let index = this.get('groupSize') * groupIndex + fileIndex;
