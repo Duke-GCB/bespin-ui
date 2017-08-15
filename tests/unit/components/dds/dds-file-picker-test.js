@@ -26,6 +26,6 @@ test('it sorts files by name', function(assert) {
     component.set('project', Ember.Object.create({id:7}));
   });
   Ember.run(() => {
-    assert.deepEqual(component.get('resources').mapBy('name'), ['A', 'B', 'C', 'D']);
+    assert.deepEqual(component.get('children').mapBy('name'), ['A', 'B', 'C', 'D']);
   });
 });
