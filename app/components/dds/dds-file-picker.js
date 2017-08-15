@@ -4,16 +4,16 @@ const DDSFilePicker = Ember.Component.extend({
   project: null,
   store: Ember.inject.service(), // Needs access to store to query for children
   children: null, // Can be files or folders
-  filePicked: function(/* file */) {},
+  onPick: function(/* file */) {},
   selectedResources: null,
   actions: {
     // Passed down to each node
-    pickFile(file) { this.get('filePicked')(file); },
+    pickFile(file) { this.get('onPick')(file); },
     pickAllFilesClicked() { this.pickAllFiles(); }
   },
   pickAllFiles() {
     let files = this.get('children').filterBy('isFile');
-    let onPick = this.get('filePicked');
+    let onPick = this.get('onPick');
     files.forEach(onPick);
   },
   hasFiles: Ember.computed('children', function() {
@@ -36,7 +36,7 @@ const DDSFilePicker = Ember.Component.extend({
 });
 
 DDSFilePicker.reopenClass({
-  positionalParams: ['project', 'selectedResources', 'filePicked']
+  positionalParams: ['project', 'selectedResources', 'onPick']
 });
 
 export default DDSFilePicker;
