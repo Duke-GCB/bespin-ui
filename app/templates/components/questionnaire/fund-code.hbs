@@ -1,0 +1,9 @@
+<div class="col-md-12">
+  {{#bs-form as |form|}}
+    {{#form.group class='job-fund-code-group'}}
+        <label for="{{concat elementId '-fundCode'}}">Fund Code:</label>
+      {{input class='form-control fund-code-input' id=(concat elementId '-fundCode') placeholder='Fund code charged for this job' value=answerSet.fundCode}}
+    {{/form.group}}
+  {{/bs-form}}
+</div>
+{{yield}}

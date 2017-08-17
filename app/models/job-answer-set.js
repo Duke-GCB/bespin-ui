@@ -10,6 +10,7 @@ export default DS.Model.extend({
     defaultValue() { return {}; }
   }),
   stageGroup: DS.belongsTo('job-file-stage-group'),
+  fundCode: DS.attr('string'),
   createJob() {
     let modelName = this.constructor.modelName;
     let adapter = this.store.adapterFor(modelName);
