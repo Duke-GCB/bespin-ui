@@ -12,7 +12,7 @@ test('it renders', function(assert) {
 
   let version = {version: 99, url: 'http://elsewhere.edu/workflows/workflow.cwl', description: 'Special version'};
   this.set('version', version);
-  this.render(hbs`{{workflow-version-previous-detail-row version}}`);
+  this.render(hbs`{{workflow-version-summary version}}`);
 
   assert.equal(this.$('.workflow-version-summary-version').text().trim(), '99');
   assert.equal(this.$('.workflow-version-summary-url').attr('href'), 'http://elsewhere.edu/workflows/workflow.cwl');
