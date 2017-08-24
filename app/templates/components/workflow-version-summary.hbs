@@ -1,0 +1,15 @@
+<div class="workflow-version-summary">
+    <p>
+        <span class="workflow-version-summary-description">
+          {{if workflowVersion.description workflowVersion.description 'Empty description'}}
+        </span>
+        <span class="small">
+          - Version
+          <a class="workflow-version-summary-url"
+             href="{{workflowVersion.url}}">
+            <span class="workflow-version-summary-version">{{workflowVersion.version}}</span>
+          </a>
+        </span>
+    </p>
+  {{yield}}
+</div>

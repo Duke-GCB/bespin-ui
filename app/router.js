@@ -24,6 +24,9 @@ Router.map(function() {
       this.route('build-answer-set', {
         path: '/build-answer-set/:questionnaire_id'
       });
+      this.route('select-workflow-version', {
+        path: '/select-workflow-version/:workflow_id'
+      });
     });
     this.route('show', {
       path: '/:job_id'

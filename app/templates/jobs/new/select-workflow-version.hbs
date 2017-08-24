@@ -1,0 +1,9 @@
+{{#item-chooser model.versions
+  (action 'next')
+  (action 'back')
+  title=title
+  label="Workflow version"
+  itemTitleKey="workflow.name"
+  detailComponent=(component 'workflow-version-previous-detail-row')}}
+{{/item-chooser}}
+{{outlet}}
