@@ -7,11 +7,10 @@ moduleForComponent('workflow-version-detail-row', 'Integration | Component | wor
 
 test('it renders', function(assert) {
 
-  let version = {version: 42, url: 'http://somwhere.edu/workflows/workflow.cwl'};
-  this.set('version', version);
-  this.render(hbs`{{workflow-version-detail-row version}}`);
+  let workflowVersion = {version: 42, url: 'http://somewhere.com/workflows/workflow.cwl'};
+  this.set('workflowVersion', workflowVersion);
+  this.render(hbs`{{workflow-version-detail-row workflowVersion}}`);
 
-  assert.equal(this.$('.workflow-version-summary-version').text().trim(), '42');
-  assert.equal(this.$('.workflow-version-summary-url').attr('href'), 'http://somwhere.edu/workflows/workflow.cwl');
+  assert.equal(this.$('.workflow-version-summary-version').text().trim(), ''); //version not shown in summary
   assert.equal(this.$('.workflow-version-summary-description').text().trim(), 'Empty description');
 });

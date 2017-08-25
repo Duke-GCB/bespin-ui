@@ -9,5 +9,5 @@ export default DS.Model.extend({
   }),
   displayName: Ember.computed('name', function() {
     return this.get('name');
-  })
+  }),
 });

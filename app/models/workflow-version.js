@@ -1,4 +1,5 @@
 import DS from 'ember-data';
+import Ember from 'ember';
 
 export default DS.Model.extend({
   workflow: DS.belongsTo('workflow'),
@@ -8,5 +9,8 @@ export default DS.Model.extend({
   url: DS.attr('string'),
   version: DS.attr('string'),
   jobs: DS.hasMany('job'),
-  questionnaires: DS.hasMany('job-questionnaire')
+  questionnaires: DS.hasMany('job-questionnaire'),
+  displayName: Ember.computed('workflow.name', 'version', function() {
+    return this.get('workflow.name') + ' - Version' + this.get('version');
+  }),
 });

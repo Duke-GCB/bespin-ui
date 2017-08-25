@@ -1,9 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-  title: Ember.computed('', function() {
-    return 'Please select the version of \'' + this.get('model.name') + '\' to run'
-  }),
   actions: {
     back() {
       this.transitionToRoute('jobs.new.select-workflow');

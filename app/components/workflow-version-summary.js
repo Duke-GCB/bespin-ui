@@ -1,11 +1,12 @@
 import Ember from 'ember';
 
 const WorkflowVersionSummary = Ember.Component.extend({
-  workflowVersion: null
+  workflowVersion: null,
+  showVersionLink: false,
 });
 
 WorkflowVersionSummary.reopenClass({
-  positionalParams: ['workflowVersion']
+  positionalParams: ['workflowVersion', 'showVersionLink']
 });
 
 export default WorkflowVersionSummary;

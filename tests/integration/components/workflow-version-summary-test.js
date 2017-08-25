@@ -10,13 +10,12 @@ test('it renders', function(assert) {
   // Set any properties with this.set('myProperty', 'value');
   // Handle any actions with this.on('myAction', function(val) { ... });
 
-  let version = {version: 99, url: 'http://elsewhere.edu/workflows/workflow.cwl', description: 'Special version'};
+  let version = {version: 99, description: 'Special version'};
   this.set('version', version);
-  this.render(hbs`{{workflow-version-summary version}}`);
+  this.render(hbs`{{workflow-version-summary version showVersionNumber=true}}`);
 
-  assert.equal(this.$('.workflow-version-summary-version').text().trim(), '99');
-  assert.equal(this.$('.workflow-version-summary-url').attr('href'), 'http://elsewhere.edu/workflows/workflow.cwl');
   assert.equal(this.$('.workflow-version-summary-description').text().trim(), 'Special version');
+  assert.equal(this.$('.workflow-version-summary-version').html(), '- Version 99');
 
   // Template block usage:
   this.render(hbs`
@@ -26,8 +25,7 @@ test('it renders', function(assert) {
   `);
 
   assert.equal(this.$('.child-content').text().trim(), 'template block text');
-  assert.equal(this.$('.workflow-version-summary-version').text().trim(), '99');
-  assert.equal(this.$('.workflow-version-summary-url').attr('href'), 'http://elsewhere.edu/workflows/workflow.cwl');
+  assert.equal(this.$('.workflow-version-summary-version').text().trim(), '');
   assert.equal(this.$('.workflow-version-summary-description').text().trim(), 'Special version');
 });
 
