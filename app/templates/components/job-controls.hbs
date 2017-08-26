@@ -9,7 +9,12 @@
     {{else if operation}}
       {{#bs-alert type="success"}}<span class="success-message">The job has been {{operation}}.</span>{{/bs-alert}}
     {{else if job.isAuthorized}}
-      {{#bs-alert type="info"}}<span class="info-message">Your job is ready. Click <strong>Start</strong> to submit. You will be charged at a rate of $x per hour of computation. Results will be uploaded to Duke Data Service.</span>{{/bs-alert}}
+      {{#bs-alert type="info"}}<span class="info-message">Your job is ready.
+          Click <strong>Start</strong> to submit.
+          Results will be reviewed by {{job.shareGroup.name}}.
+          After review, the results will be delivered to you through Duke Data Service.
+      </span>{{/bs-alert}}
+
     {{/if}}
   </div>
   {{#if job.isNew}}
