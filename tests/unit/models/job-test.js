@@ -52,6 +52,7 @@ test('it computes isErrored', function(assert) {
 testRelationship('job', {key: 'workflowVersion', kind: 'belongsTo', type: 'workflow-version'});
 testRelationship('job', {key: 'outputDir', kind: 'belongsTo', type: 'job-output-dir'});
 testRelationship('job', {key: 'stageGroup', kind: 'belongsTo', type: 'job-file-stage-group'});
+testRelationship('job', {key: 'shareGroup', kind: 'belongsTo', type: 'share-group'});
 
 test('it sends actions to the adapter', function(assert) {
   assert.expect(15); // 5asserts for each action
