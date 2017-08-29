@@ -13,6 +13,7 @@ export default DS.Model.extend({
   vmProjectName: DS.attr('string'),
   jobOrder: DS.attr('string'), // This is JSON, no need to test it
   stageGroup: DS.belongsTo('job-file-stage-group'),
+  shareGroup: DS.belongsTo('share-group'),
   isNew: Ember.computed('state', function() {
     return this.get('state') === 'N';
   }),
