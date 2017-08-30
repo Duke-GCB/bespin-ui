@@ -1,6 +1,4 @@
-<h2>Workflow Versions</h2>
-<h4>{{model.name}}</h4>
-{{#each model.versions as |workflowVersion|}}
+{{#each model as |workflowVersion|}}
   {{workflows/workflow-version-detail workflowVersion=workflowVersion}}
 {{/each}}
 {{outlet}}
