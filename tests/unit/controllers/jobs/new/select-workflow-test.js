@@ -27,6 +27,5 @@ test('it handles next action', function(assert) {
       assert.equal(id, 3, 'next action should extract workflow version from workflow');
     }
   });
-
   controller.send('next');
 });
