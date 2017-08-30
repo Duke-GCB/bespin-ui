@@ -7,7 +7,4 @@ export default DS.Model.extend({
   latestVersion: Ember.computed('versions.[]', function() {
     return this.get('versions').get('lastObject');
   }),
-  displayName: Ember.computed('name', function() {
-    return this.get('name');
-  }),
 });

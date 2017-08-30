@@ -10,11 +10,11 @@ Router.map(function() {
   this.route('projects');
   this.route('login');
   this.route('workflows', function() {
-    this.route('show', {
-      path: '/:workflow_id'
+    this.route('show', { path: '/:workflow_id'});
+    this.route('versions', { path: '/:workflow_id/versions'}, function() {
+      this.route('show', { path: '/:workflow_version_id'});
     });
   });
-  this.route('workflows');
   this.route('jobs', function() {
     this.route('new', function() {
       this.route('select-workflow');

@@ -12,10 +12,10 @@ test('it renders', function(assert) {
 
   let version = {version: 99, description: 'Special version'};
   this.set('version', version);
-  this.render(hbs`{{workflow-version-summary version showVersionNumber=true}}`);
+  this.render(hbs`{{workflow-version-summary version}}`);
 
   assert.equal(this.$('.workflow-version-summary-description').text().trim(), 'Special version');
-  assert.equal(this.$('.workflow-version-summary-version').html(), '- Version 99');
+  assert.equal(this.$('.workflow-version-summary-version').html(), 'v99');
 
   // Template block usage:
   this.render(hbs`
