@@ -1,9 +1,8 @@
 {{#if errors}}
-    <div class="error-panel alert alert-danger">
-        <h4>Errors</h4>
+    <div class="error-panel">
         <ul>
           {{#each errors as |error|}}
-              <li>{{error.attribute}} - {{error.message}}</li>
+              <li>{{error.message}}</li>
           {{/each}}
         </ul>
         {{yield}}

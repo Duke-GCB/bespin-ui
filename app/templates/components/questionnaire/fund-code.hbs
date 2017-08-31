@@ -3,6 +3,7 @@
     {{#form.group class='job-fund-code-group'}}
         <label for="{{concat elementId '-fundCode'}}">Fund Code:</label>
       {{input class='form-control fund-code-input' id=(concat elementId '-fundCode') placeholder='Fund code charged for this job' value=answerSet.fundCode}}
+      {{error-panel errors=answerSet.errors.fundCode}}
     {{/form.group}}
   {{/bs-form}}
 </div>

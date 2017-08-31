@@ -19,7 +19,7 @@ test('it renders', function(assert) {
   assert.equal(this.$().text().trim(), '');
 
   this.render(hbs`{{error-panel errors=oneError}}`);
-  assert.equal(this.$('li').text(), 'jobName - required');
+  assert.equal(this.$('li').text(), 'required');
 
 
   this.render(hbs`

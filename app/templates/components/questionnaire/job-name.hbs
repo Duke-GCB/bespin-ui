@@ -3,6 +3,7 @@
     {{#form.group class='job-name-group'}}
       <label for="{{concat elementId '-jobName'}}">Job Name:</label>
       {{input class='form-control job-name-input' id=(concat elementId '-jobName') placeholder='Enter name for this job' value=answerSet.jobName}}
+      {{error-panel errors=answerSet.errors.jobName}}
     {{/form.group}}
   {{/bs-form}}
 </div>
