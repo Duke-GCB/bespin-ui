@@ -1,16 +1,6 @@
 {{questionnaire/answer-form model}}
 
-{{! move this to another component }}
-{{#if model.errors}}
-  <div class="error-panel alert alert-danger">
-      <h4>Errors</h4>
-      <ul>
-        {{#each model.errors as |error|}}
-          <li>{{error.attribute}} - {{error.message}}</li>
-        {{/each}}
-      </ul>
-  </div>
-{{/if}}
+{{error-panel errors=model.errors}}
 
 {{#bs-button type="default" onClick=(action 'back') class="back-button"}}Back{{/bs-button}}
 {{#bs-button type="primary" onClick=(action 'saveAndCreateJob') class="pull-right next-button"}}Save{{/bs-button}}

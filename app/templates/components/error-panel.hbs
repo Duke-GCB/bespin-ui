@@ -1,0 +1,13 @@
+{{#if errors}}
+    <div class="error-panel alert alert-danger">
+        <h4>Errors</h4>
+        <ul>
+          {{#each errors as |error|}}
+              <li>{{error.attribute}} - {{error.message}}</li>
+          {{/each}}
+        </ul>
+        {{yield}}
+    </div>
+{{/if}}
+
+
