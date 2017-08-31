@@ -5,7 +5,7 @@
   <div class="error-panel alert alert-danger">
       <h4>Errors</h4>
       <ul>
-        {{#each model.errors.jobName as |error|}}
+        {{#each model.errors as |error|}}
           <li>{{error.attribute}} - {{error.message}}</li>
         {{/each}}
       </ul>
