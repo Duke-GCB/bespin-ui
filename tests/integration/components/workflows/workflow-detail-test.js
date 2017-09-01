@@ -6,20 +6,28 @@ moduleForComponent('workflows/workflow-detail', 'Integration | Component | workf
 });
 
 test('it renders', function(assert) {
+  const workflowVersion = {
+    version: '2',
+    description: 'My workflow',
+    created: 'today',
+    url: 'somewhere.edu',
+  };
+  this.set('myworkflow', {
+      name: 'Exomeseq',
+      versions: [workflowVersion]
+  });
 
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
+  this.render(hbs`{{workflows/workflow-detail workflow=myworkflow}}`);
 
-  this.render(hbs`{{workflows/workflow-detail}}`);
-
-  assert.equal(this.$().text().trim(), '');
+  assert.equal(this.$('h3').text().trim(), 'Exomeseq');
+  assert.equal(this.$('.workflow-version-details-description').text().trim(), 'My workflow');
 
   // Template block usage:
   this.render(hbs`
-    {{#workflows/workflow-detail}}
-      template block text
+    {{#workflows/workflow-detail workflow=myworkflow}}
+      <span class="childcontent">template block text</span>
     {{/workflows/workflow-detail}}
   `);
 
-  assert.equal(this.$().text().trim(), 'template block text');
+  assert.equal(this.$('.childcontent').html().trim(), 'template block text');
 });
