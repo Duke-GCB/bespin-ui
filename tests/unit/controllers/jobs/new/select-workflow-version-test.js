@@ -5,7 +5,6 @@ moduleFor('controller:jobs/new/select-workflow-version', 'Unit | Controller | jo
   // needs: ['controller:foo']
 });
 
-// Replace this with your real tests.
 test('it exists', function(assert) {
   let controller = this.subject();
   assert.ok(controller);
