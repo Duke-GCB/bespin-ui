@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   workflow: null,
-  onPicked: null,
+  onPicked: (/*workflow*/) => {},
   actions: {
     pick() {
       const workflow = this.get('workflow');
