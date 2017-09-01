@@ -19,12 +19,13 @@ test('it handles back action', function(assert) {
 });
 
 test('it handles next action', function(assert) {
+  let workflow = Ember.Object.create({ latestVersion: { id: 3 } });
   let controller = this.subject({
+    workflow: workflow,
     transitionToRoute(routeName, id) {
       assert.equal(routeName, 'jobs.new.select-questionnaire','next action should transition to questionnaire selection');
       assert.equal(id, 3, 'next action should extract workflow version from workflow');
     }
   });
-  let workflow = Ember.Object.create({ latestVersion: { id: 3 } });
-  controller.send('next', workflow);
+  controller.send('next');
 });

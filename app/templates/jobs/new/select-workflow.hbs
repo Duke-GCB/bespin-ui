@@ -1,9 +1,13 @@
-{{#item-chooser model
-                (action 'next')
-                (action 'back')
-                title="Please select a workflow to run"
-                label="Workflow"
-                itemTitleKey="name"
-                detailComponent=(component 'workflow-version-detail-row')}}
-{{/item-chooser}}
+{{#bs-form as |form|}}
+    <h3>Please select a workflow to run</h3>
+    {{#form.group  class='job-kind'}}
+        <label class="control-label">Workflow:</label>
+        <div class="row">
+          {{#each model as |workflow| }}
+            {{jobs/workflow-card workflow=workflow onPicked=(action 'setWorkflow')}}
+          {{/each}}
+        </div>
+    {{/form.group}}
+    {{next-back-buttons onClickNext=(action 'next') onClickBack=(action 'back')}}
+{{/bs-form}}
 {{outlet}}

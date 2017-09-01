@@ -1,0 +1,13 @@
+<div class="panel panel-default">
+    <div class="panel-heading workflow-version-details-title">
+        Version {{workflowVersion.version}}
+    </div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
+            <dt>Description</dt><dd class="workflow-version-details-description">{{workflowVersion.description}}</dd>
+            <dt>Created</dt><dd class="workflow-version-details-created">{{workflowVersion.created}}</dd>
+            <dt>URL</dt><dd class="workflow-version-details-url"><a href={{workflowVersion.url}}>{{workflowVersion.url}}</a></dd>
+        </dl>
+        {{yield}}
+    </div>
+</div>

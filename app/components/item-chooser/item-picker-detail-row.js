@@ -1,16 +1,7 @@
 import Ember from 'ember';
 
 const ItemPickerDetailRow = Ember.Component.extend({
-  titleKey: null,
-  title: Ember.computed('item', 'titleKey' ,function() {
-    var item = this.get('item');
-    var titleKey = this.get('titleKey') || 'name';
-    if(item) {
-      return item.get(titleKey);
-    } else {
-      return null;
-    }
-  }),
+  title: Ember.computed.alias('item.displayName'),
   actions: {
     pick() {
       this.get('onPick')(this.get('item'));
@@ -19,7 +10,7 @@ const ItemPickerDetailRow = Ember.Component.extend({
 });
 
 ItemPickerDetailRow.reopenClass({
-  positionalParams: ['item', 'selectedItem', 'onPick', 'titleKey']
+  positionalParams: ['item', 'selectedItem', 'onPick']
 });
 
 export default ItemPickerDetailRow;

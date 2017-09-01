@@ -1,0 +1,20 @@
+{{#card-panel}}
+    <div class="panel-heading">
+        <label for="{{concat elementId '-radio' }}" class="jobs-workflow-version-card-title">
+          {{workflowVersion.workflow.name}}
+        </label>
+      {{#link-to "workflows.versions.show" workflowVersion.workflow workflowVersion class="pull-right"}}
+          <span class="jobs-workflow-version-card-version">v{{workflowVersion.version}}</span>
+      {{/link-to}}
+    </div>
+    <div class="panel-body">
+        <div class="radio">
+            <label class="item-content">
+              {{picker-radio-button id=(concat elementId '-radio') value=workflowVersion name='selectedItem' onChange=(action "pick")}}
+              {{workflowVersion.description}}
+            </label>
+        </div>
+        {{yield}}
+    </div>
+{{/card-panel}}
+

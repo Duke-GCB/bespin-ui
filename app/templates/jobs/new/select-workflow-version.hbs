@@ -1,0 +1,13 @@
+{{#bs-form as |form|}}
+    <h3>Please select a workflow version to run</h3>
+    {{#form.group  class='job-kind'}}
+        <label class="control-label">Workflow version:</label>
+        <div class="row">
+          {{#each model.versions as |version| }}
+            {{jobs/workflow-version-card workflowVersion=version onPicked=(action 'setWorkflowVersion')}}
+          {{/each}}
+        </div>
+    {{/form.group}}
+    {{next-back-buttons onClickNext=(action 'next') onClickBack=(action 'back')}}
+{{/bs-form}}
+{{outlet}}

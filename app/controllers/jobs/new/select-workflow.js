@@ -1,13 +1,19 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
+  workflow: null,
   actions: {
     back() {
       this.transitionToRoute('jobs');
     },
-    next(workflow) {
-      let workflowVersionId = workflow.get('latestVersion.id');
-      this.transitionToRoute('jobs.new.select-questionnaire', workflowVersionId);
+    setWorkflow(workflow) {
+      this.set('workflow', workflow);
+    },
+    next() {
+      let workflowVersionId = this.get('workflow.latestVersion.id');
+      if (workflowVersionId) {
+        this.transitionToRoute('jobs.new.select-questionnaire', workflowVersionId);
+      }
     }
   },
 });

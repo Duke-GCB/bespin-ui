@@ -8,5 +8,5 @@ export default DS.Model.extend({
   url: DS.attr('string'),
   version: DS.attr('string'),
   jobs: DS.hasMany('job'),
-  questionnaires: DS.hasMany('job-questionnaire')
+  questionnaires: DS.hasMany('job-questionnaire'),
 });

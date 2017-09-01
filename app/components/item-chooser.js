@@ -2,7 +2,6 @@ import Ember from 'ember';
 
 const ItemChooser = Ember.Component.extend({
   title: '',
-  itemTitleKey: '',
   selectedItem: null,
   items: null,
   onNext() {},

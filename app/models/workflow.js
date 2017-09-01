@@ -6,5 +6,5 @@ export default DS.Model.extend({
   versions: DS.hasMany('workflow-version'),
   latestVersion: Ember.computed('versions.[]', function() {
     return this.get('versions').get('lastObject');
-  })
+  }),
 });
