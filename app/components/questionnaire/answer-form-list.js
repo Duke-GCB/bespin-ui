@@ -11,6 +11,15 @@ const ComponentInfos = [
   }
 ];
 
+const ComponentSettings = {
+  'file-group-list': {
+    'http://edamontology.org/format_1930': {
+      fileNameRegexStr: '.*(fq$)|(fastq$)|(fastq.gz$)',
+      groupName: 'sample'
+    }
+  }
+};
+
 const AnswerFormList = Ember.Component.extend({
   classNames: ['answer-form-list'],
   answerSet: null,
@@ -23,7 +32,8 @@ const AnswerFormList = Ember.Component.extend({
       } else {
         return Ember.Object.create({
           name: field.name,
-          componentName: `questionnaire/${componentInfo.name}`
+          componentName: `questionnaire/${componentInfo.name}`,
+          componentSettings: ComponentSettings[componentInfo.name][field.format],
         });
       }
     });
@@ -37,7 +47,7 @@ const AnswerFormList = Ember.Component.extend({
    * @param type
    * @returns {*}
    */
-  componentInfoForCwlType: function(cwlType) {
+  componentInfoForCwlType: function(cwlType, cwlFormat) {
     return ComponentInfos.find(each => {
       // Ember does not have a comparison function for objects, so instead we'll compare their JSON representations
       // This should be fine for small types

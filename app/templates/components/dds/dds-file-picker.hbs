@@ -5,7 +5,12 @@
   </li>
 {{/if}}
   {{#each children as |child|}}
-  <li class="dds-resource-list-item">{{dds/dds-resource-tree child selectedResources (action 'pickFile')}}</li>
+  <li class="dds-resource-list-item">
+    {{dds/dds-resource-tree child selectedResources (action 'pickFile') fileFilter=fileFilter}}
+  </li>
 {{/each}}
 </ul>
+{{#each children as |c2|}}
+  {{c2.fileExtension}}
+{{/each}}
 {{yield}}
