@@ -47,7 +47,7 @@ const AnswerFormList = Ember.Component.extend({
    * @param type
    * @returns {*}
    */
-  componentInfoForCwlType: function(cwlType, cwlFormat) {
+  componentInfoForCwlType: function(cwlType) {
     return ComponentInfos.find(each => {
       // Ember does not have a comparison function for objects, so instead we'll compare their JSON representations
       // This should be fine for small types

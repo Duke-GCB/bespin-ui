@@ -6,7 +6,7 @@ const DDSProjectFilesPicker = Ember.Component.extend({
   project: null,
   selectedResources: null,
   onFilePicked: function(/* file */) {},
-  fileFilter: (item, index, enumerable) => {return true},
+  fileFilter: function(/*item, index, enumerable*/) {return true},
   init() {
     this._super(...arguments);
     const fileNameRegexStr = this.get('fileNameRegexStr');

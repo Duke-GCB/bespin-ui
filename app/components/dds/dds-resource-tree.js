@@ -8,7 +8,7 @@ const DDSResourceTree = Ember.Component.extend({
   children: null,
   onPick: () => {},
   store: Ember.inject.service('store'),
-  fileFilter: (item, index, enumerable) => {return true},
+  fileFilter: (/*item, index, enumerable*/) => {return true},
   fetchedOnce: Ember.computed('children', function () {
     return this.get('children') != null;
   }),

@@ -13,10 +13,8 @@ const FilenameFilter = Ember.Object.extend({
     const fileNameRegex = this.get('fileNameRegex');
     if (item.get('isFile')) {
       if (fileNameRegex.test(item.get('name'))) {
-        console.log("Include " + item.get('name'));
         return true;
       }
-      console.log("Exclude " + item.get('name'));
       return false;
     }
     return true;

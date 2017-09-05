@@ -10,9 +10,9 @@ test('it renders', function(assert) {
   // Handle any actions with this.on('myAction', function(val) { ... });
 
   this.render(hbs`{{questionnaire/file-group-row 0 0}}`);
-  assert.equal(this.$().text().trim(), 'Read 1', 'It computes the display index as group + 1');
+  assert.equal(this.$().text().trim(), 'Group 1', 'It computes the display index as group + 1');
 
   this.render(hbs`{{questionnaire/file-group-row 3 8}}`);
-  assert.equal(this.$().text().trim(), 'Read 9', 'It computes the display index as group + 1');
+  assert.equal(this.$().text().trim(), 'Group 9', 'It computes the display index as group + 1');
 });
 

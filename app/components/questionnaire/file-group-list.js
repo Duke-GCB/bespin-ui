@@ -29,6 +29,9 @@ const FileGroupList = Ember.Component.extend({
   groups: Ember.computed.map('fileItems.fileItemGroups', function(fileItemGroup) {
     return fileItemGroup.mapBy('ddsFile');
   }),
+  groupTitle: Ember.computed('settings.groupName', function() {
+    return this.get('settings.groupName') || 'file';
+  }),
   answer: Ember.computed('fieldName', 'fileItems.cwlObjectValue', function() {
     const fieldName = this.get('fieldName');
     const answer = Ember.Object.create();

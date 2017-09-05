@@ -26,7 +26,11 @@ test('it computes fields property', function (assert) {
   let answerSet = Ember.Object.create({questionnaire: questionnaire});
   let component = this.subject({answerSet: answerSet});
   let fields = component.get('fields');
-  let expectedField = Ember.Object.create({name: 'fieldName1', componentName: 'questionnaire/file-group-list'});
+  let expectedField = Ember.Object.create({
+    name: 'fieldName1',
+    componentName: 'questionnaire/file-group-list',
+    componentSettings: undefined,
+  });
   assert.deepEqual(fields, [expectedField]);
 });
 
