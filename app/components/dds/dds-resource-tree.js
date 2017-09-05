@@ -21,11 +21,9 @@ const DDSResourceTree = Ember.Component.extend({
     this.get('store').query('dds-resource', {
       folder_id: this.get('resource.id')
     }).then((children) => {
-      if (!this.get('isDestroyed')) { // get is so slow that this could fire after this component is destroyed
-        let filteredFiles = children.filter(fileFilter);
-        this.set('children', filteredFiles.sortBy('name'));
-        this.set('fetchedOnce', true);
-      }
+      let filteredFiles = children.filter(fileFilter);
+      this.set('children', filteredFiles.sortBy('name'));
+      this.set('fetchedOnce', true);
     });
   },
   didToggleExpanded: Ember.observer('expanded', function() {
