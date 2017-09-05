@@ -2,7 +2,6 @@ import Ember from 'ember';
 import { FileItemList, FileItem } from 'bespin-ui/utils/file-item-list';
 
 const DEFAULT_GROUP_SIZE = 2;
-const DEFAULT_FILE_KIND_NAME = 'read';
 
 const GroupSizes = [
   Ember.Object.create({size: 2, name: 'pairs'})
@@ -14,7 +13,10 @@ const FileGroupList = Ember.Component.extend({
    */
   tagName: 'div',
   classNames: ['file-group-list', 'row'],
-  fileKindName: DEFAULT_FILE_KIND_NAME, // What kind of file are we picking?
+  settings: {  // settings based on cwl type format
+    groupName: '',
+    fileNameRegexStr: '',
+  },
   groupSize: DEFAULT_GROUP_SIZE,
   groupSizeName: Ember.computed('groupSize', function() {
     return GroupSizes.findBy('size', this.get('groupSize')).get('name');

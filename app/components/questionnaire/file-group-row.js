@@ -1,18 +1,19 @@
 import Ember from 'ember';
 
 const FileGroupRow = Ember.Component.extend({
+  classNames: ['file-group-row', 'well','well-sm'],
+  groupName: "",
   groupTitle: Ember.computed('groupName', function() {
     const groupName = this.get('groupName');
-    if (groupName) {
-      return groupName.capitalize();
+    if (!groupName) {
+      return 'Group';
     }
-    return "Group"
+    return groupName.capitalize();
   }),
   groupIndex: 0,
   displayIndex: Ember.computed('groupIndex', function() {
     return this.get('groupIndex') + 1;
   }),
-  classNames: ['file-group-row', 'well','well-sm'],
   group: null,
   onClick: (/* groupIndex, fileIndex*/) => {},
   actions: {

@@ -21,6 +21,13 @@ test('it renders', function(assert) {
   assert.equal(this.$('.file-group-list-selections label').text().trim(), 'Selected file pairs');
 });
 
+test('it renders with GroupName', function(assert) {
+  this.set('mysettings', Ember.Object.create({groupName: 'sample'}));
+  this.render(hbs`{{questionnaire/file-group-list settings=mysettings}}`);
+  assert.equal(this.$('.file-group-list-picker label').text().trim(), 'Pick your sample pairs from Duke Data Service');
+  assert.equal(this.$('.file-group-list-selections label').text().trim(), 'Selected sample pairs');
+});
+
 test('it toggles empty selection', function(assert) {
   Ember.run(() => {
     this.set('fileItems', Ember.Object.create({

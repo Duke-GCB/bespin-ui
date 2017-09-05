@@ -14,5 +14,10 @@ test('it renders', function(assert) {
 
   this.render(hbs`{{questionnaire/file-group-row 3 8}}`);
   assert.equal(this.$().text().trim(), 'Group 9', 'It computes the display index as group + 1');
+
+  this.set('groupName', 'sample');
+  this.render(hbs`{{questionnaire/file-group-row 3 8 groupName=groupName}}`);
+  assert.equal(this.$().text().trim(), 'Sample 9', 'It computes the display index as group + 1');
+
 });
 
