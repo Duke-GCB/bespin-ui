@@ -125,5 +125,3 @@ test('it tolerates answerComponents without inputFiles', function(assert) {
   assert.equal(component.get('answerSet.userJobOrderJson.prop1'), 'val1');
   assert.equal(component.get('answerSet.userJobOrderJson.prop2'), 'val2');
 });
-
-
