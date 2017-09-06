@@ -30,3 +30,16 @@ test('it sorts files by name', function(assert) {
     assert.ok(component.get('fetchedOnce'));
   });
 });
+
+test('it filters files based on fileFilter', function(assert) {
+  let component = this.subject({resource: Ember.Object.create()});
+  component.set('fileFilter', (item) => {return item.get('name') == 'A'});
+  Ember.run(() => {
+    component.fetchChildren()
+  });
+  Ember.run(() => {
+    assert.deepEqual(component.get('children').mapBy('name'), ['A']);
+    assert.ok(component.get('fetchedOnce'));
+  });
+
+});
