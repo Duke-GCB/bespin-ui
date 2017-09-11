@@ -56,3 +56,7 @@ span.is-disabled {
 .dds-button {
   padding-right: 4px;
 }
+
+.error-panel {
+  color: darkred;
+}

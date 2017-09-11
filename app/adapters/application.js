@@ -31,5 +31,8 @@ export default DS.RESTAdapter.extend(DataAdapterMixin, {
     let dasherized = Ember.String.dasherize(type);
     let pluralized = Ember.String.pluralize(dasherized);
     return pluralized;
-  }
+  },
+  isInvalid(status) {
+    return status === 400;
+  },
 });
