@@ -6,7 +6,7 @@ const DDSFilePicker = Ember.Component.extend({
   children: null, // Can be files or folders
   onPick: (/* file */) => {},
   selectedResources: null,
-  fileFilter: (/*item, index, enumerable*/) => {return true},
+  formatSettings: {},
   actions: {
     // Passed down to each node
     pickFile(file) { this.get('onPick')(file); },
@@ -14,6 +14,11 @@ const DDSFilePicker = Ember.Component.extend({
   },
   pickAllFiles() {
     let files = this.get('children').filterBy('isFile');
+    const fileNameRegexStr = this.get('formatSettings.fileNameRegexStr');
+    if (fileNameRegexStr) {
+      const fileNameRegex = new RegExp(fileNameRegexStr);
+      files = files.filter((item) => fileNameRegex.test(item.get('name')));
+    }
     let onPick = this.get('onPick');
     files.forEach(onPick);
   },
@@ -28,12 +33,10 @@ const DDSFilePicker = Ember.Component.extend({
     if(! this.get('project.id')) {
       return;
     }
-    const fileFilter = this.get('fileFilter');
     this.get('store').query('dds-resource', {
       project_id: this.get('project.id')
     }).then((resources) => {
-      let filteredFiles = resources.filter(fileFilter);
-      this.set('children', filteredFiles.sortBy('name'));
+      this.set('children', resources.sortBy('name'));
     });
   }))
 });

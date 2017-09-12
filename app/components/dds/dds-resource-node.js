@@ -8,7 +8,7 @@ const DDSResourceNode = Ember.Component.extend({
   tagName: 'span',
   classNames: ['dds-resource-node'],
   classNameBindings: ['isDisabled'],
-  isDisabled: Ember.computed('isSelected', 'disableIfSelected' ,function () {
+  isDisabled: Ember.computed('isSelected', 'disableIfSelected', function () {
     return this.get('disableIfSelected') && this.get('isSelected');
   }),
   isSelected: Ember.computed('resource','selectedResources.[]', function() {

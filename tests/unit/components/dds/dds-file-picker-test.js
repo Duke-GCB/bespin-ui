@@ -29,15 +29,3 @@ test('it sorts files by name', function(assert) {
     assert.deepEqual(component.get('children').mapBy('name'), ['A', 'B', 'C', 'D']);
   });
 });
-
-test('it filters files based on fileFilter', function(assert) {
-  let component = this.subject();
-  component.set('fileFilter', (item) => {return item.get('name') == 'A'});
-  Ember.run(() => {
-    component.set('project', Ember.Object.create({id:7}));
-  });
-  Ember.run(() => {
-    assert.deepEqual(component.get('children').mapBy('name'), ['A']);
-  });
-
-});

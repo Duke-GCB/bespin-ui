@@ -1,24 +1,5 @@
 import Ember from 'ember';
-
-/**
- * Map of CWL specified types to the Ember UI components that can provide their data
- * @type {[*]}
- */
-const ComponentInfos = [
-  {
-    cwlType: { type: 'array', items: { type: 'array', items: 'File' } }, // From CWL
-    name: 'file-group-list'  // Component to render
-  }
-];
-
-const ComponentSettings = {
-  'file-group-list': {
-    'http://edamontology.org/format_1930': {
-      fileNameRegexStr: '.*(fq$)|(fastq$)|(fastq.gz$)',
-      groupName: 'sample'
-    }
-  }
-};
+import ComponentSettings from 'bespin-ui/utils/component-settings';
 
 const AnswerFormList = Ember.Component.extend({
   classNames: ['answer-form-list'],
@@ -26,14 +7,15 @@ const AnswerFormList = Ember.Component.extend({
   fields: Ember.computed('answerSet.questionnaire.userFieldsJson.@each', function() {
     const userFields = this.get('answerSet.questionnaire.userFieldsJson') || [];
     const fieldsToComponents = userFields.map(field => {
-      let componentInfo = this.componentInfoForCwlType(field.type);
-      if(Ember.isEmpty(componentInfo)) {
+      let componentSettings = this.componentSettingsForCwlType(field.type);
+      if(Ember.isEmpty(componentSettings)) {
         return null;
       } else {
+        let formatSettings = this.formatSettingsForComponentAndFormat(componentSettings, field.format);
         return Ember.Object.create({
           name: field.name,
-          componentName: `questionnaire/${componentInfo.name}`,
-          componentSettings: ComponentSettings[componentInfo.name][field.format],
+          componentName: `questionnaire/${componentSettings.name}`,
+          formatSettings: formatSettings,
         });
       }
     });
@@ -47,11 +29,24 @@ const AnswerFormList = Ember.Component.extend({
    * @param type
    * @returns {*}
    */
-  componentInfoForCwlType: function(cwlType) {
-    return ComponentInfos.find(each => {
+  componentSettingsForCwlType: function(cwlType) {
+    return ComponentSettings.find(each => {
       // Ember does not have a comparison function for objects, so instead we'll compare their JSON representations
       // This should be fine for small types
       return JSON.stringify(each.cwlType) === JSON.stringify((cwlType));
+    });
+  },
+
+  /**
+   * Given settings for a componennt and a format string lookup settings for that format.
+   * May return null
+   * @param componentSettings
+   * @param format
+   * @returns {*}
+     */
+  formatSettingsForComponentAndFormat: function(componentSettings, format) {
+    return componentSettings.formats.find(each => {
+      return each.format == format;
     });
   },
 

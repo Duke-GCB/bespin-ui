@@ -13,10 +13,7 @@ const FileGroupList = Ember.Component.extend({
    */
   tagName: 'div',
   classNames: ['file-group-list', 'row'],
-  settings: {  // settings based on cwl type format
-    groupName: '',
-    fileNameRegexStr: '',
-  },
+  formatSettings: {},  // settings based on cwl type and format
   groupSize: DEFAULT_GROUP_SIZE,
   groupSizeName: Ember.computed('groupSize', function() {
     return GroupSizes.findBy('size', this.get('groupSize')).get('name');
@@ -31,8 +28,8 @@ const FileGroupList = Ember.Component.extend({
   groups: Ember.computed.map('fileItems.fileItemGroups', function(fileItemGroup) {
     return fileItemGroup.mapBy('ddsFile');
   }),
-  groupTitle: Ember.computed('settings.groupName', function() {
-    return this.get('settings.groupName') || 'file';
+  groupTitle: Ember.computed('formatSettings.groupName', function() {
+    return this.get('formatSettings.groupName') || 'file';
   }),
   answer: Ember.computed('fieldName', 'fileItems.cwlObjectValue', function() {
     const fieldName = this.get('fieldName');

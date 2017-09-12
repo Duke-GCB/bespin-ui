@@ -4,6 +4,6 @@
     {{dds/dds-project-picker projects project (action 'projectChanged')}}
   {{/form.group}}
   {{#form.group class='select-files'}}
-    {{dds/dds-file-picker project selectedResources (action 'filePicked') fileFilter=fileFilter}}
+    {{dds/dds-file-picker project selectedResources (action 'filePicked') formatSettings=formatSettings}}
   {{/form.group}}
 {{/bs-form}}

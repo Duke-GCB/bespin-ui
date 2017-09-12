@@ -23,7 +23,7 @@ test('it renders', function(assert) {
 
 test('it renders with GroupName', function(assert) {
   this.set('mysettings', Ember.Object.create({groupName: 'sample'}));
-  this.render(hbs`{{questionnaire/file-group-list settings=mysettings}}`);
+  this.render(hbs`{{questionnaire/file-group-list formatSettings=mysettings}}`);
   assert.equal(this.$('.file-group-list-picker label').text().trim(), 'Pick your sample pairs from Duke Data Service');
   assert.equal(this.$('.file-group-list-selections label').text().trim(), 'Selected sample pairs');
 });

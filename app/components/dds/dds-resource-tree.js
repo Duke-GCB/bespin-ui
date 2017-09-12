@@ -8,12 +8,11 @@ const DDSResourceTree = Ember.Component.extend({
   children: null,
   onPick: () => {},
   store: Ember.inject.service('store'),
-  fileFilter: (/*item, index, enumerable*/) => {return true},
+  formatSettings: {},
   fetchedOnce: Ember.computed('children', function () {
     return this.get('children') != null;
   }),
   fetchChildren() {
-    const fileFilter = this.get('fileFilter');
     if(this.get('resource.isFile')) {
       // Don't do anything if a file
       return;
@@ -21,8 +20,7 @@ const DDSResourceTree = Ember.Component.extend({
     this.get('store').query('dds-resource', {
       folder_id: this.get('resource.id')
     }).then((children) => {
-      let filteredFiles = children.filter(fileFilter);
-      this.set('children', filteredFiles.sortBy('name'));
+      this.set('children', children.sortBy('name'));
       this.set('fetchedOnce', true);
     });
   },
