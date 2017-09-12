@@ -70,6 +70,15 @@ test('it returns no component name for unknown types', function (assert) {
   assert.notOk(componentSettings);
 });
 
+test('it calculates formatSettingsForComponentAndFormat', function (assert) {
+  let fileArrayArrayType = { type: 'array', items: { type: 'array', items: 'File' } };
+  let component = this.subject();
+  let componentSettings = component.componentSettingsForCwlType(fileArrayArrayType);
+  let formatSettings = component.formatSettingsForComponentAndFormat(componentSettings,
+    'http://edamontology.org/format_1930');
+  assert.equal(formatSettings.title, 'FASTQ');
+});
+
 test('it handles answerChanged action', function (assert) {
   let answerSet = Ember.Object.create({userJobOrderJson: Ember.Object.create({prop1: 'val1'})});
   let component = this.subject({answerSet: answerSet});
