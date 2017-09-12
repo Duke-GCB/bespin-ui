@@ -29,7 +29,7 @@ test('it computes fields property', function (assert) {
   let expectedField = Ember.Object.create({
     name: 'fieldName1',
     componentName: 'questionnaire/file-group-list',
-    componentSettings: undefined,
+    formatSettings: undefined,
   });
   assert.deepEqual(fields, [expectedField]);
 });
@@ -47,9 +47,11 @@ test('it computes fields componentSettings', function (assert) {
   let expectedField = Ember.Object.create({
     name: 'fieldName1',
     componentName: 'questionnaire/file-group-list',
-    componentSettings: {
-      fileNameRegexStr: '.*(fq$)|(fastq$)|(fastq.gz$)',
-      groupName: 'sample'
+    formatSettings: {
+      title: 'FASTQ',
+      format: 'http://edamontology.org/format_1930',
+      fileNameRegexStr: '.*(fq$)|(fq.gz$)|(fastq$)|(fastq.gz$)',
+      groupName: 'Sample'
     },
   });
   assert.deepEqual(fields, [expectedField]);
@@ -58,14 +60,14 @@ test('it computes fields componentSettings', function (assert) {
 test('it calculates componentNameForType', function (assert) {
   let fileArrayArrayType = { type: 'array', items: { type: 'array', items: 'File' } };
   let component = this.subject();
-  let fieldComponent = component.componentInfoForCwlType(fileArrayArrayType);
-  assert.equal(fieldComponent.name, 'file-group-list');
+  let componentSettings = component.componentSettingsForCwlType(fileArrayArrayType);
+  assert.equal(componentSettings.name, 'file-group-list');
 });
 
 test('it returns no component name for unknown types', function (assert) {
   let component = this.subject();
-  let fieldComponent = component.componentInfoForCwlType({type: 'string'});
-  assert.notOk(fieldComponent);
+  let componentSettings = component.componentSettingsForCwlType({type: 'string'});
+  assert.notOk(componentSettings);
 });
 
 test('it handles answerChanged action', function (assert) {
