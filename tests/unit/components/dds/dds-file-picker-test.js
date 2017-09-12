@@ -42,4 +42,3 @@ test('it will filter based on formatSettings.fileNameRegexStr', function(assert)
   component.pickAllFiles();
   assert.deepEqual(['A','D'], pickedItems);
 });
-
