@@ -4,10 +4,10 @@ import Ember from 'ember';
 const StoreStub = Ember.Service.extend({
   query() {
     return Ember.RSVP.resolve([
-      Ember.Object.create({id: 1, name: 'C'}),
-      Ember.Object.create({id: 2, name: 'B'}),
-      Ember.Object.create({id: 3, name: 'D'}),
-      Ember.Object.create({id: 4, name: 'A'}),
+      Ember.Object.create({id: 1, name: 'C', isFile: true}),
+      Ember.Object.create({id: 2, name: 'B', isFile: true}),
+      Ember.Object.create({id: 3, name: 'D', isFile: true}),
+      Ember.Object.create({id: 4, name: 'A', isFile: true}),
     ]);
   }
 });
@@ -29,3 +29,17 @@ test('it sorts files by name', function(assert) {
     assert.deepEqual(component.get('children').mapBy('name'), ['A', 'B', 'C', 'D']);
   });
 });
+
+test('it will filter based on formatSettings.fileNameRegexStr', function(assert) {
+  let component = this.subject();
+  component.set('formatSettings.fileNameRegexStr', 'A|D');
+  let pickedItems = [];
+  component.set('onPick', (item) => {pickedItems.push(item.get('name'))});
+  // Run in two separate Ember.run blocks, since resources are fetched as a side effect of setting project
+  Ember.run(() => {
+    component.set('project', Ember.Object.create({id:7}));
+  });
+  component.pickAllFiles();
+  assert.deepEqual(['A','D'], pickedItems);
+});
+
