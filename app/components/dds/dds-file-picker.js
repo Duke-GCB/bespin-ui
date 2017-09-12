@@ -7,6 +7,13 @@ const DDSFilePicker = Ember.Component.extend({
   onPick: (/* file */) => {},
   selectedResources: null,
   formatSettings: {},
+  headerTitle: Ember.computed('formatSettings.title', function() {
+    let formatSettingsTitle = this.get('formatSettings.title');
+    if (formatSettingsTitle) {
+      return 'Select All ' + formatSettingsTitle + ' Files';
+    }
+    return 'Select All Files';
+  }),
   actions: {
     // Passed down to each node
     pickFile(file) { this.get('onPick')(file); },
