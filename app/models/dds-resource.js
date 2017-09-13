@@ -33,7 +33,8 @@ export default DS.Model.extend({
       projectId: this.get('project.id'),
       fileId: this.get('id'),
       destinationPath: this.getNameWithPrefix(prefix),
-      ddsUserCredentials: credential
+      ddsUserCredentials: credential,
+      size: this.get('size')
     });
   }
 });
