@@ -32,7 +32,7 @@ test('it sorts files by name', function(assert) {
 
 test('it will filter based on formatSettings.fileNameRegexStr', function(assert) {
   let component = this.subject();
-  component.set('formatSettings.fileNameRegexStr', 'A|D');
+  component.set('formatSettings', Ember.Object.create({fileNameRegexStr:'A|D'}));
   let pickedItems = [];
   component.set('onPick', (item) => {pickedItems.push(item.get('name'))});
   // Run in two separate Ember.run blocks, since resources are fetched as a side effect of setting project
