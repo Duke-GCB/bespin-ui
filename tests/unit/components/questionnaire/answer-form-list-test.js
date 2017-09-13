@@ -26,21 +26,57 @@ test('it computes fields property', function (assert) {
   let answerSet = Ember.Object.create({questionnaire: questionnaire});
   let component = this.subject({answerSet: answerSet});
   let fields = component.get('fields');
-  let expectedField = Ember.Object.create({name: 'fieldName1', componentName: 'questionnaire/file-group-list'});
+  let expectedField = Ember.Object.create({
+    name: 'fieldName1',
+    componentName: 'questionnaire/file-group-list',
+    formatSettings: undefined,
+  });
+  assert.deepEqual(fields, [expectedField]);
+});
+
+test('it computes fields componentSettings', function (assert) {
+  let userFields = [
+    {type: { type: 'array', items: { type: 'array', items: 'File' } }, name: 'fieldName1',
+      format: 'http://edamontology.org/format_1930' },
+    {type: 'fieldType2', name: 'fieldName2' }
+  ];
+  let questionnaire = Ember.Object.create({ userFieldsJson: userFields});
+  let answerSet = Ember.Object.create({questionnaire: questionnaire});
+  let component = this.subject({answerSet: answerSet});
+  let fields = component.get('fields');
+  let expectedField = Ember.Object.create({
+    name: 'fieldName1',
+    componentName: 'questionnaire/file-group-list',
+    formatSettings: {
+      title: 'FASTQ',
+      format: 'http://edamontology.org/format_1930',
+      fileNameRegexStr: '.*(fq$)|(fq.gz$)|(fastq$)|(fastq.gz$)',
+      groupName: 'Sample'
+    },
+  });
   assert.deepEqual(fields, [expectedField]);
 });
 
 test('it calculates componentNameForType', function (assert) {
   let fileArrayArrayType = { type: 'array', items: { type: 'array', items: 'File' } };
   let component = this.subject();
-  let fieldComponent = component.componentInfoForCwlType(fileArrayArrayType);
-  assert.equal(fieldComponent.name, 'file-group-list');
+  let componentSettings = component.componentSettingsForCwlType(fileArrayArrayType);
+  assert.equal(componentSettings.name, 'file-group-list');
 });
 
 test('it returns no component name for unknown types', function (assert) {
   let component = this.subject();
-  let fieldComponent = component.componentInfoForCwlType({type: 'string'});
-  assert.notOk(fieldComponent);
+  let componentSettings = component.componentSettingsForCwlType({type: 'string'});
+  assert.notOk(componentSettings);
+});
+
+test('it calculates formatSettingsForComponentAndFormat', function (assert) {
+  let fileArrayArrayType = { type: 'array', items: { type: 'array', items: 'File' } };
+  let component = this.subject();
+  let componentSettings = component.componentSettingsForCwlType(fileArrayArrayType);
+  let formatSettings = component.formatSettingsForComponentAndFormat(componentSettings,
+    'http://edamontology.org/format_1930');
+  assert.equal(formatSettings.title, 'FASTQ');
 });
 
 test('it handles answerChanged action', function (assert) {

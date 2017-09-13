@@ -1,4 +1,4 @@
-<p>Read {{ displayIndex }}</p>
+<p>{{ groupTitle }} {{ displayIndex }}</p>
 <ul>
 {{#each group as |file fileIndex|}}
   {{questionnaire/file-group-file file fileIndex (action 'click')}}

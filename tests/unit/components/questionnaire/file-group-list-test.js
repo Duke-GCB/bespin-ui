@@ -91,3 +91,17 @@ test('it handles addFile action', function (assert) {
   });
   fileGroupList.send('addFile', mockDdsFile);
 });
+
+test('it generates groupTitle based on formatSettings.groupName', function (assert) {
+  let fileGroupList = this.subject({
+    formatSettings: {
+      groupName: 'Subject'
+    }
+  });
+  assert.equal('Subject', fileGroupList.get('groupTitle'));
+});
+
+test('it generates groupTitle without formatSettings.groupName', function (assert) {
+  let fileGroupList = this.subject({});
+  assert.equal('file', fileGroupList.get('groupTitle'));
+});

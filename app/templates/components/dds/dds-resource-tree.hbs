@@ -1,4 +1,4 @@
-{{#dds/dds-resource-node resource expanded selectedResources action='clicked'}}
+{{#dds/dds-resource-node resource expanded selectedResources action='clicked' formatSettings=formatSettings}}
   {{! The node yields to allow the caller (us) to pick what icon/button to render}}
   {{#if resource.isFolder}}
     {{dds/dds-expand-button expanded}}
@@ -7,6 +7,6 @@
   {{/if}}
 {{/dds/dds-resource-node}}
 {{#if expanded}}
-  {{dds/dds-file-picker project selectedResources (action onPick) children=children}}
+  {{dds/dds-file-picker project selectedResources (action onPick) children=children formatSettings=formatSettings}}
 {{/if}}
 {{yield}}

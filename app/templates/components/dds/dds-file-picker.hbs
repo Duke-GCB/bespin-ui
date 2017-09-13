@@ -1,11 +1,13 @@
 <ul class="tree list-unstyled">
 {{#if hasFiles}}
   <li class="dds-resource-list-header">
-    {{dds/dds-resource-header action='pickAllFilesClicked'}}
+    {{dds/dds-resource-header title=headerTitle action='pickAllFilesClicked'}}
   </li>
 {{/if}}
   {{#each children as |child|}}
-  <li class="dds-resource-list-item">{{dds/dds-resource-tree child selectedResources (action 'pickFile')}}</li>
+  <li class="dds-resource-list-item">
+    {{dds/dds-resource-tree child selectedResources (action 'pickFile') formatSettings=formatSettings}}
+  </li>
 {{/each}}
 </ul>
 {{yield}}

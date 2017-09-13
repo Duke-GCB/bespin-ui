@@ -8,6 +8,7 @@ const DDSResourceTree = Ember.Component.extend({
   children: null,
   onPick: () => {},
   store: Ember.inject.service('store'),
+  formatSettings: null,
   fetchedOnce: Ember.computed('children', function () {
     return this.get('children') != null;
   }),
