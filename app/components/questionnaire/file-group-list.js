@@ -13,7 +13,7 @@ const FileGroupList = Ember.Component.extend({
    */
   tagName: 'div',
   classNames: ['file-group-list', 'row'],
-  formatSettings: {},  // settings based on cwl type and format
+  formatSettings: null,  // settings based on cwl type and format
   groupSize: DEFAULT_GROUP_SIZE,
   groupSizeName: Ember.computed('groupSize', function() {
     return GroupSizes.findBy('size', this.get('groupSize')).get('name');

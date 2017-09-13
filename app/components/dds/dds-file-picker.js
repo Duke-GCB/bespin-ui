@@ -6,7 +6,7 @@ const DDSFilePicker = Ember.Component.extend({
   children: null, // Can be files or folders
   onPick: (/* file */) => {},
   selectedResources: null,
-  formatSettings: {},
+  formatSettings: null,
   headerTitle: Ember.computed('formatSettings.title', function() {
     let formatSettingsTitle = this.get('formatSettings.title');
     if (formatSettingsTitle) {

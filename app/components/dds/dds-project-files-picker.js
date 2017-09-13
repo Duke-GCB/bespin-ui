@@ -4,7 +4,7 @@ const DDSProjectFilesPicker = Ember.Component.extend({
   projects: null,
   project: null,
   selectedResources: null,
-  formatSettings: {},
+  formatSettings: null,
   onFilePicked: (/* file */) => {},
   actions: {
     projectChanged(project) {
