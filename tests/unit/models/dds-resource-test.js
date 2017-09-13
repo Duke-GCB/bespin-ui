@@ -87,6 +87,7 @@ test('It creates job input files with DDS IDs', function (assert) {
       name: 'file1.txt',
       project: project,
       id: fileId,
+      size: 2000,
     });
     const prefix = 'input1_';
     const inputFile = ddsFile.createJobInputFile(prefix, cred);
@@ -95,5 +96,6 @@ test('It creates job input files with DDS IDs', function (assert) {
     assert.equal(inputFile.get('projectId'), projectId);
     assert.equal(inputFile.get('fileId'), fileId);
     assert.equal(inputFile.get('ddsUserCredentials.id'), cred.get('id'));
+    assert.equal(inputFile.get('size'), 2000);
   });
 });
