@@ -60,3 +60,8 @@ span.is-disabled {
 .error-panel {
   color: darkred;
 }
+
+.file-list-panel {
+  overflow: scroll;
+  height: 20em;
+}

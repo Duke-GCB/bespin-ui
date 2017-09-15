@@ -1,0 +1,12 @@
+  <div class="col-md-12">
+    <h3>Summary for Job '{{job.name}}'</h3>
+    {{#job-summary-detail-row leadText='Your job has been created and will run the following workflow:'}}
+      {{workflows/workflow-version-detail workflowVersion=job.workflowVersion}}
+    {{/job-summary-detail-row}}
+    {{#job-summary-detail-row leadText='The following files will be used:'}}
+      {{job-file-stage-group-detail job.stageGroup}}
+    {{/job-summary-detail-row}}
+    {{#job-summary-detail-row leadText='Upon completion:'}}
+        {{job-oncompletion-detail job.shareGroup}}
+    {{/job-summary-detail-row}}
+  </div>
