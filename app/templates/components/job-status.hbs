@@ -1,0 +1,19 @@
+<span class="job-status-id">Job ID: {{job.id}}</span>
+<span class="job-status-state">State: {{decode-job-state job.state}}</span>
+<span class="job-status-step">Step: {{decode-job-step job.step}}</span>
+{{#if job.isFinished}}
+  <span class="job-status-results">Results: <a class="job-results-link" href="{{output-dir-link job.outputDir}}">{{job.outputDir.project.name}}/{{job.outputDir.dirName}}</a></span>
+{{/if}}
+{{#if job.isErrored}}
+  <span class="job-status-results">Errors: {{#bs-button onClick=(action (mut errorModal) true)}}Show{{/bs-button}}</span>
+    {{#bs-modal-simple
+    open=errorModal
+    title="Job Errors"
+    size="sm"
+    onHidden=(action (mut errorModal) false)}}
+    {{#each job.jobErrors as |jobError|}}
+      <dd class="job-error"><pre>{{jobError.content}}</pre></dd>
+    {{/each}}
+  {{/bs-modal-simple}}
+{{/if}}
+{{yield}}

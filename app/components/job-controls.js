@@ -2,33 +2,19 @@ import Ember from 'ember';
 
 const JobControls = Ember.Component.extend({
   job: null,
-  error: null,
-  // The operation is set on success or failure since it is part of the state.
-  operation: null,
-  errorTitle: Ember.computed('operation', function() {
-    return `The job could not be ${this.get('operation')}:`;
-  }),
   actions: {
     start() {
       const operation = 'started';
-      this.get('job').start().then(this.success.bind(this, operation), this.failure.bind(this, operation));
+      this.get('job').start();
     },
     cancel() {
       const operation = 'cancelled';
-      this.get('job').cancel().then(this.success.bind(this, operation), this.failure.bind(this, operation));
+      this.get('job').cancel();
     },
     restart() {
       const operation = 'restarted';
-      this.get('job').restart().then(this.success.bind(this, operation), this.failure.bind(this, operation));
+      this.get('job').restart();
     }
-  },
-  failure(operation, error) {
-    this.set('error', error);
-    this.set('operation', operation);
-  },
-  success(operation) {
-    this.set('error', null);
-    this.set('operation', operation);
   },
   buttons: Ember.computed('job.state', function() {
     let state = this.get('job.state');

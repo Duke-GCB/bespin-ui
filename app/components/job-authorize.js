@@ -1,6 +1,8 @@
 import Ember from 'ember';
 
 const JobAuthorize = Ember.Component.extend({
+  tagName: 'div',
+  classNames: ['job-authorize'],
   token: '',
   actions: {
     authorize() {
