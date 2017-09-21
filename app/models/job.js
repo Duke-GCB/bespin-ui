@@ -14,11 +14,20 @@ export default DS.Model.extend({
   jobOrder: DS.attr('string'), // This is JSON, no need to test it
   stageGroup: DS.belongsTo('job-file-stage-group'),
   shareGroup: DS.belongsTo('share-group'),
+  runToken: DS.attr('string'),
   isNew: Ember.computed('state', function() {
     return this.get('state') === 'N';
   }),
   isAuthorized: Ember.computed('state', function() {
     return this.get('state') === 'A';
+  }),
+  // Distinct from isAuthorized - indicates whether a job needs authorization to proceed
+  hasAuthorization: Ember.computed.not('isNew'),
+  isStarting: Ember.computed('state', function() {
+    return this.get('state') === 'S';
+  }),
+  isRunning: Ember.computed('state', function() {
+    return this.get('state') === 'R';
   }),
   isFinished: Ember.computed('state', function() {
     return this.get('state') === 'F';

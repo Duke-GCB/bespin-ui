@@ -1,13 +1,19 @@
 <div class="row">
   <div class="col-md-9">
+    <div class="panel panel-default">
+      <div class="panel-body">
+    {{job-status job}}
     {{job-authorize job}}
+      </div>
+    </div>
   </div>
   <div class="col-md-3">
-    {{job-controls job}}
+    <div class="panel panel-default">
+      <div class="panel-body">
+        {{job-state job}}
+        {{job-controls job}}
+      </div>
+    </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-md-12">
-    {{job-status job}}
-  </div>
+
 </div>

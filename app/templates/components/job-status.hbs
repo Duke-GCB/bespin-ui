@@ -1,19 +1,42 @@
-<span class="job-status-id">Job ID: {{job.id}}</span>
-<span class="job-status-state">State: {{decode-job-state job.state}}</span>
-<span class="job-status-step">Step: {{decode-job-step job.step}}</span>
-{{#if job.isFinished}}
-  <span class="job-status-results">Results: <a class="job-results-link" href="{{output-dir-link job.outputDir}}">{{job.outputDir.project.name}}/{{job.outputDir.dirName}}</a></span>
-{{/if}}
-{{#if job.isErrored}}
-  <span class="job-status-results">Errors: {{#bs-button onClick=(action (mut errorModal) true)}}Show{{/bs-button}}</span>
-    {{#bs-modal-simple
-    open=errorModal
-    title="Job Errors"
-    size="sm"
-    onHidden=(action (mut errorModal) false)}}
+{{!
+  RUNNING
+  FINISHED
+  ERROR
+  CANCELING
+  CANCEL
+  RESTARTING
+}}
+
+{{! NEW }}
+<p class="body">
+{{#if job.isNew}}
+  To run this job, you must provide an authorization code. If you need a code, please contact the {{share-group-contact job.shareGroup}} group.
+{{else if job.isAuthorized}}
+  This job is authorized. You can start it by clicking <strong>Start</strong>.
+{{else if job.isStarting}}
+  This job is currently starting.
+{{else if job.isRunning}}
+  This job is currently running on a virtual machine. You will receive an email notification when it completes or in the event of an error.
+  {{!-- show details about current state --}}
+{{else if job.isFinished}}
+  This job has completed. Results are available here: <span class="job-status-results"><a class="job-results-link" href="{{output-dir-link job.outputDir}}">{{job.outputDir.project.name}}/{{job.outputDir.dirName}}</a></span>
+{{else if job.isErrored}}
+{{!-- show details about current state --}}
+  This job has failed due to an error.
+  {{!-- the errors have a step associated with them, so we can check this --}}
+  {{#bs-button active=errorNotCollapsed onClick=(action toggleError)}}
+    {{#if errorCollapsed}}
+      Show
+    {{else}}
+      Hide
+    {{/if}}
+  {{/bs-button}}
+  <hr>
+  {{#bs-collapse collapsed=errorCollapsed}}
     {{#each job.jobErrors as |jobError|}}
-      <dd class="job-error"><pre>{{jobError.content}}</pre></dd>
+      <div class="job-error"><pre>{{jobError.content}}</pre></div>
     {{/each}}
-  {{/bs-modal-simple}}
+  {{/bs-collapse}}
 {{/if}}
-{{yield}}
+</p>
+{{!-- cancelling, cancelled --}}

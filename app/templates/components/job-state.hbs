@@ -1,0 +1,3 @@
+<dt>Job ID</dt><dd>{{job.id}}</dd>
+<dt>State</dt><dd>{{decode-job-state job.state}}</dd>
+{{#if job.step}}<dt>Step</dt><dd>{{decode-job-step job.step}}</dd>{{/if}}

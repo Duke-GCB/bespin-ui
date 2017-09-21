@@ -1,6 +1,8 @@
 import Ember from 'ember';
 
 const JobControls = Ember.Component.extend({
+  classNames: ['btn-group', 'btn-group-justified'],
+  tagName: 'div',
   job: null,
   actions: {
     start() {
