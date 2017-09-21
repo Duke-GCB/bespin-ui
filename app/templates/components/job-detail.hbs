@@ -3,7 +3,9 @@
     <div class="row">
       <div class="col-md-9">
         {{job-status job}}
-        {{job-authorize job}}
+        {{#if showAuthorize}}
+          {{job-authorize job}}
+        {{/if}}
       </div>
       <div class="col-md-3">
         {{job-state job}}
