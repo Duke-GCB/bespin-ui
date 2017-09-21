@@ -26,6 +26,9 @@ export default DS.Model.extend({
   isStarting: Ember.computed('state', function() {
     return this.get('state') === 'S';
   }),
+  isRestarting: Ember.computed('state', function() {
+    return this.get('state') === 'r';
+  }),
   isRunning: Ember.computed('state', function() {
     return this.get('state') === 'R';
   }),
@@ -34,6 +37,12 @@ export default DS.Model.extend({
   }),
   isErrored:  Ember.computed('state', function() {
     return this.get('state') === 'E';
+  }),
+  isCanceling: Ember.computed('state', function() {
+    return this.get('state') === 'c';
+  }),
+  isCanceled: Ember.computed('state', function() {
+    return this.get('state') === 'C';
   }),
   outputDir: DS.belongsTo('job-output-dir'),
   // Named jobErrors because DS.Model already has an errors property (contains validation error messages)

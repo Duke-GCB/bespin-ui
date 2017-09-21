@@ -65,11 +65,3 @@ span.is-disabled {
   overflow: scroll;
   height: 20em;
 }
-
-dl.job-state dt {
-  width: 50px;
-}
-
-dl.job-state dd {
-  margin-left: 60px;
-}

@@ -10,33 +10,42 @@
 {{! NEW }}
 <p class="body">
 {{#if job.isNew}}
-  To run this job, you must provide an authorization code. If you need a code, please contact the {{share-group-contact job.shareGroup}} group.
+  Your job has been created. To start running the job, you must provide an authorization code below.
+  If you need a code, please contact the {{share-group-contact job.shareGroup}} group.
 {{else if job.isAuthorized}}
-  This job is authorized. You can start it by clicking <strong>Start</strong>.
+  Your job has been authorized to run. The job will run on a virtual machine in our infrastructure. The virtual machine will stage your data in, run the workflow, and upload the results to Duke Data Service.
+  You can start the job by clicking <strong>Start</strong>.
 {{else if job.isStarting}}
-  This job is currently starting.
+  Your job has been queued and will begin running once resources are available.
 {{else if job.isRunning}}
-  This job is currently running on a virtual machine. You will receive an email notification when it completes or in the event of an error.
+  Your job is currently running. You will receive an email notification when it completes or in the event of an error.
   {{!-- show details about current state --}}
 {{else if job.isFinished}}
-  This job has completed. Results are available here: <span class="job-status-results"><a class="job-results-link" href="{{output-dir-link job.outputDir}}">{{job.outputDir.project.name}}/{{job.outputDir.dirName}}</a></span>
+    Your job has completed. Results are available here: {{job-status-results job}}.
 {{else if job.isErrored}}
 {{!-- show details about current state --}}
-  This job has failed due to an error.
+    Your job failed to complete due to an error. Click to see full details and suggestions for recovery
   {{!-- the errors have a step associated with them, so we can check this --}}
   {{#bs-button active=errorNotCollapsed onClick=(action toggleError)}}
     {{#if errorCollapsed}}
-      Show
+        Show
     {{else}}
-      Hide
+        Hide
     {{/if}}
   {{/bs-button}}
-  <hr>
   {{#bs-collapse collapsed=errorCollapsed}}
     {{#each job.jobErrors as |jobError|}}
       <div class="job-error"><pre>{{jobError.content}}</pre></div>
     {{/each}}
   {{/bs-collapse}}
+{{else if job.isCanceling}}
+  Your request to cancel the job has been received and the job will be canceled.
+{{else if job.isCanceled}}
+  Your job has been canceled.
+  You can restart the job by clicking <strong>Restart</strong>.
+{{else if job.isRestarting}}
+    Your request to restart the job has been received.
+    The job will restart once resources are available.
 {{/if}}
 </p>
 {{!-- cancelling, cancelled --}}
