@@ -6,15 +6,12 @@ const JobControls = Ember.Component.extend({
   job: null,
   actions: {
     start() {
-      const operation = 'started';
       this.get('job').start();
     },
     cancel() {
-      const operation = 'cancelled';
       this.get('job').cancel();
     },
     restart() {
-      const operation = 'restarted';
       this.get('job').restart();
     }
   },

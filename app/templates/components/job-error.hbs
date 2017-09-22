@@ -1,0 +1,35 @@
+{{!-- the errors have a step associated with them, so we can check this --}}
+<dl class="dl-horizontal">
+  <dt>Date</dt>
+  <dd class="job-error-date">{{jobError.created}}</dd>
+  <dt>Suggestion</dt>
+  <dd class="job-error-suggestion">
+    {{#if jobError.stepIsCreateVm}}
+      This job failed during creation of the VM. Restarting the job will not likely succeed. Please contact <a href="mailto:gcb-help@duke.edu">gcb-help@duke.edu</a> for support.
+    {{else if jobError.stepIsStaging}}
+      This job failed during staging the data into the VM. The job may succeed if you restart it. Click <strong>Restart</strong> to restart the job.
+    {{else if jobError.stepIsRunning}}
+      This job failed while running the workflow on the VM. Restarting the job may not succeed. You can view the details below and click <strong>Restart</strong> to restart the job. Please contact <a href="mailto:gcb-help@duke.edu">gcb-help@duke.edu</a> for support.
+    {{else if jobError.stepIsStoreOutput}}
+      This job failed during uploading results from VM. Restarting the job will try to upload these results again without re-running the entire workflow. Click <strong>Restart</strong> to restart the job.
+    {{else if jobError.stepIsTerminateVm}}
+      This job failed during cleanup of the VM. Your job has completed and the data has been uploaded, but will not be reviewed until the VM has been cleaned up. Please contact <a href="mailto:gcb-help@duke.edu">gcb-help@duke.edu</a> for support.
+    {{/if}}
+  </dd>
+  <dt>Failed on Step</dt>
+  <dd class="job-error-step">{{decode-job-step jobError.jobStep}} {{#bs-button type='info' size='sm' active=notCollapsed onClick=(action toggleCollapse)}}
+  {{#if collapsed}}
+    Details
+  {{else}}
+    Details
+  {{/if}}
+  {{/bs-button}}</dd>
+  {{#bs-collapse collapsed=collapsed}}
+  <dt>Details</dt>
+  <dd class="job-error-content">
+      <pre>{{jobError.content}}</pre>
+  </dd>
+  {{/bs-collapse}}
+</dl>
+
+

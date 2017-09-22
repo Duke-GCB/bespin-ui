@@ -6,7 +6,6 @@ const JobStatus = Ember.Component.extend({
   watcher: Ember.inject.service('bespin-job-watcher'),
   session: Ember.inject.service('session'),
   job: null,
-  errorCollapsed: true,
   getAuthToken() {
     const authData = this.get('session.data');
     if (authData && authData.authenticated) {
@@ -29,9 +28,6 @@ const JobStatus = Ember.Component.extend({
     if (watcher) {
       watcher.stopWatching(token, jobId);
     }
-  },
-  toggleError() {
-    this.toggleProperty('errorCollapsed');
   }
 });
 

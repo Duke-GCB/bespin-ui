@@ -14,7 +14,7 @@ const JobAuthorize = Ember.Component.extend({
       Since we can't bind directly to the job's runToken field, we override the setter to store locally
       and switch the getter to return the token based on the state.
      */
-    get(key) {
+    get(/* key */) {
       if(this.get('job.needsAuthorization')) {
         // Job has not yet been authorized, return our local variable
         return this.get('_token')

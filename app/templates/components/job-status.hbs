@@ -24,20 +24,8 @@
     Your job has completed. Results are available here: {{job-status-results job}}.
 {{else if job.isErrored}}
 {{!-- show details about current state --}}
-    Your job failed to complete due to an error. Click to see full details and suggestions for recovery
-  {{!-- the errors have a step associated with them, so we can check this --}}
-  {{#bs-button active=errorNotCollapsed onClick=(action toggleError)}}
-    {{#if errorCollapsed}}
-        Show
-    {{else}}
-        Hide
-    {{/if}}
-  {{/bs-button}}
-  {{#bs-collapse collapsed=errorCollapsed}}
-    {{#each job.jobErrors as |jobError|}}
-      <div class="job-error"><pre>{{jobError.content}}</pre></div>
-    {{/each}}
-  {{/bs-collapse}}
+    Your job failed to complete due to an error:
+  {{job-error job.lastJobError}}
 {{else if job.isCanceling}}
   Your request to cancel the job has been received and the job will be canceled.
 {{else if job.isCanceled}}
