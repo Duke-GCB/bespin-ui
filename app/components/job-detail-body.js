@@ -1,8 +1,8 @@
 import Ember from 'ember';
 
-const JobStatus = Ember.Component.extend({
+const JobDetailBody = Ember.Component.extend({
   tagName: 'div',
-  classNames: ['job-status'],
+  classNames: ['job-detail-body'],
   watcher: Ember.inject.service('bespin-job-watcher'),
   session: Ember.inject.service('session'),
   job: null,
@@ -31,9 +31,8 @@ const JobStatus = Ember.Component.extend({
   }
 });
 
-
-JobStatus.reopenClass({
+JobDetailBody.reopenClass({
   positionalParams: ['job']
 });
 
-export default JobStatus;
+export default JobDetailBody;

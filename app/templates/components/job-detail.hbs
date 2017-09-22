@@ -1,11 +1,10 @@
-<div class="panel panel-default">
-  <div class="panel-body">
+<div class="panel-heading">
+  <strong>{{job-detail-title job}}</strong>
+</div>
+<div class="panel-body">
     <div class="row">
       <div class="col-md-9">
-        {{job-status job}}
-        {{#if showAuthorize}}
-          {{job-authorize job}}
-        {{/if}}
+        {{job-detail-body job}}
       </div>
       <div class="col-md-3">
         {{job-state job}}
@@ -13,4 +12,3 @@
       </div>
     </div>
   </div>
-</div>

@@ -1,0 +1,19 @@
+{{#if job.isNew}}
+  Your job has been created.
+{{else if job.isAuthorized}}
+  Your job has been authorized.
+{{else if job.isStarting}}
+  Your job is starting.
+{{else if job.isRunning}}
+   Your job is currently running.
+{{else if job.isFinished}}
+  Your job has completed.
+{{else if job.isErrored}}
+  Your job failed to complete.
+{{else if job.isCanceling}}
+  Your is being canceled.
+{{else if job.isCanceled}}
+  Your job has been canceled.
+{{else if job.isRestarting}}
+  Your job is being restarted
+{{/if}}
