@@ -20,3 +20,7 @@ test('it has no inverse relationship to job', function(assert) {
   const relationship = Ember.get(JobError, 'relationshipsByName').get('job');
   assert.equal(relationship.inverse, null, 'No inverse relationship');
 });
+
+test('it computes jobStep properties', function(assert) {
+  assert.ok(false, 'not yet implemented');
+});
