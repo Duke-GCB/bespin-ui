@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-export default Ember.Mixin.create({
+const JobWatcher = Ember.Component.extend({
   watcher: Ember.inject.service('bespin-job-watcher'),
   session: Ember.inject.service('session'),
   job: null,
@@ -28,3 +28,9 @@ export default Ember.Mixin.create({
     }
   }
 });
+
+JobWatcher.reopenClass({
+  positionalParams: ['job']
+});
+
+export default JobWatcher;

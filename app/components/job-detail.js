@@ -1,7 +1,6 @@
 import Ember from 'ember';
-import JobWatcher from 'bespin-ui/mixins/job-watcher';
 
-const JobDetail = Ember.Component.extend(JobWatcher, {
+const JobDetail = Ember.Component.extend({
   tagName: 'div',
   classNames: ['panel'],
   classNameBindings: 'panelType',
