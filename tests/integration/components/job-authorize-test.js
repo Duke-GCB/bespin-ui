@@ -22,7 +22,7 @@ test('it renders', function(assert) {
   this.set('job', mockJob);
   this.render(hbs`{{job-authorize job}}`);
 
-  assert.equal(this.$().text().trim().replace(/\n/g,''), 'Enter job token:                Authorize');
+  assert.equal(this.$().text().trim().replace(/\n/g,''), 'Authorization Code:            Authorize');
   assert.equal(mockJob.authorized, false);
   this.$('button').click();
   assert.equal(mockJob.authorized, true);
@@ -33,5 +33,5 @@ test('it renders', function(assert) {
     {{/job-authorize}}
   `);
 
-  assert.equal(this.$().text().trim().replace(/\n/g,''), 'Enter job token:                Authorize');
+  assert.equal(this.$().text().trim().replace(/\n/g,''), 'Authorization Code:            Authorize');
 });

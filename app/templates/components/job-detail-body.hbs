@@ -17,11 +17,10 @@
   <p>The following error occurred when attempting to run your job:</p>
   <p>{{job-error job.lastJobError}}</p>
 {{else if job.isCanceling}}
-  Your request to cancel the job has been received and the job will be canceled.
+  <p>Your job is being canceled.</p>
 {{else if job.isCanceled}}
-  Your job has been canceled.
-  You can restart the job by clicking <strong>Restart</strong>.
+  <p>Your job has been canceled.</p>
+  <p>You can restart the job by clicking <strong>Restart</strong>.</p>
 {{else if job.isRestarting}}
-    Your request to restart the job has been received.
-    The job will restart once resources are available.
+  <p>The job will restart once resources are available.</p>
 {{/if}}

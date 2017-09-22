@@ -6,20 +6,9 @@ moduleForComponent('job-detail-title', 'Integration | Component | job detail tit
 });
 
 test('it renders', function(assert) {
-
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
-
   this.render(hbs`{{job-detail-title}}`);
-
   assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#job-detail-title}}
-      template block text
-    {{/job-detail-title}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+  this.set('job', Ember.Object.create({isNew: true}));
+  this.render(hbs`{{job-detail-title job}}`);
+  assert.notEqual(this.$().text().trim(), '');
 });
