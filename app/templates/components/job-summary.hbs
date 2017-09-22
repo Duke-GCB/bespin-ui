@@ -1,7 +1,7 @@
   <div class="col-md-12">
     <h3>Summary for Job '{{job.name}}'</h3>
     {{#job-summary-detail-row leadText='Your job has been created and will run the following workflow:'}}
-      {{workflows/workflow-version-detail workflowVersion=job.workflowVersion}}
+      {{workflows/workflow-version-detail title=workflowTitle workflowVersion=job.workflowVersion}}
       {{job-detail job}}
     {{/job-summary-detail-row}}
     {{#job-summary-detail-row leadText='The following files will be used:'}}
