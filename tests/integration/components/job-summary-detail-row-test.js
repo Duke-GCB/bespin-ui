@@ -6,20 +6,9 @@ moduleForComponent('job-summary-detail-row', 'Integration | Component | job summ
 });
 
 test('it renders', function(assert) {
-
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
-
   this.render(hbs`{{job-summary-detail-row}}`);
-
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#job-summary-detail-row}}
-      template block text
-    {{/job-summary-detail-row}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+  assert.equal(this.$('.job-summary-detail-row').text().trim(), '');
+  this.render(hbs`{{#job-summary-detail-row leadText='Lead Text'}}Body Text{{/job-summary-detail-row}}`);
+  assert.equal(this.$('.job-summary-detail-row h4').text().trim(), 'Lead Text', 'should render lead text in h4');
+  assert.equal(this.$('.job-summary-detail-row').text().trim(), 'Lead Text\n  Body Text', 'should render body text inside block');
 });
