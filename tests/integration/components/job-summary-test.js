@@ -1,25 +1,21 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import Ember from 'ember';
 
 moduleForComponent('job-summary', 'Integration | Component | job summary', {
   integration: true
 });
 
-test('it renders', function(assert) {
+test('it renders summary heading', function(assert) {
+  const job = Ember.Object.create({
+    name: 'Test Job'
+  });
+  this.set('job', job);
+  this.render(hbs`{{job-summary job}}`);
+  assert.equal(this.$('h3').text().trim(), 'Summary for Job \'Test Job\'');
+});
 
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
-
+test('it renders 3 summary detail rows', function(assert) {
   this.render(hbs`{{job-summary}}`);
-
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#job-summary}}
-      template block text
-    {{/job-summary}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+  assert.equal(this.$('.job-summary-detail-row').length, 3);
 });
