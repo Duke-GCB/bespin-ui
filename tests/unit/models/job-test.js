@@ -59,7 +59,7 @@ testRelationship('job', {key: 'stageGroup', kind: 'belongsTo', type: 'job-file-s
 testRelationship('job', {key: 'shareGroup', kind: 'belongsTo', type: 'share-group'});
 
 test('it sends actions to the adapter', function(assert) {
-  assert.expect(15); // 5asserts for each action
+  assert.expect(21); // 5 asserts for each of start/cancel/restart, and 6 for authorize
   this.store().set('adapterFor', (modelName) => {
     return {
       start(id) {
@@ -76,6 +76,22 @@ test('it sends actions to the adapter', function(assert) {
         assert.equal(modelName, 'job', 'modelName in adapterFor should be job');
         assert.equal(id, 'restartId', 'should call adapter.restart() with id');
         return Ember.RSVP.resolve({id: id, state: 'r'}); // restarting
+      },
+      authorize(id, token) {
+        assert.equal(modelName, 'job', 'modelName in adapterFor should be job');
+        assert.equal(token['job-tokens']['token'], 'authorizeToken', 'should call adapter.authorize() with a job-token object');
+        assert.equal(id, 'authorizeId', 'should call adapter.authorize() with id');
+
+        const jobTokensPayload = {
+          'job-tokens': {
+            'token': 'authorizeToken',
+            'job': {
+              'id' : id,
+              'state': 'A'
+            }
+          }
+        };
+        return Ember.RSVP.resolve(jobTokensPayload); // Authorized job wrapped in a job-tokens object
       }
     };
   });
@@ -98,6 +114,14 @@ test('it sends actions to the adapter', function(assert) {
     // Returns nothing
     assert.equal(modelName, 'job');
     assert.equal(data.state, 'r', 'should push a payload with restarting state');
+  };
+
+  let stubPushPayloadAuthorize = (modelName, data) => {
+    Ember.Logger.log(Ember.inspect(JSON.stringify(data)));
+    // Returns nothing
+    assert.equal(modelName, 'job');
+    // Authorize endpoint returns a job-token, not a job. Check the state of the job through the relationship
+    assert.equal(data.jobs.state, 'A', 'Should push a payload with authorized state');
   };
 
   // Since each one is asynchronous but must be synchronized with the pushPayload function,
@@ -124,4 +148,11 @@ test('it sends actions to the adapter', function(assert) {
     model.set('id', 'restartId');
     model.restart();
   });
+
+  Ember.run(() => {
+    store.set('pushPayload', stubPushPayloadAuthorize);
+    let model = this.subject();
+    model.set('id', 'authorizeId');
+    model.authorize('authorizeToken');
+  })
 });
