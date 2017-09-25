@@ -1,25 +1,55 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import Ember from 'ember';
 
-moduleForComponent('job-watcher', 'Integration | Component | job watcher', {
-  integration: true
+const bespinJobWatcherStub = Ember.Service.extend({
+  startWatching() {},
+  stopWatching() {}
 });
 
-test('it renders', function(assert) {
+const sessionStub = Ember.Service.extend({
+  data: {
+    authenticated: {
+      token: 'auth-token'
+    }
+  }
+});
 
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
+moduleForComponent('job-watcher', 'Integration | Component | job watcher', {
+  integration: true,
+  beforeEach() {
+    let job = Ember.Object.create({
+      id: 1234,
+    });
+    this.set('job', job);
+    this.register('service:bespin-job-watcher', bespinJobWatcherStub);
+    this.register('service:session', sessionStub);
+  }
+});
 
-  this.render(hbs`{{job-watcher}}`);
-
+test('it renders an empty component', function(assert) {
+  this.render(hbs`{{job-watcher job}}`);
   assert.equal(this.$().text().trim(), '');
+});
 
-  // Template block usage:
-  this.render(hbs`
-    {{#job-watcher}}
-      template block text
-    {{/job-watcher}}
-  `);
+test('it calls startWatching when rendered', function(assert) {
+  assert.expect(2);
+  this.register('service:bespin-job-watcher', bespinJobWatcherStub.extend({
+    startWatching(token, jobId) {
+      assert.equal(jobId, 1234);
+      assert.equal(token, 'auth-token');
+    },
+  }));
+  this.render(hbs`{{job-watcher job}}`);
+});
 
-  assert.equal(this.$().text().trim(), 'template block text');
+test('it calls stopWatching after rendered', function(assert) {
+  assert.expect(2);
+  this.register('service:bespin-job-watcher', bespinJobWatcherStub.extend({
+    stopWatching(token, jobId) {
+      assert.equal(token, 'auth-token');
+      assert.equal(jobId, 1234);
+    },
+  }));
+  this.render(hbs`{{job-watcher job}}`);
 });
