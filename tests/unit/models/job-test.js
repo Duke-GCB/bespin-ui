@@ -19,35 +19,39 @@ test('it exists', function(assert) {
   assert.ok(!!model);
 });
 
-test('it computes isFinished', function(assert) {
+test('it computes job state properties', function(assert) {
+  assert.expect(27);
+  const statesAndProperties = [
+    ['N', 'isNew'],
+    ['A', 'isAuthorized'],
+    ['S', 'isStarting'],
+    ['r', 'isRestarting'],
+    ['R', 'isRunning'],
+    ['F', 'isFinished'],
+    ['E', 'isErrored'],
+    ['c', 'isCanceling'],
+    ['C', 'isCanceled'],
+  ];
   let job = this.subject();
   Ember.run(() => {
-    job.set('state', 'S');
-    assert.notOk(job.get('isFinished'));
-    job.set('state', 'F');
-    assert.ok(job.get('isFinished'));
+    statesAndProperties.forEach(function(stateAndProperty) {
+      const state = stateAndProperty[0];
+      const property = stateAndProperty[1];
+      job.set('state', '');
+      assert.notOk(job.get(property), `${property} should be false when empty job.state`);
+      job.set('state', state);
+      assert.ok(job.get(property), `${property} should be true when job.state == ${state}`);
+
+      // hasAuthorization should be true for any state except new
+      if(state === 'N') {
+        assert.notOk(job.get('hasAuthorization'), `Job in state ${state} should return false for hasAuthorization`);
+      } else {
+        assert.ok(job.get('hasAuthorization'), `Job in state ${state} should return true for hasAuthorization`);
+      }
+    });
   });
 });
 
-test('it computes isNew', function(assert) {
-  let job = this.subject();
-  Ember.run(() => {
-    job.set('state', 'F');
-    assert.notOk(job.get('isNew'));
-    job.set('state', 'N');
-    assert.ok(job.get('isNew'));
-  });
-});
-
-test('it computes isErrored', function(assert) {
-  let job = this.subject();
-  Ember.run(() => {
-    job.set('state', 'N');
-    assert.notOk(job.get('isErrored'));
-    job.set('state', 'E');
-    assert.ok(job.get('isErrored'));
-  });
-});
 
 testRelationship('job', {key: 'workflowVersion', kind: 'belongsTo', type: 'workflow-version'});
 testRelationship('job', {key: 'outputDir', kind: 'belongsTo', type: 'job-output-dir'});
