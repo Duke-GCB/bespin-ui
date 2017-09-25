@@ -1,25 +1,22 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import Ember from 'ember';
 
 moduleForComponent('share-group-contact', 'Integration | Component | share group contact', {
   integration: true
 });
 
-test('it renders', function(assert) {
-
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
+test('it renders share group name and email', function(assert) {
+  const shareGroup = Ember.Object.create({
+    name: 'Share Group',
+    email: 'sharegroup@example.com'
+  });
+  this.set('shareGroup', shareGroup);
 
   this.render(hbs`{{share-group-contact}}`);
-
   assert.equal(this.$().text().trim(), '');
 
-  // Template block usage:
-  this.render(hbs`
-    {{#share-group-contact}}
-      template block text
-    {{/share-group-contact}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+  this.render(hbs`{{share-group-contact shareGroup}}`);
+  assert.equal(this.$().text().trim(), 'Share Group');
+  assert.equal(this.$('a.share-group-contact').attr('href'), 'mailto:sharegroup@example.com');
 });
