@@ -1,5 +1,6 @@
-<div class="panel-heading">From {{source}}</div>
-<table class="table table-striped table-condensed">
+{{#if files}}
+  {{#if source}}<div class="panel-heading">From {{source}}</div>{{/if}}
+  <table class="table table-striped table-condensed">
   <tbody>
   <tr>
     <th>Name</th>
@@ -13,3 +14,4 @@
   {{/each}}
   </tbody>
 </table>
+{{/if}}
