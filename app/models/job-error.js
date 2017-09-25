@@ -6,19 +6,19 @@ export default DS.Model.extend({
   jobStep: DS.attr('string'),
   created: DS.attr('date'),
   job: DS.belongsTo('job'),
-  stepIsCreateVm: Ember.computed('state', function() {
+  stepIsCreateVm: Ember.computed('jobStep', function() {
     return this.get('jobStep') === 'V';
   }),
-  stepIsStaging: Ember.computed('state', function() {
+  stepIsStaging: Ember.computed('jobStep', function() {
     return this.get('jobStep') === 'S';
   }),
-  stepIsRunning: Ember.computed('state', function() {
+  stepIsRunning: Ember.computed('jobStep', function() {
     return this.get('jobStep') === 'R';
   }),
-  stepIsStoreOutput: Ember.computed('state', function() {
+  stepIsStoreOutput: Ember.computed('jobStep', function() {
     return this.get('jobStep') === 'O';
   }),
-  stepIsTerminateVm: Ember.computed('state', function() {
+  stepIsTerminateVm: Ember.computed('jobStep', function() {
     return this.get('jobStep') === 'T';
   }),
 });
