@@ -156,3 +156,17 @@ test('it sends actions to the adapter', function(assert) {
     model.authorize('authorizeToken');
   })
 });
+
+test('it computes lastJobError by most recently created', function(assert) {
+  const store = this.store();
+  Ember.run(() => {
+  const jobErrors = [
+    store.createRecord('job-error', {id: 'oldest', created: new Date(0)}),
+    store.createRecord('job-error', {id: 'newest', created: new Date(1506370813)}),
+    store.createRecord('job-error', {id: 'middle', created: new Date(1000000000)})
+  ];
+    let job = this.subject();
+    job.set('jobErrors', jobErrors);
+    assert.equal(job.get('lastJobError.id'), 'newest');
+  });
+});
