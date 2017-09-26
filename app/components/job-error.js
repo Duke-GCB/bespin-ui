@@ -1,6 +1,8 @@
 import Ember from 'ember';
 
-const JobErrors = Ember.Component.extend({
+const JobError = Ember.Component.extend({
+  tagName: 'div',
+  classNames: ['job-error'],
   jobError: null,
   collapsed: true,
   notCollapsed: Ember.computed.not('collapsed'),
@@ -9,8 +11,8 @@ const JobErrors = Ember.Component.extend({
   }
 });
 
-JobErrors.reopenClass({
+JobError.reopenClass({
   positionalParams: ['jobError']
 });
 
-export default JobErrors;
+export default JobError;
