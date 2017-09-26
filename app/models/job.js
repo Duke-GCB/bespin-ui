@@ -14,11 +14,23 @@ export default DS.Model.extend({
   jobOrder: DS.attr('string'), // This is JSON, no need to test it
   stageGroup: DS.belongsTo('job-file-stage-group'),
   shareGroup: DS.belongsTo('share-group'),
+  runToken: DS.attr('string'),
   isNew: Ember.computed('state', function() {
     return this.get('state') === 'N';
   }),
   isAuthorized: Ember.computed('state', function() {
     return this.get('state') === 'A';
+  }),
+  // Distinct from isAuthorized - indicates whether a job needs authorization to proceed
+  hasAuthorization: Ember.computed.not('isNew'),
+  isStarting: Ember.computed('state', function() {
+    return this.get('state') === 'S';
+  }),
+  isRestarting: Ember.computed('state', function() {
+    return this.get('state') === 'r';
+  }),
+  isRunning: Ember.computed('state', function() {
+    return this.get('state') === 'R';
   }),
   isFinished: Ember.computed('state', function() {
     return this.get('state') === 'F';
@@ -26,9 +38,18 @@ export default DS.Model.extend({
   isErrored:  Ember.computed('state', function() {
     return this.get('state') === 'E';
   }),
+  isCanceling: Ember.computed('state', function() {
+    return this.get('state') === 'c';
+  }),
+  isCanceled: Ember.computed('state', function() {
+    return this.get('state') === 'C';
+  }),
   outputDir: DS.belongsTo('job-output-dir'),
   // Named jobErrors because DS.Model already has an errors property (contains validation error messages)
   jobErrors: DS.hasMany('job-error'),
+  lastJobError: Ember.computed('jobErrors.[]', function() {
+    return this.get('jobErrors').sortBy('created').get('lastObject');
+  }),
   updateAfterAction(data) {
     // The action methods respond with an updated job, so we must update the local store
     // with that payload. Remember, pushPayload doesn't return.

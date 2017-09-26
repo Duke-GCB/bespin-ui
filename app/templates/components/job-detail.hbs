@@ -1,46 +1,14 @@
-<div class="row job-detail">
-  <div class="col-md-12">
-    <h4>Job Details</h4>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <div class="panel-title"><span class="job-name">{{job.name}}</span></div>
+<div class="panel-heading">
+  <strong>{{job-detail-title job}}</strong>
+</div>
+<div class="panel-body">
+    <div class="row">
+      <div class="col-md-9">
+        {{job-detail-body job}}
       </div>
-      <div class="panel-body">
-        <dl class="dl-horizontal">
-          <dt>Workflow</dt>
-          <dd class="job-workflow-version">{{job.workflowVersion.workflow.name}} (v{{job.workflowVersion.version}})</dd>
-          <dt>Created</dt>
-          <dd class="job-created">{{job.created}}</dd>
-          <dt>Last Updated</dt>
-          <dd class="job-last-updated">{{job.lastUpdated}}</dd>
-          <dt>State</dt>
-          <dd class="job-state">{{decode-job-state job.state}}</dd>
-          {{#if job.isFinished}}
-            <dt>Results</dt>
-            <dd class="job-results"><a class="job-results-link" href="{{output-dir-link job.outputDir}}">{{job.outputDir.project.name}}/{{job.outputDir.dirName}}</a></dd>
-          {{/if}}
-          {{#if job.isErrored}}
-              <dt>Errors</dt>
-              {{#each job.jobErrors as |jobError|}}
-                  <dd class="job-error"><pre>{{jobError.content}}</pre></dd>
-              {{/each}}
-          {{/if}}
-          <dt>Step</dt>
-          <dd class="job-step">{{decode-job-step job.step}}</dd>
-          <dt>VM Flavor</dt>
-          <dd class="job-vm-flavor">{{job.vmFlavor}}</dd>
-          <dt>VM Instance Name</dt>
-          <dd class="job-vm-instance-name">{{job.vmInstanceName}}</dd>
-          <dt>Job Order JSON</dt>
-          <dd class="job-order"><pre>{{prettyJobOrder}}</pre></dd>
-        </dl>
+      <div class="col-md-3">
+        {{job-state job}}
+        {{job-controls job}}
       </div>
     </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-md-12 job-controls">
-    {{job-controls job}}
-  </div>
-</div>
-{{yield}}

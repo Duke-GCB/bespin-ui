@@ -1,6 +1,5 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import Ember from 'ember';
 
 moduleForComponent('job-controls', 'Integration | Component | job controls', {
   integration: true
@@ -48,43 +47,4 @@ test('it enables cancel when Running', function(assert) {
   this.render(hbs`{{job-controls job}}`);
   assert.equal(this.$('button:not(:disabled)').text(), 'Cancel');
   assert.equal(this.$('button[disabled]').length, 2);
-});
-
-test('it displays job control results on click', function(assert) {
-  let statesMessages = [
-    { state: 'A', message: 'started' },
-    { state: 'R', message: 'cancelled' },
-    { state: 'E', message: 'restarted'}
-  ];
-
-  let MockSucceedJob = Ember.Object.extend({
-    state: null,
-    start() { return Ember.RSVP.resolve(); },
-    restart() { return Ember.RSVP.resolve(); },
-    cancel() { return Ember.RSVP.resolve(); }
-  });
-
-  let MockFailJob = Ember.Object.extend({
-    state: null,
-    start() { return Ember.RSVP.reject('error') },
-    restart() { return Ember.RSVP.reject('error') },
-    cancel() { return Ember.RSVP.reject('error') }
-  });
-
-  statesMessages.forEach(stateMessage => {
-    // Test for success
-    this.set('job', MockSucceedJob.create({state: stateMessage.state}));
-    this.render(hbs`{{job-controls job}}`);
-    this.$('button:not(:disabled)').click();
-    assert.equal(this.$('span.success-message').text(), `The job has been ${stateMessage.message}.`);
-    assert.equal(this.$('span.error-message').length, 0);
-
-    // Test for failure
-    this.set('job', MockFailJob.create({state: stateMessage.state}));
-    this.render(hbs`{{job-controls job}}`);
-    this.$('button:not(:disabled)').click();
-    assert.equal(this.$('span.success-message').length, 0);
-    assert.equal(this.$('span.error-message').text().trim(), `The job could not be ${stateMessage.message}:`);
-
-  });
 });

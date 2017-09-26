@@ -19,35 +19,39 @@ test('it exists', function(assert) {
   assert.ok(!!model);
 });
 
-test('it computes isFinished', function(assert) {
+test('it computes job state properties', function(assert) {
+  assert.expect(27);
+  const statesAndProperties = [
+    ['N', 'isNew'],
+    ['A', 'isAuthorized'],
+    ['S', 'isStarting'],
+    ['r', 'isRestarting'],
+    ['R', 'isRunning'],
+    ['F', 'isFinished'],
+    ['E', 'isErrored'],
+    ['c', 'isCanceling'],
+    ['C', 'isCanceled'],
+  ];
   let job = this.subject();
   Ember.run(() => {
-    job.set('state', 'S');
-    assert.notOk(job.get('isFinished'));
-    job.set('state', 'F');
-    assert.ok(job.get('isFinished'));
+    statesAndProperties.forEach(function(stateAndProperty) {
+      const state = stateAndProperty[0];
+      const property = stateAndProperty[1];
+      job.set('state', '');
+      assert.notOk(job.get(property), `${property} should be false when empty job.state`);
+      job.set('state', state);
+      assert.ok(job.get(property), `${property} should be true when job.state == ${state}`);
+
+      // hasAuthorization should be true for any state except new
+      if(state === 'N') {
+        assert.notOk(job.get('hasAuthorization'), `Job in state ${state} should return false for hasAuthorization`);
+      } else {
+        assert.ok(job.get('hasAuthorization'), `Job in state ${state} should return true for hasAuthorization`);
+      }
+    });
   });
 });
 
-test('it computes isNew', function(assert) {
-  let job = this.subject();
-  Ember.run(() => {
-    job.set('state', 'F');
-    assert.notOk(job.get('isNew'));
-    job.set('state', 'N');
-    assert.ok(job.get('isNew'));
-  });
-});
-
-test('it computes isErrored', function(assert) {
-  let job = this.subject();
-  Ember.run(() => {
-    job.set('state', 'N');
-    assert.notOk(job.get('isErrored'));
-    job.set('state', 'E');
-    assert.ok(job.get('isErrored'));
-  });
-});
 
 testRelationship('job', {key: 'workflowVersion', kind: 'belongsTo', type: 'workflow-version'});
 testRelationship('job', {key: 'outputDir', kind: 'belongsTo', type: 'job-output-dir'});
@@ -55,7 +59,7 @@ testRelationship('job', {key: 'stageGroup', kind: 'belongsTo', type: 'job-file-s
 testRelationship('job', {key: 'shareGroup', kind: 'belongsTo', type: 'share-group'});
 
 test('it sends actions to the adapter', function(assert) {
-  assert.expect(15); // 5asserts for each action
+  assert.expect(21); // 5 asserts for each of start/cancel/restart, and 6 for authorize
   this.store().set('adapterFor', (modelName) => {
     return {
       start(id) {
@@ -72,6 +76,22 @@ test('it sends actions to the adapter', function(assert) {
         assert.equal(modelName, 'job', 'modelName in adapterFor should be job');
         assert.equal(id, 'restartId', 'should call adapter.restart() with id');
         return Ember.RSVP.resolve({id: id, state: 'r'}); // restarting
+      },
+      authorize(id, token) {
+        assert.equal(modelName, 'job', 'modelName in adapterFor should be job');
+        assert.equal(token['job-tokens']['token'], 'authorizeToken', 'should call adapter.authorize() with a job-token object');
+        assert.equal(id, 'authorizeId', 'should call adapter.authorize() with id');
+
+        const jobTokensPayload = {
+          'job-tokens': {
+            'token': 'authorizeToken',
+            'job': {
+              'id' : id,
+              'state': 'A'
+            }
+          }
+        };
+        return Ember.RSVP.resolve(jobTokensPayload); // Authorized job wrapped in a job-tokens object
       }
     };
   });
@@ -94,6 +114,13 @@ test('it sends actions to the adapter', function(assert) {
     // Returns nothing
     assert.equal(modelName, 'job');
     assert.equal(data.state, 'r', 'should push a payload with restarting state');
+  };
+
+  let stubPushPayloadAuthorize = (modelName, data) => {
+    // Returns nothing
+    assert.equal(modelName, 'job');
+    // Authorize endpoint returns a job-token, not a job. Check the state of the job through the relationship
+    assert.equal(data.jobs.state, 'A', 'Should push a payload with authorized state');
   };
 
   // Since each one is asynchronous but must be synchronized with the pushPayload function,
@@ -119,5 +146,26 @@ test('it sends actions to the adapter', function(assert) {
     let model = this.subject();
     model.set('id', 'restartId');
     model.restart();
+  });
+
+  Ember.run(() => {
+    store.set('pushPayload', stubPushPayloadAuthorize);
+    let model = this.subject();
+    model.set('id', 'authorizeId');
+    model.authorize('authorizeToken');
+  })
+});
+
+test('it computes lastJobError by most recently created', function(assert) {
+  const store = this.store();
+  Ember.run(() => {
+  const jobErrors = [
+    store.createRecord('job-error', {id: 'oldest', created: new Date(0)}),
+    store.createRecord('job-error', {id: 'newest', created: new Date(1506370813)}),
+    store.createRecord('job-error', {id: 'middle', created: new Date(1000000000)})
+  ];
+    let job = this.subject();
+    job.set('jobErrors', jobErrors);
+    assert.equal(job.get('lastJobError.id'), 'newest');
   });
 });

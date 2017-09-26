@@ -1,0 +1,6 @@
+{{#if stageGroup.ddsFiles}}
+  {{job-input-file-list stageGroup.ddsFiles 'Duke Data Service' }}
+{{/if}}
+{{#if stageGroup.urlFiles}}
+  {{job-input-file-list stageGroup.urlFiles 'Web URLs'}}
+{{/if}}

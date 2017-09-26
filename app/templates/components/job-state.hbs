@@ -1,0 +1,4 @@
+<dt>Job ID</dt><dd class="job-id">{{job.id}}</dd>
+{{#if job.runToken}}<dt>Authorization Code</dt><dd class="run_token">{{job.runToken}}</dd>{{/if}}
+<dt>State</dt><dd class="state">{{decode-job-state job.state}}</dd>
+{{#if job.step}}<dt>Step</dt><dd class="step">{{decode-job-step job.step}}</dd>{{/if}}
