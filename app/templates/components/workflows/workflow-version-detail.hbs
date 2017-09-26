@@ -1,20 +1,10 @@
 <div class="panel panel-default">
     <div class="panel-heading workflow-version-details-title">
-        Version {{workflowVersion.version}}
+        <span>Version {{workflowVersion.version}} - Created: {{moment-format workflowVersion.created 'LL'}}</span>
+        <span class="pull-right"><a href={{workflowVersion.url}}>Workflow File</a></span>
     </div>
     <div class="panel-body">
-        <dl class="dl-horizontal">
-            <dt>Description</dt><dd class="workflow-version-details-description">{{workflowVersion.description}}</dd>
-            <dt>Created</dt><dd class="workflow-version-details-created">{{workflowVersion.created}}</dd>
-            <dt>URL</dt><dd class="workflow-version-details-url"><a href={{workflowVersion.url}}>{{workflowVersion.url}}</a></dd>
-        </dl>
+        {{markdown-to-html workflowMarkdown}}
         {{yield}}
     </div>
-    {{#if workflowVersion.methodsDocument}}
-    <ul class="list-group">
-        <li class="list-group-item">
-          {{markdown-to-html workflowVersion.methodsDocument.contents}}
-        </li>
-    </ul>
-    {{/if}}
 </div>
