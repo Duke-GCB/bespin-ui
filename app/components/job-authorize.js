@@ -5,7 +5,7 @@ const JobAuthorize = Ember.Component.extend({
   classNames: ['job-authorize'],
   job: null,
   _token: '',
-  token: Ember.computed('job.needsAuthorization', 'job.runToken', '_token', {
+  token: Ember.computed('job.hasAuthorization', 'job.runToken', '_token', {
     /*
       The token for this component is a custom computed property.
 
@@ -15,17 +15,23 @@ const JobAuthorize = Ember.Component.extend({
       and switch the getter to return the token based on the state.
      */
     get(/* key */) {
-      if(this.get('job.needsAuthorization')) {
-        // Job has not yet been authorized, return our local variable
-        return this.get('_token')
-      } else {
+      if(this.get('job.hasAuthorization')) {
         // Job has been authorized, return the token from the job.
         return this.get('job.runToken');
+      } else {
+        // Job has not yet been authorized, return our local variable
+        return this.get('_token')
       }
     },
     set(key, value) {
-      // Only set the local variable
-      this.set('_token', value);
+      // Only set the local variable if job does not yet have authorization.
+      // If job has been authorized this is effectively read-only
+      if(this.get('job.hasAuthorization')) {
+        return this.get('job.runToken');
+      } else {
+        this.set('_token', value);
+        return value;
+      }
     }
   }),
   actions: {
