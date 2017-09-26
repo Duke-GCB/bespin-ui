@@ -1,5 +1,6 @@
 {{#if job.isNew}}
   <p>To start running the job, you must provide an authorization code below.</p><p>To request a code, please contact the {{share-group-contact job.shareGroup}} group.</p>
+  {{job-authorize job}}
 {{else if job.isAuthorized}}
   <p>The job will run on a virtual machine in the Bespin cloud infrastructure. The virtual machine will stage your data in, run the workflow, and upload the results to Duke Data Service.</p>
   <p>You can start the job by clicking <strong>Start</strong>.</p>
