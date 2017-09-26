@@ -8,10 +8,13 @@
             <dt>Created</dt><dd class="workflow-version-details-created">{{workflowVersion.created}}</dd>
             <dt>URL</dt><dd class="workflow-version-details-url"><a href={{workflowVersion.url}}>{{workflowVersion.url}}</a></dd>
         </dl>
-
         {{yield}}
     </div>
-    <div class="panel-footer">
-      {{markdown-to-html workflowVersion.methodsDocument.contents}}
-    </div>
+    {{#if workflowVersion.methodsDocument}}
+    <ul class="list-group">
+        <li class="list-group-item">
+          {{markdown-to-html workflowVersion.methodsDocument.contents}}
+        </li>
+    </ul>
+    {{/if}}
 </div>
