@@ -117,7 +117,6 @@ test('it sends actions to the adapter', function(assert) {
   };
 
   let stubPushPayloadAuthorize = (modelName, data) => {
-    Ember.Logger.log(Ember.inspect(JSON.stringify(data)));
     // Returns nothing
     assert.equal(modelName, 'job');
     // Authorize endpoint returns a job-token, not a job. Check the state of the job through the relationship
