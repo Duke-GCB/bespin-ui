@@ -15,9 +15,6 @@ let MockJob = Ember.Object.extend({
 });
 
 test('it renders', function(assert) {
-
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
   const mockJob = MockJob.create({token:'secret-1'});
   this.set('job', mockJob);
   this.render(hbs`{{job-authorize job}}`);
@@ -26,12 +23,20 @@ test('it renders', function(assert) {
   assert.equal(mockJob.authorized, false);
   this.$('button').click();
   assert.equal(mockJob.authorized, true);
+});
 
-  // Template block usage:
-  this.render(hbs`
-    {{#job-authorize}}
-    {{/job-authorize}}
-  `);
+test('it enables input and button when job needs authorization', function(assert) {
+  this.set('job', Ember.Object.create({hasAuthorization: false}));
+  this.render(hbs`{{job-authorize job}}`);
+  assert.notOk(this.$('.job-authorize input').attr('disabled'));
+  assert.notOk(this.$('.job-authorize button').attr('disabled'));
 
-  assert.equal(this.$().text().trim().replace(/\n/g,''), 'Authorization Code:            Authorize');
+});
+
+test('it disables input and button when job already has authorization', function(assert) {
+  this.set('job', Ember.Object.create({hasAuthorization: true}));
+  this.render(hbs`{{job-authorize job}}`);
+  assert.ok(this.$('.job-authorize input').attr('disabled'));
+  assert.ok(this.$('.job-authorize button').attr('disabled'));
+
 });
