@@ -6,10 +6,35 @@ moduleForComponent('job-detail-title', 'Integration | Component | job detail tit
   integration: true
 });
 
-test('it renders', function(assert) {
-  this.render(hbs`{{job-detail-title}}`);
-  assert.equal(this.$().text().trim(), '');
-  this.set('job', Ember.Object.create({isNew: true}));
+const states = [
+  'isNew',
+  'isAuthorized',
+  'isStarting',
+  'isRunning',
+  'isFinished',
+  'isErrored',
+  'isCanceling',
+  'isCanceled',
+  'isRestarting'];
+
+test('it renders text for all valid states', function (assert) {
+  assert.expect(states.length);
+  states.forEach((state) => {
+    let job = Ember.Object.create();
+    job.set(state, true);
+    this.set('job', job);
+    this.render(hbs`{{job-detail-title job}}`);
+    assert.notEqual(this.$().text().trim(), '');
+  });
+});
+
+test('it renders no text for invalid valid states', function (assert) {
+  assert.expect(states.length + 1);
+  let job = Ember.Object.create({});
+  states.forEach((state) => {
+    assert.notOk(job.get(state), `${state} is a valid state, job should not be in a valid state`);
+  });
+  this.set('job', job);
   this.render(hbs`{{job-detail-title job}}`);
-  assert.notEqual(this.$().text().trim(), '');
+  assert.equal(this.$().text().trim(), '');
 });
