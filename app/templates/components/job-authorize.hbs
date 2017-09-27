@@ -1,9 +1,16 @@
 {{#bs-form as |form|}}
-  {{#form.group class='job-authorize-group form-inline' }}
+  {{#form.group class=formGroupClassNames }}
       <label for="authorize-job">Authorization Code:</label>
       {{input class='form-control job-name-input' id='authorize-job'
               value=token
               disabled=job.hasAuthorization}}
       {{#bs-button type='primary' onClick=(action "authorize") disabled=job.hasAuthorization}}Authorize{{/bs-button}}
+      {{#if errors}}
+        <span class="help-block">
+        {{#each errors as |error|}}
+          {{error.detail}}
+        {{/each}}
+        </span>
+      {{/if}}
   {{/form.group}}
 {{/bs-form}}

@@ -3,6 +3,15 @@ import Ember from 'ember';
 const JobAuthorize = Ember.Component.extend({
   tagName: 'div',
   classNames: ['job-authorize'],
+  errors: [],
+  formGroupClassNames: Ember.computed('errors.[]', function() {
+    const base = 'job-authorize-group form-inline';
+    if(this.get('errors.length') == 0) {
+      return base;
+    } else {
+      return `${base} has-error`;
+    }
+  }),
   job: null,
   _token: '',
   token: Ember.computed('job.hasAuthorization', 'job.runToken', '_token', {
@@ -37,7 +46,9 @@ const JobAuthorize = Ember.Component.extend({
   actions: {
     authorize() {
       const token = this.get('token');
-      this.get('job').authorize(token);
+      this.get('job').authorize(token).then(()=> { /* succeeded */ }, (error) => {
+        this.set('errors', error.errors);
+      });
     }
   }
 });
