@@ -10,7 +10,8 @@ let MockJob = Ember.Object.extend({
   token: '',
   authorized: false,
   authorize: function () {
-    this.set('authorized', true)
+    this.set('authorized', true);
+    return Ember.RSVP.resolve({});
   }
 });
 
@@ -38,5 +39,14 @@ test('it disables input and button when job already has authorization', function
   this.render(hbs`{{job-authorize job}}`);
   assert.ok(this.$('.job-authorize input').attr('disabled'));
   assert.ok(this.$('.job-authorize button').attr('disabled'));
+});
 
+test('it displays error elements when there are errors', function(assert) {
+  this.render(hbs`{{job-authorize}}`);
+  assert.equal(this.$('.has-error').length, 0);
+  assert.equal(this.$('.help-block').length, 0);
+  this.set('errors', [1,2,3]);
+  this.render(hbs`{{job-authorize errors=errors}}`);
+  assert.equal(this.$('.has-error').length, 1);
+  assert.equal(this.$('.help-block').length, 1);
 });

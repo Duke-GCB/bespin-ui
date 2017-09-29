@@ -29,3 +29,24 @@ test('setting the token on authorized jobs does not change it', function(assert)
   assert.equal(jobAuthorize.get('token'), 'jobRunToken');
   assert.equal(mockJob.get('runToken'), 'jobRunToken');
 });
+
+test('errors from job.authorize are set on the component', function(assert) {
+  const mockError = Ember.Object.create({
+    status: 400,
+    detail: 'This token is not valid.'
+  });
+  const mockJob = Ember.Object.create({
+    authorize(token) {
+      assert.equal(token, 'auth-token');
+      return Ember.RSVP.reject({errors: [mockError]});
+    }
+  });
+  let jobAuthorize = this.subject({job: mockJob});
+  Ember.run(() => {
+    jobAuthorize.set('token', 'auth-token');
+    jobAuthorize.send('authorize');
+  });
+  Ember.run(() => {
+    assert.deepEqual(jobAuthorize.get('errors'), [mockError]);
+  });
+});
