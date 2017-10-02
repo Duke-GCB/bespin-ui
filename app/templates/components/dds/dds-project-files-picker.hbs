@@ -1,7 +1,13 @@
 {{#bs-form as |form|}}
   {{yield}}
   {{#form.group class='select-project'}}
-    {{dds/dds-project-picker projects project (action 'projectChanged')}}
+    {{#if isLoading}}
+      LOADING
+    {{else if isEmpty}}
+      NO PROJECTS
+    {{else}}
+      {{dds/dds-project-picker projects project (action 'projectChanged')}}
+    {{/if}}
   {{/form.group}}
   {{#form.group class='select-files'}}
     {{dds/dds-file-picker project selectedResources (action 'filePicked') formatSettings=formatSettings}}
