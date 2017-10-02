@@ -3,6 +3,7 @@ import Ember from 'ember';
 const DDSResourceTree = Ember.Component.extend({
   tagName: 'span',
   classNames: ['dds-resource-tree'],
+  project: null,
   selectedResources: null,
   expanded: false,
   children: null,
@@ -46,7 +47,7 @@ const DDSResourceTree = Ember.Component.extend({
 });
 
 DDSResourceTree.reopenClass({
-  positionalParams: ['resource', 'selectedResources', 'onPick']
+  positionalParams: ['project', 'resource', 'selectedResources', 'onPick']
 });
 
 export default DDSResourceTree;

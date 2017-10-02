@@ -6,7 +6,7 @@
 {{/if}}
 {{#each children as |child|}}
   <li class="dds-resource-list-item">
-    {{dds/dds-resource-tree child selectedResources (action 'pickFile') formatSettings=formatSettings}}
+    {{dds/dds-resource-tree project child selectedResources (action 'pickFile') formatSettings=formatSettings}}
   </li>
 {{/each}}
 {{#if isLoading}}
