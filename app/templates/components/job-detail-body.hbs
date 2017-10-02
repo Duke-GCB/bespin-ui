@@ -2,14 +2,15 @@
   <p>To start running the job, you must provide an authorization code below.</p><p>To request a code, please contact the {{share-group-contact job.shareGroup}} group.</p>
   {{job-authorize job}}
 {{else if job.isAuthorized}}
-  <p>The job will run on a virtual machine in the Bespin cloud infrastructure. The virtual machine will stage your data in, run the workflow, and upload the results to Duke Data Service.</p>
   <p>You can start the job by clicking <strong>Start</strong>.</p>
+  {{job-oncompletion-detail job.shareGroup}}
   {{job-authorize job}}
 {{else if job.isStarting}}
   <p>Your job has been queued and will begin running once resources are available.</p>
+  {{job-oncompletion-detail job.shareGroup}}
 {{else if job.isRunning}}
-  <p>You will receive an email notification when it completes or in the event of an error.</p>
   <p>You can cancel the job by clicking <strong>Cancel</strong>.</p>
+  {{job-oncompletion-detail job.shareGroup}}
   {{!-- show details about current state --}}
 {{else if job.isFinished}}
   <p>Your job has completed. Results are available at the location below:</p>

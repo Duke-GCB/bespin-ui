@@ -8,8 +8,8 @@
   </tr>
   {{#each files as |file|}}
     <tr>
-      <td>{{file.destinationPath}}</td>
-      <td>{{file.size}}</td>
+      <td class="file-destination-path">{{file.destinationPath}}</td>
+      <td class="file-size">{{number-to-human-size file.size true 2}}</td>
     </tr>
   {{/each}}
   </tbody>

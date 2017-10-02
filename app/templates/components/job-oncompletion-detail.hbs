@@ -1,7 +1,3 @@
-<div class="panel panel-default">
-  <div class="panel-body">
-    <p class="body">You will be receive an email {{#if email}}at {{email}}{{/if}} when the job has finishes or in the event of an error.</p>
-    <p class="body">Result data will be uploaded to Duke Data Service and shared with the {{share-group-contact shareGroup}} group for expert review.
-      If the {{shareGroup.name}} has any feedback on the data, they will contact you. Otherwise, your data will be delivered as a Duke Data Service project.</p>
-  </div>
-</div>
+<p class="body">After the job runs, you will receive an email{{#if email}} at {{email}}{{/if}} with the status of the job.</p>
+<p class="body">Result data will be uploaded to Duke Data Service but will not be available until reviewed by the {{share-group-contact shareGroup}} group.
+  If the {{shareGroup.name}} group has any feedback, they will contact you. Otherwise, your results will be delivered as a Duke Data Service project.</p>
