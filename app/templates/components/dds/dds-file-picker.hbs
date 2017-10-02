@@ -4,10 +4,13 @@
     {{dds/dds-resource-header title=headerTitle action='pickAllFilesClicked'}}
   </li>
 {{/if}}
-  {{#each children as |child|}}
+{{#each children as |child|}}
   <li class="dds-resource-list-item">
     {{dds/dds-resource-tree child selectedResources (action 'pickFile') formatSettings=formatSettings}}
   </li>
 {{/each}}
+{{#if isLoading}}
+  {{dds/dds-loading-indicator}}
+{{/if}}
 </ul>
 {{yield}}
