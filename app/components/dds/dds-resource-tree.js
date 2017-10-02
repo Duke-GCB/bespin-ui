@@ -21,7 +21,6 @@ const DDSResourceTree = Ember.Component.extend({
       folder_id: this.get('resource.id')
     }).then((children) => {
       this.set('children', children.sortBy('name'));
-      this.set('fetchedOnce', true);
     });
   },
   didToggleExpanded: Ember.observer('expanded', function() {
