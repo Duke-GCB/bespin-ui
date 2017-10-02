@@ -7,6 +7,16 @@ const DDSFilePicker = Ember.Component.extend({
   onPick: (/* file */) => {},
   selectedResources: null,
   formatSettings: null,
+  isLoading: Ember.computed('project', 'children', function() {
+    let project = this.get('project');
+    let children = this.get('children');
+    if(project != null && children == null) {
+      // Only loading if a project has been selected but no children yet
+      return true;
+    } else {
+      return false;
+    }
+  }),
   headerTitle: Ember.computed('formatSettings.title', function() {
     let formatSettingsTitle = this.get('formatSettings.title');
     if (formatSettingsTitle) {
@@ -36,8 +46,11 @@ const DDSFilePicker = Ember.Component.extend({
     }
     return children.filterBy('isFile').get('length') > 0;
   }),
-  projectChanged: Ember.on('init', Ember.observer('project', function() {
-    if(! this.get('project.id')) {
+  projectChanged: Ember.observer('project', function() {
+    this.set('children', null); // Clears out children so that loading indicator displays
+    // This observer watches changes to the project and loads the project's top-level children when it changes.
+    // Therefore, it only makes sense to change the project of the top-level dds-file-picker component
+    if (!this.get('project.id')) {
       return;
     }
     this.get('store').query('dds-resource', {
@@ -45,7 +58,7 @@ const DDSFilePicker = Ember.Component.extend({
     }).then((resources) => {
       this.set('children', resources.sortBy('name'));
     });
-  }))
+  })
 });
 
 DDSFilePicker.reopenClass({
