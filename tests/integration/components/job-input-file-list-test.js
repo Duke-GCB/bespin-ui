@@ -31,3 +31,12 @@ test('it renders From data source in panel-heading only when there is a source',
   assert.equal(this.$('div.panel-heading').length, 1);
   assert.equal(this.$('div.panel-heading').text().trim(), 'From devnull');
 });
+
+test('it renders human readable sizes', function(assert) {
+  this.set('files', [Ember.Object.create({destinationPath: 'file.gz', 'size': 7 * 1024 * 1024 * 1024})]);
+  this.render(hbs`{{job-input-file-list files}}`);
+  assert.equal(this.$('table').length, 1);
+  assert.equal(this.$('td').length, 2);
+  assert.equal(this.$('td.file-destination-path').text(), 'file.gz');
+  assert.equal(this.$('td.file-size').text(), '7.00 GiB');
+});
