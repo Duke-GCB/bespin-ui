@@ -10,7 +10,9 @@
   </li>
 {{/each}}
 {{#if isLoading}}
-  {{dds/dds-loading-indicator}}
+  <li>
+    {{#dds/dds-loading-indicator}}Loading...{{/dds/dds-loading-indicator}}
+  </li>
 {{/if}}
 </ul>
 {{yield}}

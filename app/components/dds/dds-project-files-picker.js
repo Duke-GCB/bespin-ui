@@ -6,6 +6,14 @@ const DDSProjectFilesPicker = Ember.Component.extend({
   selectedResources: null,
   formatSettings: null,
   onFilePicked: (/* file */) => {},
+  isLoading: Ember.computed('projects', function () {
+    const projects = this.get('projects');
+    return projects === null;
+  }),
+  isEmpty: Ember.computed('projects.length', function() {
+    const length = this.get('projects.length');
+    return length === 0;
+  }),
   actions: {
     projectChanged(project) {
       this.set('project', project);
