@@ -7,23 +7,52 @@ moduleForComponent('workflows/workflow-version-detail', 'Integration | Component
 
 test('it renders', function(assert) {
 
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
+  //test with 'current' version
   this.set('workflowVersion', {
+    id: '123',
     version: '2',
     description: 'My workflow',
     created: 'Feb 01 2017',
     url: 'somewhere.edu',
+    methodsDocument: {
+      contents: "# Description\nMy workflow\n# Methods"
+    },
     workflow: {
-      name: "WorkflowTitle"
+      name: "WorkflowTitle",
+      latestVersion: {
+        id: '123'
+      }
     }
   });
 
+  //test default which doesn't show methods in markdown
   this.render(hbs`{{workflows/workflow-version-detail workflowVersion=workflowVersion}}`);
   assert.equal(this.$('.workflow-version-details-title').text().trim().replace(/ |\n/g,''),
     'WorkflowTitle-Version2(Current)-February1,2017');
   assert.equal(this.$('.worklflow-version-detail-markdown').text().trim(), 'Description\nMy workflow');
   assert.equal(this.$('.worklflow-version-detail-download-cwl-url').attr('href'), 'somewhere.edu');
+
+  //test showing methods markdown (that will contain the description)
+  this.render(hbs`{{workflows/workflow-version-detail workflowVersion=workflowVersion showMethods=true}}`);
+  assert.equal(this.$('.worklflow-version-detail-markdown').text().trim(), 'Description\nMy workflow\nMethods');
+
+  //test older version
+  this.set('workflowVersion', {
+    id: '123',
+    version: '2',
+    description: 'My workflow',
+    created: 'Feb 01 2017',
+    url: 'somewhere.edu',
+    workflow: {
+      name: "WorkflowTitle",
+      latestVersion: {
+        id: '124'
+      }
+    }
+  });
+  this.render(hbs`{{workflows/workflow-version-detail workflowVersion=workflowVersion}}`);
+  assert.equal(this.$('.workflow-version-details-title').text().trim().replace(/ |\n/g,''),
+    'WorkflowTitle-Version2-February1,2017');
 
   // Template block usage:
   this.render(hbs`

@@ -13,3 +13,4 @@ test('it exists', function(assert) {
 });
 
 testRelationship('workflow-version', {key: 'workflow', kind: 'belongsTo', type: 'workflow'});
+testRelationship('workflow-version', {key: 'methodsDocument', kind: 'belongsTo', type: 'workflow-methods-document'});
