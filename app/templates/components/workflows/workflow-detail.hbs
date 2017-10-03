@@ -1,9 +1,4 @@
-<h3>
-    Workflow:
-{{#link-to "workflows.show" workflow}}
-    {{workflow.name}}
-{{/link-to}}
-</h3>
+{{workflow-title-link workflow=workflow}}
 {{#each sortedVersions as |workflowVersion|}}
    {{workflows/workflow-version-detail workflowVersion=workflowVersion}}
 {{/each}}

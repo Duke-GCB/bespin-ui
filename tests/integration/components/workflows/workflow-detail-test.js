@@ -6,21 +6,28 @@ moduleForComponent('workflows/workflow-detail', 'Integration | Component | workf
 });
 
 test('it renders', function(assert) {
-  const workflowVersion = {
+  const workflowVersion2 = {
     version: '2',
-    description: 'My workflow',
+    description: 'My workflow2',
     created: 'Feb 1 2017',
-    url: 'somewhere.edu',
+    url: 'somewhere.edu'
+  };
+  const workflowVersion3 = {
+    version: '3',
+    description: 'My workflow3',
+    created: 'Feb 13 2017',
+    url: 'somewhere.edu'
   };
   this.set('myworkflow', {
       name: 'Exomeseq',
-      versions: [workflowVersion]
+      versions: [workflowVersion2, workflowVersion3]
   });
 
   this.render(hbs`{{workflows/workflow-detail workflow=myworkflow}}`);
 
   assert.equal(this.$('h3').text().trim().replace(/ /g,''), 'Workflow:\nExomeseq');
-  assert.equal(this.$('.worklflow-version-detail-markdown p').html(), 'My workflow');
+  //highest version should be sorted first
+  assert.equal(this.$('.worklflow-version-detail-markdown p').text(), 'My workflow3' + 'My workflow2');
 
   // Template block usage:
   this.render(hbs`
