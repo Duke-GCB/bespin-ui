@@ -6,6 +6,6 @@ moduleForComponent('dds/dds-loading-indicator', 'Integration | Component | dds/d
 });
 
 test('it renders', function(assert) {
-  this.render(hbs`{{dds/dds-loading-indicator}}`);
+  this.render(hbs`{{#dds/dds-loading-indicator}}Loading...{{/dds/dds-loading-indicator}}`);
   assert.equal(this.$().text().trim(), 'Loading...');
 });
