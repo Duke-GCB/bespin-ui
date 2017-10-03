@@ -1,10 +1,17 @@
 <div class="panel panel-default">
     <div class="panel-heading workflow-version-details-title">
-        <span>Version {{workflowVersion.version}} - Created: {{moment-format workflowVersion.created 'LL'}}</span>
-        <span class="pull-right"><a href={{workflowVersion.url}}>Workflow File</a></span>
+      <span class="lead">
+        {{workflowVersion.workflow.name}} - Version {{workflowVersion.version}}
+        {{#if isCurrentVersion}}(Current){{/if}}
+        - {{moment-format workflowVersion.created 'LL'}}
+      </span>
     </div>
     <div class="panel-body">
-        {{markdown-to-html workflowMarkdown}}
+        {{markdown-to-html workflowMarkdown headerLevelStart=4}}
+      {{#unless showMethods}}
+        {{#link-to "workflows.versions.show" workflowVersion.workflow workflowVersion}}More...{{/link-to}}
+      {{/unless}}
+        <a class="pull-right btn btn-primary" href="{{workflowVersion.url}}" role="button">Download CWL</a>
         {{yield}}
     </div>
 </div>

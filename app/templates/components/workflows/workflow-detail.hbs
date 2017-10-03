@@ -1,5 +1,10 @@
-<h3>{{workflow.name}}</h3>
-{{#each workflow.versions as |workflowVersion|}}
-          {{workflows/workflow-version-detail workflowVersion=workflowVersion}}
+<h3>
+    Workflow:
+{{#link-to "workflows.show" workflow}}
+    {{workflow.name}}
+{{/link-to}}
+</h3>
+{{#each sortedVersions as |workflowVersion|}}
+   {{workflows/workflow-version-detail workflowVersion=workflowVersion}}
 {{/each}}
 {{yield}}

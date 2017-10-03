@@ -1,3 +1,7 @@
-<h2>Workflow Versions</h2>
-<h4>{{model.name}}</h4>
+<h3>
+    Workflow:
+  {{#link-to "workflows.show" model}}
+     {{model.name}}
+  {{/link-to}}
+</h3>
 {{outlet}}
