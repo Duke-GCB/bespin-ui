@@ -1,7 +1,9 @@
 {{#bs-form as |form|}}
   {{yield}}
   {{#if isLoading}}
-    {{#dds/dds-loading-indicator}}Loading Projects...{{/dds/dds-loading-indicator}}
+    <span class="form-control" disabled>
+      {{#dds/dds-loading-indicator}}Loading Projects...{{/dds/dds-loading-indicator}}
+    </span>
   {{else if isEmpty}}
     {{dds/dds-no-projects}}
   {{else}}
