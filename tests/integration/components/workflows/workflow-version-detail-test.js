@@ -12,15 +12,14 @@ test('it renders', function(assert) {
   this.set('workflowVersion', {
     version: '2',
     description: 'My workflow',
-    created: 'today',
+    created: 'Feb 01 2017',
     url: 'somewhere.edu',
   });
 
   this.render(hbs`{{workflows/workflow-version-detail workflowVersion=workflowVersion}}`);
-  assert.equal(this.$('.workflow-version-details-title').text().trim(), 'Version 2');
-  assert.equal(this.$('.workflow-version-details-description').text().trim(), 'My workflow');
-  assert.equal(this.$('.workflow-version-details-created').text().trim(), 'today');
-  assert.equal(this.$('.workflow-version-details-url').text().trim(), 'somewhere.edu');
+  assert.equal(this.$('.workflow-version-details-title').text().trim().replace(/ |\n/g,''), '-Version2(Current)-February1,2017');
+  assert.equal(this.$('.worklflow-version-detail-markdown').text().trim(), 'Description\nMy workflow');
+  assert.equal(this.$('.worklflow-version-detail-download-cwl-url').attr('href'), 'somewhere.edu');
 
   // Template block usage:
   this.render(hbs`

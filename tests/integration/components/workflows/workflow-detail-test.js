@@ -19,8 +19,8 @@ test('it renders', function(assert) {
 
   this.render(hbs`{{workflows/workflow-detail workflow=myworkflow}}`);
 
-  assert.equal(this.$('h3').text().trim(), 'Exomeseq');
-  assert.equal(this.$('.workflow-version-details-description').text().trim(), 'My workflow');
+  assert.equal(this.$('h3').text().trim().replace(/ /g,''), 'Workflow:\nExomeseq');
+  assert.equal(this.$('.worklflow-version-detail-markdown p').html(), 'My workflow');
 
   // Template block usage:
   this.render(hbs`
