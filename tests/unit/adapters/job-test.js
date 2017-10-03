@@ -35,3 +35,13 @@ test('it POSTS the cancel action', function(assert) {
   });
   adapter.cancel(7);
 });
+
+test('it POSTS the authorize action with token', function(assert) {
+  let adapter = this.subject();
+  adapter.set('ajax', (url, method, params) => {
+    assert.equal(url, '/jobs/843/authorize/');
+    assert.equal(method, 'POST');
+    assert.deepEqual(params, {'data': 'auth-token'});
+  });
+  adapter.authorize(843, 'auth-token');
+});

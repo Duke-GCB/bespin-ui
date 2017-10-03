@@ -1,0 +1,37 @@
+{{!-- the errors have a step associated with them, so we can check this --}}
+<dl class="dl-horizontal">
+  <dt>Date</dt>
+  <dd class="job-error-date">{{jobError.created}}</dd>
+  <dt>Failed Step</dt>
+  <dd class="job-error-step">{{decode-job-step jobError.jobStep}}</dd>
+  <dt>Explanation</dt>
+  <dd class="job-error-suggestion">
+    {{#if jobError.stepIsCreateVm}}
+      <p>This job failed during creation of the VM.</p>
+      <p>Restarting the job will not likely succeed. Please contact <a href="mailto:gcb-help@duke.edu">gcb-help@duke.edu</a> for support.</p>
+    {{else if jobError.stepIsStaging}}
+      <p>This job failed during staging the data into the VM.</p>
+      <p>The job may succeed if you restart it. Click <strong>Restart</strong> to restart the job.</p>
+    {{else if jobError.stepIsRunning}}
+      <p>This job failed while running the workflow on the VM.</p>
+      <p>Restarting the job may not succeed. You can view the details below and click <strong>Restart</strong> to restart the job. Please contact <a href="mailto:gcb-help@duke.edu">gcb-help@duke.edu</a> for support.</p>
+    {{else if jobError.stepIsStoreOutput}}
+      <p>This job completed but uploading the results failed.</p>
+      <p>Restarting the job will try to upload these results again without re-running the entire workflow. Click <strong>Restart</strong> to restart the job.</p>
+    {{else if jobError.stepIsTerminateVm}}
+      <p>This job completed but cleanup of the VM failed.</p>
+      <p>The job's results has been uploaded, but will not be reviewed until the VM has been cleaned up. Please contact <a href="mailto:gcb-help@duke.edu">gcb-help@duke.edu</a> for support.</p>
+    {{/if}}
+  </dd>
+  <dt>Details</dt>
+  <dd class="job-error-details">
+    {{#bs-button type='default' size='sm' active=notCollapsed onClick=(action toggleCollapse)}}
+      {{#if collapsed}}Show{{else}}Hide{{/if}}
+    {{/bs-button}}
+    {{#bs-collapse collapsed=collapsed}}
+      <pre class="job-error-content">{{jobError.content}}</pre>
+    {{/bs-collapse}}
+  </dd>
+</dl>
+
+

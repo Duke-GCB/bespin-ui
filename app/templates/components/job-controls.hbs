@@ -1,32 +1,5 @@
-<div class="row">
-  <div class="col-md-9">
-    {{#if error}}
-      {{#bs-alert type="danger"}}
-        <span class="error-message">
-          {{error-list error.errors errorTitle}}
-        </span>
-      {{/bs-alert}}
-    {{else if operation}}
-      {{#bs-alert type="success"}}<span class="success-message">The job has been {{operation}}.</span>{{/bs-alert}}
-    {{else if job.isAuthorized}}
-      {{#bs-alert type="info"}}<span class="info-message">Your job is ready.
-          Click <strong>Start</strong> to submit.
-          Results will be reviewed by {{job.shareGroup.name}}.
-          After review, the results will be delivered to you through Duke Data Service.
-      </span>{{/bs-alert}}
-
-    {{/if}}
+{{#each buttons as |button|}}
+  <div class="btn-group">
+    {{#bs-button type=button.type onClick=(action button.action) disabled=(if button.enabled false true)}}{{button.title}}{{/bs-button}}
   </div>
-  {{#if job.isNew}}
-     {{job-authorize job}}
-  {{else}}
-      <div class="col-md-3">
-        <span class="pull-right">
-          {{#each buttons as |button|}}
-            {{#bs-button type=button.type onClick=(action button.action) disabled=(if button.enabled false true)}}{{button.title}}{{/bs-button}}
-          {{/each}}
-        </span>
-      </div>
-  {{/if}}
-</div>
-{{yield}}
+{{/each}}

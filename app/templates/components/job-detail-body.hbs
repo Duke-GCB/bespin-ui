@@ -1,0 +1,28 @@
+{{#if job.isNew}}
+  <p>To start running the job, you must provide an authorization code below.</p><p>To request a code, please contact the {{share-group-contact job.shareGroup}} group.</p>
+  {{job-authorize job}}
+{{else if job.isAuthorized}}
+  <p>You can start the job by clicking <strong>Start</strong>.</p>
+  {{job-oncompletion-detail job.shareGroup}}
+  {{job-authorize job}}
+{{else if job.isStarting}}
+  <p>Your job has been queued and will begin running once resources are available.</p>
+  {{job-oncompletion-detail job.shareGroup}}
+{{else if job.isRunning}}
+  <p>You can cancel the job by clicking <strong>Cancel</strong>.</p>
+  {{job-oncompletion-detail job.shareGroup}}
+  {{!-- show details about current state --}}
+{{else if job.isFinished}}
+  <p>Your job has completed. Results are available at the location below:</p>
+  <p class="well well-sm">{{job-status-results job}}</p>
+{{else if job.isErrored}}
+  <p>The following error occurred when attempting to run your job:</p>
+  <p>{{job-error job.lastJobError}}</p>
+{{else if job.isCanceling}}
+  <p>Your job is being canceled.</p>
+{{else if job.isCanceled}}
+  <p>Your job has been canceled.</p>
+  <p>You can restart the job by clicking <strong>Restart</strong>.</p>
+{{else if job.isRestarting}}
+  <p>The job will restart once resources are available.</p>
+{{/if}}

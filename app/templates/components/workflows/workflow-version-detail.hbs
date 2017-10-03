@@ -1,10 +1,6 @@
 <div class="panel panel-default">
     <div class="panel-heading workflow-version-details-title">
-      <span class="lead">
-        {{workflowVersion.workflow.name}} - Version {{workflowVersion.version}}
-        {{#if isCurrentVersion}}(Current){{/if}}
-        - {{moment-format workflowVersion.created 'LL'}}
-      </span>
+        <span class="lead">{{title}}</span>
     </div>
     <div class="panel-body">
         {{markdown-to-html workflowMarkdown headerLevelStart=4 class="worklflow-version-detail-markdown"}}

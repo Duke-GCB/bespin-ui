@@ -9,7 +9,7 @@ test('it renders', function(assert) {
   const workflowVersion = {
     version: '2',
     description: 'My workflow',
-    created: 'today',
+    created: 'Feb 1 2017',
     url: 'somewhere.edu',
   };
   this.set('myworkflow', {
