@@ -3,11 +3,11 @@
         <span class="lead">{{title}}</span>
     </div>
     <div class="panel-body">
-        {{markdown-to-html workflowMarkdown headerLevelStart=4 class="worklflow-version-detail-markdown"}}
+        {{markdown-to-html workflowMarkdown headerLevelStart=4 class="workflow-version-detail-markdown"}}
       {{#unless showMethods}}
         {{#link-to "workflows.versions.show" workflowVersion.workflow workflowVersion}}More...{{/link-to}}
       {{/unless}}
-        <a class="worklflow-version-detail-download-cwl-url pull-right btn btn-primary"
+        <a class="workflow-version-detail-download-cwl-url pull-right btn btn-primary"
            href="{{workflowVersion.url}}" role="button">Download CWL</a>
         {{yield}}
     </div>

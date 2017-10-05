@@ -29,12 +29,12 @@ test('it renders', function(assert) {
   this.render(hbs`{{workflows/workflow-version-detail workflowVersion=workflowVersion}}`);
   assert.equal(this.$('.workflow-version-details-title').text().trim().replace(/ |\n/g,''),
     'WorkflowTitle-Version2(Current)-February1,2017');
-  assert.equal(this.$('.worklflow-version-detail-markdown').text().trim(), 'Description\nMy workflow');
-  assert.equal(this.$('.worklflow-version-detail-download-cwl-url').attr('href'), 'somewhere.edu');
+  assert.equal(this.$('.workflow-version-detail-markdown').text().trim(), 'Description\nMy workflow');
+  assert.equal(this.$('.workflow-version-detail-download-cwl-url').attr('href'), 'somewhere.edu');
 
   //test showing methods markdown (that will contain the description)
   this.render(hbs`{{workflows/workflow-version-detail workflowVersion=workflowVersion showMethods=true}}`);
-  assert.equal(this.$('.worklflow-version-detail-markdown').text().trim(), 'Description\nMy workflow\nMethods');
+  assert.equal(this.$('.workflow-version-detail-markdown').text().trim(), 'Description\nMy workflow\nMethods');
 
   //test older version
   this.set('workflowVersion', {

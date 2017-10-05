@@ -27,11 +27,11 @@ test('it renders', function(assert) {
   this.render(hbs`{{workflows/workflow-detail workflow=myworkflow}}`);
   assert.equal(this.$('h3').text().trim().replace(/ /g,''), 'Workflow:\nExomeseq');
   //highest version should be sorted first
-  assert.equal(this.$('.worklflow-version-detail-markdown p').text(), 'My workflow3' + 'My workflow2');
+  assert.equal(this.$('.workflow-version-detail-markdown p').text(), 'My workflow3' + 'My workflow2');
 
   // render only current version
   this.render(hbs`{{workflows/workflow-detail workflow=myworkflow onlyShowCurrent=true}}`);
-  assert.equal(this.$('.worklflow-version-detail-markdown p').text(), 'My workflow3');
+  assert.equal(this.$('.workflow-version-detail-markdown p').text(), 'My workflow3');
 
   // Template block usage:
   this.render(hbs`
