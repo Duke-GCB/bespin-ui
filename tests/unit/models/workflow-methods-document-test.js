@@ -4,7 +4,7 @@ import Ember from 'ember';
 
 moduleForModel('workflow-methods-document', 'Unit | Model | workflow methods document', {
   // Specify the other units that are required for this test.
-  needs: []
+  needs: ['model:workflow-version']
 });
 
 test('it exists', function(assert) {
