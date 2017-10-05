@@ -16,7 +16,9 @@
       {{/navbar.nav}}
       {{#navbar.nav class="navbar-right" as |nav|}}
           {{#if session.isAuthenticated}}
-            {{#nav.item}}<a class="clickable" {{action 'invalidateSession'}}>Logout</a>{{/nav.item}}
+            {{#nav.item}}
+              <p class="navbar-text">Logged in as {{currentUser.firstName}} {{currentUser.lastName}} ({{ currentUser.username }})</p>
+            {{/nav.item}}
           {{/if}}
       {{/navbar.nav}}
     {{/navbar.content}}
