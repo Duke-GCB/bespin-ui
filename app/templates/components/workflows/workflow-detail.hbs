@@ -1,5 +1,5 @@
-<h3>{{workflow.name}}</h3>
-{{#each workflow.versions as |workflowVersion|}}
-          {{workflows/workflow-version-detail workflowVersion=workflowVersion}}
+{{workflow-title-link workflow=workflow}}
+{{#each sortedVersions as |workflowVersion|}}
+   {{workflows/workflow-version-detail workflowVersion=workflowVersion}}
 {{/each}}
 {{yield}}

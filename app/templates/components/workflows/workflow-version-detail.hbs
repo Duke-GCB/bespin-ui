@@ -1,13 +1,14 @@
 <div class="panel panel-default">
     <div class="panel-heading workflow-version-details-title">
-        <strong>{{title}}</strong>
+        <span class="lead">{{title}}</span>
     </div>
     <div class="panel-body">
-        <dl class="dl-horizontal">
-            <dt>Description</dt><dd class="workflow-version-details-description">{{workflowVersion.description}}</dd>
-            <dt>Created</dt><dd class="workflow-version-details-created">{{workflowVersion.created}}</dd>
-            <dt>URL</dt><dd class="workflow-version-details-url"><a href={{workflowVersion.url}}>{{workflowVersion.url}}</a></dd>
-        </dl>
+        {{markdown-to-html workflowMarkdown headerLevelStart=4 class="workflow-version-detail-markdown"}}
+      {{#unless showMethods}}
+        {{#link-to "workflows.versions.show" workflowVersion.workflow workflowVersion}}More...{{/link-to}}
+      {{/unless}}
+        <a class="workflow-version-detail-download-cwl-url pull-right btn btn-primary"
+           href="{{workflowVersion.url}}" role="button">Download CWL</a>
         {{yield}}
     </div>
 </div>

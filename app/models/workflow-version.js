@@ -9,4 +9,5 @@ export default DS.Model.extend({
   version: DS.attr('string'),
   jobs: DS.hasMany('job'),
   questionnaires: DS.hasMany('job-questionnaire'),
+  methodsDocument: DS.belongsTo('workflow-methods-document'),
 });

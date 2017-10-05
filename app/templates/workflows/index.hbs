@@ -1,4 +1,3 @@
-<h2>Workflows</h2>
 {{#each model as |workflow|}}
-    {{workflows/workflow-detail workflow=workflow}}
+    {{workflows/workflow-detail workflow=workflow onlyShowCurrent=true}}
 {{/each}}

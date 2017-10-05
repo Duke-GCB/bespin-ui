@@ -6,21 +6,32 @@ moduleForComponent('workflows/workflow-detail', 'Integration | Component | workf
 });
 
 test('it renders', function(assert) {
-  const workflowVersion = {
+  const workflowVersion2 = {
     version: '2',
-    description: 'My workflow',
-    created: 'today',
-    url: 'somewhere.edu',
+    description: 'My workflow2',
+    created: 'Feb 1 2017',
+    url: 'somewhere.edu'
+  };
+  const workflowVersion3 = {
+    version: '3',
+    description: 'My workflow3',
+    created: 'Feb 13 2017',
+    url: 'somewhere.edu'
   };
   this.set('myworkflow', {
       name: 'Exomeseq',
-      versions: [workflowVersion]
+      versions: [workflowVersion2, workflowVersion3]
   });
 
+  // render all versions
   this.render(hbs`{{workflows/workflow-detail workflow=myworkflow}}`);
+  assert.equal(this.$('h3').text().trim().replace(/ /g,''), 'Workflow:\nExomeseq');
+  //highest version should be sorted first
+  assert.equal(this.$('.workflow-version-detail-markdown p').text(), 'My workflow3' + 'My workflow2');
 
-  assert.equal(this.$('h3').text().trim(), 'Exomeseq');
-  assert.equal(this.$('.workflow-version-details-description').text().trim(), 'My workflow');
+  // render only current version
+  this.render(hbs`{{workflows/workflow-detail workflow=myworkflow onlyShowCurrent=true}}`);
+  assert.equal(this.$('.workflow-version-detail-markdown p').text(), 'My workflow3');
 
   // Template block usage:
   this.render(hbs`
