@@ -17,11 +17,9 @@ deploy:
   - provider: releases
     api_key:
       secure: vZ979Iinon1UcuDbAZKSsXEEQyLhtdYYlwnp9cMa95jzcGvW226yUaNPqhUifq9YPjjiT14r5WGCt9BOOtVxieugT/kwTlu46nQwDHzG6rERc7yHjk2kDNs4uJQYmWztFVCUczRh7XXtFRvVC5txEPiAXfnz+a0icrK4dbLxD3oQW2nzAgm7TXUVGi1B62X89KpDJewR6DbFKk40olkMQGW2r76ga+RRNQMaR81qdVr9BW0r1jWmjmfLCbpUsWMpNp+GCpbyLh7FVvT5lYl1rvM2buhW1K8qhCio0ArvzXQUmshunen44oRBt9ylPBwp5pbgsMV9wuMfhgktZ+0kR02/OTUtRDP2lbS2yPYtmIYYuokTvMZ4UTAcuR4ixp6O7dGRfcEdYYVeB1YJb87gxwj7oUElcFNTsOEncN9xCV6P/4qw/bqr5PpVpeW7K6U8oeAsfc4JQNuZw72aAt4h9chn2MfjLIHncubQ2kBTz3BChI7+qWB1SGdOIN4CpiB76v/6WLF9sNimrn8guXXl09Y2Xbll7HVNN6x7bo8/w5ZBYGn8XFemIe6a3x20R3ZaE5ftuSC7Iv3a52ceOcgIUQgqdhaIxhRi7Dw8BZQ8lyT4ZmyGj0Mereia72mhYaB/8gd7diqA7M+FNK7D6LRT9tR8NCH6HPDaQSHaxx3tsvE=
-    file: bespin-ui.tar.gz
+    file:
+      - bespin-ui-dev.tar.gz
+      - bespin-ui-prod.tar.gz
     skip_cleanup: true
-    on:
-      tags: true
-  - provider: script
-    script: ./trigger-dockerhub.sh
     on:
       tags: true
