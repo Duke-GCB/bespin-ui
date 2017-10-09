@@ -1,25 +1,18 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import Ember from 'ember';
 
 moduleForComponent('user-info', 'Integration | Component | user info', {
   integration: true
 });
 
-test('it renders', function(assert) {
+test('it renders user info', function(assert) {
+  this.set('user', Ember.Object.create({
+    firstName: 'Justin',
+    lastName: 'Bailey',
+    username: 'samus'
+  }));
 
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
-
-  this.render(hbs`{{user-info}}`);
-
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#user-info}}
-      template block text
-    {{/user-info}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+  this.render(hbs`{{user-info user}}`);
+  assert.equal(this.$().text().trim(), 'Justin Bailey (samus)');
 });
