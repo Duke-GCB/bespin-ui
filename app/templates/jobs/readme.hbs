@@ -1,0 +1,5 @@
+<div class="page-header">
+    <h2>{{#link-to "jobs.show" model.job}}Job ({{model.job.id}}){{/link-to}} <small>Readme</small></h2>
+</div>
+{{markdown-to-html model.readmeContent headerLevelStart=4}}
+{{outlet}}
