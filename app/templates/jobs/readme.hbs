@@ -1,5 +1,7 @@
 <div class="page-header">
-    <h2>{{#link-to "jobs.show" model.job}}Job ({{model.job.id}}){{/link-to}} <small>Readme</small></h2>
+    <h3>Readme for Job '{{model.name}}'</h3>
 </div>
-{{markdown-to-html model.readmeContent headerLevelStart=4}}
+{{job-output-readme outputDir=model.outputDir}}
+<hr />
+{{#link-to "jobs.show" model}}View Job Summary{{/link-to}}
 {{outlet}}

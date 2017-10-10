@@ -1,0 +1,6 @@
+{{#if loading}}
+  {{#dds/dds-loading-indicator}}Loading...{{/dds/dds-loading-indicator}}
+{{else}}
+  {{markdown-to-html readmeMarkdown headerLevelStart=4}}
+{{/if}}
+{{yield}}

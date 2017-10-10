@@ -15,7 +15,7 @@
 {{else if job.isFinished}}
   <p>Your job has completed. Results are available at the location below:</p>
   <p class="well well-sm">{{job-status-results job}}</p>
-  {{#link-to "jobs.readme" job}}View Job Summary{{/link-to}}
+  {{#link-to "jobs.readme" job.id}}View Job Results Readme{{/link-to}}
 {{else if job.isErrored}}
   <p>The following error occurred when attempting to run your job:</p>
   <p>{{job-error job.lastJobError}}</p>
