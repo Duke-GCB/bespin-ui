@@ -42,10 +42,7 @@ export default Ember.Service.extend({
       }, this);
       socket.on('message', this.onMessage, this);
       socket.on('close', this.onClose, this);
-      // do not keep socket if in CLOSING or CLOSED state
-      if (socket.readyState() >= 2) {
-        this.set('socketRef', socket);
-      }
+      this.set('socketRef', socket);
     }
   },
   stopWatching(token, jobId) {

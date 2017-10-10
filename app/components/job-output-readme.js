@@ -13,16 +13,19 @@ export default Ember.Component.extend({
       component.set('readmeMarkdown', '');
       component.set('fetchReadmeErrors', adapterError.errors);
     }
-    component.set('loading', true);
-    this.get('outputDir').then(function(outputDir) {
-      outputDir.readmeURL(outputDir.get('id')).then(function (response) {
-        const urlInfo = response['job-output-dirs'];
-        const url = `${urlInfo.host}${urlInfo.url}`;
-        Ember.$.get(url).then(function(data) {
-          component.set('loading', false);
-          component.set('readmeMarkdown', data)
+    let outputDir = this.get('outputDir');
+    if (outputDir) {
+      component.set('loading', true);
+      outputDir.then(function(outputDir2) {
+        outputDir2.readmeURL(outputDir2.get('id')).then(function (response) {
+          const urlInfo = response['dds-file-url'];
+          const url = `${urlInfo.host}${urlInfo.url}`;
+          Ember.$.get(url).then(function(data) {
+            component.set('loading', false);
+            component.set('readmeMarkdown', data)
+          }, fetchReadmeFailed);
         }, fetchReadmeFailed);
-      }, fetchReadmeFailed);
-    });
+      });
+    }
   },
 });

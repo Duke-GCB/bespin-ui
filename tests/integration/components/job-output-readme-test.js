@@ -5,21 +5,21 @@ moduleForComponent('job-output-readme', 'Integration | Component | job output re
   integration: true
 });
 
-test('it renders', function(assert) {
-
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
-
-  this.render(hbs`{{job-output-readme}}`);
-
-  assert.equal(this.$().text().trim(), '');
+test('it renders loading', function(assert) {
+  this.render(hbs`{{job-output-readme loading=true}}`);
+  assert.equal(this.$().text().trim(), 'Loading...');
 
   // Template block usage:
   this.render(hbs`
-    {{#job-output-readme}}
+    {{#job-output-readme loading=true}}
       template block text
     {{/job-output-readme}}
   `);
+  assert.equal(this.$().text().trim().replace(/ +/, ''), 'Loading...\ntemplate block text');
+});
 
-  assert.equal(this.$().text().trim(), 'template block text');
+test('it renders content for readme', function(assert) {
+  this.set('readmeMarkdown', "Stuff");
+  this.render(hbs`{{job-output-readme readmeMarkdown=readmeMarkdown loading=false}}`);
+  assert.equal(this.$().text().trim(), 'Stuff');
 });
