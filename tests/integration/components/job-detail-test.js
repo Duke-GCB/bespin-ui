@@ -1,8 +1,12 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import UserStub from '../../helpers/user-stub';
 
 moduleForComponent('job-detail', 'Integration | Component | job detail', {
-  integration: true
+  integration: true,
+  beforeEach() {
+    this.register('service:user', UserStub);
+  }
 });
 
 test('it renders', function(assert) {

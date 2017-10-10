@@ -3,14 +3,14 @@
   {{job-authorize job}}
 {{else if job.isAuthorized}}
   <p>You can start the job by clicking <strong>Start</strong>.</p>
-  {{job-oncompletion-detail job.shareGroup}}
+  {{job-oncompletion-detail job.shareGroup currentUser.email}}
   {{job-authorize job}}
 {{else if job.isStarting}}
   <p>Your job has been queued and will begin running once resources are available.</p>
-  {{job-oncompletion-detail job.shareGroup}}
+  {{job-oncompletion-detail job.shareGroup currentUser.email}}
 {{else if job.isRunning}}
   <p>You can cancel the job by clicking <strong>Cancel</strong>.</p>
-  {{job-oncompletion-detail job.shareGroup}}
+  {{job-oncompletion-detail job.shareGroup currentUser.email}}
   {{!-- show details about current state --}}
 {{else if job.isFinished}}
   <p>Your job has completed. Results are available at the location below:</p>

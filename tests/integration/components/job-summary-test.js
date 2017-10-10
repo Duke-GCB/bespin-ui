@@ -1,9 +1,13 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import Ember from 'ember';
+import UserStub from '../../helpers/user-stub';
 
 moduleForComponent('job-summary', 'Integration | Component | job summary', {
-  integration: true
+  integration: true,
+  beforeEach() {
+    this.register('service:user', UserStub);
+  }
 });
 
 test('it renders summary heading', function(assert) {
