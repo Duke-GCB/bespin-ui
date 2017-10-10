@@ -1,10 +1,12 @@
   <div class="col-md-12">
-    <h3>Summary for Job '{{job.name}}'</h3>
-    {{#job-summary-detail-row leadText='Your job has been created and will run the following workflow:'}}
+    <h3>Bespin Job '{{job.name}}'</h3>
+    {{#job-summary-detail-row leadText='Selected Workflow:'}}
       {{workflows/workflow-version-detail title=workflowTitle workflowVersion=job.workflowVersion}}
-      {{job-detail job}}
     {{/job-summary-detail-row}}
-    {{#job-summary-detail-row leadText='The following files will be used:'}}
+  {{#job-summary-detail-row leadText='Job Details:'}}
+    {{job-detail job}}
+  {{/job-summary-detail-row}}
+    {{#job-summary-detail-row leadText='Input Data:'}}
       {{job-file-stage-group-detail job.stageGroup}}
     {{/job-summary-detail-row}}
   </div>
