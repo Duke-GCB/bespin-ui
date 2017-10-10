@@ -29,7 +29,7 @@ test('it renders From data source in panel-heading only when there is a source',
   this.set('source', 'devnull');
   this.render(hbs`{{job-input-file-list files source}}`);
   assert.equal(this.$('div.panel-heading').length, 1);
-  assert.equal(this.$('div.panel-heading').text().trim(), 'From devnull');
+  assert.equal(this.$('div.panel-heading').text().trim(), 'devnull');
 });
 
 test('it renders human readable sizes', function(assert) {
