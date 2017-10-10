@@ -13,8 +13,8 @@
   {{job-oncompletion-detail job.shareGroup currentUser.email}}
   {{!-- show details about current state --}}
 {{else if job.isFinished}}
-  <p>Your job has completed. Results are available at the location below:</p>
-  <p class="well well-sm">{{job-status-results job}}</p>
+  <p>Your job has completed successfully.</p>
+  {{job-completed-detail job.shareGroup currentUser.email}}
 {{else if job.isErrored}}
   <p>The following error occurred when attempting to run your job:</p>
   <p>{{job-error job.lastJobError}}</p>
