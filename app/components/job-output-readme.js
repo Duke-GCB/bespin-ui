@@ -6,8 +6,13 @@ export default Ember.Component.extend({
   readmeMarkdown: null,
   fetchReadmeErrors: null,
   didInsertElement() {
-    const component = this;
     this._super(...arguments);
+    const component = this;
+    function fetchReadmeFailed(adapterError) {
+      component.set('loading', false);
+      component.set('readmeMarkdown', '');
+      component.set('fetchReadmeErrors', adapterError.errors);
+    }
     component.set('loading', true);
     this.get('outputDir').then(function(outputDir) {
       outputDir.readmeURL(outputDir.get('id')).then(function (response) {
@@ -16,12 +21,8 @@ export default Ember.Component.extend({
         Ember.$.get(url).then(function(data) {
           component.set('loading', false);
           component.set('readmeMarkdown', data)
-        });
-      }, function (adapterError) {
-        component.set('loading', false);
-        component.set('readmeMarkdown', '');
-        component.set('fetchReadmeErrors', adapterError.errors);
-      })
+        }, fetchReadmeFailed);
+      }, fetchReadmeFailed);
     });
   },
 });
