@@ -3,4 +3,7 @@
 {{else}}
   {{markdown-to-html readmeMarkdown headerLevelStart=4}}
 {{/if}}
+{{#if errors}}
+  {{error-list fetchReadmeErrors 'The following errors occurred:'}}
+{{/if}}
 {{yield}}
