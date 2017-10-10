@@ -19,7 +19,7 @@ test('it renders a job-input-file-list for ddsFiles when there are ddsFiles', fu
   this.set('stageGroup', stageGroup);
   this.render(hbs`{{job-file-stage-group-detail stageGroup}}`);
   assert.equal(this.$('div.file-list-panel').length, 1);
-  assert.equal(this.$('div.panel-heading').text().trim(), 'From Duke Data Service');
+  assert.equal(this.$('div.panel-heading').text().trim(), 'Duke Data Service Files');
 });
 
 test('it renders a job-input-file-list for url files when there are urlFiles', function(assert) {
@@ -29,7 +29,7 @@ test('it renders a job-input-file-list for url files when there are urlFiles', f
   this.set('stageGroup', stageGroup);
   this.render(hbs`{{job-file-stage-group-detail stageGroup}}`);
   assert.equal(this.$('div.file-list-panel').length, 1);
-  assert.equal(this.$('div.panel-heading').text().trim(), 'From Web URLs');
+  assert.equal(this.$('div.panel-heading').text().trim(), 'Web URLs');
 });
 
 test('it renders two job-input-file-lists for url files when there are both ddsFiles and urlFiles', function(assert) {
@@ -40,6 +40,6 @@ test('it renders two job-input-file-lists for url files when there are both ddsF
   this.set('stageGroup', stageGroup);
   this.render(hbs`{{job-file-stage-group-detail stageGroup}}`);
   assert.equal(this.$('div.file-list-panel').length, 2);
-  assert.equal(this.$('div.panel-heading').eq(0).text().trim(), 'From Duke Data Service');
-  assert.equal(this.$('div.panel-heading').eq(1).text().trim(), 'From Web URLs');
+  assert.equal(this.$('div.panel-heading').eq(0).text().trim(), 'Duke Data Service Files');
+  assert.equal(this.$('div.panel-heading').eq(1).text().trim(), 'Web URLs');
 });
