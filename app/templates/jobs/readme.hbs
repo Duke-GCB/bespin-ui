@@ -1,0 +1,7 @@
+<div class="page-header">
+    <h3>Readme for Job '{{model.job.name}}'</h3>
+</div>
+{{job-output-readme outputDir=model}}
+<hr />
+{{#link-to "jobs.show" model.job}}View Job Summary{{/link-to}}
+{{outlet}}

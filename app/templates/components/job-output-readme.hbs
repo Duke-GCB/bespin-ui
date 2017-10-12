@@ -1,0 +1,10 @@
+{{#if fetchReadmeErrors}}
+  {{error-list fetchReadmeErrors 'The following errors occurred:'}}
+{{else}}
+  {{#if readmeMarkdown}}
+    {{markdown-to-html readmeMarkdown headerLevelStart=4}}
+  {{else}}
+    {{#dds/dds-loading-indicator}}Loading...{{/dds/dds-loading-indicator}}
+  {{/if}}
+{{/if}}
+{{yield}}
