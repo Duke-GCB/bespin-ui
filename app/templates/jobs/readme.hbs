@@ -1,7 +1,7 @@
 <div class="page-header">
-    <h3>Readme for Job '{{model.name}}'</h3>
+    <h3>Readme for Job '{{model.job.name}}'</h3>
 </div>
-{{job-output-readme outputDir=model.outputDir}}
+{{job-output-readme outputDir=model}}
 <hr />
-{{#link-to "jobs.show" model}}View Job Summary{{/link-to}}
+{{#link-to "jobs.show" model.job}}View Job Summary{{/link-to}}
 {{outlet}}

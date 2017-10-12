@@ -2,6 +2,8 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   model(params) {
-    return this.get('store').findRecord('job', params.job_id);
+    return this.get('store').findRecord('job', params.job_id).then(
+      (job) => job.get('outputDir')
+    );
   }
 });
