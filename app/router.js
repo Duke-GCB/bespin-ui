@@ -31,6 +31,9 @@ Router.map(function() {
     this.route('show', {
       path: '/:job_id'
     });
+    this.route('readme', {
+      path: '/:job_id/readme'
+    });
   });
   this.route('dds-job-input-file');
 });
