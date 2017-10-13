@@ -4,7 +4,7 @@ function projectLinkTag(projectId) {
   return `https://dataservice.duke.edu/#/project/${projectId}`;
 }
 
-export function outputDirLink(params) {
+export function outputProjectLink(params) {
   if(params && params.length > 0 && params[0] && params[0].get('project.id')) {
     return projectLinkTag(params[0].get('project.id'));
   } else {
@@ -12,4 +12,4 @@ export function outputDirLink(params) {
   }
 }
 
-export default Ember.Helper.helper(outputDirLink);
+export default Ember.Helper.helper(outputProjectLink);

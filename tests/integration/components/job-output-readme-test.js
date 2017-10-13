@@ -4,13 +4,13 @@ import Ember from 'ember';
 
 //Stub location service
 const ddsUrlFetcherStub = Ember.Service.extend({
-  fetchReadmeUrl(outputDir) {
+  fetchReadmeUrl(outputProject) {
     return {
       then(onData, onFail) {
-        if (outputDir.stubHint == 'loaddata') {
+        if (outputProject.stubHint == 'loaddata') {
           onData("MarkdownData")
         }
-        if (outputDir.stubHint == 'showerror') {
+        if (outputProject.stubHint == 'showerror') {
           onFail({
             errors: [{
               status: 404,
@@ -32,16 +32,16 @@ moduleForComponent('job-output-readme', 'Integration | Component | job output re
 });
 
 test('it renders loading', function(assert) {
-  this.set('outputDir', {
+  this.set('outputProject', {
     stubHint: 'neverload'
   });
 
-  this.render(hbs`{{job-output-readme outputDir=outputDir}}`);
+  this.render(hbs`{{job-output-readme outputProject=outputProject}}`);
   assert.equal(this.$().text().trim(), 'Loading...');
 
   // Template block usage:
   this.render(hbs`
-    {{#job-output-readme outputDir=outputDir}}
+    {{#job-output-readme outputProject=outputProject}}
       template block text
     {{/job-output-readme}}
   `);
@@ -49,17 +49,17 @@ test('it renders loading', function(assert) {
 });
 
 test('it renders content for readme', function(assert) {
-  this.set('outputDir', {
+  this.set('outputProject', {
     stubHint: 'loaddata'
   });
-  this.render(hbs`{{job-output-readme outputDir=outputDir}}`);
+  this.render(hbs`{{job-output-readme outputProject=outputProject}}`);
   assert.equal(this.$().text().trim(), 'MarkdownData');
 });
 
 test('it renders error on failure for readme', function(assert) {
-  this.set('outputDir', {
+  this.set('outputProject', {
     stubHint: 'showerror'
   });
-  this.render(hbs`{{job-output-readme outputDir=outputDir}}`);
+  this.render(hbs`{{job-output-readme outputProject=outputProject}}`);
   assert.equal(this.$('.error-details').text().trim(), 'Not Found');
 });

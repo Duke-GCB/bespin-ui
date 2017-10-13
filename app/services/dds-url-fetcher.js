@@ -1,9 +1,9 @@
 import Ember from 'ember';
 
 export default Ember.Service.extend({
-  fetchReadmeUrl(outputDir) {
+  fetchReadmeUrl(outputProject) {
     const fetchUrl = this.get('fetchUrl');
-    return outputDir.readmeURL().then(function (response) {
+    return outputProject.readmeURL().then(function (response) {
       const urlInfo = response['dds-file-url'];
       const url = `${urlInfo.host}${urlInfo.url}`;
       return fetchUrl(url);

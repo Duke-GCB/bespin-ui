@@ -6,7 +6,7 @@ moduleForModel('job', 'Unit | Model | job', {
   // Specify the other units that are required for this test.
   needs: [
     'model:workflow-version',
-    'model:job-output-dir',
+    'model:job-dds-output-project',
     'model:job-error',
     'model:job-file-stage-group',
     'model:share-group'
@@ -54,7 +54,7 @@ test('it computes job state properties', function(assert) {
 
 
 testRelationship('job', {key: 'workflowVersion', kind: 'belongsTo', type: 'workflow-version'});
-testRelationship('job', {key: 'outputDir', kind: 'belongsTo', type: 'job-output-dir'});
+testRelationship('job', {key: 'outputProject', kind: 'belongsTo', type: 'job-dds-output-project'});
 testRelationship('job', {key: 'stageGroup', kind: 'belongsTo', type: 'job-file-stage-group'});
 testRelationship('job', {key: 'shareGroup', kind: 'belongsTo', type: 'share-group'});
 
