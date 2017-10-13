@@ -13,19 +13,19 @@ test('it renders', function(assert) {
   assert.equal(this.$('.job-detail-cell-id').text().trim(), '1');
   assert.equal(this.$('.job-detail-cell-name').text().trim(), 'job');
   assert.equal(this.$('.job-detail-cell-workflow-name').text().trim(), 'RNA-seq');
-  assert.equal(this.$('.job-detail-cell-results').text().trim(), '', 'Should not show results link unless job is finished');
+  assert.equal(this.$('.job-detail-cell-readme').text().trim(), '', 'Should not show readme link unless job is finished');
   // Without routing, the link-to doesn't generate a href
   assert.equal(this.$('a.job-show-link').length, 1, 'Should generate a link for the job details');
 });
 
-test('it renders results link for finished jobs', function(assert) {
+test('it renders readme link for finished jobs', function(assert) {
   this.set('job', {isFinished: true});
   this.render(hbs`{{job-detail-row job}}`);
-  assert.equal(this.$('a.job-results-link').text().trim(), 'Results', 'Should show results for finished job');
+  assert.equal(this.$('.job-detail-cell-readme a').text().trim(), 'README', 'Should show readme link for finished job');
 });
 
-test('it hides results link for finished jobs', function(assert) {
+test('it hides readme link for finished jobs', function(assert) {
   this.set('job', {isFinished: false});
   this.render(hbs`{{job-detail-row job}}`);
-  assert.equal(this.$('.job-detail-cell-results a').text().trim(), '', 'Should not show Results link for unfinished job');
+  assert.equal(this.$('.job-detail-cell-readme a').text().trim(), '', 'Should not show readme link for unfinished job');
 });
