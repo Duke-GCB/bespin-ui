@@ -13,9 +13,8 @@
   {{job-oncompletion-detail job.shareGroup currentUser.email}}
   {{!-- show details about current state --}}
 {{else if job.isFinished}}
-  <p>Your job has completed. Results are available at the location below:</p>
-  <p class="well well-sm">{{job-status-results job}}</p>
-  {{#link-to "jobs.readme" job.outputDir}}View Job Results Readme{{/link-to}}
+  <p>Your job has completed successfully. Please see the {{#link-to "jobs.readme" job.outputDir}}README{{/link-to}} for details.</p>
+  {{job-completed-detail job.shareGroup currentUser.email}}
 {{else if job.isErrored}}
   <p>The following error occurred when attempting to run your job:</p>
   <p>{{job-error job.lastJobError}}</p>
