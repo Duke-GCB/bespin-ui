@@ -169,3 +169,31 @@ test('it computes lastJobError by most recently created', function(assert) {
     assert.equal(job.get('lastJobError.id'), 'newest');
   });
 });
+
+test('it computes isDeletable', function(assert) {
+  const statesAndDeletable = [
+    ['N', true],
+    ['A', true],
+    ['S', false],
+    ['r', false],
+    ['R', false],
+    ['F', true],
+    ['E', true],
+    ['c', false],
+    ['C', true],
+  ];
+  assert.expect(statesAndDeletable.length);
+  let job = this.subject();
+  Ember.run(() => {
+    statesAndDeletable.forEach(function (stateAndDeletable) {
+      const state = stateAndDeletable[0];
+      const deletable = stateAndDeletable[1];
+      job.set('state', state);
+      if (deletable) {
+        assert.ok(job.get('isDeletable'), `Job in state ${state} should be deletable`);
+      } else {
+        assert.notOk(job.get('isDeletable'), `Job in state ${state} should not be deletable`);
+      }
+    });
+  });
+});
