@@ -1,9 +1,9 @@
 import { moduleForModel, test } from 'ember-qunit';
 
-moduleForModel('job-output-dir', 'Unit | Serializer | job output dir', {
+moduleForModel('job-dds-output-project', 'Unit | Serializer | job dds output project', {
   // Specify the other units that are required for this test.
   needs: [
-    'serializer:job-output-dir',
+    'serializer:job-dds-output-project',
     'model:dds-project',
     'model:job',
     'model:dds-user-credential'

@@ -6,7 +6,7 @@ moduleForComponent('job-detail-row', 'Integration | Component | job detail row',
 });
 
 test('it renders', function(assert) {
-  const job = {id:1,name:'job', workflowVersion: {workflow: {name:'RNA-seq'}}, outputDir: '{"name":"results","project_id":"ab-12-cd-34"}'};
+  const job = {id:1,name:'job', workflowVersion: {workflow: {name:'RNA-seq'}}, outputProject: '{"name":"results","project_id":"ab-12-cd-34"}'};
   this.set('job',job);
   this.render(hbs`{{job-detail-row job}}`);
 

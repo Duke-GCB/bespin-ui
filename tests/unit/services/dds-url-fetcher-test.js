@@ -12,7 +12,7 @@ test('it exists', function(assert) {
   assert.ok(service);
 });
 
-test('it fetches a readme url for a output dir', function(assert) {
+test('it fetches a readme url for an output project', function(assert) {
   assert.expect(2);
   const readmeData = "# SomeData";
   const urlInfo = {
@@ -27,12 +27,12 @@ test('it fetches a readme url for a output dir', function(assert) {
       return Ember.RSVP.resolve(readmeData);
     }
   });
-  const outputDir = {
+  const outputProject = {
     readmeURL: function() {
       return Ember.RSVP.resolve(urlInfo);
     }
   };
-  const response = service.fetchReadmeUrl(outputDir);
+  const response = service.fetchReadmeUrl(outputProject);
   response.then(function(data) {
     assert.equal('# SomeData', data);
   });

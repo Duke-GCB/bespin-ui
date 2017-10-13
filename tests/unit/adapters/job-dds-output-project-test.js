@@ -1,6 +1,6 @@
 import { moduleFor, test } from 'ember-qunit';
 
-moduleFor('adapter:job-output-dir', 'Unit | Adapter | job output dir', {
+moduleFor('adapter:job-dds-output-project', 'Unit | Adapter | job dds output project', {
   // Specify the other units that are required for this test.
   // needs: ['serializer:foo']
   needs: ['service:session'],

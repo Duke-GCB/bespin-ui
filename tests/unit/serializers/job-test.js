@@ -5,7 +5,7 @@ moduleForModel('job', 'Unit | Serializer | job', {
   needs: [
     'serializer:job',
     'model:workflow-version',
-    'model:job-output-dir',
+    'model:job-dds-output-project',
     'model:job-error',
     'model:job-file-stage-group',
     'model:share-group',

@@ -1,15 +1,15 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  outputDir: null,
+  outputProject: null,
   readmeMarkdown: null,
   fetchReadmeErrors: null,
   ddsUrlFetcher: Ember.inject.service(),
   didInsertElement() {
     this._super(...arguments);
     const component = this;
-    let outputDir = this.get('outputDir');
-    this.get('ddsUrlFetcher').fetchReadmeUrl(outputDir).then(
+    let outputProject = this.get('outputProject');
+    this.get('ddsUrlFetcher').fetchReadmeUrl(outputProject).then(
       function (data) {
         component.set('readmeMarkdown', data);
         component.set('fetchReadmeErrors', null);

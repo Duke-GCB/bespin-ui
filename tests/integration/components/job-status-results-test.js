@@ -8,7 +8,7 @@ moduleForComponent('job-status-results', 'Integration | Component | job status r
 
 test('it renders', function(assert) {
   let job = Ember.Object.create({
-    outputDir: Ember.Object.create({
+    outputProject: Ember.Object.create({
       project: {id: 'abv-123', name: 'project-name'},
       dirName: 'results-dir'
     })
