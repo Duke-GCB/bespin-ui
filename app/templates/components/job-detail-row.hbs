@@ -6,4 +6,7 @@
 <td class="job-detail-cell-created">{{job.created}}</td>
 <td class="job-detail-cell-updated">{{job.lastUpdated}}</td>
 <td class="job-detail-cell-readme">{{#if job.isFinished}}{{#link-to "jobs.readme" job.outputProject}}README{{/link-to}}{{/if}}</td>
+<td class="job-detail-cell-delete">{{#if job.isDeletable}}
+  {{#bs-button size='sm' type='danger' title='Delete' onClick=(action 'delete')}}Delete{{/bs-button}}{{/if}}
+</td>
 {{yield}}
