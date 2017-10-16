@@ -10,8 +10,11 @@
     {{body}}
   {{/modal.body}}
   {{#modal.footer}}
-    {{#bs-button onClick=(action modal.close)}}Cancel{{/bs-button}}
-    {{#bs-button type=confirmButtonType onClick=(action 'confirm')}}{{confirmButtonTitle}}{{/bs-button}}
+    {{#bs-button class='modal-confirmation-cancel'
+      onClick=(action modal.close)}}Cancel{{/bs-button}}
+    {{#bs-button class='modal-confirmation-confirm'
+                 type=confirmButtonType
+                 onClick=(action 'confirm')}}{{confirmButtonTitle}}{{/bs-button}}
   {{/modal.footer}}
 {{/bs-modal}}
 {{#bs-button
