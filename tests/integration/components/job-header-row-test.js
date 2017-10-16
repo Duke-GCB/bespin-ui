@@ -7,5 +7,5 @@ moduleForComponent('job-header-row', 'Integration | Component | job header row',
 
 test('it renders', function(assert) {
   this.render(hbs`{{job-header-row}}`);
-  assert.equal(this.$('th').length, 8);
+  assert.equal(this.$('th').length, 9);
 });

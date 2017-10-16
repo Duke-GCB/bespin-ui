@@ -29,3 +29,14 @@ test('it hides readme link for finished jobs', function(assert) {
   this.render(hbs`{{job-detail-row job}}`);
   assert.equal(this.$('.job-detail-cell-readme a').text().trim(), '', 'Should not show readme link for unfinished job');
 });
+
+test('it renders a modal confirmation button for deletable jobs', function(assert) {
+  this.set('job', {isDeletable: false});
+  this.render(hbs`{{job-detail-row job}}`);
+  assert.equal(this.$('.job-detail-cell-delete button.modal-confirmation-open').length, 0);
+
+  this.set('job', {isDeletable: true});
+  this.render(hbs`{{job-detail-row job}}`);
+  assert.equal(this.$('.job-detail-cell-delete button.modal-confirmation-open').length, 1);
+
+});

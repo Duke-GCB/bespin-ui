@@ -12,14 +12,5 @@ test('it renders', function(assert) {
 
   this.render(hbs`{{modal-confirmation}}`);
 
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#modal-confirmation}}
-      template block text
-    {{/modal-confirmation}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+  assert.notEqual(this.$().text().trim(), '');
 });
