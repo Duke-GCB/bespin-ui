@@ -44,6 +44,10 @@ export default DS.Model.extend({
   isCanceled: Ember.computed('state', function() {
     return this.get('state') === 'C';
   }),
+  isDeletable: Ember.computed('state', function() {
+    const deletableStates = ['N','A','F','E','C'];
+    return deletableStates.includes(this.get('state'));
+  }),
   outputProject: DS.belongsTo('job-dds-output-project'),
   // Named jobErrors because DS.Model already has an errors property (contains validation error messages)
   jobErrors: DS.hasMany('job-error'),
