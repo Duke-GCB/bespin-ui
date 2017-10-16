@@ -1,0 +1,22 @@
+{{#bs-modal
+  open=modalConfirmationOpen
+  onSubmit=(action 'confirm')
+  onHidden=(action (mut modalConfirmationOpen) false)
+  as |modal|}}
+  {{#modal.header}}
+    <h4 class="modal-title">{{title}}</h4>
+  {{/modal.header}}
+  {{#modal.body}}
+    {{body}}
+  {{/modal.body}}
+  {{#modal.footer}}
+    {{#bs-button onClick=(action modal.close)}}Cancel{{/bs-button}}
+    {{#bs-button type=confirmButtonType onClick=(action 'confirm')}}{{confirmButtonTitle}}{{/bs-button}}
+  {{/modal.footer}}
+{{/bs-modal}}
+{{#bs-button
+  size='sm'
+  type=openButtonType
+  onClick=(action (mut modalConfirmationOpen) true)}}
+  {{openButtonTitle}}
+{{/bs-button}}
