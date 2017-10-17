@@ -1,0 +1,6 @@
+<p>{{ groupName }} {{ displayIndex }}</p>
+<ul>
+  {{#if group.file1}}{{questionnaire/file-group-file group.file1 0 (action 'click')}}{{/if}}
+  {{#if group.file2}}{{questionnaire/file-group-file group.file2 1 (action 'click')}}{{/if}}
+</ul>
+{{yield}}
