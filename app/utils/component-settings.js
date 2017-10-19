@@ -10,6 +10,7 @@ const ComponentSettings = [
     formats: [
       {
         title: 'File',
+        format: 'http://edamontology.org/format_1915', // Generic format
         groupName: 'File Group'
       }
     ]
@@ -20,7 +21,7 @@ const ComponentSettings = [
     name: 'fastq-file-pair-list',  // Component to render
     formats: [
       {
-        title: 'FASTQ',
+        title: 'FASTQ Pair',
         format: 'http://edamontology.org/format_1930',
         fileNameRegexStr: '.*(fq$)|(fq.gz$)|(fastq$)|(fastq.gz$)',
         groupName: 'Sample'
