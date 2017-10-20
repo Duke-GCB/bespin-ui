@@ -153,6 +153,7 @@ test('it falls back to simple inclusion when ddsFile not present', function(asse
 
 test('it extracts common prefixes from pairs of file names', function(assert) {
   assert.equal(commonPrefix('abc', 'abd'), 'ab');
-  assert.equal(commonPrefix('abc','def'), '');
-  assert.equal(commonPrefix('',null), '');
+  assert.equal(commonPrefix('abc','def'), 'abc+def');
+  assert.equal(commonPrefix('',null), '+');
+  assert.equal(commonPrefix('joint_genotype_raw_variants.g.vcf','joint_genotype_raw_variants.g.vcf.idx'), 'joint_genotype_raw_variants.g.vcf');
 });
