@@ -47,7 +47,15 @@ test('it calculates cwlObjectValue', function(assert) {
 
 test('it extracts sample names', function(assert) {
   assert.equal(extractSampleName('SA1234_XYZ_R2.fastq.gz'),'SA1234'); // Typical _ delimiter and . extension
-  assert.equal(extractSampleName('ABC.D_E_F.fastq'),'ABC'); // Ignores _ delimiter after . extension
+  assert.equal(extractSampleName('ABC.D_E_F.fastq'),'ABC.D'); // Ignores after _
   assert.equal(extractSampleName('ABC-DEF', '-'), 'ABC'); // Uses custom delimiter
-  assert.equal(extractSampleName('ABC-DEF'), 'ABC-DEF'); // Returns original string when no _ or .
+  assert.equal(extractSampleName('ABC-DEF'), 'ABC-DEF'); // Returns original string when no _
+});
+
+test('It recalculates sample name as files are added', function(assert) {
+  let fileItemList = FASTQFileItemList.create();
+  fileItemList.addFileItem(makeMockFileItem('AB1234_L001_R1.fastq'));
+  assert.equal(fileItemList.get('fastqFilePairs')[0].get('name'), 'AB1234');
+  fileItemList.addFileItem(makeMockFileItem('AB4567_L001_R1.fastq'));
+  assert.equal(fileItemList.get('fastqFilePairs')[0].get('name'), 'AB');
 });

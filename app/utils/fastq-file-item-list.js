@@ -9,10 +9,7 @@ function extractSampleName(name, separator) {
     separator = DEFAULT_SEPARATOR;
   }
 
-  // Remove the last . if any
-  name = name.split('.')[0];
-
-  // Now split on the separator
+  // Split on the separator
   const sampleName = name.split(separator)[0];
   return sampleName;
 }

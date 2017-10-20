@@ -12,13 +12,7 @@ const FASTQFilePairList = FileGroupList.extend({
     }
     // Call this._super AFTER setting fileItems. Otherwise the base class sets it
     return this._super(...arguments);
-  },
-  actions: {
-    click() {
-      Ember.Logger.log(JSON.stringify(this.get('fileItems.cwlObjectValue'), null, 2));
-    }
   }
-
 });
 
 export default FASTQFilePairList;
