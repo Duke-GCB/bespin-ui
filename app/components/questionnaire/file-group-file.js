@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 const FileGroupFile = Ember.Component.extend({
-  file: null,
+  file: null, // A dds-resource
   tagName: 'li',
   classNames: ['file-group-file'],
   index: 0,
