@@ -1,6 +1,12 @@
 import Ember from 'ember';
 import FileGroupRow from 'bespin-ui/components/questionnaire/file-group-row';
 
-export default FileGroupRow.extend({
-  groupName: Ember.computed.alias('group.name'),
+const FASTQFilePairRow = FileGroupRow.extend({
+  pairName: Ember.computed.alias('pair.name'),
 });
+
+FASTQFilePairRow.reopenClass({
+  positionalParams: ['pair', 'groupIndex', 'onClick']
+});
+
+export default FASTQFilePairRow;

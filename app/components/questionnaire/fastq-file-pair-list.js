@@ -7,10 +7,11 @@ const FASTQFilePairList = FileGroupList.extend({
   fastqFilePairs: Ember.computed.alias('fileItems.fastqFilePairs'),
   // Override init to user our customized FileItemList type
   init() {
-    this._super(...arguments);
     if(Ember.isEmpty(this.get('fileItems'))) {
       this.set('fileItems', FASTQFileItemList.create());
     }
+    // Call this._super AFTER setting fileItems. Otherwise the base class sets it
+    return this._super(...arguments);
   },
   actions: {
     click() {
