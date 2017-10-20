@@ -28,6 +28,10 @@ function makeSamplePair(fileItemGroup, fileItemPropertyName) {
 // The internal data structure
 const FASTQFileItemList = FileItemList.extend({
   groupSize: 2,
+  isComplete: Ember.computed('fileItemGroups.[]', function() {
+    const fullGroups = this.get('fastqFilePairs').filterBy('length', this.get('groupSize'));
+    return this.get('fastqFilePairs.length') == fullGroups.get('length');
+  }),
 
   //For Presentation
   fastqFilePairs: Ember.computed('fileItemGroups.[]', function() {
