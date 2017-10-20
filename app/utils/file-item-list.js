@@ -113,7 +113,7 @@ const FileItemList = Ember.Object.extend({
   ddsFiles: Ember.computed.mapBy('content', 'ddsFile')
 });
 
-const commonPrefix = function(filename1, filename2) {
+function commonPrefix(filename1, filename2) {
   // Given two filenames, return a common prefix
   filename1 = filename1 || '';
   filename2 = filename2 || '';
@@ -127,7 +127,7 @@ const commonPrefix = function(filename1, filename2) {
   } else {
     return `${filename1}+${filename2}`;
   }
-};
+}
 
 export {
   FileItemList,
