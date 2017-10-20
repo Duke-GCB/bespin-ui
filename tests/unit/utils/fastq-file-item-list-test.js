@@ -55,7 +55,7 @@ test('it extracts sample names', function(assert) {
 test('It recalculates sample name as files are added', function(assert) {
   let fileItemList = FASTQFileItemList.create();
   fileItemList.addFileItem(makeMockFileItem('AB1234_L001_R1.fastq'));
-  assert.equal(fileItemList.get('fastqFilePairs')[0].get('name'), 'AB1234');
+  assert.equal(fileItemList.get('fastqFilePairs')[0].get('name'), ''); // initially no common prefix since only one file
   fileItemList.addFileItem(makeMockFileItem('AB4567_L001_R1.fastq'));
   assert.equal(fileItemList.get('fastqFilePairs')[0].get('name'), 'AB');
 });

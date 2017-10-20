@@ -121,12 +121,7 @@ function commonPrefix(filename1, filename2) {
   while(filename1.substring(0, commonLength) != filename2.substring(0, commonLength)) {
     commonLength--;
   }
-
-  if(commonLength > 0) {
-    return filename1.substring(0, commonLength);
-  } else {
-    return `${filename1}+${filename2}`;
-  }
+  return filename1.substring(0, commonLength);
 }
 
 export {
