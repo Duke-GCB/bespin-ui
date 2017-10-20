@@ -117,7 +117,7 @@ const commonPrefix = function(filename1, filename2) {
   // Given two filenames, return a common prefix
   filename1 = filename1 || '';
   filename2 = filename2 || '';
-  let commonLength = Math.min(filename1.length, filename2.length) - 1;
+  let commonLength = Math.min(filename1.length, filename2.length);
   while(filename1.substring(0, commonLength) != filename2.substring(0, commonLength)) {
     commonLength--;
   }
