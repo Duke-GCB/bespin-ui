@@ -4,7 +4,7 @@
 </div>
 <div class="col-md-6 file-group-list-selections">
   <label>Selected {{ groupTitle }} {{ groupSizeName }}</label>
-  {{#each groups as |pair pairIndex|}}
+  {{#each fastqFilePairs as |pair pairIndex|}}
     {{questionnaire/fastq-file-pair-row pair pairIndex (action 'removeAt')}}
   {{else}}
     {{questionnaire/empty-selection}}
