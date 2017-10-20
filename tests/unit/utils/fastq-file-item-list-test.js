@@ -1,4 +1,4 @@
-import FASTQFileItemList from 'bespin-ui/utils/fastq-file-item-list';
+import { FASTQFileItemList, extractSampleName } from 'bespin-ui/utils/fastq-file-item-list';
 import { module, test } from 'qunit';
 import Ember from 'ember';
 
@@ -43,4 +43,11 @@ test('it calculates cwlObjectValue', function(assert) {
   ];
   const calculatedCWLObjectValue = fileItemList.get('cwlObjectValue');
   assert.equal(JSON.stringify(calculatedCWLObjectValue), JSON.stringify(expectedCWLObjectValue))
+});
+
+test('it extracts sample names', function(assert) {
+  assert.equal(extractSampleName('SA1234_XYZ_R2.fastq.gz'),'SA1234'); // Typical _ delimiter and . extension
+  assert.equal(extractSampleName('ABC.D_E_F.fastq'),'ABC'); // Ignores _ delimiter after . extension
+  assert.equal(extractSampleName('ABC-DEF', '-'), 'ABC'); // Uses custom delimiter
+  assert.equal(extractSampleName('ABC-DEF'), 'ABC-DEF'); // Returns original string when no _ or .
 });
