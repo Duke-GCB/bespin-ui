@@ -35,8 +35,8 @@ export default Ember.Controller.extend({
       // First check if there are any form field errors
       const fieldErrorLength = this.get('answerFormErrors.length');
       if(fieldErrorLength > 0) {
-        Ember.Logger.log('setting errors show to true');
         this.set('answerFormErrors.show', true);
+        // When errors, stop here and do not save anything
         return;
       } else {
         this.set('answerFormErrors.show', false);

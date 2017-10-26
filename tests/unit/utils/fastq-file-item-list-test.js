@@ -59,3 +59,33 @@ test('It recalculates sample name as files are added', function(assert) {
   fileItemList.addFileItem(makeMockFileItem('AB4567_L001_R1.fastq'));
   assert.equal(fileItemList.get('fastqFilePairs')[0].get('name'), 'AB');
 });
+
+test('it calculates isComplete', function(assert) {
+  let fileItemList = FASTQFileItemList.create();
+  Ember.run(() => {
+    // First, check an empty list
+    assert.equal(fileItemList.get('fastqFilePairs.length'), 0);
+    assert.ok(fileItemList.get('isComplete')); // Empty list should be complete
+
+    // Now, add a single item. list should not be complete since group size is 2
+    fileItemList.addFileItem(makeMockFileItem('abc1'));
+    assert.equal(fileItemList.get('groupSize'), 2); // 2 = pair
+    assert.equal(fileItemList.get('fastqFilePairs.length'), 1); // 1 pair
+    assert.notOk(fileItemList.get('isComplete')); // not complete
+
+    // Add a second item, list should be complete
+    fileItemList.addFileItem(makeMockFileItem('def2'));
+    assert.equal(fileItemList.get('fastqFilePairs.length'), 1); // still 1 pair
+    assert.ok(fileItemList.get('isComplete')); // complete
+
+    // Remove the item, list should again be incomplete
+    fileItemList.removeFileItem(0, 0);
+    assert.notOk(fileItemList.get('isComplete')); // not complete
+
+    // Add 3 more, list should be complete again
+    fileItemList.addFileItem(makeMockFileItem('ghi3'));
+    fileItemList.addFileItem(makeMockFileItem('jkl4'));
+    fileItemList.addFileItem(makeMockFileItem('mno5'));
+    assert.ok(fileItemList.get('isComplete')); // complete
+  });
+});
