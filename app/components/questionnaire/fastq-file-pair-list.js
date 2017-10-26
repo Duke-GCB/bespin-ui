@@ -21,8 +21,10 @@ const FASTQFilePairList = FileGroupList.extend({
       answerFormErrors.setError(fieldName, 'Please choose at least 1 sample pair');
     } else if(!this.get('fileItems.isComplete')) {
       answerFormErrors.setError(fieldName, 'Please ensure all samples are paired')
+    } else if(!this.get('fileItems.hasUniqueSampleNames')) {
+      answerFormErrors.setError(fieldName, 'Please ensure all pairs chosen have unique names')
     } else {
-      // TODO: Check uniqueness
+      // All Good!
       answerFormErrors.clearError(fieldName);
     }
   })),
