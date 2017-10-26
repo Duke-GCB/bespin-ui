@@ -6,14 +6,22 @@ moduleForComponent('questionnaire/fastq-file-pair-list', 'Unit | Component | que
   unit: true
 });
 
+const MockFileItemList = Ember.Object.extend({
+  // Default to everything's fine
+  fastqFilePairs: null,
+  isComplete: true,
+  hasUniqueSampleNames: true,
+  hasUnnamedSamples: false
+});
+
 
 test('it records error when no pairs chosen', function(assert) {
   assert.expect(2);
-  const empty = Ember.Object.create({ fastqFilePairs: [], isComplete: true, hasUniqueSampleNames: true });
+  const empty = MockFileItemList.create({fastqFilePairs: []});
   const mockErrors = Ember.Object.create({
     setError(fieldName, errorText) {
       assert.equal(fieldName, 'sample-pairs1');
-      assert.equal(errorText, 'Please choose at least 1 sample pair');
+      assert.equal(errorText, 'Please choose at least 1 sample pair.');
     },
     clearError(/* fieldName */) {
       assert.notOk(true); // clearError should not be called
@@ -29,11 +37,11 @@ test('it records error when no pairs chosen', function(assert) {
 
 test('it records error when pairs incomplete', function(assert) {
   assert.expect(2);
-  const incomplete = Ember.Object.create({ fastqFilePairs: [1], isComplete: false, hasUniqueSampleNames: true });
+  const incomplete = MockFileItemList.create({fastqFilePairs: [1], isComplete: false});
   const mockErrors = Ember.Object.create({
     setError(fieldName, errorText) {
       assert.equal(fieldName, 'sample-pairs2');
-      assert.equal(errorText, 'Please ensure all samples are paired');
+      assert.equal(errorText, 'Please ensure all samples are paired.');
     },
     clearError(/* fieldName */) {
       assert.notOk(true); // clearError should not be called
@@ -47,9 +55,9 @@ test('it records error when pairs incomplete', function(assert) {
   });
 });
 
-test('it records no error when pairs complete', function(assert) {
+test('it records no error when everything good', function(assert) {
   assert.expect(1);
-  const complete = Ember.Object.create({ fastqFilePairs: [1,2,3,4], isComplete: true, hasUniqueSampleNames: true });
+  const complete = MockFileItemList.create();
   const mockErrors = Ember.Object.create({
     setError(/* fieldName, errorText */) {
       assert.notOk(true); // Should not call this!
@@ -66,14 +74,13 @@ test('it records no error when pairs complete', function(assert) {
   });
 });
 
-
 test('it records error when pairs do not have unique sample names', function(assert) {
   assert.expect(2);
-  const duplicates = Ember.Object.create({ fastqFilePairs: [1,1], isComplete: true, hasUniqueSampleNames: false });
+  const duplicates = MockFileItemList.create({fastqFilePairs: [1], hasUniqueSampleNames: false});
   const mockErrors = Ember.Object.create({
     setError(fieldName, errorText) {
       assert.equal(fieldName, 'sample-pairs4');
-      assert.equal(errorText, 'Please ensure all pairs chosen have unique names');
+      assert.equal(errorText, 'Please ensure all pairs chosen have unique names.');
     },
     clearError(/* fieldName */) {
       assert.notOk(true); // clearError should not be called
@@ -83,6 +90,26 @@ test('it records error when pairs do not have unique sample names', function(ass
   this.subject({
     fieldName: 'sample-pairs4',
     fileItems: duplicates,
+    answerFormErrors: mockErrors
+  });
+});
+
+test('it records error when pairs have unnamed samples', function(assert) {
+  assert.expect(2);
+  const unnamed = MockFileItemList.create({hasUnnamedSamples: true});
+  const mockErrors = Ember.Object.create({
+    setError(fieldName, errorText) {
+      assert.equal(fieldName, 'sample-pairs5');
+      assert.equal(errorText.indexOf('Unable to determine sample names'), 0);
+    },
+    clearError(/* fieldName */) {
+      assert.notOk(true); // clearError should not be called
+    }
+  });
+
+  this.subject({
+    fieldName: 'sample-pairs5',
+    fileItems: unnamed,
     answerFormErrors: mockErrors
   });
 });

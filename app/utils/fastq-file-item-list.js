@@ -39,6 +39,11 @@ const FASTQFileItemList = FileItemList.extend({
     return pairs.get('length') === uniquePairs.get('length');
   }),
 
+  hasUnnamedSamples: Ember.computed('fastqFilePairs.[]', function() {
+    const emptyPairNames = this.get('fastqFilePairs').filterBy('name', '');
+    return emptyPairNames.get('length') > 0;
+  }),
+
   //For Presentation
   fastqFilePairs: Ember.computed('fileItemGroups.[]', function() {
     const fileItemGroups = this.get('fileItemGroups');
