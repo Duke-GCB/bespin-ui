@@ -33,6 +33,12 @@ const FASTQFileItemList = FileItemList.extend({
     return this.get('fastqFilePairs.length') == fullGroups.get('length');
   }),
 
+  hasUniqueSampleNames: Ember.computed('fastqFilePairs.[]', function() {
+    const pairs = this.get('fastqFilePairs');
+    const uniquePairs = this.get('fastqFilePairs').uniqBy('name');
+    return pairs.get('length') === uniquePairs.get('length');
+  }),
+
   //For Presentation
   fastqFilePairs: Ember.computed('fileItemGroups.[]', function() {
     const fileItemGroups = this.get('fileItemGroups');

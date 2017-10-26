@@ -89,3 +89,27 @@ test('it calculates isComplete', function(assert) {
     assert.ok(fileItemList.get('isComplete')); // complete
   });
 });
+
+test('it calculates hasUniqueSampleNames', function(assert) {
+  let fileItemList = FASTQFileItemList.create();
+  Ember.run(() => {
+    // First, check an empty list
+    assert.equal(fileItemList.get('fastqFilePairs.length'), 0);
+    assert.ok(fileItemList.get('hasUniqueSampleNames')); // Empty list should count as unique names
+
+    // Add two files to make one sample
+    fileItemList.addFileItem(makeMockFileItem('sample1_A'));
+    fileItemList.addFileItem(makeMockFileItem('sample1_B'));
+    assert.ok(fileItemList.get('hasUniqueSampleNames'));
+
+    // Add two more files to make another sample
+    fileItemList.addFileItem(makeMockFileItem('sample2_C'));
+    fileItemList.addFileItem(makeMockFileItem('sample2_D'));
+    assert.ok(fileItemList.get('hasUniqueSampleNames'));
+
+    // Add another file with a conflicting sample name
+    fileItemList.addFileItem(makeMockFileItem('sample1_F'));
+    fileItemList.addFileItem(makeMockFileItem('sample1_F'));
+    assert.notOk(fileItemList.get('hasUniqueSampleNames'));
+  });
+});
