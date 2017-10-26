@@ -7,11 +7,6 @@ moduleForComponent('questionnaire/fastq-file-pair-list', 'Integration | Componen
   integration: true,
   beforeEach: function() {
     this.register('service:store', StoreStub);
-    this.inject.service('store', {as: 'store'});
-    this.get('store').reset();
-    this.set('store.queryFunction', function() {
-      return [{name: 'file1.txt', kind: 'dds-file'}, {name: 'file2.txt', kind: 'dds-file'}];
-    });
   }
 });
 
