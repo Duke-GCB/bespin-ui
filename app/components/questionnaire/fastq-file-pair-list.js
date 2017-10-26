@@ -9,8 +9,12 @@ const FASTQFilePairList = FileGroupList.extend({
     return this.get('answerFormErrors').get('errors').filterBy('field', this.get('fieldName'));
   }),
   fastqFilePairs: Ember.computed.alias('fileItems.fastqFilePairs'),
-  validityDidChange: Ember.on('init', Ember.observer('fastqFilePairs.length','fileItems.isComplete', function() {
+  validityDidChange: Ember.on('init', Ember.observer('answerFormErrors', 'fastqFilePairs.length','fileItems.isComplete', function() {
     const answerFormErrors = this.get('answerFormErrors');
+    if(!answerFormErrors) {
+      // We have not answerFormErrors object, bail out
+      return;
+    }
     const fieldName = this.get('fieldName');
     const pairCount = this.get('fastqFilePairs.length');
     if(pairCount < 1) {
