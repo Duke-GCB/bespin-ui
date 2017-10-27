@@ -17,12 +17,12 @@ const ComponentSettings = [
   },
   {
     // Bespin CWL file pair
-    cwlType: { type: 'array', items: '#bespin-types.yml/NamedFASTQFilePairType'}, // Defined in CWL
+    cwlType: { type: 'array', items: 'NamedFASTQFilePairType'}, // Defined in CWL
     name: 'fastq-file-pair-list',  // Component to render
     formats: [
       {
         title: 'FASTQ Pair',
-        format: 'http://edamontology.org/format_1930',
+        format: null, // The specific files should be http://edamontology.org/format_1930, but this is a structure
         fileNameRegexStr: '.*(fq$)|(fq.gz$)|(fastq$)|(fastq.gz$)',
         groupName: 'Sample'
       }
