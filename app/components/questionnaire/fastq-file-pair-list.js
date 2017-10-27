@@ -5,8 +5,8 @@ import { FASTQFileItemList }from 'bespin-ui/utils/fastq-file-item-list';
 const FASTQFilePairList = FileGroupList.extend({
   groupSize: 2,
   answerFormErrors: null,
-  fieldErrors: Ember.computed('answerFormErrors.[]', 'fieldName', function() {
-    return this.get('answerFormErrors').get('errors').filterBy('field', this.get('fieldName'));
+  fieldErrors: Ember.computed('answerFormErrors.errors.[]', 'fieldName', function() {
+    return this.get('answerFormErrors.errors').filterBy('field', this.get('fieldName'));
   }),
   fastqFilePairs: Ember.computed.alias('fileItems.fastqFilePairs'),
   validityDidChange: Ember.on('init', Ember.observer('answerFormErrors', 'fastqFilePairs.length','fileItems.isComplete', function() {
