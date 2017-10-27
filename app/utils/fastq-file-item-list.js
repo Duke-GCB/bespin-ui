@@ -1,9 +1,8 @@
 import Ember from 'ember';
-import { FileItemList, commonPrefix} from 'bespin-ui/utils/file-item-list';
-
-const DEFAULT_SEPARATOR = '_';
+import { FileItemList } from 'bespin-ui/utils/file-item-list';
 
 function splitMultipleSeparators(name, separators) {
+  name = name || '';
   separators = separators || [];
   // If more than 1 separator, replace all instances of other separators with the first, then split on first
   const firstSeparator = separators[0];
@@ -13,24 +12,24 @@ function splitMultipleSeparators(name, separators) {
   return name.split(firstSeparator);
 }
 
+const DEFAULT_SEPARATORS = ['_','-',' '];
 
-function extractSampleName(name, separator) {
-  // Default to '_' if no separator
-  if(Ember.isEmpty(separator)) {
-    separator = DEFAULT_SEPARATOR;
+function extractSampleName(name, separators) {
+  if(Ember.isEmpty(separators)) {
+    separators = DEFAULT_SEPARATORS;
   }
-
-  // Split on the separator
-  const sampleName = name.split(separator)[0];
-  return sampleName;
+  return splitMultipleSeparators(name, separators)[0];
 }
 
 function makeSamplePair(fileItemGroup, fileItemPropertyName) {
   const fileItem1 = fileItemGroup.objectAt(0) || Ember.Object.create();
   const fileItem2 = fileItemGroup.objectAt(1) || Ember.Object.create();
-
-  const prefix = commonPrefix(fileItem1.get('name'), fileItem2.get('name'));
-  const sampleName = extractSampleName(prefix);
+  const sampleName1 = extractSampleName(fileItem1.get('name'));
+  const sampleName2 = extractSampleName(fileItem2.get('name'));
+  let sampleName = '';
+  if(sampleName1 === sampleName2) {
+    sampleName = sampleName1;
+  }
   return Ember.Object.create({
     name: sampleName,
     file1: fileItem1.get(fileItemPropertyName),
