@@ -62,8 +62,8 @@ test('It recalculates sample name as files are added', function(assert) {
 
 test('It sets empty sample name when no match before delimiter', function(assert) {
   let fileItemList = FASTQFileItemList.create();
-  fileItemList.addFileItem(makeMockFileItem('AB1234_L001_R1.fastq'));
-  fileItemList.addFileItem(makeMockFileItem('AB1235_L001_R2.fastq'));
+  fileItemList.addFileItem(makeMockFileItem('SA04059_S3_L007_R2_001.fastq.gz'));
+  fileItemList.addFileItem(makeMockFileItem('SA03505_S1_L007_R2_001.fastq.gz'));
   assert.equal(fileItemList.get('fastqFilePairs')[0].get('name'), '');
 });
 
