@@ -25,7 +25,7 @@ const FASTQFilePairList = FileGroupList.extend({
       answerFormErrors.setError(fieldName, 'Please ensure all pairs chosen have unique names.')
     } else if(this.get('fileItems.hasUnnamedSamples')) {
       answerFormErrors.setError(fieldName, 'Unable to determine sample names for all pairs. ' +
-        'Please ensure both files in a pair have a common name prefix (e.g. AB1234_R1.fastq.gz, AB1234_R2.fastq.gz. ' +
+        'Please ensure both files in a pair have the same name before any underscore, hyphen, or space (e.g. AB1234_R1.fastq.gz, AB1234_R2.fastq.gz. ' +
         'You may need to rename your files.');
     } else {
       // All Good!
