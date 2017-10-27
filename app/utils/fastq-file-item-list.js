@@ -3,6 +3,17 @@ import { FileItemList, commonPrefix} from 'bespin-ui/utils/file-item-list';
 
 const DEFAULT_SEPARATOR = '_';
 
+function splitMultipleSeparators(name, separators) {
+  separators = separators || [];
+  // If more than 1 separator, replace all instances of other separators with the first, then split on first
+  const firstSeparator = separators[0];
+  separators.slice(1).forEach((otherSeparator) => {
+    name = name.replace(otherSeparator, firstSeparator);
+  });
+  return name.split(firstSeparator);
+}
+
+
 function extractSampleName(name, separator) {
   // Default to '_' if no separator
   if(Ember.isEmpty(separator)) {
@@ -17,6 +28,7 @@ function extractSampleName(name, separator) {
 function makeSamplePair(fileItemGroup, fileItemPropertyName) {
   const fileItem1 = fileItemGroup.objectAt(0) || Ember.Object.create();
   const fileItem2 = fileItemGroup.objectAt(1) || Ember.Object.create();
+
   const prefix = commonPrefix(fileItem1.get('name'), fileItem2.get('name'));
   const sampleName = extractSampleName(prefix);
   return Ember.Object.create({
@@ -60,4 +72,4 @@ const FASTQFileItemList = FileItemList.extend({
   })
 });
 
-export { FASTQFileItemList, extractSampleName };
+export { FASTQFileItemList, extractSampleName, splitMultipleSeparators };

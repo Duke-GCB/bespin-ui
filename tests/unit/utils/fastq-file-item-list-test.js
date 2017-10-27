@@ -1,4 +1,4 @@
-import { FASTQFileItemList, extractSampleName } from 'bespin-ui/utils/fastq-file-item-list';
+import { FASTQFileItemList, extractSampleName, splitMultipleSeparators } from 'bespin-ui/utils/fastq-file-item-list';
 import { module, test } from 'qunit';
 import Ember from 'ember';
 
@@ -112,4 +112,31 @@ test('it calculates hasUniqueSampleNames', function(assert) {
     fileItemList.addFileItem(makeMockFileItem('sample1_F'));
     assert.notOk(fileItemList.get('hasUniqueSampleNames'));
   });
+});
+
+test('splitMultipleSeparators splits on multiple separators', function(assert) {
+  const name = 'A_B-C.D';
+  const separators = ['_','-','.'];
+  const split = splitMultipleSeparators(name, separators);
+  assert.deepEqual(split, ['A','B','C','D']);
+});
+
+test('splitMultipleSeparators splits on single separator', function(assert) {
+  const name = 'A+B+C+D';
+  const separators = ['+'];
+  const split = splitMultipleSeparators(name, separators);
+  assert.deepEqual(split, ['A','B','C','D']);
+});
+
+test('splitMultipleSeparators returns original string with no separator', function(assert) {
+  const name = 'A+B+C+D';
+  const separators = [];
+  const split = splitMultipleSeparators(name, separators);
+  assert.deepEqual(split, ['A+B+C+D']);
+});
+
+test('splitMultipleSeparators handles null separators field', function(assert) {
+  const name = 'A+B+C+D';
+  const split = splitMultipleSeparators(name);
+  assert.deepEqual(split, ['A+B+C+D']);
 });
