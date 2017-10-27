@@ -4,6 +4,7 @@ import ComponentSettings from 'bespin-ui/utils/component-settings';
 const AnswerFormList = Ember.Component.extend({
   classNames: ['answer-form-list'],
   answerSet: null,
+  answerFormErrors: null, // Client-side validation errors, passed down to each component
   fields: Ember.computed('answerSet.questionnaire.userFieldsJson.@each', function() {
     const userFields = this.get('answerSet.questionnaire.userFieldsJson') || [];
     const fieldsToComponents = userFields.map(field => {
@@ -22,7 +23,6 @@ const AnswerFormList = Ember.Component.extend({
     // Strip out any fields for which we don't have a component
     return fieldsToComponents.compact();
   }),
-
   /**
    * Look up the component name to use to render a form field for the given CWL type
    * May return null
@@ -68,7 +68,7 @@ const AnswerFormList = Ember.Component.extend({
 });
 
 AnswerFormList.reopenClass({
-  positionalParams: ['answerSet']
+  positionalParams: ['answerSet', 'answerFormErrors']
 });
 
 export default AnswerFormList;

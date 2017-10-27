@@ -37,7 +37,7 @@ test('it computes fields property', function (assert) {
 test('it computes fields componentSettings', function (assert) {
   let userFields = [
     {type: { type: 'array', items: { type: 'array', items: 'File' } }, name: 'fieldName1',
-      format: 'http://edamontology.org/format_1930' },
+      format: 'http://edamontology.org/format_1915' },
     {type: 'fieldType2', name: 'fieldName2' }
   ];
   let questionnaire = Ember.Object.create({ userFieldsJson: userFields});
@@ -48,13 +48,12 @@ test('it computes fields componentSettings', function (assert) {
     name: 'fieldName1',
     componentName: 'questionnaire/file-group-list',
     formatSettings: {
-      title: 'FASTQ',
-      format: 'http://edamontology.org/format_1930',
-      fileNameRegexStr: '.*(fq$)|(fq.gz$)|(fastq$)|(fastq.gz$)',
-      groupName: 'Sample'
+      title: 'File',
+      format: 'http://edamontology.org/format_1915',
+      groupName: 'File Group'
     },
   });
-  assert.deepEqual(fields, [expectedField]);
+  assert.equal(JSON.stringify(fields), JSON.stringify([expectedField]));
 });
 
 test('it calculates componentNameForType', function (assert) {
@@ -75,8 +74,8 @@ test('it calculates formatSettingsForComponentAndFormat', function (assert) {
   let component = this.subject();
   let componentSettings = component.componentSettingsForCwlType(fileArrayArrayType);
   let formatSettings = component.formatSettingsForComponentAndFormat(componentSettings,
-    'http://edamontology.org/format_1930');
-  assert.equal(formatSettings.title, 'FASTQ');
+    'http://edamontology.org/format_1915');
+  assert.equal(formatSettings.title, 'File');
 });
 
 test('it handles answerChanged action', function (assert) {

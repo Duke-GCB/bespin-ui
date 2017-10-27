@@ -1,4 +1,9 @@
 {{#each fields as |field|}}
-  {{component field.componentName field.name (action 'answerChanged') formatSettings=field.formatSettings}}
+  {{component field.componentName
+              field.name
+              (action 'answerChanged')
+              formatSettings=field.formatSettings
+              answerFormErrors=answerFormErrors
+  }}
 {{/each}}
 {{yield}}

@@ -1,4 +1,4 @@
-import { FileItemList, FileItem } from 'bespin-ui/utils/file-item-list';
+import { FileItemList, FileItem, commonPrefix } from 'bespin-ui/utils/file-item-list';
 import { module, test } from 'qunit';
 import Ember from 'ember';
 
@@ -149,4 +149,19 @@ test('it falls back to simple inclusion when ddsFile not present', function(asse
   assert.notEqual(f1, f2);
   const fileItemList = FileItemList.create({content: [f1]});
   assert.notOk(fileItemList.includesFileItem(f2));
+});
+
+test('it extracts common prefixes from pairs of file names', function(assert) {
+  assert.equal(commonPrefix('abc', 'abd'), 'ab');
+  assert.equal(commonPrefix('abd', 'abc'), 'ab');
+  assert.equal(commonPrefix('abc', 'abcdefg'), 'abc');
+  assert.equal(commonPrefix('abcdefg', 'abc'), 'abc');
+  assert.equal(commonPrefix('abc','def'), '');
+  assert.equal(commonPrefix('def','abc'), '');
+  assert.equal(commonPrefix('',null), '');
+  assert.equal(commonPrefix(null,''), '');
+  assert.equal(commonPrefix(null,null), '');
+  assert.equal(commonPrefix('joint_genotype_raw_variants.g.vcf','joint_genotype_raw_variants.g.vcf.idx'), 'joint_genotype_raw_variants.g.vcf');
+  assert.equal(commonPrefix('joint_genotype_raw_variants.g.vcf.idx','joint_genotype_raw_variants.g.vcf'), 'joint_genotype_raw_variants.g.vcf');
+  assert.equal(commonPrefix('joint_genotype_raw_variants.g.vcf.idx','joint_genotype_raw_variants.g.vcf.idx'), 'joint_genotype_raw_variants.g.vcf.idx');
 });

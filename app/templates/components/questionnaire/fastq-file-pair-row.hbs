@@ -1,0 +1,7 @@
+<p>Name: {{pairName}}</p>
+{{error-panel errors=errors}}
+<ul>
+  {{#if pair.file1}}{{questionnaire/file-group-file pair.file1 0 (action 'click')}}{{/if}}
+  {{#if pair.file2}}{{questionnaire/file-group-file pair.file2 1 (action 'click')}}{{/if}}
+</ul>
+{{yield}}

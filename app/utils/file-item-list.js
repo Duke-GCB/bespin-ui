@@ -16,7 +16,8 @@ const FileItem = Ember.Object.extend({
 
   destroy() {
     this.get('inputFile').destroyRecord();
-  }
+  },
+  name: Ember.computed.oneWay('ddsFile.name')
 });
 
 const FileItemList = Ember.Object.extend({
@@ -112,7 +113,19 @@ const FileItemList = Ember.Object.extend({
   ddsFiles: Ember.computed.mapBy('content', 'ddsFile')
 });
 
+function commonPrefix(filename1, filename2) {
+  // Given two filenames, return a common prefix
+  filename1 = filename1 || '';
+  filename2 = filename2 || '';
+  let commonLength = Math.min(filename1.length, filename2.length);
+  while(filename1.substring(0, commonLength) != filename2.substring(0, commonLength)) {
+    commonLength--;
+  }
+  return filename1.substring(0, commonLength);
+}
+
 export {
   FileItemList,
-  FileItem
+  FileItem,
+  commonPrefix
 };
