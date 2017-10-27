@@ -12,6 +12,7 @@ const AnswerFormFieldErrors = Ember.Object.extend({
     this.get('errors').addObject({field: fieldName, message: message});
   },
   clearError(fieldName) {
+    this.set('show', false);
     const error = this.get('errors').findBy('field', fieldName);
     this.get('errors').removeObject(error);
   },
