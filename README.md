@@ -35,19 +35,11 @@ You will need the following things properly installed on your computer.
 * `ember build` (Local Development)
 * `JOB_WATCHER_URL="wss://bespin-ws.gcb.duke.edu" ember build --environment production` (production) (see below)
 
-#### Release Process
-
-To create a release from master and tag it:
-
-1. Fetch the latest master
-2. Increment the version number in `package.json` and `package-json.lock`
-3. Commit the changes to master
-4. Tag the latest commit
-5. Push master and tags to GitHub.
-
 ### Automated Releases
 
-[npm version](https://docs.npmjs.com/cli/version) automates the above release process, relying on [Travis-CI](https://travis-ci.org/Duke-GCB/bespin-ui) . We've defined `preversion` and `postversion` scripts in `package.json`, so that publishing a release is done with one command
+The [`npm version`](https://docs.npmjs.com/cli/version) command triggers the automated release process using [Travis-CI](https://travis-ci.org/Duke-GCB/bespin-ui) and GitHub. `npm version` takes care of creating a git tag using semantic versioning. It runs the `preversion` and `postversion` scripts specified in  [`package.json`](package.json) before and after tagging the new version. These scripts ensure that releases happen from a clean and current `master` branch, passes tests, and pushes the resulting tag to GitHub. When the new tag is pushed, [Travis-CI](https://travis-ci.org/Duke-GCB/bespin-ui) builds releases for it and uploads them back to [GitHub](https://github.com/duke-gcb/bespin-ui/releases) as **Downloads**.
+
+The following command is all that's needed to produce a release:
 
 ```
 npm version patch
