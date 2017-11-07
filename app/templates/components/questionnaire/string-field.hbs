@@ -1,6 +1,6 @@
 <div class="col-md-12">
   <label for="{{concat elementId '-stringField'}}">{{ displayFieldName }}</label>
-  {{input class='form-control string-field-input' id=(concat elementId '-stringField')  value=value}}
+  {{input class='form-control string-field-input' id=(concat elementId '-stringField') value=stringValue}}
   {{#if answerFormErrors.show}}
     {{error-panel errors=fieldErrors}}
   {{/if}}

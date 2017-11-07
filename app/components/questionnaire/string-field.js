@@ -15,34 +15,37 @@ const StringField = Ember.Component.extend({
       return null;
     }
   }),
-  value: null,
+  stringValue: null,
   answerFormErrors: null,
   fieldErrors: Ember.computed('answerFormErrors.errors.[]', 'fieldName', function() {
     return this.get('answerFormErrors.errors').filterBy('field', this.get('fieldName'));
   }),
-  validityDidChange: Ember.on('init', Ember.observer('answerFormErrors', 'value', function() {
+  validityDidChange: Ember.on('init', Ember.observer('answerFormErrors', 'stringValue', function() {
     const answerFormErrors = this.get('answerFormErrors');
     if(!answerFormErrors) {
       // We have not answerFormErrors object, bail out
       return;
     }
     const fieldName = this.get('fieldName');
-    const value = this.get('value');
-    if(Ember.isEmpty(value)) {
+    const stringValue = this.get('stringValue');
+    if(Ember.isEmpty(stringValue)) {
       answerFormErrors.setError(fieldName, 'Please enter a value for this field.');
     } else {
       // All Good!
       answerFormErrors.clearError(fieldName);
     }
   })),
-  answer: Ember.computed('fieldName','value', function() {
+  answer: Ember.computed('fieldName', 'stringValue', function() {
     const fieldName = this.get('fieldName');
-    const value = this.get('value');
+    const stringValue = this.get('stringValue');
     const answer = Ember.Object.create();
-    if(fieldName && value) {
-      answer.set(fieldName, value);
+    if(fieldName && stringValue) {
+      answer.set(fieldName, stringValue);
     }
     return answer;
+  }),
+  valueDidChange: Ember.observer('stringValue', function() {
+    this.sendAction('answerChanged', this);
   })
 });
 
