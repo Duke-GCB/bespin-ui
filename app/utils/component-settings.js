@@ -27,6 +27,12 @@ const ComponentSettings = [
         groupName: 'Sample'
       }
     ]
+  },
+  {
+    // String field
+    cwlType: 'string', // Defined in CWL
+    name: 'string-field',  // Component to render
+    formats: [], // No formats for a string
   }
 ];
 
