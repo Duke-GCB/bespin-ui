@@ -1,6 +1,10 @@
 <div class="col-md-12">
-  <label for="{{concat elementId '-stringField'}}">{{ displayFieldName }}</label>
-  {{input class='form-control string-field-input' id=(concat elementId '-stringField') value=stringValue}}
+{{#bs-form as |form|}}
+  {{#form.group class='string-field-group'}}
+    <label for="{{concat elementId '-stringField'}}">{{ displayFieldName }}</label>
+    {{input class='form-control string-field-input' id=(concat elementId '-stringField') value=stringValue}}
+    {{/form.group}}
+  {{/bs-form}}
   {{#if answerFormErrors.show}}
     {{error-panel errors=fieldErrors}}
   {{/if}}
