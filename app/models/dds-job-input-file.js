@@ -7,4 +7,5 @@ export default DS.Model.extend({
   destinationPath: DS.attr('string'),
   ddsUserCredentials: DS.belongsTo('dds-user-credential'),
   size: DS.attr('number'),
+  sequence: DS.attr('number'),
 });
