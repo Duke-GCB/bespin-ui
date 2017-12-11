@@ -28,10 +28,16 @@ test('it handles back action', function(assert) {
 });
 
 test('it creates job and transitions to show route', function(assert) {
-  assert.expect(3);
+  assert.expect(4);
   let done = assert.async();
   let saveCount = 0;
+  let sequences = [];
   const Saveable = Ember.Object.extend({
+    set(name, value) {
+      if (name === 'sequence') {
+        sequences.push(value);
+      }
+    },
     save() {
       saveCount = saveCount + 1;
       return Ember.RSVP.resolve(this);
@@ -58,6 +64,8 @@ test('it creates job and transitions to show route', function(assert) {
       assert.equal(routeName, 'jobs.show');
       assert.equal(object, 'job-id');
       assert.equal(saveCount, 5); // stage group, answerSet, and 3 files
+      //input files should have sequence filled in based on user specified order
+      assert.deepEqual(sequences, [0, 1, 2]);
       done();
     }
   });

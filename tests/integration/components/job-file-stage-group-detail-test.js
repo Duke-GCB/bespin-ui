@@ -43,3 +43,41 @@ test('it renders two job-input-file-lists for url files when there are both ddsF
   assert.equal(this.$('div.panel-heading').eq(0).text().trim(), 'Duke Data Service Files');
   assert.equal(this.$('div.panel-heading').eq(1).text().trim(), 'Web URLs');
 });
+
+test('it renders sorted job-input-file-list for ddsFiles when there are multiple ddsFiles', function(assert) {
+  let stageGroup = Ember.Object.create({
+    ddsFiles: [Ember.Object.create(
+        {
+          destinationPath:'file1.txt',
+          sequence: '2'
+        }
+        ), Ember.Object.create(
+        {
+          destinationPath:'file2.txt',
+          sequence: '1'
+        }
+        )]
+  });
+  this.set('stageGroup', stageGroup);
+  this.render(hbs`{{job-file-stage-group-detail stageGroup}}`);
+  assert.equal(this.$('td.file-destination-path').text().trim(), 'file2.txt' + 'file1.txt');
+});
+
+test('it renders sorted job-input-file-list for urlFiles when there are multiple urlFiles', function(assert) {
+  let stageGroup = Ember.Object.create({
+    urlFiles: [Ember.Object.create(
+      {
+        destinationPath:'file1.txt',
+        sequence: '2'
+      }
+    ), Ember.Object.create(
+      {
+        destinationPath:'file2.txt',
+        sequence: '1'
+      }
+    )]
+  });
+  this.set('stageGroup', stageGroup);
+  this.render(hbs`{{job-file-stage-group-detail stageGroup}}`);
+  assert.equal(this.$('td.file-destination-path').text().trim(), 'file2.txt' + 'file1.txt');
+});
