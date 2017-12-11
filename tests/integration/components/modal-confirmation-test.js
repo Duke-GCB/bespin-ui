@@ -22,7 +22,7 @@ test('it renders', function(assert) {
     confirmButtonTitle=confirmButtonTitle
   }}`);
 
-  assert.equal(this.$('.modal-title').text().trim(), 'Modal Title');
+  assert.equal(this.$().html(), 'Modal Title');
   assert.equal(this.$('.modal-body').text().trim(), 'Modal Body');
   assert.equal(this.$('button.modal-confirmation-open').text().trim(), 'Show');
   assert.equal(this.$('button.modal-confirmation-confirm').text().trim(), 'Delete');
