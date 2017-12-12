@@ -52,10 +52,7 @@ export default Ember.Controller.extend({
       }).then((savedStageGroup) => {
         return Ember.RSVP.all(
           // save the dds files
-          savedStageGroup.get('ddsFiles').map((ddsFile,index) => {
-            ddsFile.set('sequence', index);
-            return ddsFile.save();
-          })
+          savedStageGroup.get('ddsFiles').map(ddsFile => { return ddsFile.save(); })
         );
       }).then(() => {
         return answerSet.save();
