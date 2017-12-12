@@ -49,18 +49,26 @@ test('it renders sorted job-input-file-list for ddsFiles when there are multiple
     ddsFiles: [Ember.Object.create(
         {
           destinationPath:'file1.txt',
-          sequence: '2'
+          sequenceGroup: 2,
+          sequence: 2,
         }
         ), Ember.Object.create(
         {
           destinationPath:'file2.txt',
-          sequence: '1'
+          sequenceGroup: 2,
+          sequence: 1
+        }
+        ), Ember.Object.create(
+        {
+          destinationPath:'file3.txt',
+          sequenceGroup: 0,
+          sequence: 10
         }
         )]
   });
   this.set('stageGroup', stageGroup);
   this.render(hbs`{{job-file-stage-group-detail stageGroup}}`);
-  assert.equal(this.$('td.file-destination-path').text().trim(), 'file2.txt' + 'file1.txt');
+  assert.equal(this.$('td.file-destination-path').text().trim(), 'file3.txt' + 'file2.txt' + 'file1.txt');
 });
 
 test('it renders sorted job-input-file-list for urlFiles when there are multiple urlFiles', function(assert) {
@@ -68,16 +76,24 @@ test('it renders sorted job-input-file-list for urlFiles when there are multiple
     urlFiles: [Ember.Object.create(
       {
         destinationPath:'file1.txt',
-        sequence: '2'
+        sequenceGroup: 2,
+        sequence: 2,
       }
     ), Ember.Object.create(
       {
         destinationPath:'file2.txt',
-        sequence: '1'
+        sequenceGroup: 2,
+        sequence: 1
+      }
+    ), Ember.Object.create(
+      {
+        destinationPath:'file3.txt',
+        sequenceGroup: 0,
+        sequence: 10
       }
     )]
   });
   this.set('stageGroup', stageGroup);
   this.render(hbs`{{job-file-stage-group-detail stageGroup}}`);
-  assert.equal(this.$('td.file-destination-path').text().trim(), 'file2.txt' + 'file1.txt');
+  assert.equal(this.$('td.file-destination-path').text().trim(), 'file3.txt' + 'file2.txt' + 'file1.txt');
 });
