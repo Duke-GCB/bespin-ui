@@ -38,6 +38,7 @@ const FileGroupList = Ember.Component.extend({
     return answer;
   }),
   inputFiles: Ember.computed.alias('fileItems.inputFiles.[]'),
+  index: null, // order within the questionnaire
   actions: {
     addFile(file) {
       const credential = this.get('credential');
