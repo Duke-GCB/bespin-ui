@@ -112,13 +112,19 @@ test('it sets stageGroup on answerChanged', function(assert) {
     inputFiles: [
       inputFile1,
       inputFile2
-    ]
+    ],
+    index: 2,
   });
   assert.notEqual(inputFile1.get('stageGroup'), stageGroup);
   assert.notEqual(inputFile2.get('stageGroup'), stageGroup);
   component.send('answerChanged', mockAnswerComponent);
   assert.equal(inputFile1.get('stageGroup'), stageGroup);
   assert.equal(inputFile2.get('stageGroup'), stageGroup);
+  assert.equal(inputFile1.get('sequenceGroup'), 2);
+  assert.equal(inputFile1.get('sequence'), 0);
+  assert.equal(inputFile2.get('sequenceGroup'), 2);
+  assert.equal(inputFile2.get('sequence'), 1);
+
 });
 
 test('it tolerates answerComponents without inputFiles', function(assert) {
