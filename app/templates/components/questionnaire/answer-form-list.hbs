@@ -1,9 +1,10 @@
-{{#each fields as |field|}}
+{{#each fields as |field index|}}
   {{component field.componentName
               field.name
               (action 'answerChanged')
               formatSettings=field.formatSettings
               answerFormErrors=answerFormErrors
+              index=index
   }}
 {{/each}}
 {{yield}}

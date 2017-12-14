@@ -5,4 +5,6 @@ export default DS.Model.extend({
   url: DS.attr('string'),
   destinationPath: DS.attr('string'),
   size: DS.attr('number'),
+  sequenceGroup: DS.attr('number'),
+  sequence: DS.attr('number'),
 });

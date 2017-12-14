@@ -61,7 +61,15 @@ const AnswerFormList = Ember.Component.extend({
       // If the component has any inputFiles, set their stage group
       const inputFiles = answerComponent.get('inputFiles');
       if(inputFiles) {
-        answerComponent.get('inputFiles').setEach('stageGroup', answerSet.get('stageGroup'));
+        const stageGroup = answerSet.get('stageGroup');
+        const sequenceGroup = answerComponent.get('index')
+        inputFiles.forEach((inputFile, index) => {
+          inputFile.setProperties({
+            stageGroup: stageGroup,
+            sequenceGroup: sequenceGroup,
+            sequence: index,
+          })
+        })
       }
     }
   }
