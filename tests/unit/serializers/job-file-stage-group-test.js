@@ -10,7 +10,7 @@ moduleForModel('job-file-stage-group', 'Unit | Serializer | job file stage group
 });
 
 test('it serializes records', function(assert) {
-  let record = this.subject();
+  let record = this.subject({ddsFiles:[], urlFiles:[]});
   let serializedRecord = record.serialize();
   assert.ok(serializedRecord);
 });

@@ -14,9 +14,7 @@ moduleForModel('job', 'Unit | Serializer | job', {
 
 // Replace this with your real tests.
 test('it serializes records', function(assert) {
-  let record = this.subject();
-
+  let record = this.subject({jobErrors:[]});
   let serializedRecord = record.serialize();
-
   assert.ok(serializedRecord);
 });
