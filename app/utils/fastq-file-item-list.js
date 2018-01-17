@@ -71,4 +71,4 @@ const FASTQFileItemList = FileItemList.extend({
   })
 });
 
-export { FASTQFileItemList, extractSampleName, splitMultipleSeparators, makeSamplePair };
+export { FASTQFileItemList, extractSampleName, splitMultipleSeparators };
