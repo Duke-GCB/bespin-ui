@@ -20,6 +20,7 @@ test('it renders', function(assert) {
     openButtonTitle=openButtonTitle
     body=body
     confirmButtonTitle=confirmButtonTitle
+    modalConfirmationOpen=true
   }}`);
 
   assert.equal(this.$('.modal-title').text().trim(), 'Modal Title');
@@ -40,6 +41,6 @@ test('Clicking the confirm button calls the onConfirm', function(assert) {
   this.set('onConfirm', () => {
     assert.ok(true);
   });
-  this.render(hbs`{{modal-confirmation onConfirm=onConfirm}}`);
+  this.render(hbs`{{modal-confirmation modalConfirmationOpen=true onConfirm=onConfirm}}`);
   this.$('button.modal-confirmation-confirm').click();
 });
