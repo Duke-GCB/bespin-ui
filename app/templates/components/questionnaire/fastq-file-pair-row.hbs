@@ -1,4 +1,4 @@
-<p>Name: {{pairName}}</p>
+<p>Name: {{input class='form-control' value=pairName}}</p>
 {{error-panel errors=errors}}
 <ul>
   {{#if pair.file1}}{{questionnaire/file-group-file pair.file1 0 (action 'click')}}{{/if}}
