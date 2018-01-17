@@ -1,25 +1,36 @@
 import Ember from 'ember';
-import { makeSamplePair } from 'bespin-ui/utils/fastq-file-item-list';
+import { FileItem } from 'bespin-ui/utils/file-item-list';
+import { FASTQFileItemList } from 'bespin-ui/utils/fastq-file-item-list';
 
-
-const group1 = [
-  Ember.Object.create({ name: 'foobar', file: {name:'foobar.txt'}}),
-  Ember.Object.create({ name: 'foobar', file: {name:'foobar.md5'}})
+const testNames = [
+  'foobar_1.txt',
+  'foobar_2.md5',
+  'foobaz_3.fa',
+  'foobaz_4.foo'
 ];
-
-const group2 = [
-  Ember.Object.create({ name: 'foobaz', file: {name:'foobaz.txt'}}),
-  Ember.Object.create({ name: 'foobaz', file: {name:'foobaz.md5'}})
-];
-
-const pairs = [
-  makeSamplePair(group1, 'file'),
-  makeSamplePair(group2, 'file')
-];
-
 
 export default Ember.Route.extend({
   model() {
-    return pairs
+    const samples = FASTQFileItemList.create();
+    testNames.forEach((name) => {
+      const fileItem = FileItem.create({
+        ddsFile: Ember.Object.create({
+          name: name,
+          prefix: 'bar',
+          credential: 'baz',
+          createJobInputFile() {
+            return {'path': name};
+          },
+          cwlFileObject(prefix) {
+            return {
+              'class': 'File',
+              'path': prefix + name
+            };
+          }
+        })
+      });
+      samples.addFileItem(fileItem);
+    });
+    return samples;
   }
 });

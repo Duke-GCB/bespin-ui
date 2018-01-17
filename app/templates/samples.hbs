@@ -1,4 +1,7 @@
-{{#each model as |pair pairIndex|}}
+{{#each model.fastqFilePairs as |pair pairIndex|}}
   {{questionnaire/fastq-file-pair-row pair pairIndex}}
 {{/each}}
 
+{{#each model.cwlObjectValue as |object|}}
+  {{object.name}}
+{{/each}}
