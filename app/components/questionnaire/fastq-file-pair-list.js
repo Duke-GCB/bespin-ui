@@ -8,15 +8,15 @@ const FASTQFilePairList = FileGroupList.extend({
   fieldErrors: Ember.computed('answerFormErrors.errors.[]', 'fieldName', function() {
     return this.get('answerFormErrors.errors').filterBy('field', this.get('fieldName'));
   }),
-  fastqFilePairs: Ember.computed.alias('fileItems.fastqFilePairs'),
-  validityDidChange: Ember.on('init', Ember.observer('answerFormErrors', 'fastqFilePairs.length','fileItems.isComplete', function() {
+  samples: Ember.computed.alias('fileItems.samples'),
+  validityDidChange: Ember.on('init', Ember.observer('answerFormErrors', 'samples.length','fileItems.isComplete', function() {
     const answerFormErrors = this.get('answerFormErrors');
     if(!answerFormErrors) {
       // We have not answerFormErrors object, bail out
       return;
     }
     const fieldName = this.get('fieldName');
-    const pairCount = this.get('fastqFilePairs.length');
+    const pairCount = this.get('samples.length');
     if(pairCount < 1) {
       answerFormErrors.setError(fieldName, 'Please choose at least 1 sample pair.');
     } else if(!this.get('fileItems.isComplete')) {
