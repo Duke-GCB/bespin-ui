@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import { FileItemList } from 'bespin-ui/utils/file-item-list';
 
 function splitMultipleSeparators(name, separators) {
   name = name || '';
@@ -10,7 +9,7 @@ function splitMultipleSeparators(name, separators) {
     name = name.replace(otherSeparator, firstSeparator);
   });
   return name.split(firstSeparator);
-};
+}
 
 const DEFAULT_SEPARATORS = ['_','-',' '];
 
@@ -26,7 +25,7 @@ const FASTQSample = Ember.Object.extend({
   size: 2,
   enforceUniqueness: true,
   sampleName: null,
-  generateSampleName: true, // true = class should try to generate sample name when full
+  generateSampleNames: true, // true = class should try to generate sample name when full
 
   init() {
     this._super(...arguments);
@@ -37,16 +36,23 @@ const FASTQSample = Ember.Object.extend({
   isFull: Ember.computed('fileItems.length', 'size', function() {
     return this.get('fileItems.length') === this.get('size');
   }),
+  isEmpty: Ember.computed('fileItems.length', function() {
+    return this.get('fileItems.length') === 0;
+  }),
   ddsFiles: Ember.computed.mapBy('fileItems', 'ddsFile'),
   inputFiles: Ember.computed.mapBy('fileItems', 'inputFile'),
   includesFileItem(fileItem) {
+    return this.indexOfFileItem(fileItem) != -1;
+  },
+
+  indexOfFileItem(fileItem) {
     // Check inclusion based on the ddsFile property by default
     // If the fileItem does not have this property, fallback to object equality
     const ddsFile = Ember.get(fileItem, 'ddsFile');
     if(ddsFile) {
-      return this.get('ddsFiles').includes(ddsFile);
+      return this.get('ddsFiles').indexOf(ddsFile);
     } else {
-      return this.get('fileItems').includes(fileItem);
+      return this.get('fileItems').indexOf(fileItem);
     }
   },
 
@@ -58,6 +64,22 @@ const FASTQSample = Ember.Object.extend({
     } else {
       return false;
     }
+  },
+
+  removeFileItem(fileItem) {
+    const index = this.indexOfFileItem(fileItem);
+    if(index < 0) {
+      return false;
+    }
+    if(this.get('fileItems').removeAt(index)) {
+      return index;
+    } else {
+      return false;
+    }
+  },
+
+  removeFromIndex(index) {
+    this.set('fileItems', this.get('fileItems').slice(0, index));
   },
 
   generateSampleName() {
@@ -95,9 +117,6 @@ const FASTQSample = Ember.Object.extend({
   })
 });
 
-// Wrote this so far. Not sure what to do next.
-// I have a basic data structure that supports one sample and 2 files
-
 const FASTQFileItemList = Ember.Object.extend({
   samples: null, // array of FASTQSample objects
   enforceUniqueness: true,
@@ -132,7 +151,7 @@ const FASTQFileItemList = Ember.Object.extend({
   ddsFiles: Ember.computed('samples.[]', function() {
     return this.get('samples').mapBy('ddsFiles').reduce((a,b) => a.concat(b), []);
   }),
-  addFileItem(fileItem) {
+  addFileItem(fileItem, skip) {
     // Check if we have an incomplete sample to add to
     let sample = this.get('samples').filterBy('isFull', false).get('lastObject');
     // If we don't have one, create a new sample
@@ -146,12 +165,41 @@ const FASTQFileItemList = Ember.Object.extend({
     sample.addFileItem(fileItem);
     return fileItem;
   },
-  includesFileItem() {
-    Ember.Logger.log('includesFileItem() not yet implemented');
+  includesFileItem(fileItem) {
+    return this.get('samples').any((sample) => sample.includesFileItem(fileItem));
   },
-  removeFileItem() {
-    Ember.Logger.log('removeFileItem() not yet implemented');
+  removeFromIndex(index) {
+    this.set('samples', this.get('samples').slice(0, index));
   },
+  removeEmptySamples() {
+    this.set('samples', this.get('samples').filterBy('isEmpty', false));
+  },
+
+  removeFileItem(sampleIndex, fileItemIndex) {
+    // Prepare to remove. Since this is an array of arrays, we need to re-number
+    const sample = this.get('samples').objectAt(sampleIndex);
+    const fileItem = sample.get('fileItems').objectAt(fileItemIndex);
+
+    if(!sample.includesFileItem(fileItem)) {
+      return false;
+    }
+
+    let leftovers = sample.get('fileItems').slice(fileItemIndex + 1);
+    leftovers = leftovers.concat(this.get('samples').slice(sampleIndex + 1).mapBy('fileItems').reduce((a,b) => a.concat(b), []));
+
+    // OK, now delete the file Item from the sample
+    sample.removeFromIndex(fileItemIndex);
+    // And clear out the rest of the samples
+    this.removeFromIndex(sampleIndex + 1);
+    // If the sample is empty, delete it.
+    this.removeEmptySamples();
+
+    leftovers.forEach((leftoverFileItem) => {
+      this.addFileItem(leftoverFileItem, true);
+    });
+    return true;
+  },
+
   fastqFilePairs: Ember.computed('samples.[]', function() {
     Ember.Logger.log('fastqFilePairs not yet implemented');
   }),

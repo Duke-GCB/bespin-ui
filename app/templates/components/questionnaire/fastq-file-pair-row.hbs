@@ -1,7 +1,8 @@
 <p>Name: {{input class='form-control' value=pairName}}</p>
 {{error-panel errors=errors}}
 <ul>
-  {{#if pair.file1}}{{questionnaire/file-group-file pair.file1 0 (action 'click')}}{{/if}}
-  {{#if pair.file2}}{{questionnaire/file-group-file pair.file2 1 (action 'click')}}{{/if}}
+  {{#each pair.ddsFiles as |ddsFile idx|}}
+    {{questionnaire/file-group-file ddsFile idx (action 'click')}}
+  {{/each}}
 </ul>
 {{yield}}

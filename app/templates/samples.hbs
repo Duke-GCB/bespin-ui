@@ -2,6 +2,19 @@
   {{questionnaire/fastq-file-pair-row pair pairIndex}}
 {{/each}}
 
-{{#each model.cwlObjectValue as |object|}}
-  {{object.name}}
+Samples
+{{#each model.samples as |sample|}}
+  <p><strong>name: {{sample.sampleName}}</strong></p>
+  <ul>
+    {{#each sample.fileItems as |item|}}
+      <li>{{item.ddsFile.name}}</li>
+    {{/each}}
+  </ul>
 {{/each}}
+
+CWL Objects
+<ul>
+{{#each model.cwlObjectValue as |object|}}
+  <li>{{object.name}}</li>
+{{/each}}
+</ul>
