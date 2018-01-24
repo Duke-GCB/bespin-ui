@@ -9,7 +9,8 @@ const FASTQFilePairList = FileGroupList.extend({
     return this.get('answerFormErrors.errors').filterBy('field', this.get('fieldName'));
   }),
   samples: Ember.computed.alias('fileItems.samples'),
-  validityDidChange: Ember.on('init', Ember.observer('answerFormErrors', 'samples.length','fileItems.isComplete', function() {
+  validityDidChange: Ember.on('init', Ember.observer('answerFormErrors', 'fieldName','samples.length',
+    'fileItems.isComplete', 'fileItems.hasUniqueSampleNames', 'fileItems.hasUnnamedSamples', function() {
     const answerFormErrors = this.get('answerFormErrors');
     if(!answerFormErrors) {
       // We have not answerFormErrors object, bail out
