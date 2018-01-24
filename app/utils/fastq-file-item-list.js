@@ -26,6 +26,7 @@ const FASTQSample = Ember.Object.extend({
   enforceUniqueness: true,
   sampleName: null,
   generateSampleNames: true, // true = class should try to generate sample name when full
+  generatedSampleName: false, // true = we have generated a sample name
 
   init() {
     this._super(...arguments);
@@ -99,9 +100,9 @@ const FASTQSample = Ember.Object.extend({
     });
 
     // Now we can either compare all the extracted sample names or just go with the first one.
-    this.set('sampleName', extractedSampleNames.objectAt(0));
+    const sampleName = extractedSampleNames.objectAt(0);
+    this.set('sampleName', sampleName);
     this.set('generatedSampleName', true);
-
   },
 
   cwlObjectValue: Ember.computed('fileItems.[]', 'sampleName', function() {
@@ -139,10 +140,9 @@ const FASTQFileItemList = Ember.Object.extend({
     return numSamples === numUniqueNames;
   }),
 
-  hasUnnamedSamples: Ember.computed('samples.[]', 'samples.@each.fileItemsLength', function() {
-    return this.get('samples').any((sample) => {
-      return sample.get('sampleName') == null;
-    });
+  hasUnnamedSamples: Ember.computed('samples.@each.sampleName', function() {
+    const sampleNames = this.get('samples').mapBy('sampleName');
+    return sampleNames.any((sampleName) => Ember.isEmpty(sampleName));
   }),
 
   cwlObjectValue: Ember.computed('samples.[]', 'samples.@each.fileItemsLength', function() {
@@ -209,7 +209,7 @@ const FASTQFileItemList = Ember.Object.extend({
   fileItemGroups: Ember.computed('samples.[]', function() {
     Ember.Logger.log('fileItemGroups not yet implemented');
   }),
-  inputFiles: Ember.computed('samples.[]', function() {
+  inputFiles: Ember.computed('samples.[]', 'samples.@each.fileItemsLength', function() {
     return this.get('samples').mapBy('inputFiles').reduce((a,b) => a.concat(b), []);
   })
 });
