@@ -40,6 +40,7 @@ const FASTQSample = Ember.Object.extend({
     return this.get('fileItems.length') === 0;
   }),
   ddsFiles: Ember.computed.mapBy('fileItems', 'ddsFile'),
+  fileItemsLength: Ember.computed.alias('fileItems.length'),
   inputFiles: Ember.computed.mapBy('fileItems', 'inputFile'),
   includesFileItem(fileItem) {
     return this.indexOfFileItem(fileItem) != -1;
@@ -128,27 +129,29 @@ const FASTQFileItemList = Ember.Object.extend({
     }
   },
 
-  isComplete: Ember.computed('samples.[]', function() {
+  isComplete: Ember.computed('samples.@each.isFull', function() {
     return this.get('samples').isEvery('isFull', true);
   }),
 
-  hasUniqueSampleNames: Ember.computed('samples.[]', function() {
-    const numSamples = this.get('fastqFilePairs.length');
+  hasUniqueSampleNames: Ember.computed('samples.length', 'samples.@each.sampleName', function() {
+    const numSamples = this.get('samples.length');
     const numUniqueNames = this.get('samples').uniqBy('sampleName').get('length');
     return numSamples === numUniqueNames;
   }),
 
-  hasUnnamedSamples: Ember.computed('samples.[]', function() {
+  hasUnnamedSamples: Ember.computed('samples.[]', 'samples.@each.fileItemsLength', function() {
     return this.get('samples').any((sample) => {
       return sample.get('sampleName') == null;
     });
   }),
 
-  cwlObjectValue: Ember.computed('samples.[]', function() {
+  cwlObjectValue: Ember.computed('samples.[]', 'samples.@each.fileItemsLength', function() {
     return this.get('samples').mapBy('cwlObjectValue');
   }),
 
-  ddsFiles: Ember.computed('samples.[]', function() {
+  // Ideally this would compute on something based on samples.[].fileItems.[]
+  // But Ember cannot do computed properties with 2 levels of nesting.
+  ddsFiles: Ember.computed('samples.[]', 'samples.@each.fileItemsLength', function() {
     return this.get('samples').mapBy('ddsFiles').reduce((a,b) => a.concat(b), []);
   }),
   addFileItem(fileItem, skip) {
