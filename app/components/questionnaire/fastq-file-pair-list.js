@@ -34,6 +34,13 @@ const FASTQFilePairList = FileGroupList.extend({
     }
   })),
 
+  // The base component, FileGroupList, sends an 'answerChanged' action when the user edits the list
+  // by adding or removing a file. Since this component also supports editable sample names, we must
+  // send an 'answerChanged' action when a sample name changes
+  sampleNameDidChange: Ember.observer('samples.@each.sampleName', function() {
+    this.sendAction('answerChanged', this);
+  }),
+
   // Override init to user our customized FileItemList type
   init() {
     if(Ember.isEmpty(this.get('fileItems'))) {

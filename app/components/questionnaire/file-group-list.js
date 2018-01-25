@@ -31,7 +31,7 @@ const FileGroupList = Ember.Component.extend({
   groupTitle: Ember.computed('formatSettings.groupName', function() {
     return this.get('formatSettings.groupName') || 'file';
   }),
-  answer: Ember.computed('fieldName', 'fileItems.cwlObjectValue', function() {
+  answer: Ember.computed('fieldName', 'fileItems.cwlObjectValue.[]', function() {
     const fieldName = this.get('fieldName');
     const answer = Ember.Object.create();
     answer.set(fieldName, this.get('fileItems.cwlObjectValue'));
