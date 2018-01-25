@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import FileGroupList from 'bespin-ui/components/questionnaire/file-group-list';
-import { FASTQFileItemList }from 'bespin-ui/utils/fastq-file-item-list';
+import { FASTQFileItemList } from 'bespin-ui/utils/fastq-file-item-list';
 
 const FASTQFilePairList = FileGroupList.extend({
   groupSize: 2,

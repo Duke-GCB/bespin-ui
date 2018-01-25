@@ -145,7 +145,7 @@ const FASTQFileItemList = Ember.Object.extend({
     return sampleNames.any((sampleName) => Ember.isEmpty(sampleName));
   }),
 
-  cwlObjectValue: Ember.computed('samples.[]', 'samples.@each.fileItemsLength', function() {
+  cwlObjectValue: Ember.computed('samples.@each.cwlObjectValue', function() {
     return this.get('samples').mapBy('cwlObjectValue');
   }),
 

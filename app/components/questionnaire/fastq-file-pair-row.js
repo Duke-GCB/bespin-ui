@@ -7,7 +7,7 @@ const FASTQFilePairRow = FileGroupRow.extend({
   errors: Ember.computed('pair.isFull', 'pair.sampleName', function() {
     const errors = [];
     const files = this.get('pair.fileItems');
-    const name = this.get('pair.sampleName');
+    const name = this.get('pairName');
     let message = '';
     // If no files are chosen, indicate this is automatic
     if(!(this.get('pair.isFull'))) {
