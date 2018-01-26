@@ -4,17 +4,17 @@ import FileGroupRow from 'bespin-ui/components/questionnaire/file-group-row';
 const FASTQFilePairRow = FileGroupRow.extend({
   classNames: ['fastq-file-pair-row', 'well','well-sm'],
   pairName: Ember.computed.alias('pair.sampleName'),
-  errors: Ember.computed('pair.isFull', 'pair.sampleName', function() {
+  errors: Ember.computed('pair.isFull', 'pairName', 'size', function() {
     const errors = [];
-    const files = this.get('pair.fileItems');
+    const isFull = this.get('pair.isFull');
     const name = this.get('pairName');
+    const size = this.get('size');
     let message = '';
-    // If no files are chosen, indicate this is automatic
-    if(!(this.get('pair.isFull'))) {
-      message = `Select ${this.get('pair.size')} files to detect sample name.`;
+    if(isFull === false) {
+      message = `Select ${size} files to detect sample name.`;
     } else if(Ember.isEmpty(name)) {
       // If files are chosen, indicate the automatic naming failed
-      message = 'No sample name detected. File names must begin with a common name to detect sample name.';
+      message = 'No sample name could be detected. Please provide a sample name.';
     }
     if(message) {
       errors.addObject(Ember.Object.create({message: message}));
