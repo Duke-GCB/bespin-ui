@@ -5,16 +5,54 @@ moduleForComponent('questionnaire/fastq-file-pair-row', 'Unit | Component | ques
   unit: true
 });
 
-test('it renders error message for empty file in pair', function(assert) {
-  const pair = Ember.Object.create({ file1: 'file1', file2: null, name: null });
-  const component = this.subject({pair: pair});
-  const errors = component.get('errors');
-  assert.equal(errors[0].get('message'), 'Select two files to detect sample name.');
+const MockPair = Ember.Object.extend({
+  sampleName: null,
+  size: 2,
+  isFull: false,
+  userSetSampleName: false
 });
 
-test('it renders error message for empty name in pair', function(assert) {
-  const pair = Ember.Object.create({ file1: 'file1', file2: 'file2', name: null });
-  const component = this.subject({pair: pair});
-  const errors = component.get('errors');
-  assert.equal(errors[0].get('message'), 'No sample name detected. File names must begin with a common name to detect sample name.');
-});
+function renderAndCheckError(name, mockPairParams, expectedErrorMessage) {
+  test(name, function(assert) {
+    const pair = MockPair.create(mockPairParams);
+    const component = this.subject({pair: pair});
+    const errors = component.get('errors');
+    assert.equal(errors.get('firstObject.message'), expectedErrorMessage);
+  });
+}
+
+renderAndCheckError(
+  'it renders error when sample is not full and name has not been set',
+  {userSetSampleName: false, isFull: false},
+  'Please select 2 files to detect sample name.'
+);
+
+renderAndCheckError(
+  'it renders error when sample is not full and name has been set',
+  {userSetSampleName: true, isFull: false},
+  'Please select 2 files.'
+);
+
+renderAndCheckError(
+  'it renders error when sample is full and name cannot be detected',
+  {userSetSampleName: false, isFull: true},
+  'No sample name could be detected. Please enter a sample name.'
+);
+
+renderAndCheckError(
+  'it renders error when user set empty sample name',
+  {userSetSampleName: true, name: '', isFull: true},
+  'Please enter a sample name.'
+);
+
+renderAndCheckError(
+  'it renders no error when sample is full and name has been detected',
+  {userSetSampleName: false, isFull: true, sampleName: 'detected'},
+  undefined
+);
+
+renderAndCheckError(
+  'it renders no error when sample is full and has been set',
+  {userSetSampleName: true, isFull: true, sampleName: 'user'},
+  undefined
+);

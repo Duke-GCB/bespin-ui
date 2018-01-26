@@ -27,7 +27,7 @@ const FASTQFilePairList = FileGroupList.extend({
     } else if(!this.get('fileItems.hasUniqueSampleNames')) {
       answerFormErrors.setError(fieldName, 'Some samples have duplicate names. Please edit the sample names to ensure each is unique.')
     } else if(this.get('fileItems.hasUnnamedSamples')) {
-      answerFormErrors.setError(fieldName, 'Some samples have blank names. Please edit the sample names');
+      answerFormErrors.setError(fieldName, 'Some samples have blank names. Please edit the sample names.');
     } else {
       // All Good!
       answerFormErrors.clearError(fieldName);

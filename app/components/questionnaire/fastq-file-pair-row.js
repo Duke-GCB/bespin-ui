@@ -4,7 +4,7 @@ import FileGroupRow from 'bespin-ui/components/questionnaire/file-group-row';
 const FASTQFilePairRow = FileGroupRow.extend({
   classNames: ['fastq-file-pair-row', 'well','well-sm'],
   pairName: Ember.computed.alias('pair.sampleName'),
-  errors: Ember.computed('pair.isFull', 'pairName', 'size', 'pair.userSetSampleName', function() {
+  errors: Ember.computed('pair.isFull', 'pairName', 'pair.size', 'pair.userSetSampleName', function() {
     const errors = [];
     const isFull = this.get('pair.isFull');
     const name = this.get('pairName');
