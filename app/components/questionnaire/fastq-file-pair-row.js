@@ -8,13 +8,13 @@ const FASTQFilePairRow = FileGroupRow.extend({
     const errors = [];
     const isFull = this.get('pair.isFull');
     const name = this.get('pairName');
-    const size = this.get('size');
+    const size = this.get('pair.size');
     let message = '';
     if(isFull === false) {
       message = `Select ${size} files to detect sample name.`;
     } else if(Ember.isEmpty(name)) {
       // If files are chosen, indicate the automatic naming failed
-      message = 'No sample name could be detected. Please provide a sample name.';
+      message = 'No sample name could be detected. Please enter a sample name.';
     }
     if(message) {
       errors.addObject(Ember.Object.create({message: message}));
