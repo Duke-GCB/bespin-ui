@@ -27,6 +27,7 @@ const FASTQSample = Ember.Object.extend({
   generateSampleNames: true, // true = class should try to generate sample name when full
   _sampleName: null, // private variable to support auto-generating sample name when not set by user
   _userSetSampleName: false, // true = sample name has been set directly from calling code
+  userSetSampleName: Ember.computed.oneWay('_userSetSampleName'), // read-only version of the above
   init() {
     this._super(...arguments);
     if(Ember.isEmpty(this.get('fileItems'))) {
