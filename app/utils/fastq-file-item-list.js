@@ -106,11 +106,8 @@ const FASTQSample = Ember.Object.extend({
     if(index < 0) {
       return false;
     }
-    if(this.get('fileItems').removeAt(index)) {
-      return index;
-    } else {
-      return false;
-    }
+    this.get('fileItems').removeAt(index);
+    return index;
   },
 
   removeFromIndex(index) {
@@ -214,13 +211,6 @@ const FASTQFileItemList = Ember.Object.extend({
     });
     return true;
   },
-
-  fastqFilePairs: Ember.computed('samples.[]', function() {
-    Ember.Logger.log('fastqFilePairs not yet implemented');
-  }),
-  fileItemGroups: Ember.computed('samples.[]', function() {
-    Ember.Logger.log('fileItemGroups not yet implemented');
-  }),
   inputFiles: Ember.computed('samples.[]', 'samples.@each.fileItemsLength', function() {
     return this.get('samples').mapBy('inputFiles').reduce((a,b) => a.concat(b), []);
   })
