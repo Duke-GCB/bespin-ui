@@ -24,16 +24,49 @@ const FASTQSample = Ember.Object.extend({
   fileItems: null,
   size: 2,
   enforceUniqueness: true,
-  sampleName: null,
   generateSampleNames: true, // true = class should try to generate sample name when full
-  generatedSampleName: false, // true = we have generated a sample name
-
+  _sampleName: null, // private variable to support auto-generating sample name when not set by user
+  _userSetSampleName: false, // true = sample name has been set directly from calling code
   init() {
     this._super(...arguments);
     if(Ember.isEmpty(this.get('fileItems'))) {
       this.set('fileItems', []);
     }
   },
+  _generateSampleName() {
+    const extractedSampleNames = this.get('fileItems').mapBy('name').map((name) => extractSampleName(name));
+    const uniqueSampleNames = extractedSampleNames.uniq();
+    if(uniqueSampleNames.get('length') == 1) {
+      return uniqueSampleNames.objectAt(0);
+    } else {
+      return null;
+    }
+  },
+  _shouldGenerateSampleName: Ember.computed('_userSetSampleName', 'generateSampleNames', 'isFull', function() {
+    if(  this.get('generateSampleNames') === false // Generation disabled
+      || this.get('_userSetSampleName') === true // Already set externally
+      || this.get('isFull') === false) { // Not full yet, so don't try
+      return false;
+    } else {
+      return true;
+    }
+  }),
+  // Sample name may be generated from file names or supplied by user
+  sampleName: Ember.computed('_sampleName', '_shouldGenerateSampleName', {
+    get(/* key */) {
+      if(this.get('_shouldGenerateSampleName')) {
+        const sampleName = this._generateSampleName();
+        this.set('_sampleName', sampleName);
+      }
+      return this.get('_sampleName');
+    },
+    set(key, value) {
+      // when setting externally, prevent generating
+      this.set('_userSetSampleName', true);
+      this.set('_sampleName', value);
+      return value;
+    }
+  }),
   isFull: Ember.computed('fileItems.length', 'size', function() {
     return this.get('fileItems.length') === this.get('size');
   }),
@@ -61,7 +94,6 @@ const FASTQSample = Ember.Object.extend({
   addFileItem(fileItem) {
     if(!this.get('isFull')) {
       this.get('fileItems').pushObject(fileItem);
-      this.generateSampleName();
       return fileItem;
     } else {
       return false;
@@ -82,27 +114,6 @@ const FASTQSample = Ember.Object.extend({
 
   removeFromIndex(index) {
     this.set('fileItems', this.get('fileItems').slice(0, index));
-  },
-
-  generateSampleName() {
-    // Bail out if already generated
-    if(this.get('generatedSampleName')) {
-      return;
-    }
-
-    // Bail out if not full
-    if(!this.get('isFull')) {
-      return;
-    }
-
-    const extractedSampleNames = this.get('fileItems').mapBy('name').map((name) => {
-      return extractSampleName(name);
-    });
-
-    // Now we can either compare all the extracted sample names or just go with the first one.
-    const sampleName = extractedSampleNames.objectAt(0);
-    this.set('sampleName', sampleName);
-    this.set('generatedSampleName', true);
   },
 
   cwlObjectValue: Ember.computed('fileItems.[]', 'sampleName', function() {
