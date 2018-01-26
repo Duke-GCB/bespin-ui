@@ -154,7 +154,7 @@ const FASTQFileItemList = Ember.Object.extend({
   ddsFiles: Ember.computed('samples.[]', 'samples.@each.fileItemsLength', function() {
     return this.get('samples').mapBy('ddsFiles').reduce((a,b) => a.concat(b), []);
   }),
-  addFileItem(fileItem, skip) {
+  addFileItem(fileItem) {
     // Check if we have an incomplete sample to add to
     let sample = this.get('samples').filterBy('isFull', false).get('lastObject');
     // If we don't have one, create a new sample
@@ -198,7 +198,7 @@ const FASTQFileItemList = Ember.Object.extend({
     this.removeEmptySamples();
 
     leftovers.forEach((leftoverFileItem) => {
-      this.addFileItem(leftoverFileItem, true);
+      this.addFileItem(leftoverFileItem);
     });
     return true;
   },
