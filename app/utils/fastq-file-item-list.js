@@ -23,7 +23,6 @@ function extractSampleName(name, separators) {
 const FASTQSample = Ember.Object.extend({
   fileItems: null,
   size: 2,
-  enforceUniqueness: true,
   generateSampleNames: true, // true = class should try to generate sample name when full
   _sampleName: null, // private variable to support auto-generating sample name when not set by user
   _userSetSampleName: false, // true = sample name has been set directly from calling code
@@ -164,13 +163,15 @@ const FASTQFileItemList = Ember.Object.extend({
     return this.get('samples').mapBy('ddsFiles').reduce((a,b) => a.concat(b), []);
   }),
   addFileItem(fileItem) {
+    if(this.get('enforceUniqueness') && this.includesFileItem(fileItem)) {
+      return false;
+    }
     // Check if we have an incomplete sample to add to
     let sample = this.get('samples').filterBy('isFull', false).get('lastObject');
     // If we don't have one, create a new sample
     if(Ember.isEmpty(sample)) {
       sample = FASTQSample.create({
         size: this.get('filesPerSample'),
-        enforceUniqueness: this.get('enforceUniqueness')
       });
       this.get('samples').pushObject(sample);
     }
@@ -216,4 +217,4 @@ const FASTQFileItemList = Ember.Object.extend({
   })
 });
 
-export { FASTQFileItemList, extractSampleName, splitMultipleSeparators };
+export { FASTQFileItemList, FASTQSample, extractSampleName, splitMultipleSeparators };
