@@ -6,37 +6,34 @@ moduleForComponent('questionnaire/fastq-file-pair-row', 'Integration | Component
   integration: true
 });
 
-test('it renders both files from the pair', function(assert) {
+test('it renders multiple ddsFiles from the pair', function(assert) {
   const pair = Ember.Object.create({
-    name: 'pairName',
-    file1: { name: 'pairFile1' },
-    file2: { name: 'pairFile2' }
+    sampleName: 'Sample A',
+    ddsFiles: [
+      { name: 'pairFile1' },
+      { name: 'pairFile2' }
+    ]
   });
   this.set('pair', pair);
   this.render(hbs`{{questionnaire/fastq-file-pair-row pair}}`);
+  assert.equal(this.$('input.form-control').val(), 'Sample A');
   assert.equal(this.$('.file-group-file').length, 2);
   assert.equal(this.$('.file-group-file').eq(0).text().trim(), 'pairFile1');
   assert.equal(this.$('.file-group-file').eq(1).text().trim(), 'pairFile2');
 });
 
-test('it does not render empty files from the pair', function(assert) {
+test('editing the sample name on the form is reflected in the pair', function(assert) {
   const pair = Ember.Object.create({
-    name: 'pairName',
-    file1: { name: 'pairFile1' },
-    file2: null,
+    sampleName: 'Original Name',
+    ddsFiles: [
+      { name: 'pairFile1' },
+      { name: 'pairFile2' }
+    ]
   });
-  Ember.run(() => {
-    this.set('pair', pair);
-    this.render(hbs`{{questionnaire/fastq-file-pair-row pair}}`);
-    assert.equal(this.$('.file-group-file').length, 1);
-    assert.equal(this.$('.file-group-file').eq(0).text().trim(), 'pairFile1');
-
-    pair.set('file1', null);
-    pair.set('file2', {name: 'pairFile2'});
-    this.render(hbs`{{questionnaire/fastq-file-pair-row pair}}`);
-    assert.equal(this.$('.file-group-file').length, 1);
-
-    // Do not render the first file when not set
-    assert.equal(this.$('.file-group-file').eq(0).text().trim(), 'pairFile2');
-  });
+  this.set('pair', pair);
+  this.render(hbs`{{questionnaire/fastq-file-pair-row pair}}`);
+  assert.equal(this.$('input.form-control').val(), 'Original Name');
+  // Now "type" a new name
+  this.$('input.form-control').val('Updated Name').change();
+  assert.equal(pair.get('sampleName'), 'Updated Name');
 });

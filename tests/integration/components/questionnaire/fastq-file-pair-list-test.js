@@ -27,7 +27,7 @@ test('it shows/hides errors based on answerFormErrors.show', function(assert) {
 
 test('it renders a fastq-file-pair-row for each selected pair', function(assert) {
   const fileItems = Ember.Object.create({
-      fastqFilePairs: [{},{}]
+      samples: [{},{}]
     }
   );
   this.set('fileItems', fileItems);

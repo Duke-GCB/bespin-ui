@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import FileGroupList from 'bespin-ui/components/questionnaire/file-group-list';
-import { FASTQFileItemList }from 'bespin-ui/utils/fastq-file-item-list';
+import { FASTQFileItemList } from 'bespin-ui/utils/fastq-file-item-list';
 
 const FASTQFilePairList = FileGroupList.extend({
   groupSize: 2,
@@ -8,30 +8,38 @@ const FASTQFilePairList = FileGroupList.extend({
   fieldErrors: Ember.computed('answerFormErrors.errors.[]', 'fieldName', function() {
     return this.get('answerFormErrors.errors').filterBy('field', this.get('fieldName'));
   }),
-  fastqFilePairs: Ember.computed.alias('fileItems.fastqFilePairs'),
-  validityDidChange: Ember.on('init', Ember.observer('answerFormErrors', 'fastqFilePairs.length','fileItems.isComplete', function() {
+  samples: Ember.computed.alias('fileItems.samples'),
+  validityDidChange: Ember.on('init', Ember.observer('answerFormErrors', 'fieldName','samples.length',
+    'fileItems.isComplete', 'fileItems.hasUniqueSampleNames', 'fileItems.hasUnnamedSamples',
+    'groupSize', function() {
     const answerFormErrors = this.get('answerFormErrors');
     if(!answerFormErrors) {
       // We have not answerFormErrors object, bail out
       return;
     }
     const fieldName = this.get('fieldName');
-    const pairCount = this.get('fastqFilePairs.length');
+    const pairCount = this.get('samples.length');
+    const groupSize = this.get('groupSize');
     if(pairCount < 1) {
-      answerFormErrors.setError(fieldName, 'Please choose at least 1 sample pair.');
+      answerFormErrors.setError(fieldName, `No files chosen. Please choose at least ${groupSize} files.`);
     } else if(!this.get('fileItems.isComplete')) {
-      answerFormErrors.setError(fieldName, 'Please ensure all samples are paired.')
+      answerFormErrors.setError(fieldName, `Some samples are incomplete. Please ensure all samples have ${groupSize} files.`)
     } else if(!this.get('fileItems.hasUniqueSampleNames')) {
-      answerFormErrors.setError(fieldName, 'Please ensure all pairs chosen have unique names.')
+      answerFormErrors.setError(fieldName, 'Some samples have duplicate names. Please edit the sample names to ensure each is unique.')
     } else if(this.get('fileItems.hasUnnamedSamples')) {
-      answerFormErrors.setError(fieldName, 'Unable to determine sample names for all pairs. ' +
-        'Please ensure both files in a pair have the same name before any underscore, hyphen, or space (e.g. AB1234_R1.fastq.gz, AB1234_R2.fastq.gz. ' +
-        'You may need to rename your files.');
+      answerFormErrors.setError(fieldName, 'Some samples have blank names. Please edit the sample names.');
     } else {
       // All Good!
       answerFormErrors.clearError(fieldName);
     }
   })),
+
+  // The base component, FileGroupList, sends an 'answerChanged' action when the user edits the list
+  // by adding or removing a file. Since this component also supports editable sample names, we must
+  // send an 'answerChanged' action when a sample name changes
+  sampleNameDidChange: Ember.observer('samples.@each.sampleName', function() {
+    this.sendAction('answerChanged', this);
+  }),
 
   // Override init to user our customized FileItemList type
   init() {
