@@ -77,7 +77,7 @@ const FASTQSample = Ember.Object.extend({
   fileItemsLength: Ember.computed.alias('fileItems.length'),
   inputFiles: Ember.computed.mapBy('fileItems', 'inputFile'),
   includesFileItem(fileItem) {
-    return this.indexOfFileItem(fileItem) != -1;
+    return this.indexOfFileItem(fileItem) !== -1;
   },
 
   indexOfFileItem(fileItem) {
