@@ -1,0 +1,20 @@
+<div class="col-md-12">
+  {{#bs-form as |form|}}
+    {{#form.group class='exomeseq-studytype-choice-group'}}
+      <label>Choose the type of your study:</label>
+      {{#each studyTypes as |studyType|}}
+        <div class="radio">
+          <label class="item-content">
+            {{picker-radio-button value=studyType.value
+                                  name='answerValue'
+                                  onChange=(action "pick")}}
+            {{studyType.description}}
+          </label>
+        </div>
+      {{/each}}
+    {{/form.group}}
+  {{/bs-form}}
+  {{#if answerFormErrors.show}}
+    {{error-panel errors=fieldErrors}}
+  {{/if}}
+</div>

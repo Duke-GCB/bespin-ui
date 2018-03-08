@@ -5,8 +5,8 @@
 const ComponentSettings = [
   {
     // Generic file group
-    cwlType: { type: 'array', items: { type: 'array', items: 'File' } }, // From CWL
-    name: 'file-group-list',  // Component to render
+    cwlType: { type: 'array', items: { type: 'array', items: 'File' } }, // Named in job-questionnaire.user_fields_json
+    name: 'file-group-list',  // questionnaire component to render
     formats: [
       {
         title: 'File',
@@ -17,8 +17,8 @@ const ComponentSettings = [
   },
   {
     // Bespin CWL file pair
-    cwlType: { type: 'array', items: 'NamedFASTQFilePairType'}, // Defined in CWL
-    name: 'fastq-file-pair-list',  // Component to render
+    cwlType: { type: 'array', items: 'NamedFASTQFilePairType'}, // Named in job-questionnaire.user_fields_json
+    name: 'fastq-file-pair-list',  // questionnaire component to render
     formats: [
       {
         title: 'FASTQ Pair',
@@ -30,9 +30,15 @@ const ComponentSettings = [
   },
   {
     // String field
-    cwlType: 'string', // Defined in CWL
-    name: 'string-field',  // Component to render
-    formats: [], // No formats for a string
+    cwlType: 'string', // Named in job-questionnaire.user_fields_json
+    name: 'string-field',  // questionnaire component to render
+    formats: [], // No file formats for a string
+  },
+  {
+    // Enum field
+    cwlType: 'ExomeseqStudyType', // Named in job-questionnaire.user_fields_json
+    name: 'exomeseq-studytype-choice', // questionnaire component to render
+    formats: [], // No file formats for an enum field
   }
 ];
 
