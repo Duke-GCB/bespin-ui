@@ -1,15 +1,15 @@
 import { moduleForComponent, test } from 'ember-qunit';
-import Ember from 'ember';
+import Ember from "ember";
 
-moduleForComponent('questionnaire/string-field', 'Unit | Component | questionnaire/string field', {
+moduleForComponent('questionnaire/answerable-field', 'Unit | Component | questionnaire/answerable field', {
   unit: true
 });
 
-test('it records error with empty string', function(assert) {
+test('it records error with empty value', function(assert) {
   assert.expect(2);
   const mockErrors = Ember.Object.create({
     setError(fieldName, errorText) {
-      assert.equal(fieldName, 'string-field1');
+      assert.equal(fieldName, 'field1');
       assert.equal(errorText, 'Please enter a value for this field.');
     },
     clearError(/* fieldName */) {
@@ -18,7 +18,7 @@ test('it records error with empty string', function(assert) {
   });
 
   this.subject({
-    fieldName: 'string-field1',
+    fieldName: 'field1',
     answerValue: '',
     answerFormErrors: mockErrors
   });
@@ -31,12 +31,12 @@ test('it records no error when everything good', function(assert) {
       assert.notOk(true); // Should not call this!
     },
     clearError(fieldName) {
-      assert.equal(fieldName, 'string-field2');
+      assert.equal(fieldName, 'field2');
     }
   });
 
   this.subject({
-    fieldName: 'string-field2',
+    fieldName: 'field2',
     answerValue: 'Something',
     answerFormErrors: mockErrors
   });
@@ -44,10 +44,10 @@ test('it records no error when everything good', function(assert) {
 
 test('it computes an answer object from the fieldName and value', function(assert) {
   const fieldName = 'field3';
-  const stringField = this.subject();
-  assert.notOk(stringField.get('answer').get(fieldName));
-  stringField.set('fieldName',fieldName);
-  assert.notOk(stringField.get('answer').get(fieldName));
-  stringField.set('answerValue','value123');
-  assert.equal(stringField.get('answer').get('field3'), 'value123');
+  const field = this.subject();
+  assert.notOk(field.get('answer').get(fieldName));
+  field.set('fieldName',fieldName);
+  assert.notOk(field.get('answer').get(fieldName));
+  field.set('answerValue','value123');
+  assert.equal(field.get('answer').get('field3'), 'value123');
 });
