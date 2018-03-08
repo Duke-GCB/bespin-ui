@@ -2,7 +2,7 @@
 {{#bs-form as |form|}}
   {{#form.group class='string-field-group'}}
     <label for="{{concat elementId '-stringField'}}">{{ displayFieldName }}</label>
-    {{input class='form-control string-field-input' id=(concat elementId '-stringField') value=stringValue}}
+    {{input class='form-control string-field-input' id=(concat elementId '-stringField') value=answerValue}}
     {{/form.group}}
   {{/bs-form}}
   {{#if answerFormErrors.show}}

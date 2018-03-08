@@ -19,7 +19,7 @@ test('it records error with empty string', function(assert) {
 
   this.subject({
     fieldName: 'string-field1',
-    stringValue: '',
+    answerValue: '',
     answerFormErrors: mockErrors
   });
 });
@@ -37,7 +37,7 @@ test('it records no error when everything good', function(assert) {
 
   this.subject({
     fieldName: 'string-field2',
-    stringValue: 'Something',
+    answerValue: 'Something',
     answerFormErrors: mockErrors
   });
 });
@@ -48,6 +48,6 @@ test('it computes an answer object from the fieldName and value', function(asser
   assert.notOk(stringField.get('answer').get(fieldName));
   stringField.set('fieldName',fieldName);
   assert.notOk(stringField.get('answer').get(fieldName));
-  stringField.set('stringValue','value123');
+  stringField.set('answerValue','value123');
   assert.equal(stringField.get('answer').get('field3'), 'value123');
 });
