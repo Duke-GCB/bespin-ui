@@ -1,10 +1,10 @@
 <div class="col-md-12">
   {{#bs-form as |form|}}
     {{#form.group class='exomeseq-studytype-choice-group'}}
-      <label>Choose the type of your study:</label>
+      <label class="study-type heading">Choose the type of your study:</label>
       {{#each studyTypes as |studyType|}}
         <div class="radio">
-          <label class="item-content">
+          <label class="study-type choice">
             {{picker-radio-button value=studyType.value
                                   name='answerValue'
                                   onChange=(action "pick")}}
