@@ -19,7 +19,13 @@ test('it renders choices with descriptions', function(assert) {
 });
 
 test('it sends answerChanged when selecting a choice', function(assert) {
-  // TODO: TEst this next
-  this.render(hbs`{{questionnaire/exomeseq-studytype-choice}}`);
-
+  const expectedValues = ['Small Familial', 'Large Population'];
+  assert.expect(expectedValues.length);
+  expectedValues.forEach((expectedValue, index) => {
+    this.set('answerChanged', (sender) => {
+      assert.equal(sender.get('answerValue'), expectedValue);
+    });
+    this.render(hbs`{{questionnaire/exomeseq-studytype-choice answerChanged=answerChanged}}`);
+    this.$('.study-type.choice').eq(index).click();
+  });
 });
