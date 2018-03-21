@@ -5,7 +5,6 @@ const AnswerableField = Ember.Component.extend({
   /**
    * A base class for a simple answerable field, like a text field or radio choice
    */
-  tagName: 'div',
   classNames: ['row','answerable-field'],
   fieldName: null,
   displayFieldName: Ember.computed('fieldName', function() {
