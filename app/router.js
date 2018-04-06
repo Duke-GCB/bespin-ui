@@ -36,6 +36,7 @@ Router.map(function() {
     });
   });
   this.route('dds-job-input-file');
+  this.route('faqs');
 });
 
 export default Router;
