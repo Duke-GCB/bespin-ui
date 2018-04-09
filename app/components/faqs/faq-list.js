@@ -28,24 +28,19 @@ export default Ember.Component.extend({
         'a broad group of users at Duke, please contact us at [gcb-help@duke.edu](mailto://gcb-help@duke.edu). We always welcome feedback.'
     },
     {
-      question: 'How much will it cost to use Bespin?',
+      question: 'How long does it take to run a workflow, and how much will it cost?',
       answer:
-        'Bespin jobs will be billed based on how long they take and how many CPU cores they use.' +
+        'The computational resources used by Bespin jobs will be billed based on how long they take and how many CPU cores they use.' +
+        'How longa workflow runs depends mostly on the input data size and resources (CPU, memory) assigned to the workflow.' +
         '\n\n' +
         'While a workflow is in the **beta** phase, there will be no charge to run it on Bespin. We want to get an idea of what ' +
         'kinds of jobs are working and what we need to improve. We\'ll also get an idea of how long jobs will take and what ' +
         'their computational needs (CPU, memory, etc) are.' +
         '\n\n' +
-        'For workflows that have graduated to production, their use will be charged at the approved rate, which for FY18 is $0.04 per CPU hour. ' +
-        'The total cost is calculated by multiplying this rate by the number of hours and number of CPUs used.'
-    },
-    {
-      question: 'How long does it take to run a workflow?',
-      answer:
-        'The time to run a workflow depends mostly on the input data size and resources (CPU, memory) assigned to the workflow. ' +
-        '\n\n' +
-        'For example, the Whole Exome Sequencing workflow uses 32 CPUs and can process 6 samples (75GB) in 23 hours, at a computational resource cost of about $30. ' +
-        '20 samples (250GB) can be processed in 72 hours, at a computational resource cost of about $90. ' +
+        'For workflows that have graduated to production, their computational resource usage will be charged at the approved rate, which for FY18 is $0.04 per CPU hour. ' +
+        'For example, the Whole Exome Sequencing workflow uses 32 CPUs and can process 6 samples (75GB) in 23 hours, ' +
+        'which would correspond to a computational resource cost of about $30. 20 samples (250GB) will take about 72 hours, ' +
+        'corresponding to a computational resource cost of about $90. ' +
         '\n\n' +
         'Note that this includes _only_ the cost for utilizing the computational resources (CPU, memory, storage). ' +
         'Additional costs for consultation and review by the Genomic Analysis and Bioinformatics core will apply in addition.'
