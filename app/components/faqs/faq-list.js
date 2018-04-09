@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+  classNames: ['faq-list'],
   faqs: [
     {
       question: 'What is Bespin?',

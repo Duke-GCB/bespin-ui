@@ -5,21 +5,18 @@ moduleForComponent('faqs/faq-list', 'Integration | Component | faqs/faq list', {
   integration: true
 });
 
-test('it renders', function(assert) {
-
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
-
+test('it renders a faq-heading', function(assert) {
   this.render(hbs`{{faqs/faq-list}}`);
+  assert.equal(this.$('.faq-heading').length, 1);
+});
 
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#faqs/faq-list}}
-      template block text
-    {{/faqs/faq-list}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+test('it renders an item for each faq', function(assert) {
+  const faqs = [
+    { question: 'q1', answer: 'a1' },
+    { question: 'q2', answer: 'a2' },
+    { question: 'q3', answer: 'a3' }
+  ];
+  this.set('faqs', faqs);
+  this.render(hbs`{{faqs/faq-list faqs=faqs}}`);
+  assert.equal(this.$('.faq-item').length, 3);
 });

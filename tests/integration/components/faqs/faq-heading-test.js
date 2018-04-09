@@ -6,20 +6,6 @@ moduleForComponent('faqs/faq-heading', 'Integration | Component | faqs/faq headi
 });
 
 test('it renders', function(assert) {
-
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
-
   this.render(hbs`{{faqs/faq-heading}}`);
-
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#faqs/faq-heading}}
-      template block text
-    {{/faqs/faq-heading}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+  assert.equal(this.$('.faq-heading').text().trim().indexOf('Bespin: Frequently Asked Questions'), 0);
 });

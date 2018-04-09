@@ -1,25 +1,20 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import Ember from 'ember';
 
 moduleForComponent('faqs/faq-item', 'Integration | Component | faqs/faq item', {
   integration: true
 });
 
 test('it renders', function(assert) {
+  const faq = Ember.Object.create({
+    question: 'How many bits are in a byte?',
+    answer: 'There are 8 bits in a byte.'
+  });
 
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
+  this.set('faq', faq);
+  this.render(hbs`{{faqs/faq-item faq}}`);
 
-  this.render(hbs`{{faqs/faq-item}}`);
-
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#faqs/faq-item}}
-      template block text
-    {{/faqs/faq-item}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+  assert.equal(this.$('.faq-item-question').text().trim(), 'How many bits are in a byte?');
+  assert.equal(this.$('.faq-item-answer').text().trim(), 'There are 8 bits in a byte.');
 });
