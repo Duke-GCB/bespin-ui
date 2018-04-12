@@ -59,6 +59,20 @@ export default Ember.Component.extend({
         'is likely a better fit for your project.'
     },
     {
+      question: 'What is an authorization code and how do I get one?',
+      answer:
+        'Some workflows require an authorization code before you can start a job. ' +
+        'These codes are provided by the workflow\'s expert reviewers, who will be ' +
+        'able to determine if the workflow is a good fit for your dataset.'
+    },
+    {
+      question: 'Is Bespin approved for datasets containing Protected Health Information (PHI) or other sensitive data?',
+      answer:
+        'No. Bespin is designed to handle research data and uses infrastructure that is not approved for PHI.' +
+        '\n\n' +
+        'An environment such as [PACE](https://pace.ori.duke.edu) is likely a better fit for such investigations.'
+    },
+    {
       question: 'What if I need to customize a parameter of the workflow or use a different set of reference data?',
       answer:
       'Great, please contact us at [gcb-help@duke.edu](mailto://gcb-help@duke.edu). Bespin is designed to be highly ' +
