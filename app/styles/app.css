@@ -82,3 +82,14 @@ span.is-disabled {
   from { -webkit-transform: rotate(0deg); }
   to { -webkit-transform: rotate(360deg); }
 }
+
+/* FAQ styling */
+
+.faq-item-question {
+  font-size: 120%;
+}
+
+.faq-item-answer {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
