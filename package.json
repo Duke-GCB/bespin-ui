@@ -1,6 +1,6 @@
 {
   "name": "bespin-ui",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Ember web application frontend for bespin-api",
   "license": "MIT",
   "author": "",
