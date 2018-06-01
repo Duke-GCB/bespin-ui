@@ -45,7 +45,13 @@ const ComponentSettings = [
     cwlType: 'int', // integer value
     name: 'int-field',  // questionnaire component to render
     formats: [], // No file formats for a string
-  }g
+  },
+  {
+    // File field
+    cwlType: 'File',     // Named in job-questionnaire.user_fields_json
+    name: 'file-field',  // questionnaire component to render
+    formats: [], // No file formats for a string
+  }
 ];
 
 export default ComponentSettings;
