@@ -45,7 +45,6 @@ const FileField = Ember.Component.extend({
     answer.set(fieldName, this.get('fileItem.cwlObject'));
     return answer;
   }),
-  index: null, // order within the questionnaire
   fileItem: null,
   inputFiles: Ember.computed('fileItem.inputFile', function() {
     // returns a flat array of the job input files
