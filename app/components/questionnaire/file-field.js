@@ -29,6 +29,13 @@ const FileField = Ember.Component.extend({
   }),
   index: null, // order within the questionnaire
   fileItem: null,
+  inputFiles: Ember.computed('fileItem.inputFile', function() {
+    // returns a flat array of the job input files
+    return [this.get('fileItem.inputFile')];
+  }),
+  ddsFiles: Ember.computed('fileItem.ddsFile', function () {
+      return [this.get('fileItem.ddsFile')];
+  }),
   actions: {
     remove() {
       this.set('fileItem', null);
