@@ -3,7 +3,7 @@ import { FileItem } from 'bespin-ui/utils/file-item-list';
 
 const FileField = Ember.Component.extend({
   /**
-   * Encapsulates a file picker and a grouping/pairing control
+   * Lets user pick a file and see any errors associated with the field.
    */
   tagName: 'div',
   classNames: ['file-field', 'row'],
