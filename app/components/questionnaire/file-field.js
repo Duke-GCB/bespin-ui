@@ -1,7 +1,8 @@
 import Ember from 'ember';
 import { FileItem } from 'bespin-ui/utils/file-item-list';
+import DDSProjectField from './dds-project-field';
 
-const FileField = Ember.Component.extend({
+const FileField = DDSProjectField.extend({
   /**
    * Lets user pick a file and see any errors associated with the field.
    */
@@ -35,10 +36,6 @@ const FileField = Ember.Component.extend({
     }
   }),
   fieldName: null,
-  ddsProjects: Ember.inject.service(),
-  ddsUserCredentials: Ember.inject.service(),
-  credential: null, // populated on didInsertElement
-  projects: null, // populated on didInsertElement
   answer: Ember.computed('fieldName', 'fileItem.cwlObject', function() {
     const fieldName = this.get('fieldName');
     const answer = Ember.Object.create();
@@ -71,17 +68,6 @@ const FileField = Ember.Component.extend({
 
   init() {
     this._super(...arguments);
-  },
-
-  // Per https://emberigniter.com/render-promise-before-it-resolves/
-  didInsertElement() {
-    this._super(...arguments);
-    this.get('ddsUserCredentials').primaryCredential().then(credential => {
-      this.set('credential', credential);
-    });
-    this.get('ddsProjects').projects().then(projects => {
-      this.set('projects', projects);
-    });
   }
 });
 
