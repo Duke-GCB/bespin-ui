@@ -1,25 +1,65 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import StoreStub from "../../../helpers/store-stub";
+import Ember from "ember";
 
 moduleForComponent('questionnaire/file-field', 'Integration | Component | questionnaire/file field', {
-  integration: true
+  integration: true,
+  beforeEach: function() {
+    this.register('service:store', StoreStub);
+  }
 });
 
-test('it renders', function(assert) {
+test('it renders with no fileItem', function(assert) {
+  Ember.run(() => {
+    this.set('fileItem', null);
+    this.render(hbs`{{questionnaire/file-field "SomeField" fileItem=fileItem}}`);
+    assert.equal(this.$('label').html(), 'SomeField from Duke Data Service');
+    assert.equal(this.$('.file-field-selection label').text().trim(), 'Selected file');
+    assert.equal(this.$('.file-field-selection div').text().trim(), 'None');
+  });
+});
 
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
+test('it renders with a fileItem', function(assert) {
+  Ember.run(() => {
+    this.set('fileItem', {name: 'foo.txt'});
+    this.render(hbs`{{questionnaire/file-field "SomeField" fileItem=fileItem}}`);
+    assert.equal(this.$('label').html(), 'SomeField from Duke Data Service');
+    assert.equal(this.$('.file-field-selection label').text().trim(), 'Selected file');
+    assert.equal(this.$('.file-field-selection div').text().trim(), 'foo.txt');
+  });
+});
 
-  this.render(hbs`{{questionnaire/file-field}}`);
+test('it shows/hides errors based on answerFormErrors.show', function(assert) {
+  this.set('fieldName', 'field-name');
+  this.set('answerFormErrors', Ember.Object.create({
+    show: true,
+    errors: [{field: 'field-name', message: 'Error Message'}],
+    setError() { }
+  }));
+  this.render(hbs`{{questionnaire/file-field fieldName=fieldName answerFormErrors=answerFormErrors}}`);
+  assert.equal(this.$('.error-panel').text().trim(), 'Error Message');
 
-  assert.equal(this.$().text().trim(), '');
+  this.set('answerFormErrors.show', false);
+  this.render(hbs`{{questionnaire/file-field fieldName=fieldName answerFormErrors=answerFormErrors}}`);
+  assert.equal(this.$('.error-panel').text().trim(), '');
+});
 
-  // Template block usage:
-  this.render(hbs`
-    {{#questionnaire/file-field}}
-      template block text
-    {{/questionnaire/file-field}}
-  `);
+test('it correctly observes error array', function(assert) {
+  const errors = Ember.Object.create({
+    show: true,
+    errors: [{field: 'field-name', message: 'Empty'}],
+    setError() { }
+  });
+  this.set('answerFormErrors', errors);
+  this.set('fieldName', 'field-name');
+  Ember.run(() => {
+    // Initially empty
+    this.render(hbs`{{questionnaire/file-field fieldName=fieldName answerFormErrors=answerFormErrors}}`);
+    assert.equal(this.$('.error-panel').text().trim(), 'Empty');
 
-  assert.equal(this.$().text().trim(), 'template block text');
+    // Now replace the errors and verify the new error is displayed
+    this.set('answerFormErrors.errors', [{field: 'field-name', message: 'Incomplete'}]);
+    assert.equal(this.$('.error-panel').text().trim(), 'Incomplete');
+  });
 });

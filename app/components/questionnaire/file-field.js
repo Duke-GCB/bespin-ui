@@ -7,6 +7,24 @@ const FileField = Ember.Component.extend({
    */
   tagName: 'div',
   classNames: ['file-field', 'row'],
+  answerFormErrors: null,
+  fieldErrors: Ember.computed('answerFormErrors.errors.[]', 'fieldName', function() {
+    return this.get('answerFormErrors.errors').filterBy('field', this.get('fieldName'));
+  }),
+  validityDidChange: Ember.on('init', Ember.observer('fileItem', function() {
+      const answerFormErrors = this.get('answerFormErrors');
+      const fieldName = this.get('fieldName');
+      if(!answerFormErrors) {
+        // We have not answerFormErrors object, bail out
+        return;
+      }
+      if(!this.get('fileItem')) {
+        answerFormErrors.setError(fieldName, `Please select a file.`)
+      } else {
+        // All Good!
+        answerFormErrors.clearError(fieldName);
+      }
+    })),
   formatSettings: null,  // settings based on cwl type and format
   displayFieldName: Ember.computed('fieldName', function() {
     const fieldName = this.get('fieldName');

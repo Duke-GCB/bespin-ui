@@ -14,6 +14,8 @@
       None
     {{/if}}
   </div>
-
+  {{#if answerFormErrors.show}}
+    {{error-panel errors=fieldErrors}}
+  {{/if}}
 </div>
 {{yield}}
