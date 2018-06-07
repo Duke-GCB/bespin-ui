@@ -45,3 +45,18 @@ test('it correctly observes error array', function(assert) {
     assert.equal(this.$('.error-panel').text().trim(), 'Incomplete');
   });
 });
+
+test('it sets errors based on validityDidChange', function(assert) {
+  this.set('fieldName', 'field-name');
+  this.set('answerFormErrors', Ember.Object.create({
+    show: true,
+    errors: [{field: 'field-name', message: 'Error Message'}],
+    setError() { }
+  }));
+  this.render(hbs`{{questionnaire/int-field fieldName=fieldName answerFormErrors=answerFormErrors}}`);
+  assert.equal(this.$('.error-panel').text().trim(), 'Error Message');
+
+  this.set('answerFormErrors.show', false);
+  this.render(hbs`{{questionnaire/int-field fieldName=fieldName answerFormErrors=answerFormErrors}}`);
+  assert.equal(this.$('.error-panel').text().trim(), '');
+});
