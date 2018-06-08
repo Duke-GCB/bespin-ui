@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import { FileItemList, FileItem } from 'bespin-ui/utils/file-item-list';
+import DDSProjectField from './dds-project-field';
 
 const DEFAULT_GROUP_SIZE = 2;
 
@@ -7,7 +8,7 @@ const GroupSizes = [
   Ember.Object.create({size: 2, name: 'pairs'})
 ];
 
-const FileGroupList = Ember.Component.extend({
+const FileGroupList = DDSProjectField.extend({
   /**
    * Encapsulates a file picker and a grouping/pairing control
    */
@@ -19,10 +20,6 @@ const FileGroupList = Ember.Component.extend({
     return GroupSizes.findBy('size', this.get('groupSize')).get('name');
   }),
   fieldName: null,
-  ddsProjects: Ember.inject.service(),
-  ddsUserCredentials: Ember.inject.service(),
-  credential: null, // populated on didInsertElement
-  projects: null, // populated on didInsertElement
   fileItems: null,
   selectedDdsFiles: Ember.computed.alias('fileItems.ddsFiles'),
   groups: Ember.computed.map('fileItems.fileItemGroups', function(fileItemGroup) {
@@ -60,17 +57,6 @@ const FileGroupList = Ember.Component.extend({
     if(Ember.isEmpty(this.get('fileItems'))) {
       this.set('fileItems', FileItemList.create());
     }
-  },
-
-  // Per https://emberigniter.com/render-promise-before-it-resolves/
-  didInsertElement() {
-    this._super(...arguments);
-    this.get('ddsUserCredentials').primaryCredential().then(credential => {
-      this.set('credential', credential);
-    });
-    this.get('ddsProjects').projects().then(projects => {
-      this.set('projects', projects);
-    });
   }
 });
 

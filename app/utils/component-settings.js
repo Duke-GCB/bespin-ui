@@ -39,6 +39,18 @@ const ComponentSettings = [
     cwlType: 'ExomeseqStudyType', // Named in job-questionnaire.user_fields_json
     name: 'exomeseq-studytype-choice', // questionnaire component to render
     formats: [], // No file formats for an enum field
+  },
+  {
+    // int field
+    cwlType: 'int', // integer value
+    name: 'int-field',  // questionnaire component to render
+    formats: [], // No file formats for a string
+  },
+  {
+    // File field
+    cwlType: 'File',     // Named in job-questionnaire.user_fields_json
+    name: 'file-field',  // questionnaire component to render
+    formats: [], // No file formats for a string
   }
 ];
 
