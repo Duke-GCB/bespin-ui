@@ -13,7 +13,9 @@ export default ApplicationAdapter.extend({
   restart(id) {
     return this.ajax(this.urlForJobControlAction(id, 'restart'), 'POST');
   },
-  authorize(id, jobTokens) {
+  // The token authorizer mixin already defines an authorize() function, so this is called authorizeJob
+  // https://github.com/jpadilla/ember-simple-auth-token/blob/master/addon/mixins/token-authorizer.js
+  authorizeJob(id, jobTokens) {
     return this.ajax(this.urlForJobControlAction(id, 'authorize'), 'POST', {
       data: jobTokens
     });

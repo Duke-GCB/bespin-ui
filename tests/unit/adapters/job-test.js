@@ -43,5 +43,5 @@ test('it POSTS the authorize action with token', function(assert) {
     assert.equal(method, 'POST');
     assert.deepEqual(params, {'data': 'auth-token'});
   });
-  adapter.authorize(843, 'auth-token');
+  adapter.authorizeJob(843, 'auth-token');
 });

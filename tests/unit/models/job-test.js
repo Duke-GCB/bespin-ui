@@ -77,10 +77,10 @@ test('it sends actions to the adapter', function(assert) {
         assert.equal(id, 'restartId', 'should call adapter.restart() with id');
         return Ember.RSVP.resolve({id: id, state: 'r'}); // restarting
       },
-      authorize(id, token) {
+      authorizeJob(id, token) {
         assert.equal(modelName, 'job', 'modelName in adapterFor should be job');
         assert.equal(token['job-tokens']['token'], 'authorizeToken', 'should call adapter.authorize() with a job-token object');
-        assert.equal(id, 'authorizeId', 'should call adapter.authorize() with id');
+        assert.equal(id, 'authorizeId', 'should call adapter.authorizeJob() with id');
 
         const jobTokensPayload = {
           'job-tokens': {
