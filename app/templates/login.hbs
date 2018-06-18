@@ -7,8 +7,8 @@
         <div class="col-md-4 col-md-offset-4 text-left">
         {{#bs-form as |form|}}
           {{#form.group as |group|}}
-              <label for="identification">Username</label>
-            {{input class='form-control' id='identification' placeholder='Enter Username' value=identification}}
+              <label for="username">Username</label>
+            {{input class='form-control' id='username' placeholder='Enter Username' value=username}}
           {{/form.group}}
           {{#form.group as |group|}}
               <label for="password">Password</label>
@@ -22,6 +22,6 @@
         </div>
       </div>
     {{else}}
-        <p><a class="btn btn-primary btn-lg" href="/auth/authorize/?next=/jobs" role="button">LOG IN</a></p>
+        <p><a class="btn btn-primary btn-lg" href="{{ authorizeUrl }}?next=/get-token" role="button">LOG IN</a></p>
     {{/if}}
 </div>

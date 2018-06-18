@@ -81,7 +81,7 @@ export default DS.Model.extend({
         "token": token
       }
     };
-    return adapter.authorize(this.get('id'), jobTokens).then((data) => {
+    return adapter.authorizeJob(this.get('id'), jobTokens).then((data) => {
       // in addition to token information the response includes the job that was updated
       // refresh this job
       this.updateAfterAction({
