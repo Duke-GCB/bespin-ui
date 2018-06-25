@@ -58,6 +58,12 @@ test('it computes displayFieldName', function(assert) {
   assert.equal(field.get('displayFieldName'), 'Field'); // simple capitalization
 });
 
+test('it computes displayFieldName replacing underscores with spaces', function(assert) {
+  const fieldName = 'special_multi_part_name';
+  const field = this.subject({fieldName: fieldName});
+  assert.equal(field.get('displayFieldName'), 'Special Multi Part Name'); // simple capitalization
+});
+
 test('it computes answer', function(assert) {
   const fieldName = 'field_A';
   const answerValue = 'answer value 123';

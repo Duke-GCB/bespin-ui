@@ -10,7 +10,12 @@ const AnswerableField = Ember.Component.extend({
   displayFieldName: Ember.computed('fieldName', function() {
     const fieldName = this.get('fieldName');
     if(fieldName) {
-      return fieldName.capitalize();
+      // convert underscore to spaces, split, capitalize each word, join back together
+      return fieldName
+        .replace(/_/g, ' ')
+        .split(' ')
+        .map(x => x.capitalize())
+        .join(' ');
     } else {
       return null;
     }
