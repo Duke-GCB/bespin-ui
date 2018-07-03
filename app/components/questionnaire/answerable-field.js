@@ -7,7 +7,7 @@ const AnswerableField = Ember.Component.extend({
    */
   classNames: ['row','answerable-field'],
   fieldName: null,
-  label: null,
+  fieldLabel: null,
   answerFormErrors: null,
   answerValue: null,
   answer: Ember.computed('fieldName', 'answerValue', function() {
@@ -44,7 +44,7 @@ const AnswerableField = Ember.Component.extend({
 });
 
 AnswerableField.reopenClass({
-  positionalParams: ['fieldName', 'label', 'answerChanged']
+  positionalParams: ['fieldName', 'fieldLabel', 'answerChanged']
 });
 
 export default AnswerableField

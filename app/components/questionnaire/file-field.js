@@ -28,6 +28,7 @@ const FileField = DDSProjectField.extend({
     })),
   formatSettings: null,  // settings based on cwl type and format
   fieldName: null,
+  fieldLabel: null,
   answer: Ember.computed('fieldName', 'fileItem.cwlObject', function() {
     const fieldName = this.get('fieldName');
     const answer = Ember.Object.create();
@@ -64,7 +65,7 @@ const FileField = DDSProjectField.extend({
 });
 
 FileField.reopenClass({
-  positionalParams: ['fieldName', 'label', 'answerChanged']
+  positionalParams: ['fieldName', 'fieldLabel', 'answerChanged']
 });
 
 export default FileField;
