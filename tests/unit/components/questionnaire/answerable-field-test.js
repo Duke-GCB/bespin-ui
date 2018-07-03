@@ -52,18 +52,6 @@ test('it computes an answer object from the fieldName and value', function(asser
   assert.equal(field.get('answer').get('field3'), 'value123');
 });
 
-test('it computes displayFieldName', function(assert) {
-  const fieldName = 'field';
-  const field = this.subject({fieldName: fieldName});
-  assert.equal(field.get('displayFieldName'), 'Field'); // simple capitalization
-});
-
-test('it computes displayFieldName replacing underscores with spaces', function(assert) {
-  const fieldName = 'special_multi_part_name';
-  const field = this.subject({fieldName: fieldName});
-  assert.equal(field.get('displayFieldName'), 'Special Multi Part Name'); // simple capitalization
-});
-
 test('it computes answer', function(assert) {
   const fieldName = 'field_A';
   const answerValue = 'answer value 123';

@@ -7,19 +7,7 @@ const AnswerableField = Ember.Component.extend({
    */
   classNames: ['row','answerable-field'],
   fieldName: null,
-  displayFieldName: Ember.computed('fieldName', function() {
-    const fieldName = this.get('fieldName');
-    if(fieldName) {
-      // convert underscore to spaces, split, capitalize each word, join back together
-      return fieldName
-        .replace(/_/g, ' ')
-        .split(' ')
-        .map(x => x.capitalize())
-        .join(' ');
-    } else {
-      return null;
-    }
-  }),
+  label: null,
   answerFormErrors: null,
   answerValue: null,
   answer: Ember.computed('fieldName', 'answerValue', function() {
@@ -56,7 +44,7 @@ const AnswerableField = Ember.Component.extend({
 });
 
 AnswerableField.reopenClass({
-  positionalParams: ['fieldName','answerChanged']
+  positionalParams: ['fieldName', 'label', 'answerChanged']
 });
 
 export default AnswerableField
