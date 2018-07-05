@@ -1,5 +1,5 @@
 import Ember from 'ember';
-
+import {labelFromName} from 'bespin-ui/utils/string-formatting';
 
 const AnswerableField = Ember.Component.extend({
   /**
@@ -8,6 +8,14 @@ const AnswerableField = Ember.Component.extend({
   classNames: ['row','answerable-field'],
   fieldName: null,
   fieldLabel: null,
+  displayLabel: Ember.computed('fieldLabel', 'fieldName', function () {
+    const fieldLabel = this.get('fieldLabel');
+    if (fieldLabel) {
+      return fieldLabel
+    } else {
+      return labelFromName(this.get('fieldName'));
+    }
+  }),
   answerFormErrors: null,
   answerValue: null,
   answer: Ember.computed('fieldName', 'answerValue', function() {

@@ -30,6 +30,16 @@ test('it renders with a fileItem', function(assert) {
   });
 });
 
+test('it renders with field when no label provided', function(assert) {
+  Ember.run(() => {
+    this.set('fileItem', null);
+    this.render(hbs`{{questionnaire/file-field "some field" "" fileItem=fileItem}}`);
+    assert.equal(this.$('label').html(), 'Some Field from Duke Data Service');
+    assert.equal(this.$('.file-field-selection label').text().trim(), 'Selected file');
+    assert.equal(this.$('.file-field-selection div').text().trim(), 'None');
+  });
+});
+
 test('it shows/hides errors based on answerFormErrors.show', function(assert) {
   this.set('fieldName', 'field-name');
   this.set('answerFormErrors', Ember.Object.create({
