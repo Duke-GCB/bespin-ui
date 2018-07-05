@@ -1,21 +1,13 @@
 import Ember from 'ember';
-import {labelFromName} from 'bespin-ui/utils/string-formatting';
+import DisplayFieldLabelMixin from 'bespin-ui/mixins/display-field-label-mixin';
 
-const AnswerableField = Ember.Component.extend({
+const AnswerableField = Ember.Component.extend(DisplayFieldLabelMixin, {
   /**
    * A base class for a simple answerable field, like a text field or radio choice
    */
   classNames: ['row','answerable-field'],
   fieldName: null,
   fieldLabel: null,
-  displayLabel: Ember.computed('fieldLabel', 'fieldName', function () {
-    const fieldLabel = this.get('fieldLabel');
-    if (fieldLabel) {
-      return fieldLabel
-    } else {
-      return labelFromName(this.get('fieldName'));
-    }
-  }),
   answerFormErrors: null,
   answerValue: null,
   answer: Ember.computed('fieldName', 'answerValue', function() {

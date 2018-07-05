@@ -1,9 +1,9 @@
 import Ember from 'ember';
 import { FileItem } from 'bespin-ui/utils/file-item-list';
-import {labelFromName} from 'bespin-ui/utils/string-formatting';
+import DisplayFieldLabelMixin from 'bespin-ui/mixins/display-field-label-mixin';
 import DDSProjectField from './dds-project-field';
 
-const FileField = DDSProjectField.extend({
+const FileField = DDSProjectField.extend(DisplayFieldLabelMixin, {
   /**
    * Lets user pick a file and see any errors associated with the field.
    */
@@ -30,14 +30,6 @@ const FileField = DDSProjectField.extend({
   formatSettings: null,  // settings based on cwl type and format
   fieldName: null,
   fieldLabel: null,
-  displayLabel: Ember.computed('fieldLabel', 'fieldName', function () {
-    const fieldLabel = this.get('fieldLabel');
-    if (fieldLabel) {
-      return fieldLabel
-    } else {
-      return labelFromName(this.get('fieldName'));
-    }
-  }),
   answer: Ember.computed('fieldName', 'fileItem.cwlObject', function() {
     const fieldName = this.get('fieldName');
     const answer = Ember.Object.create();

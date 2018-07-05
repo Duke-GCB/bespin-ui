@@ -30,7 +30,7 @@ test('it renders with a fileItem', function(assert) {
   });
 });
 
-test('it renders with field when no label provided', function(assert) {
+test('it renders with field name when no field label provided', function(assert) {
   Ember.run(() => {
     this.set('fileItem', null);
     this.render(hbs`{{questionnaire/file-field "some field" "" fileItem=fileItem}}`);
