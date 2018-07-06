@@ -19,8 +19,8 @@ test('it renders', function(assert) {
 
 test('it computes fields property', function (assert) {
   let userFields = [
-    {type: { type: 'array', items: { type: 'array', items: 'File' } }, name: 'fieldName1' },
-    {type: 'fieldType2', name: 'fieldName2' }
+    {type: { type: 'array', items: { type: 'array', items: 'File' } }, name: 'fieldName1', label: 'label1'},
+    {type: 'fieldType2', name: 'fieldName2', label: "label2" }
   ];
   let questionnaire = Ember.Object.create({ userFieldsJson: userFields});
   let answerSet = Ember.Object.create({questionnaire: questionnaire});
@@ -28,6 +28,7 @@ test('it computes fields property', function (assert) {
   let fields = component.get('fields');
   let expectedField = Ember.Object.create({
     name: 'fieldName1',
+    label: 'label1',
     componentName: 'questionnaire/file-group-list',
     formatSettings: undefined,
   });
@@ -36,9 +37,9 @@ test('it computes fields property', function (assert) {
 
 test('it computes fields componentSettings', function (assert) {
   let userFields = [
-    {type: { type: 'array', items: { type: 'array', items: 'File' } }, name: 'fieldName1',
+    {type: { type: 'array', items: { type: 'array', items: 'File' } }, name: 'fieldName1', label: 'label1',
       format: 'http://edamontology.org/format_1915' },
-    {type: 'fieldType2', name: 'fieldName2' }
+    {type: 'fieldType2', name: 'fieldName2', label: 'label2' }
   ];
   let questionnaire = Ember.Object.create({ userFieldsJson: userFields});
   let answerSet = Ember.Object.create({questionnaire: questionnaire});
@@ -46,6 +47,7 @@ test('it computes fields componentSettings', function (assert) {
   let fields = component.get('fields');
   let expectedField = Ember.Object.create({
     name: 'fieldName1',
+    label: 'label1',
     componentName: 'questionnaire/file-group-list',
     formatSettings: {
       title: 'File',

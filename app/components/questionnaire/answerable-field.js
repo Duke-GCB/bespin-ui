@@ -1,20 +1,13 @@
 import Ember from 'ember';
+import DisplayFieldLabelMixin from 'bespin-ui/mixins/display-field-label-mixin';
 
-
-const AnswerableField = Ember.Component.extend({
+const AnswerableField = Ember.Component.extend(DisplayFieldLabelMixin, {
   /**
    * A base class for a simple answerable field, like a text field or radio choice
    */
   classNames: ['row','answerable-field'],
   fieldName: null,
-  displayFieldName: Ember.computed('fieldName', function() {
-    const fieldName = this.get('fieldName');
-    if(fieldName) {
-      return fieldName.capitalize();
-    } else {
-      return null;
-    }
-  }),
+  fieldLabel: null,
   answerFormErrors: null,
   answerValue: null,
   answer: Ember.computed('fieldName', 'answerValue', function() {
@@ -51,7 +44,7 @@ const AnswerableField = Ember.Component.extend({
 });
 
 AnswerableField.reopenClass({
-  positionalParams: ['fieldName','answerChanged']
+  positionalParams: ['fieldName', 'fieldLabel', 'answerChanged']
 });
 
 export default AnswerableField

@@ -8,8 +8,9 @@ moduleForComponent('questionnaire/int-field', 'Integration | Component | questio
 
 test('it renders', function(assert) {
   this.set('fieldName', 'field');
-  this.render(hbs`{{questionnaire/int-field fieldName}}`);
-  assert.equal(this.$().text().trim(), 'Field');
+  this.set('label', 'SomeLabel');
+  this.render(hbs`{{questionnaire/int-field fieldName label}}`);
+  assert.equal(this.$().text().trim(), 'SomeLabel');
 });
 
 test('it shows/hides errors based on answerFormErrors.show', function(assert) {

@@ -1,8 +1,9 @@
 import Ember from 'ember';
 import { FileItem } from 'bespin-ui/utils/file-item-list';
+import DisplayFieldLabelMixin from 'bespin-ui/mixins/display-field-label-mixin';
 import DDSProjectField from './dds-project-field';
 
-const FileField = DDSProjectField.extend({
+const FileField = DDSProjectField.extend(DisplayFieldLabelMixin, {
   /**
    * Lets user pick a file and see any errors associated with the field.
    */
@@ -27,15 +28,8 @@ const FileField = DDSProjectField.extend({
       }
     })),
   formatSettings: null,  // settings based on cwl type and format
-  displayFieldName: Ember.computed('fieldName', function() {
-    const fieldName = this.get('fieldName');
-    if(fieldName) {
-      return fieldName.capitalize();
-    } else {
-      return null;
-    }
-  }),
   fieldName: null,
+  fieldLabel: null,
   answer: Ember.computed('fieldName', 'fileItem.cwlObject', function() {
     const fieldName = this.get('fieldName');
     const answer = Ember.Object.create();
@@ -72,7 +66,7 @@ const FileField = DDSProjectField.extend({
 });
 
 FileField.reopenClass({
-  positionalParams: ['fieldName','answerChanged']
+  positionalParams: ['fieldName', 'fieldLabel', 'answerChanged']
 });
 
 export default FileField;
