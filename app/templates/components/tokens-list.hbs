@@ -1,0 +1,10 @@
+<thead>
+  {{token-header-row}}
+</thead>
+<tbody>
+  {{#each tokens as |token|}}
+    {{token-detail-row token onDeleteToken=onDeleteToken}}
+  {{/each}}
+  {{yield}}
+</tbody>
+

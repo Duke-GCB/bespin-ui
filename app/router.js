@@ -38,6 +38,7 @@ Router.map(function() {
   this.route('dds-job-input-file');
   this.route('faqs');
   this.route('get-token');
+  this.route('settings');
 });
 
 export default Router;
