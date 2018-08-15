@@ -1,0 +1,5 @@
+<span class="sensitive-value-span">{{displayedValue}}</span>
+{{#if hideValue}}
+  {{#bs-button size="sm" onClick=(action 'showValue') class="sensitive-value-show-button"}}Show{{/bs-button}}
+{{/if}}
+{{yield}}

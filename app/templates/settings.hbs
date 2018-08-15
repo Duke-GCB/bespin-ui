@@ -1,0 +1,28 @@
+<h3>Settings</h3>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4 class="panel-title">API Tokens</h4>
+  </div>
+
+  <div class="panel-body">
+    <div class="token-info">
+      <p>
+        API tokens allow you to create and control jobs using the Bespin API via tools like <a href="https://github.com/Duke-GCB/bespin-cli#bespin-cli">bespin-cli</a>.
+      </p>
+      <p>
+        Your token provides full access to Bespin, so please keep it confidential. If your token is ever compromised, you can delete it here.
+      </p>
+    </div>
+    {{tokens-list tokens=model.tokens onDeleteToken=(action 'deleteToken')}}
+    {{#if showGenerateTokenButton}}
+      {{#bs-button type="primary" onClick=(action 'generateToken') disabled=disableGenerateToken
+                   class="generateToken-button"}}Generate Token{{/bs-button}}
+    {{else}}
+      Only one token is allowed at a time.
+    {{/if}}
+  </div>
+
+</div>
+
+{{outlet}}
