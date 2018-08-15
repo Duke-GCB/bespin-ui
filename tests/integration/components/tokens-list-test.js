@@ -21,4 +21,3 @@ test('it renders rows based on tokens', function(assert) {
   assert.equal(this.$('th').eq(1).text(), 'Created');
   assert.equal(this.$('th').eq(2).text(), 'Delete');
 });
-
