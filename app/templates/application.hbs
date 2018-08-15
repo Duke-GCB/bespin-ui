@@ -14,13 +14,13 @@
         {{#nav.item}}{{#nav.link-to 'jobs'}}Jobs{{/nav.link-to}}{{/nav.item}}
         {{#nav.item}}{{#nav.link-to 'workflows'}}Workflows{{/nav.link-to}}{{/nav.item}}
         {{#nav.item}}{{#nav.link-to 'faqs'}}FAQs{{/nav.link-to}}{{/nav.item}}
-        {{#nav.item}}{{#nav.link-to 'settings'}}Settings{{/nav.link-to}}{{/nav.item}}
       {{/navbar.nav}}
       {{#navbar.nav class="navbar-right" as |nav|}}
           {{#if session.isAuthenticated}}
             {{#nav.item}}
               <p class="navbar-text">Logged in as {{user-info currentUser}}</p>
             {{/nav.item}}
+            {{#nav.item}}{{#nav.link-to 'settings'}}Settings{{/nav.link-to}}{{/nav.item}}
           {{/if}}
       {{/navbar.nav}}
     {{/navbar.content}}
