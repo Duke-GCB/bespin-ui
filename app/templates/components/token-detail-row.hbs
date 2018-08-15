@@ -1,4 +1,4 @@
-<td>{{sensitive-value token.id}}</td>
+<td>{{sensitive-value token.id showLeadingCharacters=6}}</td>
 <td>{{token.created}}</td>
 <td>{{#bs-button type="danger" onClick=(action 'deleteToken' token)
                  class="deleteToken-button"}}Delete{{/bs-button}}</td>

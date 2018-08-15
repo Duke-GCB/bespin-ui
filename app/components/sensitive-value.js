@@ -3,10 +3,14 @@ import Ember from 'ember';
 const SensitiveValue = Ember.Component.extend({
   value: null,
   hideValue: true,
-  displayedValue: Ember.computed('value', 'hideValue', function () {
-    const value = this.get('value');
+  showLeadingCharacters: 0,
+  displayedValue: Ember.computed('value', 'hideValue', 'hiddenValue', 'showLeadingCharacters', function () {
+    var value = this.get('value');
     if (value && this.get('hideValue')) {
-      return value.replace(/./g, '*');
+      const showLeadingCharacters = this.get('showLeadingCharacters');
+      const head = value.slice(0, showLeadingCharacters);
+      const tail = value.slice(showLeadingCharacters).replace(/./g, '*');
+      return head + tail;
     } else {
       return value;
     }
