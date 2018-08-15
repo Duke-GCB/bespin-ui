@@ -7,6 +7,6 @@ test('visiting /faqs requires no login', function(assert) {
   visit('/faqs');
   andThen(function() {
     assert.equal(currentURL(), '/faqs');
-    assert.equal(find('h2:first').text(), 'Bespin: Frequently Asked Questions');
+    assert.equal(find('h3:first').text(), 'Bespin: Frequently Asked Questions');
   });
 });
