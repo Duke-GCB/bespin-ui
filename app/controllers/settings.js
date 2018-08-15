@@ -1,11 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-  token: Ember.computed('model.tokens.firstObject', function () {
-    // each user only has (at most) one token so we filter to that token
-    return this.get('model.tokens.firstObject');
-  }),
-  showGenerateTokenButton: Ember.computed.not('token'),
+  showGenerateTokenButton: Ember.computed.not('model.tokens.firstObject'),
   actions: {
     generateToken() {
       this.get('store')

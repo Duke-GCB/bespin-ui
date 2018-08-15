@@ -6,13 +6,15 @@ moduleFor('controller:settings', 'Unit | Controller | settings', {
   // needs: ['controller:foo']
 });
 
-test('it computes token based on model.tokens', function(assert) {
+test('it computes showGenerateTokenButton based on model.tokens.firstObject', function(assert) {
   let controller = this.subject({
     model: {
       tokens: Ember.A([Ember.Object.create({id: '123'})])
     }
   });
-  assert.equal(controller.get('token.id'), '123', 'token is the first item in the array returned by model.tokens');
+  assert.equal(controller.get('showGenerateTokenButton'), false, 'showGenerateTokenButton is false if a token exists');
+  controller.set('model.tokens', Ember.A());
+  assert.equal(controller.get('showGenerateTokenButton'), true, 'showGenerateTokenButton is true if no token exists');
 });
 
 test('it has a generateToken action', function(assert) {
