@@ -3,10 +3,10 @@ import Ember from 'ember';
 const TokenDetailRow = Ember.Component.extend({
   tagName: 'tr',
   token: null,
-  onDeleteToken: null, /* function(token) called to delete the passed token */
+  onDeleteToken: null, /* function(token) run when user clicks Delete */
   actions: {
-    deleteToken(token) {
-      this.get('onDeleteToken')(token);
+    deleteToken() {
+      this.get('onDeleteToken')(this.get('token'));
     }
   }
 });

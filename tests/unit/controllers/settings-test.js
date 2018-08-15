@@ -53,5 +53,4 @@ test('it has a deleteToken action', function(assert) {
     }
   };
   controller.send('deleteToken', someToken);
-
 });
