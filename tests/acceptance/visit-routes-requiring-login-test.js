@@ -30,3 +30,10 @@ test('visiting /workflow-versions requires login', function(assert) {
     assert.equal(currentURL(), '/login');
   });
 });
+
+test('visiting /settings requires login', function(assert) {
+  visit('/settings');
+  andThen(function() {
+    assert.equal(currentURL(), '/login');
+  });
+});
