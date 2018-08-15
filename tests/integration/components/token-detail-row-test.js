@@ -6,13 +6,13 @@ moduleForComponent('token-detail-row', 'Integration | Component | token detail r
   integration: true
 });
 
-test('it renders', function(assert) {
+test('it renders three columns', function(assert) {
   this.set('token', Ember.Object.create(
     {
       id: 'SecretValue123',
       created: 'SOMEDATE'
     }));
-  this.render(hbs`{{token-detail-row token=token}}`);
+  this.render(hbs`{{token-detail-row token}}`);
 
   assert.equal(this.$('td').length, 3);
   assert.equal(this.$('td :first .sensitive-value-span').text(), 'Secret********',
@@ -23,4 +23,18 @@ test('it renders', function(assert) {
   Ember.run(() => this.$('td :first .sensitive-value-show-button').click());
   assert.equal(this.$('td :first .sensitive-value-span').text(), 'SecretValue123',
     'First column should display the whole token once show button is clicked');
+});
+
+test('runs onDeleteToken action when user clicks Delete', function(assert) {
+  assert.expect(1);
+  this.set('token', Ember.Object.create(
+    {
+      id: 'SecretValue123',
+      created: 'SOMEDATE'
+    }));
+  this.set('externalAction', (token) => {
+    assert.equal(token.id, 'SecretValue123');
+  });
+  this.render(hbs`{{token-detail-row token onDeleteToken=(action externalAction)}}`);
+  Ember.run(() => this.$('.deleteToken-button').click());
 });

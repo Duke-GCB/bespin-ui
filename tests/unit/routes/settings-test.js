@@ -8,10 +8,11 @@ moduleFor('route:settings', 'Unit | Route | settings', {
 });
 
 test('it creates a model that contains an array of tokens', function(assert) {
-  assert.expect(3);
+  assert.expect(4);
   let route = this.subject({
     store: {
-      findAll() {
+      findAll(modelName) {
+        assert.equal(modelName, 'token');
         return [
           Ember.Object.create({id: 123}),
           Ember.Object.create({id: 456}),
