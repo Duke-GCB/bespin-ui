@@ -10,13 +10,6 @@ test('visiting /jobs requires login', function(assert) {
   });
 });
 
-test('visiting /projects requires login', function(assert) {
-  visit('/projects');
-  andThen(function() {
-    assert.equal(currentURL(), '/login');
-  });
-});
-
 test('visiting /workflows requires login', function(assert) {
   visit('/workflows');
   andThen(function() {
@@ -24,8 +17,8 @@ test('visiting /workflows requires login', function(assert) {
   });
 });
 
-test('visiting /workflow-versions requires login', function(assert) {
-  visit('/workflow-versions');
+test('visiting /settings requires login', function(assert) {
+  visit('/settings');
   andThen(function() {
     assert.equal(currentURL(), '/login');
   });
