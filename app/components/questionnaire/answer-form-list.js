@@ -15,7 +15,6 @@ const AnswerFormList = Ember.Component.extend({
         let formatSettings = this.formatSettingsForComponentAndFormat(componentSettings, field.format);
         return Ember.Object.create({
           name: field.name,
-          label: field.label,
           componentName: `questionnaire/${componentSettings.name}`,
           formatSettings: formatSettings,
         });

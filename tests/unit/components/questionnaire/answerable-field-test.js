@@ -52,17 +52,10 @@ test('it computes an answer object from the fieldName and value', function(asser
   assert.equal(field.get('answer').get('field3'), 'value123');
 });
 
-test('it computes displayLabel using fieldName with capitalization', function(assert) {
+test('it computes displayFieldName', function(assert) {
   const fieldName = 'field';
   const field = this.subject({fieldName: fieldName});
-  assert.equal(field.get('displayLabel'), 'Field'); // simple capitalization
-});
-
-test('it computes displayLabel using fieldLabel with no changes', function(assert) {
-  const fieldName = 'field name';
-  const fieldLabel = 'field label';
-  const field = this.subject({fieldName: fieldName, fieldLabel: fieldLabel});
-  assert.equal(field.get('displayLabel'), 'field label');
+  assert.equal(field.get('displayFieldName'), 'Field'); // simple capitalization
 });
 
 test('it computes answer', function(assert) {
