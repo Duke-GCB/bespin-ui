@@ -1,7 +1,6 @@
 {{#each fields as |field index|}}
   {{component field.componentName
               field.name
-              field.label
               (action 'answerChanged')
               formatSettings=field.formatSettings
               answerFormErrors=answerFormErrors
