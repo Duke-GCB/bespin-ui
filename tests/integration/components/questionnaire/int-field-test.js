@@ -12,6 +12,12 @@ test('it renders', function(assert) {
   assert.equal(this.$().text().trim(), 'Field');
 });
 
+test('it renders with label when provided', function(assert) {
+  this.set('fieldName', 'field');
+  this.render(hbs`{{questionnaire/int-field fieldName fieldLabel="MyLabel"}}`);
+  assert.equal(this.$().text().trim(), 'MyLabel');
+});
+
 test('it shows/hides errors based on answerFormErrors.show', function(assert) {
   this.set('fieldName', 'field-name');
   this.set('answerFormErrors', Ember.Object.create({

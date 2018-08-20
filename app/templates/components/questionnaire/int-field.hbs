@@ -1,7 +1,7 @@
 <div class="col-md-12">
   {{#bs-form as |form|}}
     {{#form.group class='int-field-group'}}
-      <label for="{{concat elementId '-intField'}}">{{ displayFieldName }}</label>
+      <label for="{{concat elementId '-intField'}}">{{ displayLabel }}</label>
       {{input type="number" pattern="/^\d+$/" class='form-control int-field-input' id=(concat elementId '-intField') value=answerValue}}
     {{/form.group}}
   {{/bs-form}}
