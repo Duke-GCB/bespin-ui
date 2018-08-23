@@ -17,7 +17,10 @@ test('it sets component-specific error text to answerFormErrors', function(asser
       this.set('errorText', text);
     }
   });
-  let component = this.subject();
+  let component = this.subject({
+    fieldName: 'somefield',
+    answerChanged: ()=>{},
+  });
   component.set('answerFormErrors', mockAnswerFormErrors);
   assert.equal(mockAnswerFormErrors.get('errorText'), expectedErrorText);
 });

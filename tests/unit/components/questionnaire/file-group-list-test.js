@@ -17,7 +17,10 @@ moduleForComponent('questionnaire/file-group-list', 'Unit | Component | question
 });
 
 test('it renders', function(assert) {
-  this.subject();
+  this.subject({
+    fieldName: "SomeField",
+    answerChanged: ()=>{}
+  });
   this.render();
   assert.ok(this.$());
 });
@@ -28,7 +31,12 @@ test('it computes answer with field name and files', function (assert) {
     cwlObjectValue: [2,3,1]
   });
 
-  const fileGroupList = this.subject({groupSize: 2, fileItems: mockFileItems, fieldName: fieldName});
+  const fileGroupList = this.subject({
+    groupSize: 2,
+    fileItems: mockFileItems,
+    fieldName: fieldName,
+    answerChanged: ()=>{}
+  });
   const answer = fileGroupList.get('answer');
 
   const expected = Ember.Object.create({
@@ -43,7 +51,12 @@ test('it computes inputFiles array from the fileItems', function (assert) {
   const mockFileItems = Ember.Object.create({
     inputFiles: expected
   });
-  const fileGroupList = this.subject({groupSize: 2, fileItems: mockFileItems, fieldName: 'field1'});
+  const fileGroupList = this.subject({
+    groupSize: 2,
+    fileItems: mockFileItems,
+    fieldName: 'field1',
+    answerChanged: ()=>{}
+  });
   const inputFiles = fileGroupList.get('inputFiles');
   assert.deepEqual(inputFiles, expected);
 });
@@ -56,7 +69,12 @@ test('it handles removeAt action', function (assert) {
       assert.equal(fileIndex, 0);
     }
   });
-  const fileGroupList = this.subject({groupSize:4, fileItems: mockFileItems});
+  const fileGroupList = this.subject({
+    groupSize:4,
+    fileItems: mockFileItems,
+    fieldName: 'field1',
+    answerChanged: ()=>{}
+  });
   fileGroupList.send('removeAt', 3, 0);
 });
 
@@ -86,6 +104,7 @@ test('it handles addFile action', function (assert) {
   const fileGroupList = this.subject({
     groupSize:4,
     fieldName: 'myField',
+    answerChanged: ()=>{},
     fileItems: mockFileItems,
     credential: 'myCredential'
   });
@@ -96,12 +115,17 @@ test('it generates groupTitle based on formatSettings.groupName', function (asse
   let fileGroupList = this.subject({
     formatSettings: {
       groupName: 'Subject'
-    }
+    },
+    fieldName: 'myField',
+    answerChanged: ()=>{},
   });
   assert.equal('Subject', fileGroupList.get('groupTitle'));
 });
 
 test('it generates groupTitle without formatSettings.groupName', function (assert) {
-  let fileGroupList = this.subject({});
+  let fileGroupList = this.subject({
+    fieldName: 'myField',
+    answerChanged: ()=>{}
+  });
   assert.equal('file', fileGroupList.get('groupTitle'));
 });

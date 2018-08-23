@@ -30,6 +30,7 @@ test('it records error when no pairs chosen', function(assert) {
 
   this.subject({
     fieldName: 'sample-pairs1',
+    answerChanged: ()=>{},
     fileItems: empty,
     answerFormErrors: mockErrors
   });
@@ -50,6 +51,7 @@ test('it records error when pairs incomplete', function(assert) {
 
   this.subject({
     fieldName: 'sample-pairs2',
+    answerChanged: ()=>{},
     fileItems: incomplete,
     answerFormErrors: mockErrors
   });
@@ -69,6 +71,7 @@ test('it records no error when everything good', function(assert) {
 
   this.subject({
     fieldName: 'sample-pairs3',
+    answerChanged: ()=>{},
     fileItems: complete,
     answerFormErrors: mockErrors
   });
@@ -89,6 +92,7 @@ test('it records error when pairs do not have unique sample names', function(ass
 
   this.subject({
     fieldName: 'sample-pairs4',
+    answerChanged: ()=>{},
     fileItems: duplicates,
     answerFormErrors: mockErrors
   });
@@ -109,6 +113,7 @@ test('it records error when pairs have unnamed samples', function(assert) {
 
   this.subject({
     fieldName: 'sample-pairs5',
+    answerChanged: ()=>{},
     fileItems: unnamed,
     answerFormErrors: mockErrors
   });
