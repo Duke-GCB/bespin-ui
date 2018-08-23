@@ -84,3 +84,16 @@ test('it filters fieldErrors for errors that match the field of this component',
   const errors = field.get('fieldErrors');
   assert.deepEqual(errors, [{field: 'thisField', error: 'invalid'}]);
 });
+
+test('it requires fieldName and answerChanged', function(assert) {
+  assert.throws(() => {
+    this.subject({});
+  });
+  assert.throws(() => {
+    this.subject({fieldName: "SomeField"});
+  });
+  assert.throws(() => {
+    this.subject({answerChanged: ()=>{}});
+  });
+  this.subject({fieldName: "SomeField", answerChanged: ()=>{}});
+});

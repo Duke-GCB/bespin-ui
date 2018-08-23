@@ -129,3 +129,16 @@ test('it generates groupTitle without formatSettings.groupName', function (asser
   });
   assert.equal('file', fileGroupList.get('groupTitle'));
 });
+
+test('it requires fieldName and answerChanged', function(assert) {
+  assert.throws(() => {
+    this.subject({});
+  });
+  assert.throws(() => {
+    this.subject({fieldName: "SomeField"});
+  });
+  assert.throws(() => {
+    this.subject({answerChanged: ()=>{}});
+  });
+  this.subject({fieldName: "SomeField", answerChanged: ()=>{}});
+});

@@ -2,6 +2,7 @@ import Ember from 'ember';
 import { FileItem } from 'bespin-ui/utils/file-item-list';
 import DDSProjectField from './dds-project-field';
 import DisplayFieldLabelMixin from 'bespin-ui/mixins/display-field-label-mixin';
+import { assert } from '@ember/debug';
 
 const FileField = DDSProjectField.extend(DisplayFieldLabelMixin, {
   /**
@@ -59,10 +60,11 @@ const FileField = DDSProjectField.extend(DisplayFieldLabelMixin, {
       this.sendAction('answerChanged', this);
     }
   },
-
-  init() {
+  didReceiveAttrs() {
     this._super(...arguments);
-  }
+    assert('Answerable component requires fieldName property', this.get('fieldName'));
+    assert('Answerable component requires answerChanged function property', typeof this.get('answerChanged') == 'function');
+  },
 });
 
 FileField.reopenClass({

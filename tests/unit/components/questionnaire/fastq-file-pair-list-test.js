@@ -119,3 +119,15 @@ test('it records error when pairs have unnamed samples', function(assert) {
   });
 });
 
+test('it requires fieldName and answerChanged', function(assert) {
+  assert.throws(() => {
+    this.subject({});
+  });
+  assert.throws(() => {
+    this.subject({fieldName: "SomeField"});
+  });
+  assert.throws(() => {
+    this.subject({answerChanged: ()=>{}});
+  });
+  this.subject({fieldName: "SomeField", answerChanged: ()=>{}});
+});

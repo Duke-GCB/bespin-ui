@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import DisplayFieldLabelMixin from 'bespin-ui/mixins/display-field-label-mixin';
+import { assert } from '@ember/debug';
 
 const AnswerableField = Ember.Component.extend(DisplayFieldLabelMixin, {
   /**
@@ -40,7 +41,12 @@ const AnswerableField = Ember.Component.extend(DisplayFieldLabelMixin, {
       // All Good!
       answerFormErrors.clearError(fieldName);
     }
-  }))
+  })),
+  didReceiveAttrs() {
+    this._super(...arguments);
+    assert('Answerable component requires fieldName property', this.get('fieldName'));
+    assert('Answerable component requires answerChanged function property', typeof this.get('answerChanged') == 'function');
+  },
 });
 
 AnswerableField.reopenClass({
