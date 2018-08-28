@@ -54,6 +54,7 @@ export default DS.Model.extend({
   lastJobError: Ember.computed('jobErrors.[]', function() {
     return this.get('jobErrors').sortBy('created').get('lastObject');
   }),
+  usage: DS.attr(),
   updateAfterAction(data) {
     // The action methods respond with an updated job, so we must update the local store
     // with that payload. Remember, pushPayload doesn't return.
