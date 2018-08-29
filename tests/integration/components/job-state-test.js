@@ -14,7 +14,8 @@ test('it renders', function(assert) {
 test('it renders job properties', function(assert) {
   let job = Ember.Object.create({
     id: 314,
-    state: 'R'
+    state: 'R',
+    getLiveUsage: () => Ember.RSVP.resolve({})
   });
   this.set('job',job);
   this.render(hbs`{{job-state job}}`);
@@ -24,7 +25,9 @@ test('it renders job properties', function(assert) {
 
 
 test('it shows authorization code if job has a runToken', function(assert) {
-  let job = Ember.Object.create();
+  let job = Ember.Object.create({
+    getLiveUsage: () => Ember.RSVP.resolve({})
+  });
   this.set('job', job);
   Ember.run(() => {
     this.render(hbs`{{job-state job}}`);
@@ -36,7 +39,9 @@ test('it shows authorization code if job has a runToken', function(assert) {
 });
 
 test('it shows decoded job step if step is not empty', function(assert) {
-  let job = Ember.Object.create();
+  let job = Ember.Object.create({
+    getLiveUsage: () => Ember.RSVP.resolve({})
+  });
   this.set('job', job);
   Ember.run(() => {
     this.render(hbs`{{job-state job}}`);
@@ -44,5 +49,22 @@ test('it shows decoded job step if step is not empty', function(assert) {
     this.set('job.step', 'S');
     assert.equal(this.$('dd.step').length, 1);
     assert.equal(this.$('dd.step').text().trim(), 'Staging In');
+  });
+});
+
+test('it shows vm and cpu hours', function(assert) {
+  let job = Ember.Object.create({
+    getLiveUsage: () => Ember.RSVP.resolve({
+      vmHours: 1.21,
+      cpuHours: 4.84,
+    }),
+  });
+  this.set('job', job);
+  Ember.run(() => {
+    this.render(hbs`{{job-state job}}`);
+  });
+  Ember.run(() => {
+    assert.equal(this.$('.running-hours').text(), '1.2');
+    assert.equal(this.$('.cpu-hours').text(), '4.8');
   });
 });

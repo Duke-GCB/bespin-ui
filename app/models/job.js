@@ -73,6 +73,10 @@ export default DS.Model.extend({
     let adapter = this.store.adapterFor(this.constructor.modelName);
     return adapter.restart(this.get('id')).then(this.updateAfterAction.bind(this));
   },
+  getLiveUsage() {
+    let adapter = this.store.adapterFor(this.constructor.modelName);
+    return adapter.getLiveUsage(this.get('id'));
+  },
   authorize(token) {
     let adapter = this.store.adapterFor(this.constructor.modelName);
     // authorize endpoint I/O assumes a job-tokens structure

@@ -22,6 +22,15 @@ export default ApplicationAdapter.extend({
   },
   urlForJobControlAction(id, action) {
     return `${this.buildURL('job', id)}${action}/`;
+  },
+  getLiveUsage(id) {
+    const url = `${this.buildURL('job', id)}live_usage/`;
+    return this.ajax(url, 'POST').then(response => {
+      const jobUsage = response['job-usage'];
+      return {
+        cpuHours: jobUsage['cpu_hours'],
+        vmHours: jobUsage['vm_hours']
+      }
+    })
   }
-
 });

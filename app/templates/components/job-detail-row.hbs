@@ -6,7 +6,7 @@
 </td>
 <td class="job-detail-cell-status">{{decode-job-state job.state}}</td>
 <td class="job-detail-cell-updated">{{moment-from job.lastUpdated}}</td>
-<td class="job-detail-cell-elapsed-time">{{elapsedTime}}</td>
+<td class="job-detail-cell-elapsed-time">{{format-hours elapsedTime suffix=" hours"}}</td>
 <td class="job-detail-cell-readme">{{#if job.isFinished}}{{#link-to "jobs.readme" job.outputProject}}README{{/link-to}}{{/if}}</td>
 <td class="job-detail-cell-delete">{{#if job.isDeletable}}
   {{modal-confirmation
