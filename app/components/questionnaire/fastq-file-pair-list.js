@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import FileGroupList from 'bespin-ui/components/questionnaire/file-group-list';
 import { FASTQFileItemList } from 'bespin-ui/utils/fastq-file-item-list';
-import { assert } from '@ember/debug';
 
 const FASTQFilePairList = FileGroupList.extend({
   groupSize: 2,
@@ -49,12 +48,7 @@ const FASTQFilePairList = FileGroupList.extend({
     }
     // Call this._super AFTER setting fileItems. Otherwise the base class sets it
     return this._super(...arguments);
-  },
-  didReceiveAttrs() {
-    this._super(...arguments);
-    assert('Answerable component requires fieldName property', this.get('fieldName'));
-    assert('Answerable component requires answerChanged function property', typeof this.get('answerChanged') == 'function');
-  },
+  }
 });
 
 export default FASTQFilePairList;
