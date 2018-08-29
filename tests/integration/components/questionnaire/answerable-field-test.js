@@ -5,7 +5,8 @@ moduleForComponent('questionnaire/answerable-field', 'Integration | Component | 
   integration: true
 });
 
-test('it renders nothing', function(assert) {
-  this.render(hbs`{{questionnaire/answerable-field}}`);
+test('it renders nothing but requires two positional parameters', function(assert) {
+  this.set('externalAction', () => {});
+  this.render(hbs`{{questionnaire/answerable-field "someFieldname" (action externalAction)}}`);
   assert.equal(this.$().text().trim(), '');
 });

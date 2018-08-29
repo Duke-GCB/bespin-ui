@@ -22,6 +22,7 @@ test('it sets notIntegerText error for non-integer decimal values', function(ass
   // Creates the component instance
   this.subject({
     fieldName: 'somefield',
+    answerChanged: ()=>{},
     answerValue: '1.1',
     answerFormErrors: mockErrors
   });
@@ -42,6 +43,7 @@ test('it sets invalidErrorText error for alpha values', function(assert) {
   // Creates the component instance
   this.subject({
     fieldName: 'somefield',
+    answerChanged: ()=>{},
     answerValue: 'abc',
     answerFormErrors: mockErrors
   });
@@ -61,6 +63,7 @@ test('it clears form error for integer values', function(assert) {
   // Creates the component instance
   this.subject({
     fieldName: 'somefield',
+    answerChanged: ()=>{},
     answerValue: '1',
     answerFormErrors: mockErrors
   });

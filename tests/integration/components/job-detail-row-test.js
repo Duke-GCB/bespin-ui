@@ -2,7 +2,10 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
 moduleForComponent('job-detail-row', 'Integration | Component | job detail row', {
-  integration: true
+  integration: true,
+  setup() {
+    this.container.lookup('router:main').setupRouter();
+  }
 });
 
 test('it renders', function(assert) {
@@ -23,9 +26,10 @@ test('it renders', function(assert) {
 });
 
 test('it renders readme link for finished jobs', function(assert) {
-  this.set('job', {isFinished: true});
+  this.set('job', {id: 123, isFinished: true});
   this.render(hbs`{{job-detail-row job}}`);
   assert.equal(this.$('.job-detail-cell-readme a').text().trim(), 'README', 'Should show readme link for finished job');
+  assert.equal(this.$('.job-detail-cell-readme a').attr('href'), '/jobs/123/readme');
 });
 
 test('it hides readme link for finished jobs', function(assert) {
