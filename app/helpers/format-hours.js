@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export function formatHours(hours, settings) {
   var result = '';
-  const numHours = Number.parseFloat(hours);
+  const numHours = parseFloat(hours);
   if (!isNaN(numHours) && numHours) {
     const hoursStr = numHours.toFixed(settings.digits || 1);
     if (hoursStr) {
