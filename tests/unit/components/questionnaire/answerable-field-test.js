@@ -19,6 +19,7 @@ test('it records error with empty value', function(assert) {
 
   this.subject({
     fieldName: 'field1',
+    answerChanged: ()=>{},
     answerValue: '',
     answerFormErrors: mockErrors
   });
@@ -37,6 +38,7 @@ test('it records no error when everything good', function(assert) {
 
   this.subject({
     fieldName: 'field2',
+    answerChanged: ()=>{},
     answerValue: 'Something',
     answerFormErrors: mockErrors
   });
@@ -44,24 +46,29 @@ test('it records no error when everything good', function(assert) {
 
 test('it computes an answer object from the fieldName and value', function(assert) {
   const fieldName = 'field3';
-  const field = this.subject();
-  assert.notOk(field.get('answer').get(fieldName));
-  field.set('fieldName',fieldName);
+  const field = this.subject({fieldName: fieldName, answerChanged: ()=>{}});
   assert.notOk(field.get('answer').get(fieldName));
   field.set('answerValue','value123');
   assert.equal(field.get('answer').get('field3'), 'value123');
 });
 
-test('it computes displayFieldName', function(assert) {
+test('it computes displayLabel using fieldName with capitalization', function(assert) {
   const fieldName = 'field';
-  const field = this.subject({fieldName: fieldName});
-  assert.equal(field.get('displayFieldName'), 'Field'); // simple capitalization
+  const field = this.subject({fieldName: fieldName, answerChanged: ()=>{}});
+  assert.equal(field.get('displayLabel'), 'Field'); // simple capitalization
+});
+
+test('it computes displayLabel using fieldLabel with no changes', function(assert) {
+  const fieldName = 'field name';
+  const fieldLabel = 'field label';
+  const field = this.subject({fieldName: fieldName, fieldLabel: fieldLabel, answerChanged: ()=>{}});
+  assert.equal(field.get('displayLabel'), 'field label');
 });
 
 test('it computes answer', function(assert) {
   const fieldName = 'field_A';
   const answerValue = 'answer value 123';
-  const field = this.subject({fieldName: fieldName, answerValue: answerValue});
+  const field = this.subject({fieldName: fieldName, answerValue: answerValue, answerChanged: ()=>{}});
   assert.deepEqual(field.get('answer'), Ember.Object.create({field_A: 'answer value 123'}));
 });
 
@@ -73,7 +80,20 @@ test('it filters fieldErrors for errors that match the field of this component',
     ],
     setError() {}
   });
-  const field = this.subject({fieldName: 'thisField', answerFormErrors: mockAnswerFormErrors});
+  const field = this.subject({fieldName: 'thisField', answerFormErrors: mockAnswerFormErrors, answerChanged: ()=>{}});
   const errors = field.get('fieldErrors');
   assert.deepEqual(errors, [{field: 'thisField', error: 'invalid'}]);
+});
+
+test('it requires fieldName and answerChanged', function(assert) {
+  assert.throws(() => {
+    this.subject({});
+  });
+  assert.throws(() => {
+    this.subject({fieldName: "SomeField"});
+  });
+  assert.throws(() => {
+    this.subject({answerChanged: ()=>{}});
+  });
+  this.subject({fieldName: "SomeField", answerChanged: ()=>{}});
 });

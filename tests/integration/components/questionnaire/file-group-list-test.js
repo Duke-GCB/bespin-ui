@@ -16,24 +16,27 @@ moduleForComponent('questionnaire/file-group-list', 'Integration | Component | q
 });
 
 test('it renders', function(assert) {
-  this.render(hbs`{{questionnaire/file-group-list}}`);
+  this.set('externalAction', () => {});
+  this.render(hbs`{{questionnaire/file-group-list "SomeField" (action externalAction) }}`);
   assert.equal(this.$('.file-group-list-picker label').text().trim(), 'Pick your file pairs from Duke Data Service');
   assert.equal(this.$('.file-group-list-selections label').text().trim(), 'Selected file pairs');
 });
 
 test('it renders with GroupName', function(assert) {
+  this.set('externalAction', () => {});
   this.set('mysettings', Ember.Object.create({groupName: 'sample'}));
-  this.render(hbs`{{questionnaire/file-group-list formatSettings=mysettings}}`);
+  this.render(hbs`{{questionnaire/file-group-list "SomeField" (action externalAction) formatSettings=mysettings}}`);
   assert.equal(this.$('.file-group-list-picker label').text().trim(), 'Pick your sample pairs from Duke Data Service');
   assert.equal(this.$('.file-group-list-selections label').text().trim(), 'Selected sample pairs');
 });
 
 test('it toggles empty selection', function(assert) {
+  this.set('externalAction', () => {});
   Ember.run(() => {
     this.set('fileItems', Ember.Object.create({
       fileItemGroups: []
     }));
-    this.render(hbs`{{questionnaire/file-group-list fileItems=fileItems}}`);
+    this.render(hbs`{{questionnaire/file-group-list "SomeField" (action externalAction) fileItems=fileItems}}`);
 
     assert.equal(this.$('.empty-selection').length, 1, 'with no groups, should show the empty-selection component');
     this.set('fileItems.fileItemGroups', [
@@ -41,7 +44,7 @@ test('it toggles empty selection', function(assert) {
         {ddsFile: 'foo'},
       ]
     ]);
-    this.render(hbs`{{questionnaire/file-group-list fileItems=fileItems}}`);
+    this.render(hbs`{{questionnaire/file-group-list "SomeField" (action externalAction) fileItems=fileItems}}`);
     assert.equal(this.$('.empty-selection').length, 0, 'with groups, should hide the empty-selection component');
   });
 });

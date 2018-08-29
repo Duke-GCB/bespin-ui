@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { FileItemList, FileItem } from 'bespin-ui/utils/file-item-list';
 import DDSProjectField from './dds-project-field';
+import { assert } from '@ember/debug';
 
 const DEFAULT_GROUP_SIZE = 2;
 
@@ -57,7 +58,12 @@ const FileGroupList = DDSProjectField.extend({
     if(Ember.isEmpty(this.get('fileItems'))) {
       this.set('fileItems', FileItemList.create());
     }
-  }
+  },
+  didReceiveAttrs() {
+    this._super(...arguments);
+    assert('Answerable component requires fieldName property', this.get('fieldName'));
+    assert('Answerable component requires answerChanged function property', typeof this.get('answerChanged') == 'function');
+  },
 });
 
 FileGroupList.reopenClass({
