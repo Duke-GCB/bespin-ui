@@ -15,3 +15,14 @@ test('it computes modalConfirmationBody from job name', function(assert) {
   const jobDetailRow = this.subject({job: {name: 'Wind up'}});
   assert.equal(jobDetailRow.get('modalConfirmationBody'), "Your Bespin job 'Wind up' will be deleted permanently. This action cannot be undone.");
 });
+
+test('it computes elapsedTime from job usage vm_hours', function(assert) {
+  const jobDetailRow = this.subject({
+    job: {
+      usage: {
+        vm_hours: '12.3'
+      }
+    }
+  });
+  assert.equal(jobDetailRow.get('elapsedTime'), "12.3");
+});

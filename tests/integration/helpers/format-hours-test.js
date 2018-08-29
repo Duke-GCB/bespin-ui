@@ -12,6 +12,12 @@ test('it formats a float to 1 decimal point by default', function(assert) {
   assert.equal(this.$().text(), '1.2');
 });
 
+test('it rounds up value', function(assert) {
+  this.set('inputValue', 1.55);
+  this.render(hbs`{{format-hours inputValue}}`);
+  assert.equal(this.$().text(), '1.6');
+});
+
 test('it formats a float based on digits after decimal point', function(assert) {
   this.set('inputValue', 1.2312312);
   this.render(hbs`{{format-hours inputValue digits=2}}`);

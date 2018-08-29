@@ -1,4 +1,5 @@
 import { moduleFor, test } from 'ember-qunit';
+import Ember from 'ember';
 
 moduleFor('adapter:job', 'Unit | Adapter | job', {
   needs: ['service:session'],
@@ -44,4 +45,25 @@ test('it POSTS the authorize action with token', function(assert) {
     assert.deepEqual(params, {'data': 'auth-token'});
   });
   adapter.authorizeJob(843, 'auth-token');
+});
+
+test('it POSTS live_usage for getLiveUsage', function(assert) {
+  assert.expect(4);
+  let adapter = this.subject();
+  adapter.set('ajax', (url, method) => {
+    assert.equal(url, '/jobs/567/live_usage/');
+    assert.equal(method, 'POST');
+    return Ember.RSVP.resolve({
+      'job-usage': {
+        'cpu_hours': 1.21,
+        'vm_hours': 4.84
+      }
+    });
+  });
+  const response = adapter.getLiveUsage(567);
+  //assert.equal(response, 'stuff');
+  response.then(resp => {
+    assert.equal(resp.cpuHours, '1.21');
+    assert.equal(resp.vmHours, '4.84');
+  });
 });

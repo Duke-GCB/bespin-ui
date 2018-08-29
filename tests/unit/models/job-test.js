@@ -197,3 +197,22 @@ test('it computes isDeletable', function(assert) {
     });
   });
 });
+
+test('it contains getLiveUsage', function(assert) {
+  assert.expect(3);
+  const usage = {
+    cpuHours: 1.0,
+    vmHours: 4.0,
+  };
+  const job = this.subject({id: 123});
+  this.store().set('adapterFor', (modelName) => {
+    assert.equal(modelName, 'job');
+    return {
+      getLiveUsage(jobId) {
+        assert.equal(jobId, 123);
+        return usage;
+      }
+    }
+  });
+  assert.equal(job.getLiveUsage(), usage);
+});

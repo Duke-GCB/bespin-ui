@@ -48,3 +48,17 @@ test('it renders a modal confirmation button for deletable jobs', function(asser
   assert.equal(this.$('.job-detail-cell-delete button.modal-confirmation-open').length, 1);
 
 });
+
+test('it shows updated formatted by moment', function(assert) {
+  const date = Date.now();
+  this.set('job', {lastUpdated: date});
+  this.render(hbs`{{job-detail-row job}}`);
+  assert.equal(this.$('.job-detail-cell-updated').text(), 'a few seconds ago',
+    'lastUpdated should be formatted by moment to a human');
+});
+
+test('it shows elapsedTime with hours suffix', function(assert) {
+  this.set('job', {usage: {vm_hours: 12.123}});
+  this.render(hbs`{{job-detail-row job}}`);
+  assert.equal(this.$('.job-detail-cell-elapsed-time').html(), '12.1 hours', 'vm hours shown for elapsed time');
+});
