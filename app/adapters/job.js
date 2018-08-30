@@ -24,7 +24,7 @@ export default ApplicationAdapter.extend({
     return `${this.buildURL('job', id)}${action}/`;
   },
   getLiveUsage(id) {
-    const url = `${this.buildURL('job', id)}live_usage/`;
+    const url = `${this.buildURL('job', id)}live-usage/`;
     return this.ajax(url, 'POST').then(response => {
       const jobUsage = response['job-usage'];
       return {

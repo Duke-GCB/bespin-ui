@@ -47,11 +47,11 @@ test('it POSTS the authorize action with token', function(assert) {
   adapter.authorizeJob(843, 'auth-token');
 });
 
-test('it POSTS live_usage for getLiveUsage', function(assert) {
+test('it POSTS live-usage for getLiveUsage', function(assert) {
   assert.expect(4);
   let adapter = this.subject();
   adapter.set('ajax', (url, method) => {
-    assert.equal(url, '/jobs/567/live_usage/');
+    assert.equal(url, '/jobs/567/live-usage/');
     assert.equal(method, 'POST');
     return Ember.RSVP.resolve({
       'job-usage': {
