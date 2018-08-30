@@ -61,7 +61,6 @@ test('it POSTS live_usage for getLiveUsage', function(assert) {
     });
   });
   const response = adapter.getLiveUsage(567);
-  //assert.equal(response, 'stuff');
   response.then(resp => {
     assert.equal(resp.cpuHours, '1.21');
     assert.equal(resp.vmHours, '4.84');
