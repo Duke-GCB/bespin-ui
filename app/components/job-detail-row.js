@@ -13,7 +13,8 @@ const JobDetailRow = Ember.Component.extend({
   }),
   modalConfirmationBody: Ember.computed('job.name', function() {
     return `Your Bespin job '${this.get('job.name')}' will be deleted permanently. This action cannot be undone.`
-  })
+  }),
+  elapsedTime: Ember.computed.alias('job.usage.vmHours')
 });
 
 JobDetailRow.reopenClass({

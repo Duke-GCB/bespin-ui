@@ -2,3 +2,5 @@
 {{#if job.runToken}}<dt>Authorization Code</dt><dd class="run_token">{{job.runToken}}</dd>{{/if}}
 <dt>State</dt><dd class="state">{{decode-job-state job.state}}</dd>
 {{#if job.step}}<dt>Step</dt><dd class="step">{{decode-job-step job.step}}</dd>{{/if}}
+<dt>Running hours</dt><dd class="running-hours">{{format-hours liveVmHours}}</dd>
+<dt>CPU hours</dt><dd class="cpu-hours">{{format-hours liveCpuHours}}</dd>

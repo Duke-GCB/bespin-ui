@@ -54,6 +54,7 @@ export default DS.Model.extend({
   lastJobError: Ember.computed('jobErrors.[]', function() {
     return this.get('jobErrors').sortBy('created').get('lastObject');
   }),
+  usage: DS.attr('job-usage'),
   updateAfterAction(data) {
     // The action methods respond with an updated job, so we must update the local store
     // with that payload. Remember, pushPayload doesn't return.
@@ -71,6 +72,10 @@ export default DS.Model.extend({
   restart() {
     let adapter = this.store.adapterFor(this.constructor.modelName);
     return adapter.restart(this.get('id')).then(this.updateAfterAction.bind(this));
+  },
+  getLiveUsage() {
+    let adapter = this.store.adapterFor(this.constructor.modelName);
+    return adapter.getLiveUsage(this.get('id'));
   },
   authorize(token) {
     let adapter = this.store.adapterFor(this.constructor.modelName);

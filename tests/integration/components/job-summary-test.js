@@ -12,7 +12,8 @@ moduleForComponent('job-summary', 'Integration | Component | job summary', {
 
 test('it renders summary heading', function(assert) {
   const job = Ember.Object.create({
-    name: 'Test Job'
+    name: 'Test Job',
+    getLiveUsage: () => Ember.RSVP.resolve({})
   });
   this.set('job', job);
   this.render(hbs`{{job-summary job}}`);

@@ -9,6 +9,7 @@ moduleForModel('job', 'Unit | Serializer | job', {
     'model:job-error',
     'model:job-file-stage-group',
     'model:share-group',
+    'transform:job-usage',
   ]
 });
 

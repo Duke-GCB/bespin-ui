@@ -19,7 +19,7 @@ test('it renders', function(assert) {
   this.render(hbs`{{jobs/workflow-version-card workflowVersion=workflowVersion onPicked=(action onPicked)}}`);
 
   assert.equal(this.$('.jobs-workflow-version-card-title').text().trim(), 'Exome Seq');
-  assert.equal(this.$('.jobs-workflow-version-card-version').text().trim(), 'v1');
+  assert.equal(this.$('.workflow-version-link-text').text().trim(), 'v1');
   assert.equal(this.$('input[name=selectedItem]').attr('type'), 'radio');
   this.$('input[name=selectedItem]').click();
 
