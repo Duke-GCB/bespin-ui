@@ -6,7 +6,7 @@ const JobState = Ember.Component.extend({
   job: null,
   liveCpuHours: null,
   liveVmHours: null,
-  fetchLiveUsage: Ember.on('init', Ember.observer('job', function() {
+  fetchLiveUsage: Ember.on('init', Ember.observer('job.lastUpdated', function() {
     const job = this.get('job');
     if (job) {
       job.getLiveUsage().then((liveUsage) => {

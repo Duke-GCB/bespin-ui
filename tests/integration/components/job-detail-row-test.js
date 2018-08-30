@@ -58,7 +58,7 @@ test('it shows updated formatted by moment', function(assert) {
 });
 
 test('it shows elapsedTime with hours suffix', function(assert) {
-  this.set('job', {usage: {vm_hours: 12.123}});
+  this.set('job', {usage: {vmHours: 12.123}});
   this.render(hbs`{{job-detail-row job}}`);
   assert.equal(this.$('.job-detail-cell-elapsed-time').html(), '12.1 hours', 'vm hours shown for elapsed time');
 });

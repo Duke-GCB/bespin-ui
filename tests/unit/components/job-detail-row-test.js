@@ -20,7 +20,7 @@ test('it computes elapsedTime from job usage vm_hours', function(assert) {
   const jobDetailRow = this.subject({
     job: {
       usage: {
-        vm_hours: '12.3'
+        vmHours: '12.3'
       }
     }
   });
