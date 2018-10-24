@@ -2,7 +2,7 @@
 
 An [ember.js](http://emberjs.com/) application frontend for [bespin-api](https://github.com/Duke-GCB/bespin-api).
 
-[![Build Status](https://travis-ci.org/Duke-GCB/bespin-ui.svg?branch=master)](https://travis-ci.org/Duke-GCB/bespin-ui)
+[![CircleCI](https://circleci.com/gh/Duke-GCB/bespin-ui.svg?style=svg)](https://circleci.com/gh/Duke-GCB/bespin-ui)
 
 ## Prerequisites
 
