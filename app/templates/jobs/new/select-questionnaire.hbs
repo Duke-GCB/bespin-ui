@@ -1,7 +1,13 @@
-{{item-chooser model
-               (action 'next')
-               (action 'back')
-               title="Please select the variety of workflow you'd like to run"
-               label="Variety"
-               detailComponent=(component 'workflow-flavor-detail-row')}}
+{{#if model.length}}
+  {{item-chooser model
+                 (action 'next')
+                 (action 'back')
+                 title="Please select the variety of workflow you'd like to run"
+                 label="Variety"
+                 detailComponent=(component 'workflow-flavor-detail-row')}}
+{{else}}
+  {{workflow-not-setup}}
+  {{#bs-button type="default" onClick=(action 'back') class="back-button"}}Back{{/bs-button}}
+{{/if}}
+
 {{outlet}}
