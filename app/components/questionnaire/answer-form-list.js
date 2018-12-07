@@ -9,37 +9,33 @@ const AnswerFormList = Ember.Component.extend({
     const userFields = this.get('answerSet.questionnaire.userFieldsJson') || [];
     const fieldsToComponents = userFields.map(field => {
       let componentSettings = this.componentSettingsForCwlType(field.type);
-      let formatSettings = this.formatSettingsForComponentAndFormat(componentSettings, field.format);
-      return Ember.Object.create({
-        name: field.name,
-        label: field.label,
-        componentName: `questionnaire/${componentSettings.name}`,
-        formatSettings: formatSettings,
-      });
+      if(Ember.isEmpty(componentSettings)) {
+        return null;
+      } else {
+        let formatSettings = this.formatSettingsForComponentAndFormat(componentSettings, field.format);
+        return Ember.Object.create({
+          name: field.name,
+          label: field.label,
+          componentName: `questionnaire/${componentSettings.name}`,
+          formatSettings: formatSettings,
+        });
+      }
     });
     // Strip out any fields for which we don't have a component
     return fieldsToComponents.compact();
   }),
   /**
    * Look up the component name to use to render a form field for the given CWL type
-   * If not found will return unknown-field settings
+   * May return null
    * @param type
    * @returns {*}
    */
   componentSettingsForCwlType: function(cwlType) {
-    const settings = ComponentSettings.find(each => {
+    return ComponentSettings.find(each => {
       // Ember does not have a comparison function for objects, so instead we'll compare their JSON representations
       // This should be fine for small types
       return JSON.stringify(each.cwlType) === JSON.stringify((cwlType));
     });
-    if(!settings) {
-      return {
-        cwlType: cwlType,
-        name: 'unknown-field',  // questionnaire component to render
-        formats: [], // No file formats for a string
-      };
-    }
-    return settings;
   },
 
   /**

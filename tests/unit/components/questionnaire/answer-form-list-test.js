@@ -26,19 +26,13 @@ test('it computes fields property', function (assert) {
   let answerSet = Ember.Object.create({questionnaire: questionnaire});
   let component = this.subject({answerSet: answerSet});
   let fields = component.get('fields');
-  let expectedField1 = Ember.Object.create({
+  let expectedField = Ember.Object.create({
     name: 'fieldName1',
     label: 'label1',
     componentName: 'questionnaire/file-group-list',
     formatSettings: undefined,
   });
-  let expectedField2 = Ember.Object.create({
-    name: 'fieldName2',
-    label: 'label2',
-    componentName: 'questionnaire/unknown-field',
-    formatSettings: undefined,
-  });
-  assert.deepEqual(fields, [expectedField1, expectedField2]);
+  assert.deepEqual(fields, [expectedField]);
 });
 
 test('it computes fields componentSettings', function (assert) {
@@ -51,7 +45,7 @@ test('it computes fields componentSettings', function (assert) {
   let answerSet = Ember.Object.create({questionnaire: questionnaire});
   let component = this.subject({answerSet: answerSet});
   let fields = component.get('fields');
-  let expectedField1 = Ember.Object.create({
+  let expectedField = Ember.Object.create({
     name: 'fieldName1',
     label: 'label1',
     componentName: 'questionnaire/file-group-list',
@@ -61,12 +55,7 @@ test('it computes fields componentSettings', function (assert) {
       groupName: 'File Group'
     },
   });
-  let expectedField2 = Ember.Object.create({
-    name: 'fieldName2',
-    label: 'label2',
-    componentName: 'questionnaire/unknown-field',
-  });
-  assert.equal(JSON.stringify(fields), JSON.stringify([expectedField1, expectedField2]));
+  assert.equal(JSON.stringify(fields), JSON.stringify([expectedField]));
 });
 
 test('it calculates componentNameForType', function (assert) {
@@ -76,17 +65,10 @@ test('it calculates componentNameForType', function (assert) {
   assert.equal(componentSettings.name, 'file-group-list');
 });
 
-test('it returns unknown-field component name for unknown types', function (assert) {
+test('it returns no component name for unknown types', function (assert) {
   let component = this.subject();
   let componentSettings = component.componentSettingsForCwlType({type: 'string'});
-  assert.deepEqual(componentSettings,
-    {
-      "cwlType": {
-        "type": "string"
-      },
-      "formats": [],
-      "name": "unknown-field"
-    });
+  assert.notOk(componentSettings);
 });
 
 test('it calculates formatSettingsForComponentAndFormat', function (assert) {
