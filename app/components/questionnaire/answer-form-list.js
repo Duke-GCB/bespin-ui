@@ -36,7 +36,7 @@ const AnswerFormList = Ember.Component.extend({
       return {
         cwlType: cwlType,
         name: 'unknown-field',  // questionnaire component to render
-        formats: [], // No file formats for a string
+        formats: [], // No file formats for an unknown field
       };
     }
     return settings;
