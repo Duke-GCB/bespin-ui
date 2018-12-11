@@ -10,4 +10,5 @@ export default DS.Model.extend({
   jobs: DS.hasMany('job'),
   questionnaires: DS.hasMany('job-questionnaire'),
   methodsDocument: DS.belongsTo('workflow-methods-document'),
+  enableUi: DS.attr('boolean')
 });

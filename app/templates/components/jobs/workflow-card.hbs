@@ -1,4 +1,4 @@
-{{#jobs/workflow-version-card workflowVersion=workflow.latestVersion onPicked=(action "pick")}}
+{{#jobs/workflow-version-card workflowVersion=workflow.latestEnabledVersion onPicked=(action "pick")}}
     <div class="small pull-right">
       {{#link-to "jobs.new.select-workflow-version" workflow class="jobs-workflow-card-browse-versions"}}
           Browse All Versions

@@ -15,7 +15,7 @@ test('it exists', function(assert) {
 
 testRelationship('workflow', {key: 'versions', kind: 'hasMany', type: 'workflow-version'});
 
-test('it computes latest version', function(assert) {
+test('it computes latest enabled version', function(assert) {
   let workflow = this.subject();
   Ember.run(() => {
     this.store().createRecord('workflow-version', {
@@ -23,7 +23,7 @@ test('it computes latest version', function(assert) {
       workflow:workflow
     });
   });
-  assert.equal(workflow.get('latestVersion').get('version'), 1);
+  assert.equal(workflow.get('latestEnabledVersion').get('version'), 1);
   assert.equal(workflow.get('versions').get('length'), 1);
   Ember.run(() => {
     this.store().createRecord('workflow-version', {
@@ -31,6 +31,6 @@ test('it computes latest version', function(assert) {
       workflow:workflow
     });
   });
-  assert.equal(workflow.get('latestVersion').get('version'), 2);
+  assert.equal(workflow.get('latestEnabledVersion').get('version'), 2);
   assert.equal(workflow.get('versions').get('length'), 2);
 });

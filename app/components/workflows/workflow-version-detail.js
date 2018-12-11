@@ -14,10 +14,10 @@ export default Ember.Component.extend({
         return `${descriptionHeader}\n${description}`;
       }
   }),
-  isCurrentVersion: Ember.computed('workflowVersion.id', 'workflowVersion.workflow.latestVersion.id', function() {
-    const latestVersionId = this.get('workflowVersion.workflow.latestVersion.id');
+  isCurrentVersion: Ember.computed('workflowVersion.id', 'workflowVersion.workflow.latestEnabledVersion.id', function() {
+    const latestEnabledVersionId = this.get('workflowVersion.workflow.latestEnabledVersion.id');
     const thisVersionId = this.get('workflowVersion.id');
-    return latestVersionId == thisVersionId;
+    return latestEnabledVersionId == thisVersionId;
   }),
   title: Ember.computed('workflowVersion.workflow.name', 'workflowVersion.version', 'isCurrentVersion',
     'workflowVersion.created', function() {
