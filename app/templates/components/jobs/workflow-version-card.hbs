@@ -6,12 +6,18 @@
       {{workflow-version-link workflowVersion=workflowVersion class="pull-right"}}
     </div>
     <div class="panel-body">
-        <div class="radio">
+        {{#if workflowVersion.enableUi}}
+          <div class="radio">
             <label class="item-content">
               {{picker-radio-button id=(concat elementId '-radio') value=workflowVersion name='selectedItem' onChange=(action "pick")}}
               {{workflowVersion.description}}
             </label>
-        </div>
+          </div>
+        {{else}}
+          <div class="workflow-version-card-cli-help">
+            This workflow can only be run via <a href="https://github.com/Duke-GCB/bespin-cli">bespin-cli</a>.
+          </div>
+        {{/if}}
         {{yield}}
     </div>
 {{/card-panel}}
