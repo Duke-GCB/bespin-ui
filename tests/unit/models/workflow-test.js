@@ -20,17 +20,32 @@ test('it computes latest enabled version', function(assert) {
   Ember.run(() => {
     this.store().createRecord('workflow-version', {
       version: 1,
-      workflow:workflow
+      workflow:workflow,
+      enableUi: true,
     });
   });
   assert.equal(workflow.get('latestEnabledVersion').get('version'), 1);
   assert.equal(workflow.get('versions').get('length'), 1);
+
+  // create a second version that is also enabled for the UI
   Ember.run(() => {
     this.store().createRecord('workflow-version', {
       version: 2,
-      workflow:workflow
+      workflow:workflow,
+      enableUi: true,
     });
   });
   assert.equal(workflow.get('latestEnabledVersion').get('version'), 2);
   assert.equal(workflow.get('versions').get('length'), 2);
+
+  // create a third version that is NOT enabled for the UI
+  Ember.run(() => {
+    this.store().createRecord('workflow-version', {
+      version: 3,
+      workflow:workflow,
+      enableUi: false,
+    });
+  });
+  assert.equal(workflow.get('latestEnabledVersion').get('version'), 2);
+  assert.equal(workflow.get('versions').get('length'), 3);
 });
