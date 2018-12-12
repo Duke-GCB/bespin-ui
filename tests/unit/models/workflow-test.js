@@ -15,7 +15,7 @@ test('it exists', function(assert) {
 
 testRelationship('workflow', {key: 'versions', kind: 'hasMany', type: 'workflow-version'});
 
-test('it computes latest enabled version', function(assert) {
+test('it computes latest version', function(assert) {
   let workflow = this.subject();
   Ember.run(() => {
     this.store().createRecord('workflow-version', {
@@ -24,7 +24,7 @@ test('it computes latest enabled version', function(assert) {
       enableUi: true,
     });
   });
-  assert.equal(workflow.get('latestEnabledVersion').get('version'), 1);
+  assert.equal(workflow.get('latestVersion').get('version'), 1);
   assert.equal(workflow.get('versions').get('length'), 1);
 
   // create a second version that is also enabled for the UI
@@ -35,17 +35,6 @@ test('it computes latest enabled version', function(assert) {
       enableUi: true,
     });
   });
-  assert.equal(workflow.get('latestEnabledVersion').get('version'), 2);
+  assert.equal(workflow.get('latestVersion').get('version'), 2);
   assert.equal(workflow.get('versions').get('length'), 2);
-
-  // create a third version that is NOT enabled for the UI
-  Ember.run(() => {
-    this.store().createRecord('workflow-version', {
-      version: 3,
-      workflow:workflow,
-      enableUi: false,
-    });
-  });
-  assert.equal(workflow.get('latestEnabledVersion').get('version'), 2);
-  assert.equal(workflow.get('versions').get('length'), 3);
 });

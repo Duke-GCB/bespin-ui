@@ -19,7 +19,7 @@ test('it renders', function(assert) {
     },
     workflow: {
       name: "WorkflowTitle",
-      latestEnabledVersion: {
+      latestVersion: {
         id: '123'
       }
     }

@@ -6,17 +6,18 @@
       {{workflow-version-link workflowVersion=workflowVersion class="pull-right"}}
     </div>
     <div class="panel-body">
-        {{#if workflowVersion.enableUi}}
-          <div class="radio">
-            <label class="item-content">
-              {{picker-radio-button id=(concat elementId '-radio') value=workflowVersion name='selectedItem' onChange=(action "pick")}}
-              {{workflowVersion.description}}
-            </label>
-          </div>
-        {{else}}
-          <div class="workflow-version-card-cli-help">
-            This workflow can only be run via <a href="https://github.com/Duke-GCB/bespin-cli">bespin-cli</a>.
-          </div>
+        <div class="radio">
+          <label class="item-content">
+            {{picker-radio-button id=(concat elementId '-radio') value=workflowVersion
+                                  disabled=workflowVersion.disableUi name='selectedItem' onChange=(action "pick")}}
+            {{workflowVersion.description}}
+          </label>
+        </div>
+        {{#if workflowVersion.disableUi}}
+          {{#bs-alert dismissible=false type="info" class="workflow-version-card-disabled-message"}}
+            This workflow version cannot be run from here, but can be run via
+            <a href="https://github.com/Duke-GCB/bespin-cli">bespin-cli</a>.
+          {{/bs-alert}}
         {{/if}}
         {{yield}}
     </div>

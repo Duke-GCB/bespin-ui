@@ -1,4 +1,5 @@
 import DS from 'ember-data';
+import Ember from 'ember';
 
 export default DS.Model.extend({
   workflow: DS.belongsTo('workflow'),
@@ -10,5 +11,6 @@ export default DS.Model.extend({
   jobs: DS.hasMany('job'),
   questionnaires: DS.hasMany('job-questionnaire'),
   methodsDocument: DS.belongsTo('workflow-methods-document'),
-  enableUi: DS.attr('boolean')
+  enableUi: DS.attr('boolean'),
+  disableUi: Ember.computed.not('enableUi')
 });
