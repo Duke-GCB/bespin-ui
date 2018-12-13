@@ -14,7 +14,7 @@
           </label>
         </div>
         {{#if workflowVersion.disableUi}}
-          {{#bs-alert dismissible=false type="info" class="workflow-version-card-disabled-message"}}
+          {{#bs-alert dismissible=false type="warning" class="workflow-version-card-disabled-message"}}
             This workflow version cannot be run from here, but can be run via
             <a href="https://github.com/Duke-GCB/bespin-cli">bespin-cli</a>.
           {{/bs-alert}}
