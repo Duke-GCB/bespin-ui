@@ -33,11 +33,11 @@ You will need the following things properly installed on your computer.
 ### Manual Builds
 
 * `ember build` (Local Development)
-* `JOB_WATCHER_URL="wss://bespin-ws.gcb.duke.edu" ember build --environment production` (production) (see below)
+* `JOB_WATCHER_URL="wss://bespin-ws.gcb.duke.edu" ember build --environment production` (production)
 
 ### Automated Releases
 
-The [`npm version`](https://docs.npmjs.com/cli/version) command triggers the automated release process using [Travis-CI](https://travis-ci.org/Duke-GCB/bespin-ui) and GitHub. `npm version` takes care of creating a git tag using semantic versioning. It runs the `preversion` and `postversion` scripts specified in  [`package.json`](package.json) before and after tagging the new version. These scripts ensure that releases happen from a clean and current `master` branch, passes tests, and pushes the resulting tag to GitHub. When the new tag is pushed, [Travis-CI](https://travis-ci.org/Duke-GCB/bespin-ui) builds releases for it and uploads them back to [GitHub](https://github.com/duke-gcb/bespin-ui/releases) as **Downloads**.
+The [`npm version`](https://docs.npmjs.com/cli/version) command triggers the automated release process using [Travis-CI](https://travis-ci.org/Duke-GCB/bespin-ui) and GitHub. `npm version` takes care of creating a git tag using semantic versioning. It runs the `preversion` and `postversion` scripts specified in  [`package.json`](package.json) before and after tagging the new version. These scripts ensure that releases happen from a clean and current `master` branch, passes tests, and pushes the resulting tag to GitHub.
 
 The following command is all that's needed to produce a release:
 
@@ -49,8 +49,10 @@ You can also use `major` or `minor` for different version increments, or customi
 
 ###  Deployment Details
 
-Our [bespin-web ansible role](https://github.com/Duke-GCB/gcb-ansible-roles/blob/master/bespin_web/tasks/run-server.yml#L22) creates a docker container from [bespin-webapp-docker](https://github.com/Duke-GCB/bespin-webapp-docker), with a specified release of bespin-ui.
+We use Docker and Ansible to deploy this application, as described in the [build_ember_app](https://github.com/Duke-GCB/gcb-ansible-roles/tree/master/build_ember_app) and [bespin_web](https://github.com/Duke-GCB/gcb-ansible-roles/tree/master/bespin_web) roles.
 
-For each release, [Travis-CI](https://travis-ci.org/Duke-GCB/bespin-ui) creates release builds and uploads them to the tag's GitHub release ([.travis.yml](.travis.yml)). One build, `bespin-ui-prod.tar.gz` is produced with the prod `JOB_WATCHER_URL`, and the other, `bespin-ui-dev.tar.gz` is produced with the dev `JOB_WATCHER_URL`. Both are optimized, minified [production](https://ember-cli.com/user-guide/#deployments) builds that are ready to be served. The [bespin-webapp-docker](https://github.com/Duke-GCB/bespin-webapp-docker) container serves these files with Apache.
+Production-ready archives are built on-demand as described by the [bespin.yml](https://github.com/Duke-GCB/gcb-ansible/blob/04484ed620dda86fecb37bedd476b9437d3233a7/bespin.yml#L44-L52) playbook
 
-For a different `JOB_WATCHER_URL`, create a manual build (see [build-release.sh](build-release.sh) for examples).
+The [build_ember_app](https://github.com/Duke-GCB/gcb-ansible-roles/blob/master/build_ember_app/tasks/main.yml#L26) role produces a production built Ember application in a Docker volume, which is later attached to the [web server container](https://github.com/Duke-GCB/gcb-ansible-roles/blob/master/bespin_web/tasks/run-server.yml#L21)
+
+The build configuration (release version and `JOB_WATCHER_URL`) are provided in variables to the `build_ember_app` role, allowing differing configurations for dev and prod.
