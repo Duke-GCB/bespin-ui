@@ -7,11 +7,18 @@
     </div>
     <div class="panel-body">
         <div class="radio">
-            <label class="item-content">
-              {{picker-radio-button id=(concat elementId '-radio') value=workflowVersion name='selectedItem' onChange=(action "pick")}}
-              {{workflowVersion.description}}
-            </label>
+          <label class="item-content">
+            {{picker-radio-button id=(concat elementId '-radio') value=workflowVersion
+                                  disabled=workflowVersion.disableUi name='selectedItem' onChange=(action "pick")}}
+            {{workflowVersion.description}}
+          </label>
         </div>
+        {{#if workflowVersion.disableUi}}
+          {{#bs-alert dismissible=false type="warning" class="workflow-version-card-disabled-message"}}
+            This workflow version cannot be run from here, but can be run via
+            <a href="https://github.com/Duke-GCB/bespin-cli">bespin-cli</a>.
+          {{/bs-alert}}
+        {{/if}}
         {{yield}}
     </div>
 {{/card-panel}}
