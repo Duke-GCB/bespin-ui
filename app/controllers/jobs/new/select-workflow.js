@@ -10,7 +10,7 @@ export default Ember.Controller.extend({
       this.set('workflow', workflow);
     },
     next() {
-      let workflowVersionId = this.get('workflow.latestEnabledVersion.id');
+      let workflowVersionId = this.get('workflow.latestVersion.id');
       if (workflowVersionId) {
         this.transitionToRoute('jobs.new.select-questionnaire', workflowVersionId);
       }
