@@ -29,6 +29,20 @@ const ComponentSettings = [
     ]
   },
   {
+    // Bespin CWL FASTQReadPairType - pair of arrays
+    // We support a basic version of this, providing a single file in each array
+    cwlType: { type: 'array', items: 'FASTQReadPairType'}, // Named in job-questionnaire.user_fields_json
+    name: 'fastq-read-pair-list',  // questionnaire component to render
+    formats: [
+      {
+        title: 'FASTQ Pair',
+        format: null, // The specific files should be http://edamontology.org/format_1930, but this is a structure
+        fileNameRegexStr: '.*(fq$)|(fq.gz$)|(fastq$)|(fastq.gz$)',
+        groupName: 'Sample'
+      }
+    ]
+  },
+  {
     // String field
     cwlType: 'string', // Named in job-questionnaire.user_fields_json
     name: 'string-field',  // questionnaire component to render
