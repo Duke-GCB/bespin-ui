@@ -10,7 +10,7 @@ moduleForComponent('job-detail-row', 'Integration | Component | job detail row',
 
 test('it renders', function(assert) {
   const job = {id:1,name:'job', workflowVersion: {
-    version: 23,
+    version: 'v2.3.0',
     workflow: {name:'RNA-seq'}},
     outputProject: '{"name":"results","project_id":"ab-12-cd-34"}'
   };
@@ -19,7 +19,7 @@ test('it renders', function(assert) {
 
   assert.equal(this.$('.job-detail-cell-id').text().trim(), '1');
   assert.equal(this.$('.job-detail-cell-name').text().trim(), 'job');
-  assert.equal(this.$('.job-detail-cell-workflow-name').text().trim().replace(/ /g, ''), 'RNA-seq-v23');
+  assert.equal(this.$('.job-detail-cell-workflow-name').text().trim().replace(/ /g, ''), 'RNA-seq-v2.3.0');
   assert.equal(this.$('.job-detail-cell-readme').text().trim(), '', 'Should not show readme link unless job is finished');
   // Without routing, the link-to doesn't generate a href
   assert.equal(this.$('a.job-show-link').length, 1, 'Should generate a link for the job details');
