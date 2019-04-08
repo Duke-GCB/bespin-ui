@@ -10,7 +10,7 @@ test('it renders', function(assert) {
 
   const workflowVersion = {
     workflow: {name: 'Exome Seq'},
-    version: '1',
+    version: 'v1.0.0',
     disableUi: false,
   };
   this.set('workflowVersion', workflowVersion);
@@ -20,7 +20,7 @@ test('it renders', function(assert) {
   this.render(hbs`{{jobs/workflow-version-card workflowVersion=workflowVersion onPicked=(action onPicked)}}`);
 
   assert.equal(this.$('.jobs-workflow-version-card-title').text().trim(), 'Exome Seq');
-  assert.equal(this.$('.workflow-version-link-text').text().trim(), 'v1');
+  assert.equal(this.$('.workflow-version-link-text').text().trim(), 'v1.0.0');
   assert.equal(this.$('input[name=selectedItem]').attr('type'), 'radio');
   this.$('input[name=selectedItem]').click();
 
