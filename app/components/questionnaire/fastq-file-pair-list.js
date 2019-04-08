@@ -1,8 +1,10 @@
 import Ember from 'ember';
 import FileGroupList from 'bespin-ui/components/questionnaire/file-group-list';
 import { FASTQFileItemList } from 'bespin-ui/utils/fastq-file-item-list';
+import layout from '../../templates/components/questionnaire/fastq-file-pair-list';
 
 const FASTQFilePairList = FileGroupList.extend({
+  layout, // https://github.com/emberjs/rfcs/issues/412#issuecomment-423499140
   groupSize: 2,
   answerFormErrors: null,
   fieldErrors: Ember.computed('answerFormErrors.errors.[]', 'fieldName', function() {

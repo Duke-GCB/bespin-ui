@@ -2,7 +2,6 @@ import Ember from 'ember';
 import FASTQFilePairList from './fastq-file-pair-list';
 
 export default FASTQFilePairList.extend({
-  layoutName: 'components/questionnaire/fastq-file-pair-list',
   // Just overriding the 'answer' method to return an array of files
   answer: Ember.computed('fieldName', 'fileItems.cwlObjectValue.[]', function() {
     const fieldName = this.get('fieldName');
