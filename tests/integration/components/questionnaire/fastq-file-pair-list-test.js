@@ -59,3 +59,14 @@ test('it correctly observes error array', function(assert) {
     assert.equal(this.$('.error-panel').text().trim(), 'Incomplete');
   });
 });
+
+test('it shows no featureSupportMessage', function(assert) {
+  const fileItems = Ember.Object.create({
+      samples: [{},{}]
+    }
+  );
+  this.set('fileItems', fileItems);
+  this.set('externalAction', () => {});
+  this.render(hbs`{{questionnaire/fastq-file-pair-list "FieldName" (action externalAction) fileItems=fileItems}}`);
+  assert.equal(this.$('.feature-support-message').length, 0);
+});

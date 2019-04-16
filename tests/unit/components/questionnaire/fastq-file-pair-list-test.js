@@ -131,3 +131,9 @@ test('it requires fieldName and answerChanged', function(assert) {
   });
   this.subject({fieldName: "SomeField", answerChanged: ()=>{}});
 });
+
+test('it has no featureSupportMessage', function(assert) {
+  const fastqFilePairList = this.subject({fieldName: "SomeField", answerChanged: ()=>{}});
+  const message = fastqFilePairList.get('featureSupportMessage');
+  assert.notOk(message);
+});

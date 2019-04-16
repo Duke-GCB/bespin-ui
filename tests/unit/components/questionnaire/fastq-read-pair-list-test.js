@@ -27,3 +27,9 @@ test('it computes answer with field name and files', function (assert) {
   const answer = fastqReadPairList.get('answer');
   assert.equal(JSON.stringify(answer), JSON.stringify(expected));
 });
+
+test('it provides feature support message with link to bespin-cli', function(assert) {
+  const fastqReadPairList = this.subject({fieldName: "SomeField", answerChanged: ()=>{}});
+  const messageString = fastqReadPairList.get('featureSupportMessage.string');
+  assert.ok(messageString.indexOf('https://github.com/Duke-GCB/bespin-cli') > 0);
+});

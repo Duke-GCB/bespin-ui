@@ -22,3 +22,14 @@ test('it renders using the fastq-file-pair-list template', function(assert) {
   assert.equal(this.$('div.file-group-list-picker').length, 1);
 
 });
+
+test('It shows the featureSupportMessage', function(assert) {
+  const fileItems = Ember.Object.create({
+      samples: [{},{}]
+    }
+  );
+  this.set('fileItems', fileItems);
+  this.set('externalAction', () => {});
+  this.render(hbs`{{questionnaire/fastq-read-pair-list "FieldName" (action externalAction) fileItems=fileItems}}`);
+  assert.equal(this.$('.feature-support-message').length, 1);
+});
