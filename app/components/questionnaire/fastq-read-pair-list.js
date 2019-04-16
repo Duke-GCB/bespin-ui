@@ -2,7 +2,8 @@ import Ember from 'ember';
 import FASTQFilePairList from './fastq-file-pair-list';
 
 export default FASTQFilePairList.extend({
-  // Just overriding the 'answer' method to return an array of files
+  // Primary purpose of this subclass is to provide a different structure from the 'answer'
+  // method that returns single files wrapped in an array.
   answer: Ember.computed('fieldName', 'fileItems.cwlObjectValue.[]', function() {
     const fieldName = this.get('fieldName');
     // Convert NamedFASTQFilePairType to a FASTQReadPairType
@@ -18,4 +19,8 @@ export default FASTQFilePairList.extend({
     answer.set(fieldName, fastqReadPairs);
     return answer;
   }),
+  // Support Message
+  featureSupportMessage: Ember.String.htmlSafe('<strong>Note:</strong> This workflow supports multiple file pairs per read. ' +
+    'However, the web interface only supports choosing one file pair per read. If you wish to run this workflow with multiple files per ' +
+    'read, please use <a href="https://github.com/Duke-GCB/bespin-cli">bespin-cli</a>.'),
 });

@@ -4,6 +4,11 @@
 </div>
 <div class="col-md-6 file-group-list-selections">
   <label>Selected {{ groupTitle }} {{ groupSizeName }}</label>
+  {{#if featureSupportMessage}}
+    <div class="alert alert-warning">
+      {{featureSupportMessage}}
+    </div>
+  {{/if}}
   {{#each samples as |pair pairIndex|}}
     {{questionnaire/fastq-file-pair-row pair pairIndex (action 'removeAt')}}
   {{else}}
