@@ -53,6 +53,9 @@ const FileGroupList = DDSProjectField.extend({
     }
   },
 
+  // Message to display if additional functionality is available elsewhere (e.g. CLI)
+  featureSupportMessage: null,
+
   init() {
     this._super(...arguments);
     if(Ember.isEmpty(this.get('fileItems'))) {
