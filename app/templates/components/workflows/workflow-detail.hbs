@@ -1,5 +1,24 @@
-{{workflow-title-link workflow=workflow}}
+<h3>{{workflow.name}}</h3>
+<table class="table">
+  <thead>
+  <tr>
+    <th>Version</th>
+    <th>Description</th>
+    <th>Created</th>
+  </tr>
+  </thead>
+  <tbody>
 {{#each sortedVersions as |workflowVersion|}}
-   {{workflows/workflow-version-detail workflowVersion=workflowVersion}}
+  <tr>
+    <td>
+      {{#link-to "workflows.versions.show" workflow workflowVersion}}
+        {{workflowVersion.version}}
+      {{/link-to}}
+    </td>
+    <td>{{workflowVersion.description}}</td>
+    <td>{{moment-format workflowVersion.created 'LL'}}</td>
+  </tr>
 {{/each}}
+  </tbody>
+</table>
 {{yield}}
