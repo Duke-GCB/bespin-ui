@@ -26,14 +26,15 @@ test('it renders', function(assert) {
   });
 
   //test default which doesn't show methods in markdown
+  assert.ok(false, 'Fix this, this no longer exists')
   this.render(hbs`{{workflows/workflow-version-detail workflowVersion=workflowVersion}}`);
   assert.equal(this.$('.workflow-version-details-title').text().trim().replace(/ |\n/g,''),
     'WorkflowTitle-Version2(Current)-February1,2017');
   assert.equal(this.$('.workflow-version-detail-markdown').text().trim(), 'Description\nMy workflow');
   assert.equal(this.$('.workflow-version-detail-download-cwl-url').attr('href'), 'somewhere.edu');
 
-  //test showing methods markdown (that will contain the description)
-  this.render(hbs`{{workflows/workflow-version-detail workflowVersion=workflowVersion showMethods=true}}`);
+  //test showing expanded view (that will contain the description)
+  this.render(hbs`{{workflows/workflow-version-detail workflowVersion=workflowVersion}}`);
   assert.equal(this.$('.workflow-version-detail-markdown').text().trim(), 'Description\nMy workflow\nMethods');
 
   //test older version

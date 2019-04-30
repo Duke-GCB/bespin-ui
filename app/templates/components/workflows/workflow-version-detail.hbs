@@ -1,14 +1,38 @@
 <div class="panel panel-default">
-    <div class="panel-heading workflow-version-details-title">
-        <span class="lead">{{title}}</span>
-    </div>
+  <div class="panel-heading workflow-version-details-title">
+    <span class="lead">
+      <span>Summary: {{versionTag}}</span>
+      <span class="pull-right">
+        <a class="workflow-version-detail-download-cwl-url" href="{{workflowVersion.url}}">Download Workflow</a>
+      </span>
+    </span>
+  </div>
     <div class="panel-body">
-        {{markdown-to-html workflowMarkdown headerLevelStart=4 class="workflow-version-detail-markdown"}}
-      {{#unless showMethods}}
-        {{#link-to "workflows.versions.show" workflowVersion.workflow workflowVersion}}More...{{/link-to}}
-      {{/unless}}
-        <a class="workflow-version-detail-download-cwl-url pull-right btn btn-primary"
-           href="{{workflowVersion.url}}" role="button">Download Workflow</a>
-        {{yield}}
+      <p>Description: {{workflowVersion.description}}</p>
+      <p>Released: {{moment-format workflowVersion.created 'LL'}}</p>
+      <p>This workflow includes the following tools:</p>
+      <table class="table table-condensed">
+        <thead>
+        <tr>
+          <th>Tool</th>
+          <th>Docker Image</th>
+          <th>Package(s)</th>
+          <th>Citation</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
     </div>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <span class="lead">
+      <span>Version History: {{versionTag}}</span>
+      <span class="pull-right"><a href="{{workflowVersion.versionInfoUrl}}">Version Info</a></span>
+    </span>
+  </div>
+  <div class="panel-body">
+    {{markdown-to-html versionInfo.content}}
+  </div>
 </div>
