@@ -11,6 +11,7 @@ export default DS.Model.extend({
   jobs: DS.hasMany('job'),
   questionnaires: DS.hasMany('job-questionnaire'),
   methodsDocument: DS.belongsTo('workflow-methods-document'),
+  toolDetails: DS.belongsTo('workflow-version-tool-detail'),
   versionInfoUrl: DS.attr('string'),
   enableUi: DS.attr('boolean'),
   disableUi: Ember.computed.not('enableUi'),
