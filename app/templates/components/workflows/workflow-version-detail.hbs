@@ -11,7 +11,7 @@
       <p>Description: {{workflowVersion.description}}</p>
       <p>Released: {{moment-format workflowVersion.created 'LL'}}</p>
       {{#if workflowVersion.toolDetails}}
-        <p>This workflow includes the following tools:</p>
+        <p>This workflow is composed of the tools and versions below:</p>
         {{workflow-version-tool-details-table workflowVersion.toolDetails}}
       {{/if}}
     </div>
