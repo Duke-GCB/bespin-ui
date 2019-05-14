@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   workflowVersion: null,
-  versionInfo: null,
+  versionInfoContent: null,
   versionTag: Ember.computed('workflowVersion.workflow.tag', 'workflowVersion.version', function() {
     const tag = this.get('workflowVersion.workflow.tag');
     const version = this.get('workflowVersion.version');
@@ -13,7 +13,7 @@ export default Ember.Component.extend({
     const component = this;
     const workflowVersion = this.get('workflowVersion');
     workflowVersion.getVersionInfo().then(versionInfo => {
-      component.set('versionInfo', versionInfo);
+      component.set('versionInfoContent', atob(versionInfo.content));
     });
   },
 
