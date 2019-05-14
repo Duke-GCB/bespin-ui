@@ -6,7 +6,6 @@ moduleFor('adapter:workflow-version', 'Unit | Adapter | workflow version', {
   needs: ['service:session']
 });
 
-// Replace this with your real tests.
 test('it exists', function(assert) {
   let adapter = this.subject();
   assert.ok(adapter);
