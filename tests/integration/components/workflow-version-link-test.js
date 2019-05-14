@@ -18,7 +18,7 @@ test('it renders the workflowVersion version number and a link', function(assert
     })
   }));
 
-  this.render(hbs`{{workflow-version-link workflowVersion=workflowVersion}}`);
+  this.render(hbs`{{workflow-version-link workflowVersion}}`);
 
   assert.equal(this.$('a').attr('href').trim(), '/workflows/333/versions/111');
   assert.equal(this.$('.workflow-version-link-text').text().trim(), 'v2.0.0');

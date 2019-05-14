@@ -10,6 +10,6 @@
   <div class="panel-body">
     <p>Description: {{workflowVersion.description}}</p>
     <p>Released: {{moment-format workflowVersion.created 'LL'}}</p>
-    {{#workflow-version-link workflowVersion=workflowVersion }}More...{{/workflow-version-link}}
+    {{yield}}
   </div>
 </div>

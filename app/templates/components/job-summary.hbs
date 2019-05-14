@@ -1,7 +1,9 @@
   <div class="col-md-12">
     <h3>Bespin Job '{{job.name}}'</h3>
     {{#job-summary-detail-row leadText='Selected Workflow:'}}
-      {{workflows/workflow-version-summary title=workflowTitle workflowVersion=job.workflowVersion}}
+      {{#workflows/workflow-version-summary job.workflowVersion}}
+        {{#workflow-version-link job.workflowVersion}}More...{{/workflow-version-link}}
+      {{/workflows/workflow-version-summary}}
     {{/job-summary-detail-row}}
   {{#job-summary-detail-row leadText='Job Details:'}}
     {{job-detail job}}

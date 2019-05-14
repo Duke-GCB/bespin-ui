@@ -1,6 +1,12 @@
 import Ember from 'ember';
 
-export default Ember.Component.extend({
+const WorkflowVersionLink = Ember.Component.extend({
   tagName: 'span',
   workflowVersion: null
 });
+
+WorkflowVersionLink.reopenClass({
+  positionalParams: ['workflowVersion']
+});
+
+export default WorkflowVersionLink;

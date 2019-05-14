@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-export default Ember.Component.extend({
+const WorkflowVersionSummary = Ember.Component.extend({
   workflowVersion: null,
   versionTag: Ember.computed('workflowVersion.workflow.tag', 'workflowVersion.version', function() {
     const tag = this.get('workflowVersion.workflow.tag');
@@ -8,3 +8,9 @@ export default Ember.Component.extend({
     return `${tag}/${version}`;
   }),
 });
+
+WorkflowVersionSummary.reopenClass({
+  positionalParams: ['workflowVersion']
+});
+
+export default WorkflowVersionSummary;
