@@ -3,7 +3,7 @@
         <label for="{{concat elementId '-radio' }}" class="jobs-workflow-version-card-title">
           {{workflowVersion.workflow.name}}
         </label>
-      {{workflow-version-link workflowVersion class="pull-right"}}
+      {{#workflow-version-link workflowVersion class="pull-right"}}{{workflowVersion.version}}{{/workflow-version-link}}
     </div>
     <div class="panel-body">
         <div class="radio">

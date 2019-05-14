@@ -12,14 +12,12 @@ moduleForComponent('workflow-version-link', 'Integration | Component | workflow 
 test('it renders the workflowVersion version number and a link', function(assert) {
   this.set('workflowVersion', Ember.Object.create({
     id: 111,
-    version: 'v2.0.0',
     workflow: Ember.Object.create({
       id: 333
     })
   }));
 
-  this.render(hbs`{{workflow-version-link workflowVersion}}`);
-
+  this.render(hbs`{{#workflow-version-link workflowVersion}}link text{{/workflow-version-link}}`);
   assert.equal(this.$('a').attr('href').trim(), '/workflows/333/versions/111');
-  assert.equal(this.$('.workflow-version-link-text').text().trim(), 'v2.0.0');
+  assert.equal(this.$('.workflow-version-link-text').text().trim(), 'link text');
 });
