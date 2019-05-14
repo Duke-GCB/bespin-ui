@@ -1,15 +1,15 @@
 import Ember from 'ember';
 
 const WorkflowVersionToolDetailsTable = Ember.Component.extend({
-  toolDetail: null,
-  rows: Ember.computed('toolDetail.details', function() {
-    const details = this.getWithDefault('toolDetail.details', []);
+  toolDetails: null,
+  rows: Ember.computed('toolDetails.details', function() {
+    const details = this.getWithDefault('toolDetails.details', []);
     return details.sortBy('tool_name');
   })
 });
 
 WorkflowVersionToolDetailsTable.reopenClass({
-  positionalParams: ['toolDetail']
+  positionalParams: ['toolDetails']
 });
 
 export default WorkflowVersionToolDetailsTable;
