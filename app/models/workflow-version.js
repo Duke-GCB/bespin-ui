@@ -18,5 +18,11 @@ export default DS.Model.extend({
   getVersionInfo() {
     let adapter = this.store.adapterFor(this.constructor.modelName);
     return adapter.getVersionInfo(this.get('id'));
-  }
+  },
+  versionTag: Ember.computed('workflow.tag', 'version', function() {
+    const tag = this.get('workflow.tag');
+    const version = this.get('version');
+    return `${tag}/${version}`;
+  }),
+
 });
