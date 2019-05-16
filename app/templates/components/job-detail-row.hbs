@@ -2,7 +2,7 @@
 <td class="job-detail-cell-id">{{#link-to "jobs.show" job class="job-show-link"}}{{job.id}}{{/link-to}}</td>
 <td class="job-detail-cell-name">{{job.name}}</td>
 <td class="job-detail-cell-workflow-name">
-  {{job.workflowVersion.workflow.name}} - {{#workflow-version-link workflowVersion=job.workflowVersion}}{{job.workflowVersion.version}}{{/workflow-version-link}}
+  {{job.workflowVersion.workflow.name}} - {{#workflow-version-link job.workflowVersion}}{{job.workflowVersion.version}}{{/workflow-version-link}}
 </td>
 <td class="job-detail-cell-status">{{decode-job-state job.state}}</td>
 <td class="job-detail-cell-updated">{{moment-from job.lastUpdated}}</td>
