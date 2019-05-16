@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 const WorkflowVersionToolDetails = Ember.Component.extend({
+  classNames: ['workflow-version-tool-details'],
   workflowVersion: null,
   toolDetails: Ember.computed.readOnly('workflowVersion.toolDetails')
 });

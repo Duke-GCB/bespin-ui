@@ -1,5 +1,12 @@
 import Ember from 'ember';
 
-export default Ember.Component.extend({
+const WorkflowVersionDetail = Ember.Component.extend({
+  classNames: ['workflow-version-detail'],
   workflowVersion: null,
 });
+
+WorkflowVersionDetail.reopenClass({
+  positionalParams: ['workflowVersion']
+});
+
+export default WorkflowVersionDetail;

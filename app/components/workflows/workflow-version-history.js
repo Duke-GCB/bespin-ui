@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 const WorkflowVersionHistory = Ember.Component.extend({
+  classNames: ['workflow-version-history'],
   workflowVersion: null,
   versionInfoContent: null,
   loadVersionInfo() {
