@@ -13,7 +13,6 @@ jobs:
           command: |
             npm config set spin false
             npm install
-            npm install phantomjs-prebuilt
       - save_cache:
           paths:
             - node_modules
