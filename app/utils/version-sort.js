@@ -18,3 +18,5 @@ export default function versionSort(versions) {
   });
   return versionsAndKeys.sortBy('key').mapBy('version');
 }
+
+export { makeSortKey };

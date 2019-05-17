@@ -55,7 +55,7 @@ test('it renders a row for each workflow version', function(assert) {
   assert.equal(this.$('.workflow-detail table.versions-table tr.version-row').length, 2);
 });
 
-test('it renders link, description, and created', function(assert) {
+test('it renders link, description, and created, ordering the oldest version last', function(assert) {
   this.render(hbs`{{workflows/workflow-detail workflow}}`);
   assert.equal(this.$('tr.version-row td.version-cell a').last().attr('href'), '/workflows/1/versions/2');
   assert.equal(this.$('tr.version-row td.version-cell a').last().text().trim(), 'v2.0.0');
