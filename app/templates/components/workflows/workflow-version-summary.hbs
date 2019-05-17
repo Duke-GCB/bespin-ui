@@ -1,0 +1,15 @@
+<div class="panel panel-default">
+  <div class="panel-heading workflow-version-summary-title">
+    <span class="lead">
+      <span class="summary-tag">Version Summary: {{workflowVersion.versionTag}}</span>
+      <span class="pull-right download-link">
+        <a class="workflow-version-detail-download-cwl-url" href="{{workflowVersion.url}}">Download Workflow</a>
+      </span>
+    </span>
+  </div>
+  <div class="panel-body">
+    <p class="description">Description: {{workflowVersion.description}}</p>
+    <p class="released">Released: {{moment-format workflowVersion.created 'LL'}}</p>
+    {{yield}}
+  </div>
+</div>

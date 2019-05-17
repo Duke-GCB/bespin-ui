@@ -1,4 +1,3 @@
 {{#link-to "workflows.versions.show" workflowVersion.workflow workflowVersion}}
-  <span class="workflow-version-link-text">{{workflowVersion.version}}</span>
+  <span class="workflow-version-link-text">{{yield}}</span>
 {{/link-to}}
-{{yield}}

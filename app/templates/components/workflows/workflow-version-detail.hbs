@@ -1,14 +1,4 @@
-<div class="panel panel-default">
-    <div class="panel-heading workflow-version-details-title">
-        <span class="lead">{{title}}</span>
-    </div>
-    <div class="panel-body">
-        {{markdown-to-html workflowMarkdown headerLevelStart=4 class="workflow-version-detail-markdown"}}
-      {{#unless showMethods}}
-        {{#link-to "workflows.versions.show" workflowVersion.workflow workflowVersion}}More...{{/link-to}}
-      {{/unless}}
-        <a class="workflow-version-detail-download-cwl-url pull-right btn btn-primary"
-           href="{{workflowVersion.url}}" role="button">Download Workflow</a>
-        {{yield}}
-    </div>
-</div>
+{{#workflows/workflow-version-summary workflowVersion}}
+  {{workflows/workflow-version-tool-details workflowVersion}}
+{{/workflows/workflow-version-summary}}
+{{workflows/workflow-version-history workflowVersion}}

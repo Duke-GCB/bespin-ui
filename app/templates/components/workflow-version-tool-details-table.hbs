@@ -1,0 +1,43 @@
+<table class="table table-condensed tool-detail-table">
+  <thead>
+  <tr class="tool-header-row">
+    <th>Workflow Tool</th>
+    <th>Packages</th>
+    <th>Docker Image</th>
+  </tr>
+  </thead>
+  <tbody>
+  {{#each rows as |row|}}
+    <tr class="tool-detail-row">
+      <td class="tool-name">{{row.tool_name}}</td>
+      <td class="tool-packages">
+        <ul class="list-unstyled">
+        {{#each row.packages as |package|}}
+            <li>
+              <span class="tool-package"><a href="{{package.citation}}">
+                {{package.package}} {{package.versions}}</a>
+              </span>
+            </li>
+        {{/each}}
+        </ul>
+      </td>
+      <td class="tool-docker-images">
+        <ul class="list-unstyled">
+        {{#each row.docker_images as |dockerImage|}}
+          <li>
+            <span class="tool-docker-image">
+            {{#if (docker-link dockerImage) as |dockerLink|}}
+              <a href="{{dockerLink}}">{{dockerImage}}</a>
+            {{else}}
+              {{dockerImage}}
+            {{/if}}
+            </span>
+          </li>
+        {{/each}}
+        </ul>
+      </td>
+    </tr>
+  {{/each}}
+  </tbody>
+</table>
+{{yield}}

@@ -24,3 +24,9 @@ test('it renders 3 summary detail rows', function(assert) {
   this.render(hbs`{{job-summary}}`);
   assert.equal(this.$('.job-summary-detail-row').length, 3);
 });
+
+test('it renders a workflow-version-summary and workflow-version link', function(assert) {
+  this.render(hbs`{{job-summary}}`);
+  assert.equal(this.$('.job-summary-detail-row .workflow-version-summary').length, 1);
+  assert.equal(this.$('.job-summary-detail-row .workflow-version-summary .workflow-version-link a').text().trim(), 'More...');
+});
