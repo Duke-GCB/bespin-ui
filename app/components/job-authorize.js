@@ -15,7 +15,7 @@ const JobAuthorize = Component.extend({
   }),
   job: null,
   _token: '',
-  token: computed('job.hasAuthorization', 'job.runToken', '_token', {
+  token: computed('job.{hasAuthorization,runToken}', '_token', {
     /*
       The token for this component is a custom computed property.
 
