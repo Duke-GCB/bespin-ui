@@ -4,8 +4,6 @@
  * Websocket host determined by ENV.APP.JOB_WATCHER_HOST.
  */
 import Service, { inject as service } from '@ember/service';
-
-import Ember from 'ember';
 import ENV from 'bespin-ui/config/environment'; // This is how we load config variables from our environment.js file
 
 function buildRequest(command, token, jobId) {
@@ -52,7 +50,7 @@ export default Service.extend({
     if (socket) {
       stopWatchingJob(socket, token, jobId);
     } else {
-      Ember.Logger.log("Job watcher websocket not connected.");
+      console.log("Job watcher websocket not connected.");
     }
   },
   onMessage(event) {
@@ -65,7 +63,7 @@ export default Service.extend({
         job.reload();
       });
     } else {
-      Ember.Logger.log("Job Watcher Error:", response.data.message);
+      console.log("Job Watcher Error:", response.data.message);
     }
   },
   onClose() {
