@@ -4,7 +4,7 @@ import Component from '@ember/component';
 const JobAuthorize = Component.extend({
   tagName: 'div',
   classNames: ['job-authorize'],
-  errors: [],
+  errors: null,
   formGroupClassNames: computed('errors.[]', function() {
     const base = 'job-authorize-group form-inline';
     if(this.get('errors.length') == 0) {
@@ -51,6 +51,10 @@ const JobAuthorize = Component.extend({
         this.set('errors', error.errors);
       });
     }
+  },
+  init() {
+    this._super(...arguments);
+    this.errors = this.errors || [];
   }
 });
 
