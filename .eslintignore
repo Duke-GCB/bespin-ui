@@ -4,6 +4,7 @@
 
 # compiled output
 /dist/
+/dist-docker/
 /tmp/
 
 # dependencies
