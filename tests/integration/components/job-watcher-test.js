@@ -9,6 +9,7 @@ const bespinJobWatcherStub = Service.extend({
 });
 
 const sessionStub = Service.extend({
+  // eslint-disable-next-line ember/avoid-leaking-state-in-ember-objects
   data: {
     authenticated: {
       token: 'auth-token'
