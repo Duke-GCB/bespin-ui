@@ -1,6 +1,6 @@
+import { run } from '@ember/runloop';
 import { moduleForModel, test } from 'ember-qunit';
 import { testRelationship } from '../../helpers/test-relationships';
-import Ember from 'ember';
 
 moduleForModel('workflow-version', 'Unit | Model | workflow version', {
   // Specify the other units that are required for this test.
@@ -38,7 +38,7 @@ test('it calls getVersionInfo', function(assert) {
 
 test('it computes versionTag', function(assert) {
   let version = this.subject({version: 'v3.2'});
-  Ember.run(() => {
+  run(() => {
     this.store().createRecord('workflow', {
       tag: 'wf-tag',
       versions: [version]

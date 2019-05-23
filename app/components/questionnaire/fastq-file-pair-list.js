@@ -1,4 +1,7 @@
-import Ember from 'ember';
+import { isEmpty } from '@ember/utils';
+import { on } from '@ember/object/evented';
+import { alias } from '@ember/object/computed';
+import { computed, observer } from '@ember/object';
 import FileGroupList from 'bespin-ui/components/questionnaire/file-group-list';
 import { FASTQFileItemList } from 'bespin-ui/utils/fastq-file-item-list';
 import layout from 'bespin-ui/templates/components/questionnaire/fastq-file-pair-list';
@@ -7,11 +10,11 @@ const FASTQFilePairList = FileGroupList.extend({
   layout, // https://github.com/emberjs/rfcs/issues/412#issuecomment-423499140
   groupSize: 2,
   answerFormErrors: null,
-  fieldErrors: Ember.computed('answerFormErrors.errors.[]', 'fieldName', function() {
+  fieldErrors: computed('answerFormErrors.errors.[]', 'fieldName', function() {
     return this.get('answerFormErrors.errors').filterBy('field', this.get('fieldName'));
   }),
-  samples: Ember.computed.alias('fileItems.samples'),
-  validityDidChange: Ember.on('init', Ember.observer('answerFormErrors', 'fieldName','samples.length',
+  samples: alias('fileItems.samples'),
+  validityDidChange: on('init', observer('answerFormErrors', 'fieldName','samples.length',
     'fileItems.isComplete', 'fileItems.hasUniqueSampleNames', 'fileItems.hasUnnamedSamples',
     'groupSize', function() {
     const answerFormErrors = this.get('answerFormErrors');
@@ -39,13 +42,13 @@ const FASTQFilePairList = FileGroupList.extend({
   // The base component, FileGroupList, sends an 'answerChanged' action when the user edits the list
   // by adding or removing a file. Since this component also supports editable sample names, we must
   // send an 'answerChanged' action when a sample name changes
-  sampleNameDidChange: Ember.observer('samples.@each.sampleName', function() {
+  sampleNameDidChange: observer('samples.@each.sampleName', function() {
     this.sendAction('answerChanged', this);
   }),
 
   // Override init to user our customized FileItemList type
   init() {
-    if(Ember.isEmpty(this.get('fileItems'))) {
+    if(isEmpty(this.get('fileItems'))) {
       this.set('fileItems', FASTQFileItemList.create());
     }
     // Call this._super AFTER setting fileItems. Otherwise the base class sets it

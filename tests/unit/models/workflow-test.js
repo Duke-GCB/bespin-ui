@@ -1,6 +1,6 @@
+import { run } from '@ember/runloop';
 import { moduleForModel, test } from 'ember-qunit';
 import { testRelationship } from '../../helpers/test-relationships';
-import Ember from 'ember';
 
 moduleForModel('workflow', 'Unit | Model | workflow', {
   // Specify the other units that are required for this test.
@@ -17,7 +17,7 @@ testRelationship('workflow', {key: 'versions', kind: 'hasMany', type: 'workflow-
 
 test('it computes latest version', function(assert) {
   let workflow = this.subject();
-  Ember.run(() => {
+  run(() => {
     this.store().createRecord('workflow-version', {
       version: 1,
       workflow:workflow,
@@ -28,7 +28,7 @@ test('it computes latest version', function(assert) {
   assert.equal(workflow.get('versions').get('length'), 1);
 
   // create a second version that is also enabled for the UI
-  Ember.run(() => {
+  run(() => {
     this.store().createRecord('workflow-version', {
       version: 2,
       workflow:workflow,

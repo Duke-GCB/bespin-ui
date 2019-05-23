@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 
-const WorkflowFlavorDetailRow = Ember.Component.extend({
+const WorkflowFlavorDetailRow = Component.extend({
   questionnaire: null
 });
 

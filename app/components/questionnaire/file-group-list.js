@@ -1,4 +1,6 @@
-import Ember from 'ember';
+import { isEmpty } from '@ember/utils';
+import { alias, map } from '@ember/object/computed';
+import EmberObject, { computed } from '@ember/object';
 import { FileItemList, FileItem } from 'bespin-ui/utils/file-item-list';
 import DDSProjectField from './dds-project-field';
 import { assert } from '@ember/debug';
@@ -6,7 +8,7 @@ import { assert } from '@ember/debug';
 const DEFAULT_GROUP_SIZE = 2;
 
 const GroupSizes = [
-  Ember.Object.create({size: 2, name: 'pairs'})
+  EmberObject.create({size: 2, name: 'pairs'})
 ];
 
 const FileGroupList = DDSProjectField.extend({
@@ -17,25 +19,25 @@ const FileGroupList = DDSProjectField.extend({
   classNames: ['file-group-list', 'row'],
   formatSettings: null,  // settings based on cwl type and format
   groupSize: DEFAULT_GROUP_SIZE,
-  groupSizeName: Ember.computed('groupSize', function() {
+  groupSizeName: computed('groupSize', function() {
     return GroupSizes.findBy('size', this.get('groupSize')).get('name');
   }),
   fieldName: null,
   fileItems: null,
-  selectedDdsFiles: Ember.computed.alias('fileItems.ddsFiles'),
-  groups: Ember.computed.map('fileItems.fileItemGroups', function(fileItemGroup) {
+  selectedDdsFiles: alias('fileItems.ddsFiles'),
+  groups: map('fileItems.fileItemGroups', function(fileItemGroup) {
     return fileItemGroup.mapBy('ddsFile');
   }),
-  groupTitle: Ember.computed('formatSettings.groupName', function() {
+  groupTitle: computed('formatSettings.groupName', function() {
     return this.get('formatSettings.groupName') || 'file';
   }),
-  answer: Ember.computed('fieldName', 'fileItems.cwlObjectValue.[]', function() {
+  answer: computed('fieldName', 'fileItems.cwlObjectValue.[]', function() {
     const fieldName = this.get('fieldName');
-    const answer = Ember.Object.create();
+    const answer = EmberObject.create();
     answer.set(fieldName, this.get('fileItems.cwlObjectValue'));
     return answer;
   }),
-  inputFiles: Ember.computed.alias('fileItems.inputFiles.[]'),
+  inputFiles: alias('fileItems.inputFiles.[]'),
   index: null, // order within the questionnaire
   actions: {
     addFile(file) {
@@ -58,7 +60,7 @@ const FileGroupList = DDSProjectField.extend({
 
   init() {
     this._super(...arguments);
-    if(Ember.isEmpty(this.get('fileItems'))) {
+    if(isEmpty(this.get('fileItems'))) {
       this.set('fileItems', FileItemList.create());
     }
   },

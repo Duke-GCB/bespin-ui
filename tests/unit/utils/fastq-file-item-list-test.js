@@ -1,13 +1,19 @@
-import { FASTQFileItemList, FASTQSample, extractSampleName, splitMultipleSeparators } from 'bespin-ui/utils/fastq-file-item-list';
+import { run } from '@ember/runloop';
+import EmberObject from '@ember/object';
+import {
+  FASTQFileItemList,
+  FASTQSample,
+  extractSampleName,
+  splitMultipleSeparators
+} from 'bespin-ui/utils/fastq-file-item-list';
 import { module, test } from 'qunit';
-import Ember from 'ember';
 
 module('Unit | Utility | fastq file item list');
 
 function makeMockFileItem(name) {
-  return Ember.Object.create({
+  return EmberObject.create({
     name: name,
-    ddsFile: Ember.Object.create(
+    ddsFile: EmberObject.create(
       {name: name, kind: 'dds-file'}
       ),
     cwlObject: {
@@ -71,7 +77,7 @@ test('It sets empty sample name when no match before delimiter', function(assert
 
 test('it calculates isComplete', function(assert) {
   let fileItemList = FASTQFileItemList.create();
-  Ember.run(() => {
+  run(() => {
     // First, check an empty list
     assert.equal(fileItemList.get('samples.length'), 0);
     assert.ok(fileItemList.get('isComplete')); // Empty list should be complete
@@ -101,7 +107,7 @@ test('it calculates isComplete', function(assert) {
 
 test('it calculates hasUniqueSampleNames', function(assert) {
   let fileItemList = FASTQFileItemList.create();
-  Ember.run(() => {
+  run(() => {
     // First, check an empty list
     assert.equal(fileItemList.get('samples.length'), 0);
     assert.ok(fileItemList.get('hasUniqueSampleNames')); // Empty list should count as unique names
@@ -280,7 +286,7 @@ test('FASTQSample addFileItem succeeds until full', function(assert) {
 
 test('FASTQSample checks array membership (indexOfFileItem) by ddsFile equality', function(assert) {
   // Create two distinct FileItems that share a ddsFile, and a third that shares nothing
-  const ddsFile = Ember.Object.create({name: 'findMe', kind: 'dds-file'});
+  const ddsFile = EmberObject.create({name: 'findMe', kind: 'dds-file'});
   const fileName = 'sample.fa';
   const item1 = makeMockFileItem(fileName);
   const item2 = makeMockFileItem(fileName);

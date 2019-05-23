@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 
-const UserInfo = Ember.Component.extend({
+const UserInfo = Component.extend({
   tagName: 'span',
   user: null
 });

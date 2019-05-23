@@ -1,11 +1,11 @@
+import EmberObject from '@ember/object';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import Ember from 'ember';
 
 moduleForComponent('item-chooser/item-picker-list', 'Integration | Component | item chooser/item picker list', {
   integration: true,
   beforeEach() {
-    let items = [{id: 1}, {id:2}, {id:3}].map(function(item) { return Ember.Object.create(item); });
+    let items = [{id: 1}, {id:2}, {id:3}].map(function(item) { return EmberObject.create(item); });
     this.set('items', items);
   }
 });

@@ -1,5 +1,5 @@
+import EmberObject from '@ember/object';
 import { moduleFor, test } from 'ember-qunit';
-import Ember from 'ember';
 
 moduleFor('route:settings', 'Unit | Route | settings', {
   // Specify the other units that are required for this test.
@@ -14,8 +14,8 @@ test('it creates a model that contains an array of tokens', function(assert) {
       findAll(modelName) {
         assert.equal(modelName, 'token');
         return [
-          Ember.Object.create({id: 123}),
-          Ember.Object.create({id: 456}),
+          EmberObject.create({id: 123}),
+          EmberObject.create({id: 456}),
         ];
       }
     }

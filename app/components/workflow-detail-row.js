@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 
-const WorkflowDetailRow = Ember.Component.extend({
+const WorkflowDetailRow = Component.extend({
 });
 
 WorkflowDetailRow.reopenClass({

@@ -1,7 +1,7 @@
-import Ember from 'ember';
+import Service, { inject as service } from '@ember/service';
 
-export default Ember.Service.extend({
-  store: Ember.inject.service(),
+export default Service.extend({
+  store: service(),
   currentUser() {
     // Use queryRecord since we don't know the id ahead of time
     return this.get('store').queryRecord('user', {});

@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import Route from '@ember/routing/route';
 
-export default Ember.Route.extend({
+export default Route.extend({
   model() {
     let params = this.paramsFor('workflows.versions');
     return this.get('store').query('workflow-version', {

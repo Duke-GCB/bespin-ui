@@ -1,4 +1,6 @@
-import Ember from 'ember';
+import { oneWay, mapBy, alias } from '@ember/object/computed';
+import EmberObject, { computed, get } from '@ember/object';
+import { isEmpty } from '@ember/utils';
 
 function splitMultipleSeparators(name, separators) {
   name = name || '';
@@ -14,22 +16,22 @@ function splitMultipleSeparators(name, separators) {
 const DEFAULT_SEPARATORS = ['_','-',' '];
 
 function extractSampleName(name, separators) {
-  if(Ember.isEmpty(separators)) {
+  if(isEmpty(separators)) {
     separators = DEFAULT_SEPARATORS;
   }
   return splitMultipleSeparators(name, separators)[0];
 }
 
-const FASTQSample = Ember.Object.extend({
+const FASTQSample = EmberObject.extend({
   fileItems: null,
   size: 2,
   generateSampleNames: true, // true = class should try to generate sample name when full
   _sampleName: null, // private variable to support auto-generating sample name when not set by user
   _userSetSampleName: false, // true = sample name has been set directly from calling code
-  userSetSampleName: Ember.computed.oneWay('_userSetSampleName'), // read-only version of the above
+  userSetSampleName: oneWay('_userSetSampleName'), // read-only version of the above
   init() {
     this._super(...arguments);
-    if(Ember.isEmpty(this.get('fileItems'))) {
+    if(isEmpty(this.get('fileItems'))) {
       this.set('fileItems', []);
     }
   },
@@ -42,7 +44,7 @@ const FASTQSample = Ember.Object.extend({
       return null;
     }
   },
-  _shouldGenerateSampleName: Ember.computed('_userSetSampleName', 'generateSampleNames', 'isFull', function() {
+  _shouldGenerateSampleName: computed('_userSetSampleName', 'generateSampleNames', 'isFull', function() {
     if(  this.get('generateSampleNames') === false // Generation disabled
       || this.get('_userSetSampleName') === true // Already set externally
       || this.get('isFull') === false) { // Not full yet, so don't try
@@ -52,7 +54,7 @@ const FASTQSample = Ember.Object.extend({
     }
   }),
   // Sample name may be generated from file names or supplied by user
-  sampleName: Ember.computed('_sampleName', '_shouldGenerateSampleName', {
+  sampleName: computed('_sampleName', '_shouldGenerateSampleName', {
     get(/* key */) {
       if(this.get('_shouldGenerateSampleName')) {
         const sampleName = this._generateSampleName();
@@ -67,15 +69,15 @@ const FASTQSample = Ember.Object.extend({
       return value;
     }
   }),
-  isFull: Ember.computed('fileItems.length', 'size', function() {
+  isFull: computed('fileItems.length', 'size', function() {
     return this.get('fileItems.length') === this.get('size');
   }),
-  isEmpty: Ember.computed('fileItems.length', function() {
+  isEmpty: computed('fileItems.length', function() {
     return this.get('fileItems.length') === 0;
   }),
-  ddsFiles: Ember.computed.mapBy('fileItems', 'ddsFile'),
-  fileItemsLength: Ember.computed.alias('fileItems.length'),
-  inputFiles: Ember.computed.mapBy('fileItems', 'inputFile'),
+  ddsFiles: mapBy('fileItems', 'ddsFile'),
+  fileItemsLength: alias('fileItems.length'),
+  inputFiles: mapBy('fileItems', 'inputFile'),
   includesFileItem(fileItem) {
     return this.indexOfFileItem(fileItem) !== -1;
   },
@@ -83,7 +85,7 @@ const FASTQSample = Ember.Object.extend({
   indexOfFileItem(fileItem) {
     // Check inclusion based on the ddsFile property by default
     // If the fileItem does not have this property, fallback to object equality
-    const ddsFile = Ember.get(fileItem, 'ddsFile');
+    const ddsFile = get(fileItem, 'ddsFile');
     if(ddsFile) {
       return this.get('ddsFiles').indexOf(ddsFile);
     } else {
@@ -113,9 +115,9 @@ const FASTQSample = Ember.Object.extend({
     this.set('fileItems', this.get('fileItems').slice(0, index));
   },
 
-  cwlObjectValue: Ember.computed('fileItems.[]', 'sampleName', function() {
+  cwlObjectValue: computed('fileItems.[]', 'sampleName', function() {
     const fileItems = this.get('fileItems');
-    let cwlObject = Ember.Object.create({
+    let cwlObject = EmberObject.create({
       name: this.get('sampleName')
     });
     for(let i=0;i<fileItems.get('length');i++) {
@@ -127,39 +129,39 @@ const FASTQSample = Ember.Object.extend({
   })
 });
 
-const FASTQFileItemList = Ember.Object.extend({
+const FASTQFileItemList = EmberObject.extend({
   samples: null, // array of FASTQSample objects
   enforceUniqueness: true,
   filesPerSample: 2, // Number of files to put in a sample
   init() {
     this._super(...arguments);
-    if(Ember.isEmpty(this.get('samples'))) {
+    if(isEmpty(this.get('samples'))) {
       this.set('samples', []);
     }
   },
 
-  isComplete: Ember.computed('samples.@each.isFull', function() {
+  isComplete: computed('samples.@each.isFull', function() {
     return this.get('samples').isEvery('isFull', true);
   }),
 
-  hasUniqueSampleNames: Ember.computed('samples.length', 'samples.@each.sampleName', function() {
+  hasUniqueSampleNames: computed('samples.length', 'samples.@each.sampleName', function() {
     const numSamples = this.get('samples.length');
     const numUniqueNames = this.get('samples').uniqBy('sampleName').get('length');
     return numSamples === numUniqueNames;
   }),
 
-  hasUnnamedSamples: Ember.computed('samples.@each.sampleName', function() {
+  hasUnnamedSamples: computed('samples.@each.sampleName', function() {
     const sampleNames = this.get('samples').mapBy('sampleName');
-    return sampleNames.any((sampleName) => Ember.isEmpty(sampleName));
+    return sampleNames.any((sampleName) => isEmpty(sampleName));
   }),
 
-  cwlObjectValue: Ember.computed('samples.@each.cwlObjectValue', function() {
+  cwlObjectValue: computed('samples.@each.cwlObjectValue', function() {
     return this.get('samples').mapBy('cwlObjectValue');
   }),
 
   // Ideally this would compute on something based on samples.[].fileItems.[]
   // But Ember cannot do computed properties with 2 levels of nesting.
-  ddsFiles: Ember.computed('samples.[]', 'samples.@each.fileItemsLength', function() {
+  ddsFiles: computed('samples.[]', 'samples.@each.fileItemsLength', function() {
     return this.get('samples').mapBy('ddsFiles').reduce((a,b) => a.concat(b), []);
   }),
   addFileItem(fileItem) {
@@ -169,7 +171,7 @@ const FASTQFileItemList = Ember.Object.extend({
     // Check if we have an incomplete sample to add to
     let sample = this.get('samples').filterBy('isFull', false).get('lastObject');
     // If we don't have one, create a new sample
-    if(Ember.isEmpty(sample)) {
+    if(isEmpty(sample)) {
       sample = FASTQSample.create({
         size: this.get('filesPerSample'),
       });
@@ -212,7 +214,7 @@ const FASTQFileItemList = Ember.Object.extend({
     });
     return true;
   },
-  inputFiles: Ember.computed('samples.[]', 'samples.@each.fileItemsLength', function() {
+  inputFiles: computed('samples.[]', 'samples.@each.fileItemsLength', function() {
     return this.get('samples').mapBy('inputFiles').reduce((a,b) => a.concat(b), []);
   })
 });

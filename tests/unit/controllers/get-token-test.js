@@ -1,13 +1,14 @@
+import { resolve } from 'rsvp';
+import EmberObject from '@ember/object';
 import { moduleFor, test } from 'ember-qunit';
-import Ember from 'ember';
 
 moduleFor('controller:get-token', 'Unit | Controller | get token', {
   needs: ['service:session']
 });
 
-const MockSession = Ember.Object.extend({
+const MockSession = EmberObject.extend({
   isAuthenticated: false,
-  authenticate() { return Ember.RSVP.resolve(); }
+  authenticate() { return resolve(); }
 });
 
 test('it exists', function(assert) {

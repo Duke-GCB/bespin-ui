@@ -1,6 +1,6 @@
+import EmberObject from '@ember/object';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import Ember from 'ember';
 
 moduleForComponent('job-input-file-list', 'Integration | Component | job input file list', {
   integration: true
@@ -13,19 +13,19 @@ test('it renders', function(assert) {
 });
 
 test('it renders a table when there are files', function(assert) {
-  this.set('files', [Ember.Object.create({destinationPath: '/path', 'size': 100})]);
+  this.set('files', [EmberObject.create({destinationPath: '/path', 'size': 100})]);
   this.render(hbs`{{job-input-file-list files}}`);
   assert.equal(this.$('table').length, 1);
   assert.equal(this.$('td').length, 2);
 });
 
 test('it renders From data source in panel-heading only when there is a source', function(assert) {
-  this.set('files', [Ember.Object.create()]);
+  this.set('files', [EmberObject.create()]);
   this.set('source', '');
   this.render(hbs`{{job-input-file-list files source}}`);
   assert.equal(this.$('div.panel-heading').length, 0);
 
-  this.set('files', [Ember.Object.create()]);
+  this.set('files', [EmberObject.create()]);
   this.set('source', 'devnull');
   this.render(hbs`{{job-input-file-list files source}}`);
   assert.equal(this.$('div.panel-heading').length, 1);
@@ -33,7 +33,7 @@ test('it renders From data source in panel-heading only when there is a source',
 });
 
 test('it renders human readable sizes', function(assert) {
-  this.set('files', [Ember.Object.create({destinationPath: 'file.gz', 'size': 7 * 1024 * 1024 * 1024})]);
+  this.set('files', [EmberObject.create({destinationPath: 'file.gz', 'size': 7 * 1024 * 1024 * 1024})]);
   this.render(hbs`{{job-input-file-list files}}`);
   assert.equal(this.$('table').length, 1);
   assert.equal(this.$('td').length, 2);

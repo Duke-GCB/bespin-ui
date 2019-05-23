@@ -1,5 +1,5 @@
+import { resolve } from 'rsvp';
 import { moduleFor, test } from 'ember-qunit';
-import Ember from 'ember';
 
 moduleFor('adapter:workflow-version', 'Unit | Adapter | workflow version', {
   // Specify the other units that are required for this test.
@@ -17,7 +17,7 @@ test('it GETs version-info for getVersionInfo', function(assert) {
   adapter.set('ajax', (url, method) => {
     assert.equal(url, '/workflow-versions/123/version-info/');
     assert.equal(method, 'GET');
-    return Ember.RSVP.resolve({
+    return resolve({
       'workflow-version-info-contents': {
         'workflow_version': '123',
         'url': 'http://example.com/info.md',

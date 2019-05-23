@@ -1,6 +1,7 @@
+import { resolve } from 'rsvp';
+import EmberObject from '@ember/object';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import Ember from 'ember';
 import UserStub from '../../helpers/user-stub';
 
 moduleForComponent('job-summary', 'Integration | Component | job summary', {
@@ -11,9 +12,9 @@ moduleForComponent('job-summary', 'Integration | Component | job summary', {
 });
 
 test('it renders summary heading', function(assert) {
-  const job = Ember.Object.create({
+  const job = EmberObject.create({
     name: 'Test Job',
-    getLiveUsage: () => Ember.RSVP.resolve({})
+    getLiveUsage: () => resolve({})
   });
   this.set('job', job);
   this.render(hbs`{{job-summary job}}`);

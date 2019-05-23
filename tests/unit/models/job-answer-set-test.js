@@ -1,6 +1,7 @@
+import { Promise } from 'rsvp';
+import EmberObject from '@ember/object';
 import { moduleForModel, test } from 'ember-qunit';
 import testRelationships from '../../helpers/test-relationships';
-import Ember from 'ember';
 
 /*
 TEST
@@ -30,11 +31,11 @@ test('it sends create-job action to the adapter', function(assert) {
   assert.expect(6);
   let done = assert.async();
   this.store().set('adapterFor', (modelName) => {
-    return Ember.Object.create({
+    return EmberObject.create({
       createJob(id) {
         assert.equal(modelName, 'job-answer-set');
         assert.equal(id, 'answerSetId', 'should call adapter.createJob() with id');
-        return new Ember.RSVP.Promise((resolve) => {
+        return new Promise((resolve) => {
           resolve({jobs: {id: 'newJobId'}});
         });
       }

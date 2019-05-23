@@ -1,6 +1,7 @@
+import { run } from '@ember/runloop';
+import { get } from '@ember/object';
 import { moduleForModel, test } from 'ember-qunit';
 import { testRelationship } from '../../helpers/test-relationships';
-import Ember from 'ember';
 
 moduleForModel('job-error', 'Unit | Model | job error', {
   // Specify the other units that are required for this test.
@@ -17,7 +18,7 @@ testRelationship('job-error', {key: 'job', kind: 'belongsTo', type: 'job'});
 
 test('it has no inverse relationship to job', function(assert) {
   const JobError = this.store().modelFor('job-error');
-  const relationship = Ember.get(JobError, 'relationshipsByName').get('job');
+  const relationship = get(JobError, 'relationshipsByName').get('job');
   assert.equal(relationship.inverse, null, 'No inverse relationship');
 });
 
@@ -33,7 +34,7 @@ test('it computes jobStep properties', function(assert) {
 
   let jobError = this.subject();
 
-  Ember.run(() => {
+  run(() => {
     stepsAndProperties.forEach(function(stepAndProperty) {
       const step = stepAndProperty[0];
       const property = stepAndProperty[1];

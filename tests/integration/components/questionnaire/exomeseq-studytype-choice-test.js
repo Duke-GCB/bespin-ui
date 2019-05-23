@@ -1,6 +1,7 @@
+import { run } from '@ember/runloop';
+import EmberObject from '@ember/object';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import Ember from "ember";
 
 moduleForComponent('questionnaire/exomeseq-studytype-choice', 'Integration | Component | questionnaire/exomeseq studytype choice', {
   integration: true
@@ -37,7 +38,7 @@ test('it sends answerChanged when selecting a choice', function(assert) {
 test('it shows/hides errors based on answerFormErrors.show', function(assert) {
   this.set('fieldName', 'field-name');
   this.set('answerChanged', ()=>{});
-  this.set('answerFormErrors', Ember.Object.create({
+  this.set('answerFormErrors', EmberObject.create({
     show: true,
     errors: [{field: 'field-name', message: 'Error Message'}],
     setError() { }
@@ -53,7 +54,7 @@ test('it shows/hides errors based on answerFormErrors.show', function(assert) {
 });
 
 test('it correctly observes error array', function(assert) {
-  const errors = Ember.Object.create({
+  const errors = EmberObject.create({
     show: true,
     errors: [{field: 'field-name', message: 'Empty'}],
     setError() { }
@@ -61,7 +62,7 @@ test('it correctly observes error array', function(assert) {
   this.set('answerFormErrors', errors);
   this.set('answerChanged', ()=>{});
   this.set('fieldName', 'field-name');
-  Ember.run(() => {
+  run(() => {
     // Initially empty
     this.render(hbs`{{questionnaire/exomeseq-studytype-choice fieldName=fieldName answerChanged=(action answerChanged)
                                                               answerFormErrors=answerFormErrors}}`);

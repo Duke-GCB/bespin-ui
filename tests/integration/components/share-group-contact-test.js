@@ -1,13 +1,13 @@
+import EmberObject from '@ember/object';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import Ember from 'ember';
 
 moduleForComponent('share-group-contact', 'Integration | Component | share group contact', {
   integration: true
 });
 
 test('it renders share group name and email', function(assert) {
-  const shareGroup = Ember.Object.create({
+  const shareGroup = EmberObject.create({
     name: 'Share Group',
     email: 'sharegroup@example.com'
   });

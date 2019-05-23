@@ -1,6 +1,7 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import Component from '@ember/component';
 
-const DDSResourceNode = Ember.Component.extend({
+const DDSResourceNode = Component.extend({
   resource: null,
   expanded: false,
   selectedResources: null,
@@ -8,10 +9,10 @@ const DDSResourceNode = Ember.Component.extend({
   tagName: 'span',
   classNames: ['dds-resource-node'],
   classNameBindings: ['isDisabled'],
-  isDisabled: Ember.computed('isSelected', 'disableIfSelected', function () {
+  isDisabled: computed('isSelected', 'disableIfSelected', function () {
     return this.get('disableIfSelected') && this.get('isSelected');
   }),
-  isSelected: Ember.computed('resource','selectedResources.[]', function() {
+  isSelected: computed('resource','selectedResources.[]', function() {
     let selectedResources = this.get('selectedResources');
     if(selectedResources == null) {
       return false;

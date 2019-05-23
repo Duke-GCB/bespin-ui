@@ -1,6 +1,6 @@
+import EmberObject from '@ember/object';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import Ember from 'ember';
 
 moduleForComponent('workflow-version-link', 'Integration | Component | workflow version link', {
   integration: true,
@@ -10,9 +10,9 @@ moduleForComponent('workflow-version-link', 'Integration | Component | workflow 
 });
 
 test('it renders the workflowVersion version number and a link', function(assert) {
-  this.set('workflowVersion', Ember.Object.create({
+  this.set('workflowVersion', EmberObject.create({
     id: 111,
-    workflow: Ember.Object.create({
+    workflow: EmberObject.create({
       id: 333
     })
   }));

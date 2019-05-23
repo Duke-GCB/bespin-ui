@@ -1,10 +1,11 @@
-import Ember from 'ember';
+import { alias } from '@ember/object/computed';
+import Component from '@ember/component';
 
-const AnswerFormHeader = Ember.Component.extend({
+const AnswerFormHeader = Component.extend({
   classNames: ['row'],
   questionnaire: null,
-  title: Ember.computed.alias('questionnaire.name'),
-  subtitle: Ember.computed.alias('questionnaire.description')
+  title: alias('questionnaire.name'),
+  subtitle: alias('questionnaire.description')
 });
 
 AnswerFormHeader.reopenClass({

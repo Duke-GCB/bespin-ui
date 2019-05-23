@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import { helper as buildHelper } from '@ember/component/helper';
 
 export function formatHours(hours, settings) {
   var result = '';
@@ -15,4 +15,4 @@ export function formatHours(hours, settings) {
   return result;
 }
 
-export default Ember.Helper.helper(formatHours);
+export default buildHelper(formatHours);

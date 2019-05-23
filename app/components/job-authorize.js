@@ -1,10 +1,11 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import Component from '@ember/component';
 
-const JobAuthorize = Ember.Component.extend({
+const JobAuthorize = Component.extend({
   tagName: 'div',
   classNames: ['job-authorize'],
   errors: [],
-  formGroupClassNames: Ember.computed('errors.[]', function() {
+  formGroupClassNames: computed('errors.[]', function() {
     const base = 'job-authorize-group form-inline';
     if(this.get('errors.length') == 0) {
       return base;
@@ -14,7 +15,7 @@ const JobAuthorize = Ember.Component.extend({
   }),
   job: null,
   _token: '',
-  token: Ember.computed('job.hasAuthorization', 'job.runToken', '_token', {
+  token: computed('job.hasAuthorization', 'job.runToken', '_token', {
     /*
       The token for this component is a custom computed property.
 

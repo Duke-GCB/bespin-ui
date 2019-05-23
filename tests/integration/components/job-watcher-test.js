@@ -1,13 +1,14 @@
+import EmberObject from '@ember/object';
+import Service from '@ember/service';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import Ember from 'ember';
 
-const bespinJobWatcherStub = Ember.Service.extend({
+const bespinJobWatcherStub = Service.extend({
   startWatching() {},
   stopWatching() {}
 });
 
-const sessionStub = Ember.Service.extend({
+const sessionStub = Service.extend({
   data: {
     authenticated: {
       token: 'auth-token'
@@ -18,7 +19,7 @@ const sessionStub = Ember.Service.extend({
 moduleForComponent('job-watcher', 'Integration | Component | job watcher', {
   integration: true,
   beforeEach() {
-    let job = Ember.Object.create({
+    let job = EmberObject.create({
       id: 1234,
     });
     this.set('job', job);

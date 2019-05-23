@@ -1,6 +1,7 @@
-import Ember from 'ember';
-export default Ember.Mixin.create({
-  displayLabel: Ember.computed('fieldLabel', 'fieldName', function () {
+import { computed } from '@ember/object';
+import Mixin from '@ember/object/mixin';
+export default Mixin.create({
+  displayLabel: computed('fieldLabel', 'fieldName', function () {
     const fieldLabel = this.get('fieldLabel');
     if (fieldLabel) {
       return fieldLabel

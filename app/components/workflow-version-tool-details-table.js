@@ -1,8 +1,9 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import Component from '@ember/component';
 
-const WorkflowVersionToolDetailsTable = Ember.Component.extend({
+const WorkflowVersionToolDetailsTable = Component.extend({
   toolDetails: null,
-  rows: Ember.computed('toolDetails.details', function() {
+  rows: computed('toolDetails.details', function() {
     const details = this.getWithDefault('toolDetails.details', []);
     return details.sortBy('tool_name');
   })

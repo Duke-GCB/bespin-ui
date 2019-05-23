@@ -1,5 +1,6 @@
+import EmberObject from '@ember/object';
+import { A } from '@ember/array';
 import { moduleFor, test } from 'ember-qunit';
-import Ember from 'ember';
 
 moduleFor('controller:settings', 'Unit | Controller | settings', {
   // Specify the other units that are required for this test.
@@ -9,11 +10,11 @@ moduleFor('controller:settings', 'Unit | Controller | settings', {
 test('it computes showGenerateTokenButton based on model.tokens.firstObject', function(assert) {
   let controller = this.subject({
     model: {
-      tokens: Ember.A([Ember.Object.create({id: '123'})])
+      tokens: A([EmberObject.create({id: '123'})])
     }
   });
   assert.equal(controller.get('showGenerateTokenButton'), false, 'showGenerateTokenButton is false if a token exists');
-  controller.set('model.tokens', Ember.A());
+  controller.set('model.tokens', A());
   assert.equal(controller.get('showGenerateTokenButton'), true, 'showGenerateTokenButton is true if no token exists');
 });
 
@@ -21,7 +22,7 @@ test('it has a generateToken action', function(assert) {
   assert.expect(2);
   let controller = this.subject({
     model: {
-      tokens: Ember.A([Ember.Object.create({id: '123'})])
+      tokens: A([EmberObject.create({id: '123'})])
     },
     store: {
       createRecord(modelName) {
@@ -41,7 +42,7 @@ test('it has a deleteToken action', function(assert) {
   assert.expect(2);
   let controller = this.subject({
     model: {
-      tokens: Ember.A([Ember.Object.create({id: '123'})])
+      tokens: A([EmberObject.create({id: '123'})])
     }
   });
   let someToken = {

@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
+export default Component.extend({
   title: 'Select All Files',
   icon: 'glyphicon-plus',
   tagName: 'span',

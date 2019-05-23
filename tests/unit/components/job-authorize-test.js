@@ -1,5 +1,7 @@
+import { run } from '@ember/runloop';
+import { reject } from 'rsvp';
+import EmberObject from '@ember/object';
 import { moduleForComponent, test } from 'ember-qunit';
-import Ember from 'ember';
 
 moduleForComponent('job-authorize', 'Unit | Component | job authorize', {
   // Specify the other units that are required for this test
@@ -8,13 +10,13 @@ moduleForComponent('job-authorize', 'Unit | Component | job authorize', {
 });
 
 test('it reads token from job when job has authorization', function(assert) {
-  const mockJob = Ember.Object.create({hasAuthorization: true, runToken: 'jobRunToken'});
+  const mockJob = EmberObject.create({hasAuthorization: true, runToken: 'jobRunToken'});
   let jobAuthorize = this.subject({job:mockJob});
   assert.equal(jobAuthorize.get('token'), 'jobRunToken');
 });
 
 test('it reads token from local variable when job does not have authorization', function(assert) {
-  const mockJob = Ember.Object.create({hasAuthorization: false, runToken: 'jobRunToken'});
+  const mockJob = EmberObject.create({hasAuthorization: false, runToken: 'jobRunToken'});
   let jobAuthorize = this.subject({job: mockJob});
   assert.equal(jobAuthorize.get('token'), '');
   jobAuthorize.set('token', 'localToken');
@@ -22,7 +24,7 @@ test('it reads token from local variable when job does not have authorization', 
 });
 
 test('setting the token on authorized jobs does not change it', function(assert) {
-  const mockJob = Ember.Object.create({hasAuthorization: true, runToken: 'jobRunToken'});
+  const mockJob = EmberObject.create({hasAuthorization: true, runToken: 'jobRunToken'});
   let jobAuthorize = this.subject({job: mockJob});
   assert.equal(jobAuthorize.get('token'), 'jobRunToken');
   jobAuthorize.set('token', 'testToken');
@@ -31,22 +33,22 @@ test('setting the token on authorized jobs does not change it', function(assert)
 });
 
 test('errors from job.authorize are set on the component', function(assert) {
-  const mockError = Ember.Object.create({
+  const mockError = EmberObject.create({
     status: 400,
     detail: 'This token is not valid.'
   });
-  const mockJob = Ember.Object.create({
+  const mockJob = EmberObject.create({
     authorize(token) {
       assert.equal(token, 'auth-token');
-      return Ember.RSVP.reject({errors: [mockError]});
+      return reject({errors: [mockError]});
     }
   });
   let jobAuthorize = this.subject({job: mockJob});
-  Ember.run(() => {
+  run(() => {
     jobAuthorize.set('token', 'auth-token');
     jobAuthorize.send('authorize');
   });
-  Ember.run(() => {
+  run(() => {
     assert.deepEqual(jobAuthorize.get('errors'), [mockError]);
   });
 });

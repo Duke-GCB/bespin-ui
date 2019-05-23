@@ -1,7 +1,7 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 import DisplayFieldLabelMixin from 'bespin-ui/mixins/display-field-label-mixin';
 
-const UnknownField = Ember.Component.extend(DisplayFieldLabelMixin, {
+const UnknownField = Component.extend(DisplayFieldLabelMixin, {
   fieldName: null
 });
 

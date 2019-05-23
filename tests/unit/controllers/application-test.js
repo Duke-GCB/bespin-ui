@@ -1,5 +1,7 @@
+import { run } from '@ember/runloop';
+import { resolve } from 'rsvp';
+import EmberObject from '@ember/object';
 import { moduleFor, test } from 'ember-qunit';
-import Ember from 'ember';
 
 moduleFor('controller:application', 'Unit | Controller | application', {
   needs: ['service:session', 'service:user']
@@ -21,14 +23,14 @@ test('it invalidates sessions', function(assert) {
 
 test('it fetches currentUser when session.isAuthenticated changes', function(assert) {
   assert.expect(4);
-  const mockSessionService = Ember.Object.create({
+  const mockSessionService = EmberObject.create({
     isAuthenticated: false
   });
-  const mockUser = Ember.Object.create({ id: 6, username: 'samus'});
-  const mockUserService = Ember.Object.create({
+  const mockUser = EmberObject.create({ id: 6, username: 'samus'});
+  const mockUserService = EmberObject.create({
     currentUser() {
       assert.ok(true); // Ensure this is called
-      return Ember.RSVP.resolve(mockUser);
+      return resolve(mockUser);
     }
   });
   let controller = this.subject({
@@ -37,19 +39,19 @@ test('it fetches currentUser when session.isAuthenticated changes', function(ass
   });
 
   // In one run loop, set isAuthenticated = true
-  Ember.run(() => {
+  run(() => {
     assert.equal(controller.get('currentUser'), null); // currentUser should be null when session is not authenticated
     mockSessionService.set('isAuthenticated', true);
   });
 
   // In the next, assert that the current User updated. Then clear authentication
-  Ember.run(() => {
+  run(() => {
     assert.equal(controller.get('currentUser'), mockUser); // currentUser should be fetched when session is authenticated
     mockSessionService.set('isAuthenticated', false);
   });
 
   // Finally, assert that currentUser is null again
-  Ember.run(() => {
+  run(() => {
     assert.equal(controller.get('currentUser'), null); // currentUser should be null when session is not authenticated
   });
 

@@ -1,13 +1,13 @@
+import EmberObject from '@ember/object';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import Ember from 'ember';
 
 moduleForComponent('questionnaire/fastq-file-pair-row', 'Integration | Component | questionnaire/fastq file pair row', {
   integration: true
 });
 
 test('it renders multiple ddsFiles from the pair', function(assert) {
-  const pair = Ember.Object.create({
+  const pair = EmberObject.create({
     sampleName: 'Sample A',
     ddsFiles: [
       { name: 'pairFile1' },
@@ -23,7 +23,7 @@ test('it renders multiple ddsFiles from the pair', function(assert) {
 });
 
 test('editing the sample name on the form is reflected in the pair', function(assert) {
-  const pair = Ember.Object.create({
+  const pair = EmberObject.create({
     sampleName: 'Original Name',
     ddsFiles: [
       { name: 'pairFile1' },

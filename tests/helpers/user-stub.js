@@ -1,8 +1,9 @@
-import Ember from 'ember';
+import { resolve } from 'rsvp';
+import Service from '@ember/service';
 
-export default Ember.Service.extend({
+export default Service.extend({
   user: null,
   currentUser() {
-    return Ember.RSVP.resolve(this.get('user'));
+    return resolve(this.get('user'));
   }
 });

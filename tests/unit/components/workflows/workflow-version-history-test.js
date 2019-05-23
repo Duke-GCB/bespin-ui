@@ -1,5 +1,7 @@
+import { run } from '@ember/runloop';
+import { resolve } from 'rsvp';
+import EmberObject from '@ember/object';
 import { moduleForComponent, test } from 'ember-qunit';
-import Ember from 'ember';
 
 moduleForComponent('workflows/workflow-version-history', 'Unit | Component | workflows/workflow version history', {
   unit: true,
@@ -7,18 +9,18 @@ moduleForComponent('workflows/workflow-version-history', 'Unit | Component | wor
 
 test('loadVersionInfo calls getVersionInfo and decodes content', function(assert) {
   const encodedContent = btoa('Version Info Content');
-  const workflowVersion = Ember.Object.create({
+  const workflowVersion = EmberObject.create({
     getVersionInfo() {
       assert.step('getVersionInfo');
       const versionInfo = {content: encodedContent};
-      return Ember.RSVP.resolve(versionInfo);
+      return resolve(versionInfo);
     }
   });
 
   const component = this.subject({
     workflowVersion: workflowVersion
   });
-  Ember.run(() => {
+  run(() => {
     assert.step('loadVersionInfo');
     component.loadVersionInfo();
   });

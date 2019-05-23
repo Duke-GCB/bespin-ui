@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 
-const WorkflowVersionLink = Ember.Component.extend({
+const WorkflowVersionLink = Component.extend({
   classNames: ['workflow-version-link'],
   tagName: 'span',
   workflowVersion: null

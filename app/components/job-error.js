@@ -1,11 +1,12 @@
-import Ember from 'ember';
+import { not } from '@ember/object/computed';
+import Component from '@ember/component';
 
-const JobError = Ember.Component.extend({
+const JobError = Component.extend({
   tagName: 'div',
   classNames: ['job-error'],
   jobError: null,
   collapsed: true,
-  notCollapsed: Ember.computed.not('collapsed'),
+  notCollapsed: not('collapsed'),
   toggleCollapse() {
     this.toggleProperty('collapsed');
   }

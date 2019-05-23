@@ -1,5 +1,5 @@
+import EmberObject from '@ember/object';
 import { moduleForComponent, test } from 'ember-qunit';
-import Ember from 'ember';
 
 moduleForComponent('questionnaire/fastq-read-pair-list', 'Unit | Component | questionnaire/fastq read pair list', {
   // Specify the other units that are required for this test
@@ -9,11 +9,11 @@ moduleForComponent('questionnaire/fastq-read-pair-list', 'Unit | Component | que
 
 test('it computes answer with field name and files', function (assert) {
 
-  const expected = Ember.Object.create({read_pairs: [{name: 'abc', read1_files: [{class: 'File', path: 'abc_1'}], read2_files: [{class: 'File', path: 'abc_2'}]}]});
+  const expected = EmberObject.create({read_pairs: [{name: 'abc', read1_files: [{class: 'File', path: 'abc_1'}], read2_files: [{class: 'File', path: 'abc_2'}]}]});
   const fieldName = 'read_pairs';
-  const mockFileItems = Ember.Object.create({
+  const mockFileItems = EmberObject.create({
     cwlObjectValue: [
-      Ember.Object.create({name: 'abc', file1: {class: 'File', path: 'abc_1'}, file2: {class: 'File', path: 'abc_2'}})
+      EmberObject.create({name: 'abc', file1: {class: 'File', path: 'abc_1'}, file2: {class: 'File', path: 'abc_2'}})
     ]
   });
 

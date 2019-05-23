@@ -1,5 +1,5 @@
+import EmberObject from '@ember/object';
 import { moduleForComponent, test } from 'ember-qunit';
-import Ember from 'ember';
 import hbs from 'htmlbars-inline-precompile';
 
 moduleForComponent('dds/dds-file-picker', 'Integration | Component | dds/dds file picker', {
@@ -12,10 +12,10 @@ test('it renders', function(assert) {
 });
 
 test('it renders dds-resource-list-header button only when there are files', function(assert) {
-  this.set('children', [Ember.Object.create({isFile: true})]);
+  this.set('children', [EmberObject.create({isFile: true})]);
   this.render(hbs`{{dds/dds-file-picker children=children}}`);
   assert.equal(this.$('.dds-resource-list-header').length, 1);
-  this.set('children', [Ember.Object.create({isFile: false})]);
+  this.set('children', [EmberObject.create({isFile: false})]);
   this.render(hbs`{{dds/dds-file-picker children=children}}`);
   assert.equal(this.$('.dds-resource-list-header').length, 0);
 });

@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 
-const DDSRemoveButton = Ember.Component.extend({
+const DDSRemoveButton = Component.extend({
   resource: null,
   tagName: 'span',
   classNames: ['glyphicon','dds-remove-button', 'glyphicon-remove', 'small', 'dds-button'],

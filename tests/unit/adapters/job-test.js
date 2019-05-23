@@ -1,5 +1,5 @@
+import { resolve } from 'rsvp';
 import { moduleFor, test } from 'ember-qunit';
-import Ember from 'ember';
 
 moduleFor('adapter:job', 'Unit | Adapter | job', {
   needs: ['service:session'],
@@ -53,7 +53,7 @@ test('it POSTS live-usage for getLiveUsage', function(assert) {
   adapter.set('ajax', (url, method) => {
     assert.equal(url, '/jobs/567/live-usage/');
     assert.equal(method, 'POST');
-    return Ember.RSVP.resolve({
+    return resolve({
       'job-usage': {
         'cpu_hours': 1.21,
         'vm_hours': 4.84

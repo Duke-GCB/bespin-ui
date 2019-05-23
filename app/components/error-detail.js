@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 
-const ErrorDetail = Ember.Component.extend({
+const ErrorDetail = Component.extend({
   tagName: 'dl',
   classNames: ['error-detail', 'dl-horizontal'],
   error: null

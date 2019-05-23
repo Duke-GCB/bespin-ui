@@ -1,10 +1,11 @@
-import Ember from 'ember';
+import { alias } from '@ember/object/computed';
+import Component from '@ember/component';
 
-const FAQItem = Ember.Component.extend({
+const FAQItem = Component.extend({
   classNames: ['faq-item'],
   faq: null,
-  answer: Ember.computed.alias('faq.answer'),
-  question: Ember.computed.alias('faq.question')
+  answer: alias('faq.answer'),
+  question: alias('faq.question')
 });
 
 FAQItem.reopenClass({

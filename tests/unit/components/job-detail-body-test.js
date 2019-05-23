@@ -1,8 +1,8 @@
+import EmberObject from '@ember/object';
 import { moduleForComponent, test } from 'ember-qunit';
-import Ember from 'ember';
 import BaseUserStub from '../../helpers/user-stub'
 
-const mockUser = Ember.Object.create({
+const mockUser = EmberObject.create({
   id: 3,
   username: 'link'
 });
@@ -19,7 +19,7 @@ moduleForComponent('job-detail-body', 'Unit | Component | job detail body', {
 });
 
 test('it resolves currentUser() from user service', function(assert) {
-  const job = Ember.Object.create({});
+  const job = EmberObject.create({});
   let component = this.subject({job: job});
   this.render();
   assert.equal(component.get('currentUser'), mockUser);

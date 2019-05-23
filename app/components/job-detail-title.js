@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 
-const JobDetailTitle = Ember.Component.extend({
+const JobDetailTitle = Component.extend({
   job: null,
 });
 

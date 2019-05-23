@@ -1,5 +1,6 @@
+import { computed } from '@ember/object';
+import { not } from '@ember/object/computed';
 import DS from 'ember-data';
-import Ember from 'ember';
 
 export default DS.Model.extend({
   workflow: DS.belongsTo('workflow'),
@@ -14,12 +15,12 @@ export default DS.Model.extend({
   toolDetails: DS.belongsTo('workflow-version-tool-detail'),
   versionInfoUrl: DS.attr('string'),
   enableUi: DS.attr('boolean'),
-  disableUi: Ember.computed.not('enableUi'),
+  disableUi: not('enableUi'),
   getVersionInfo() {
     let adapter = this.store.adapterFor(this.constructor.modelName);
     return adapter.getVersionInfo(this.get('id'));
   },
-  versionTag: Ember.computed('workflow.tag', 'version', function() {
+  versionTag: computed('workflow.tag', 'version', function() {
     const tag = this.get('workflow.tag');
     const version = this.get('version');
     return `${tag}/${version}`;

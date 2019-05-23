@@ -1,12 +1,13 @@
+import { run } from '@ember/runloop';
+import EmberObject from '@ember/object';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import Ember from 'ember';
 
 moduleForComponent('job-error', 'Integration | Component | job error', {
   integration: true
 });
 
-const mockJobError = Ember.Object.create({
+const mockJobError = EmberObject.create({
   created: 'Jan 1, 1970',
   jobStep: 'Step 1',
   stepIsCreateVm: true,
@@ -30,7 +31,7 @@ test('it calls toggleCollapase on click', function(assert) {
   this.set('jobError', mockJobError);
   this.set('toggleCollapse', () => { assert.ok(true); });
   this.render(hbs`{{job-error jobError toggleCollapse=toggleCollapse}}`);
-  Ember.run(() => {
+  run(() => {
     document.querySelector('dd.job-error-details button').click();
   });
 });

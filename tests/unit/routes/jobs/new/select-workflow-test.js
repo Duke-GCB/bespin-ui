@@ -1,5 +1,5 @@
+import EmberObject from '@ember/object';
 import { moduleFor, test } from 'ember-qunit';
-import Ember from 'ember';
 
 moduleFor('route:jobs/new/select-workflow', 'Unit | Route | jobs/new/select workflow', {
 });
@@ -13,7 +13,7 @@ test('it sets model to all workflows', function(assert) {
   let route = this.subject({
     store: {
       findAll(recordModel) {
-        return [Ember.Object.create({id: 1, kind: 'find_' + recordModel})];
+        return [EmberObject.create({id: 1, kind: 'find_' + recordModel})];
       }
     }
   });

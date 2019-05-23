@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 
-const DDSProjectPicker = Ember.Component.extend({
+const DDSProjectPicker = Component.extend({
   classNames: ['dds-project-picker'],
   selectedProject: null,
   onPick: (/* dds-project */) => {},

@@ -1,6 +1,6 @@
+import { run } from '@ember/runloop';
 import { moduleForModel, test } from 'ember-qunit';
 import { testRelationship } from '../../helpers/test-relationships';
-import Ember from 'ember';
 
 moduleForModel('workflow-methods-document', 'Unit | Model | workflow methods document', {
   // Specify the other units that are required for this test.
@@ -17,7 +17,7 @@ testRelationship('workflow-methods-document', {key: 'workflowVersion', kind: 'be
 
 test('it has contents alias field content', function(assert) {
   let model = this.subject();
-  Ember.run(() => {model.set('content', 'somevalue')});
+  run(() => {model.set('content', 'somevalue')});
   assert.equal('somevalue', model.get('content'));
   assert.equal('somevalue', model.get('contents'));
 });

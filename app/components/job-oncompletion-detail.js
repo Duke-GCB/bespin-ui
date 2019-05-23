@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 
-const JobOncompletionDetail = Ember.Component.extend({
+const JobOncompletionDetail = Component.extend({
   tagName: 'div',
   classNames: ['job-oncompletion-detail'],
   shareGroup: null,

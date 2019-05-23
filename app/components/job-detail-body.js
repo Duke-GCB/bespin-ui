@@ -1,10 +1,11 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
 
-const JobDetailBody = Ember.Component.extend({
+const JobDetailBody = Component.extend({
   tagName: 'div',
   classNames: ['job-detail-body'],
   job: null,
-  user: Ember.inject.service('user'),
+  user: service('user'),
 
   // Per https://emberigniter.com/render-promise-before-it-resolves/
   didInsertElement() {

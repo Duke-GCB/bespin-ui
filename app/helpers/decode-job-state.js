@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import { helper as buildHelper } from '@ember/component/helper';
 
 const JobStates = {
   N: 'New',
@@ -20,4 +20,4 @@ export function decodeJobState(state) {
   }
 }
 
-export default Ember.Helper.helper(decodeJobState);
+export default buildHelper(decodeJobState);

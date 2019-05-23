@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import { helper as buildHelper } from '@ember/component/helper';
 
 const JobSteps = {
   V: 'Create VM',
@@ -16,4 +16,4 @@ export function decodeJobStep(step) {
   }
 }
 
-export default Ember.Helper.helper(decodeJobStep);
+export default buildHelper(decodeJobStep);

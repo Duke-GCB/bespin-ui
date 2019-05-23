@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 
-const JobInputFileList = Ember.Component.extend({
+const JobInputFileList = Component.extend({
   files: null,
   source: '',
   tagName: 'div',

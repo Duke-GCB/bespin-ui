@@ -1,6 +1,8 @@
-import Ember from 'ember';
+import { alias } from '@ember/object/computed';
+import { computed } from '@ember/object';
+import Component from '@ember/component';
 
-const JobDetailRow = Ember.Component.extend({
+const JobDetailRow = Component.extend({
   tagName: 'tr',
   classNames: ['job-detail-row'],
   actions: {
@@ -8,13 +10,13 @@ const JobDetailRow = Ember.Component.extend({
       this.get('job').destroyRecord();
     }
   },
-  modalConfirmationTitle: Ember.computed('job.id', function() {
+  modalConfirmationTitle: computed('job.id', function() {
     return `Are you sure you want to delete job ${this.get('job.id')}?`;
   }),
-  modalConfirmationBody: Ember.computed('job.name', function() {
+  modalConfirmationBody: computed('job.name', function() {
     return `Your Bespin job '${this.get('job.name')}' will be deleted permanently. This action cannot be undone.`
   }),
-  elapsedTime: Ember.computed.alias('job.usage.vmHours')
+  elapsedTime: alias('job.usage.vmHours')
 });
 
 JobDetailRow.reopenClass({

@@ -1,9 +1,12 @@
-import Ember from 'ember';
+import { all } from 'rsvp';
+import Controller from '@ember/controller';
+import { oneWay } from '@ember/object/computed';
+import EmberObject from '@ember/object';
 
-const AnswerFormFieldErrors = Ember.Object.extend({
+const AnswerFormFieldErrors = EmberObject.extend({
   errors: null,
   show: false,
-  length: Ember.computed.oneWay('errors.length'),
+  length: oneWay('errors.length'),
   init() {
     this.set('errors', []);
   },
@@ -18,7 +21,7 @@ const AnswerFormFieldErrors = Ember.Object.extend({
   },
 });
 
-export default Ember.Controller.extend({
+export default Controller.extend({
   // answerFormFieldErrors is an object owned by the controller, but passed down to individual answer-form
   // components to report their field errors
   answerFormErrors: null,
@@ -50,7 +53,7 @@ export default Ember.Controller.extend({
       answerSet.get('stageGroup').then(stageGroup => {
         return stageGroup.save();
       }).then((savedStageGroup) => {
-        return Ember.RSVP.all(
+        return all(
           // save the dds files
           savedStageGroup.get('ddsFiles').map(ddsFile => { return ddsFile.save(); })
         );
