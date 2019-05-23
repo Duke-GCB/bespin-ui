@@ -144,7 +144,7 @@ const FASTQFileItemList = EmberObject.extend({
     return this.get('samples').isEvery('isFull', true);
   }),
 
-  hasUniqueSampleNames: computed('samples.length', 'samples.@each.sampleName', function() {
+  hasUniqueSampleNames: computed('samples.{length,@each.sampleName}', function() {
     const numSamples = this.get('samples.length');
     const numUniqueNames = this.get('samples').uniqBy('sampleName').get('length');
     return numSamples === numUniqueNames;
@@ -161,7 +161,7 @@ const FASTQFileItemList = EmberObject.extend({
 
   // Ideally this would compute on something based on samples.[].fileItems.[]
   // But Ember cannot do computed properties with 2 levels of nesting.
-  ddsFiles: computed('samples.[]', 'samples.@each.fileItemsLength', function() {
+  ddsFiles: computed('samples.{[],@each.fileItemsLength}', function() {
     return this.get('samples').mapBy('ddsFiles').reduce((a,b) => a.concat(b), []);
   }),
   addFileItem(fileItem) {
@@ -214,7 +214,7 @@ const FASTQFileItemList = EmberObject.extend({
     });
     return true;
   },
-  inputFiles: computed('samples.[]', 'samples.@each.fileItemsLength', function() {
+  inputFiles: computed('samples.{[],@each.fileItemsLength}', function() {
     return this.get('samples').mapBy('inputFiles').reduce((a,b) => a.concat(b), []);
   })
 });

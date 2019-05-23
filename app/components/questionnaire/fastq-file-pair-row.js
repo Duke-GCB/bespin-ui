@@ -6,7 +6,7 @@ import FileGroupRow from 'bespin-ui/components/questionnaire/file-group-row';
 const FASTQFilePairRow = FileGroupRow.extend({
   classNames: ['fastq-file-pair-row', 'well','well-sm'],
   pairName: alias('pair.sampleName'),
-  errors: computed('pair.isFull', 'pairName', 'pair.size', 'pair.userSetSampleName', function() {
+  errors: computed('pair.{isFull,size,userSetSampleName}', 'pairName', function() {
     const errors = [];
     const isFull = this.get('pair.isFull');
     const name = this.get('pairName');
