@@ -1,12 +1,12 @@
-import { test } from 'qunit';
-import moduleForAcceptance from 'bespin-ui/tests/helpers/module-for-acceptance';
+import { module, test } from 'qunit';
+import { visit, currentURL, find } from '@ember/test-helpers';
+import { setupApplicationTest } from 'ember-qunit';
 
-moduleForAcceptance('Acceptance | faqs');
-
-test('visiting /faqs requires no login', function(assert) {
-  visit('/faqs');
-  andThen(function() {
+module('Acceptance | faqs', function(hooks) {
+  setupApplicationTest(hooks);
+  test('visiting /faqs requires no login', async function(assert) {
+    await visit('/faqs');
     assert.equal(currentURL(), '/faqs');
-    assert.equal(find('h3:first').text(), 'Bespin: Frequently Asked Questions');
+    assert.equal(find('h3').innerHTML, 'Bespin: Frequently Asked Questions');
   });
 });

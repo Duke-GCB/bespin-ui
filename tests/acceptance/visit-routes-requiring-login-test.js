@@ -1,25 +1,19 @@
-import { test } from 'qunit';
-import moduleForAcceptance from 'bespin-ui/tests/helpers/module-for-acceptance';
+import { module, test } from 'qunit';
+import { visit, currentURL } from '@ember/test-helpers';
+import { setupApplicationTest } from 'ember-qunit';
 
-moduleForAcceptance('Acceptance | visit routes requiring login');
-
-test('visiting /jobs requires login', function(assert) {
-  visit('/jobs');
-  andThen(function() {
+module('Acceptance | visit routes requiring login', function(hooks) {
+  setupApplicationTest(hooks);
+  test('visiting /jobs requires login', async function(assert) {
+    await visit('/jobs');
     assert.equal(currentURL(), '/login');
   });
-});
-
-test('visiting /workflows requires login', function(assert) {
-  visit('/workflows');
-  andThen(function() {
+  test('visiting /workflows requires login', async function(assert) {
+    await visit('/workflows');
     assert.equal(currentURL(), '/login');
   });
-});
-
-test('visiting /settings requires login', function(assert) {
-  visit('/settings');
-  andThen(function() {
+  test('visiting /settings requires login', async function(assert) {
+    await visit('/settings');
     assert.equal(currentURL(), '/login');
   });
 });
