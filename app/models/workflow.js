@@ -9,7 +9,5 @@ export default DS.Model.extend({
   latestVersion: Ember.computed('versions.[]', function() {
     return this.get('versions.lastObject');
   }),
-  isActive: Ember.computed('state', function() {
-    return this.get('state') === 'A';
-  })
+  isActive: Ember.computed.equal('state', 'A')
 });
