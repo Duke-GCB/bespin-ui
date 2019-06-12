@@ -1,12 +1,12 @@
 import Ember from 'ember';
-import ActiveWorkflowsModelMixin from 'bespin-ui/mixins/active-workflows-model';
+import ActiveWorkflowsMixin from 'bespin-ui/mixins/active-workflows';
 import { module, test } from 'qunit';
 
-module('Unit | Mixin | active workflows model');
+module('Unit | Mixin | active workflows');
 
-test('model returns all active workflows sorted by name', function(assert) {
-  let ActiveWorkflowsModelObject = Ember.Object.extend(ActiveWorkflowsModelMixin);
-  let subject = ActiveWorkflowsModelObject.create({
+test('model method returns all active workflows sorted by name', function(assert) {
+  let ActiveWorkflowsObject = Ember.Object.extend(ActiveWorkflowsMixin);
+  let subject = ActiveWorkflowsObject.create({
     store: {
       findAll(recordModel) {
         return {
