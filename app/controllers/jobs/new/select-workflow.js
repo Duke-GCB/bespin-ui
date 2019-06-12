@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
   workflow: null,
+  activeWorkflows: Ember.computed.filterBy('model.[]', 'isActive', true),
   actions: {
     back() {
       this.transitionToRoute('jobs');
