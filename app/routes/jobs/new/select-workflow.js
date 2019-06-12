@@ -1,9 +1,4 @@
-import Ember from 'ember';
+import ActiveWorkflowsRoute from '../../active-workflows';
 
-export default Ember.Route.extend({
-  model() {
-    return this.get('store').findAll('workflow', { reload: true }).then(
-      workflows => workflows.filterBy('isActive')
-    );
-  },
+export default ActiveWorkflowsRoute.extend({
 });

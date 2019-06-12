@@ -1,10 +1,5 @@
-import Ember from 'ember';
+import ActiveWorkflowsRoute from '../active-workflows';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
-export default Ember.Route.extend(AuthenticatedRouteMixin, { // Marks this as authenticated
-  model(){
-    return this.get('store').findAll('workflow', { reload: true }).then(
-      workflows => workflows.filterBy('isActive').sortBy('name')
-    );
-  }
+export default ActiveWorkflowsRoute.extend(AuthenticatedRouteMixin, { // Marks this as authenticated
 });
