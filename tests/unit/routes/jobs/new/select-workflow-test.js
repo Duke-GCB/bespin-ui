@@ -9,11 +9,18 @@ test('it exists', function(assert) {
   assert.ok(route);
 });
 
-test('it sets model to all workflows', function(assert) {
+test('it sets model to all active workflows', function(assert) {
   let route = this.subject({
     store: {
       findAll(recordModel) {
-        return [Ember.Object.create({id: 1, kind: 'find_' + recordModel})];
+        return {
+          then(filterFunc) {
+            return filterFunc([
+              Ember.Object.create({id: 1, kind: 'find_' + recordModel, isActive: true}),
+              Ember.Object.create({id: 2, kind: 'find_' + recordModel, isActive: false}),
+            ])
+          }
+        };
       }
     }
   });
