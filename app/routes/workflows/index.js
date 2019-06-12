@@ -3,8 +3,8 @@ import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-rout
 
 export default Ember.Route.extend(AuthenticatedRouteMixin, { // Marks this as authenticated
   model(){
-    return this.get('store').findAll('workflow').then(
-      workflows => workflows.sortBy('name')
+    return this.get('store').findAll('workflow', { reload: true }).then(
+      workflows => workflows.filterBy('isActive').sortBy('name')
     );
   }
 });

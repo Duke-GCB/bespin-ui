@@ -1,10 +1,9 @@
 {{#bs-form as |form|}}
     <h3>Please select a workflow to run</h3>
-    Model.length: {{activeWorkflows.length}}
     {{#form.group  class='job-kind'}}
         <label class="control-label">Workflow:</label>
         <div class="row">
-          {{#each activeWorkflows as |workflow| }}
+          {{#each model as |workflow| }}
             {{jobs/workflow-card workflow=workflow onPicked=(action 'setWorkflow')}}
           {{/each}}
         </div>
