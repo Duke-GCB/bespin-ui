@@ -1,18 +1,12 @@
-import { moduleFor, test } from 'ember-qunit';
-import Ember from "ember";
+import Ember from 'ember';
+import ActiveWorkflowsModelMixin from 'bespin-ui/mixins/active-workflows-model';
+import { module, test } from 'qunit';
 
-moduleFor('route:active-workflows', 'Unit | Route | active workflows', {
-  // Specify the other units that are required for this test.
-  // needs: ['controller:foo']
-});
+module('Unit | Mixin | active workflows model');
 
-test('it exists', function(assert) {
-  let route = this.subject();
-  assert.ok(route);
-});
-
-test('it sets model to all active workflows sorted by name', function(assert) {
-  let route = this.subject({
+test('model returns all active workflows sorted by name', function(assert) {
+  let ActiveWorkflowsModelObject = Ember.Object.extend(ActiveWorkflowsModelMixin);
+  let subject = ActiveWorkflowsModelObject.create({
     store: {
       findAll(recordModel) {
         return {
@@ -27,7 +21,7 @@ test('it sets model to all active workflows sorted by name', function(assert) {
       }
     }
   });
-  let model = route.model();
+  let model = subject.model();
   assert.equal(model.length, 2);
   assert.equal(model[0].get('kind'), 'find_workflow');
   assert.equal(model[0].get('id'), 3);
