@@ -1,5 +1,4 @@
 import { moduleFor, test } from 'ember-qunit';
-import Ember from "ember";
 
 moduleFor('route:workflows/index', 'Unit | Route | workflows', {
   needs: ['service:session']
