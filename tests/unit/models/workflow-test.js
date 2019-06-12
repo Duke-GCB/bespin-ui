@@ -38,3 +38,18 @@ test('it computes latest version', function(assert) {
   assert.equal(workflow.get('latestVersion').get('version'), 2);
   assert.equal(workflow.get('versions').get('length'), 2);
 });
+
+test('it computes isActive based on state "A"', function(assert) {
+  let workflow = this.subject({ state: 'A'});
+  assert.equal(workflow.get('isActive'), true);
+});
+
+test('it computes isActive based on state "D"', function(assert) {
+  let workflow = this.subject({ state: 'D'});
+  assert.equal(workflow.get('isActive'), false);
+});
+
+test('it computes isActive based on state null', function(assert) {
+  let workflow = this.subject({ state: null});
+  assert.equal(workflow.get('isActive'), false);
+});

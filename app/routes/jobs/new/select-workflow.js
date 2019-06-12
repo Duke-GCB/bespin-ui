@@ -1,7 +1,5 @@
 import Ember from 'ember';
+import ActiveWorkflowsMixin from 'bespin-ui/mixins/active-workflows';
 
-export default Ember.Route.extend({
-  model() {
-    return this.get('store').findAll('workflow');
-  },
+export default Ember.Route.extend(ActiveWorkflowsMixin, {
 });
