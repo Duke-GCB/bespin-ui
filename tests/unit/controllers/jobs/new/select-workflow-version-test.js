@@ -32,3 +32,18 @@ test('it handles next action', function(assert) {
   });
   controller.send('next');
 });
+
+test('it sorts versions', function(assert) {
+  const versions = [
+    {versionSort: '000v2'},
+    {versionSort: '000v3'},
+    {versionSort: '00v10'},
+    {versionSort: '000v5'},
+    {versionSort: '000v1'},
+    {versionSort: '000v4'}];
+  const workflow = {versions: versions};
+  const component = this.subject({model: workflow});
+  const sortedVersions = component.get('sortedVersions');
+  const stringVersions = sortedVersions.mapBy('versionSort').join(',');
+  assert.equal(stringVersions, '000v1,000v2,000v3,000v4,000v5,00v10');
+});

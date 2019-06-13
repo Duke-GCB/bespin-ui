@@ -46,3 +46,21 @@ test('it computes versionTag', function(assert) {
   });
   assert.equal(version.get('versionTag'),'wf-tag/v3.2');
 });
+
+test('it computes versionSort for empty', function(assert) {
+  assert.deepEqual(this.subject({version: ''}).get('versionSort'),null);
+});
+
+test('it computes versionSort for simple version', function(assert) {
+  assert.deepEqual(this.subject({version: 'v1'}).get('versionSort'),['00000000v1']);
+});
+
+test('it computes versionSort for major.minor.patch version', function(assert) {
+  let version = this.subject({version: 'v1.2.3'});
+  assert.deepEqual(version.get('versionSort'),['00000000v1','0000000002','0000000003']);
+});
+
+test('it computes versionSort for major.minor.patch-dev version', function(assert) {
+  let version = this.subject({version: 'v1.2.3-dev'});
+  assert.deepEqual(version.get('versionSort'),['00000000v1','0000000002','0000000003','0000000dev']);
+});
