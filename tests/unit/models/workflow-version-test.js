@@ -47,6 +47,10 @@ test('it computes versionTag', function(assert) {
   assert.equal(version.get('versionTag'),'wf-tag/v3.2');
 });
 
+test('it computes versionSort for empty', function(assert) {
+  assert.deepEqual(this.subject({version: ''}).get('versionSort'),null);
+});
+
 test('it computes versionSort for simple version', function(assert) {
   assert.deepEqual(this.subject({version: 'v1'}).get('versionSort'),['00000000v1']);
 });

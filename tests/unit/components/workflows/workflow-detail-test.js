@@ -1,8 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 
 moduleForComponent('workflows/workflow-detail', 'Unit | Component | workflows/workflow detail', {
-  unit: true,
-  needs: ['model:workflow-version']
+  unit: true
 });
 
 test('it sorts versions with newest first', function(assert) {
