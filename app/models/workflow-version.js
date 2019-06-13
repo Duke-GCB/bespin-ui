@@ -1,6 +1,8 @@
 import DS from 'ember-data';
 import Ember from 'ember';
 
+const VERSION_SORT_LPAD_AMT = 10;
+
 export default DS.Model.extend({
   workflow: DS.belongsTo('workflow'),
   description: DS.attr('string'),
@@ -24,5 +26,14 @@ export default DS.Model.extend({
     const version = this.get('version');
     return `${tag}/${version}`;
   }),
-
+  versionSort: Ember.computed('version', function () {
+    const version = this.get('version');
+    if (version) {
+      // Splits semantic versioning string and left pad parts.
+      // Follows bespin-api's WorkflowVersion.sort_workflow_then_version_key method.
+      const parts = version.split(/\.|-/);
+      return parts.map(x => x.padStart(VERSION_SORT_LPAD_AMT, '0'));
+    }
+    return null;
+  })
 });

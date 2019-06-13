@@ -3,7 +3,7 @@
     {{#form.group  class='job-kind'}}
         <label class="control-label">Workflow version:</label>
         <div class="row">
-          {{#each model.versions as |version| }}
+          {{#each sortedVersions as |version| }}
             {{jobs/workflow-version-card workflowVersion=version onPicked=(action 'setWorkflowVersion')}}
           {{/each}}
         </div>
