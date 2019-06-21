@@ -1,7 +1,7 @@
 import { helper as buildHelper } from '@ember/component/helper';
 
 function makeDockerLink(dockerImageName) {
-  const matches = dockerImageName.match('(([^:/]*)\/)?([^:/]*)\/([^:/]*)(\:(.*))?');
+  const matches = dockerImageName.match('(([^:/]*)/)?([^:/]*)/([^:/]*)(:(.*))?');
   if (matches) {
     let host = matches[2];
     let repoSeparator = 'r';
