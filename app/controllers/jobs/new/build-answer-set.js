@@ -8,6 +8,7 @@ const AnswerFormFieldErrors = EmberObject.extend({
   show: false,
   length: oneWay('errors.length'),
   init() {
+    this._super(...arguments);
     this.set('errors', []);
   },
   setError(fieldName, message) {
