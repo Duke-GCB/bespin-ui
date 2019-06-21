@@ -58,6 +58,7 @@ const FASTQSample = EmberObject.extend({
     get(/* key */) {
       if(this.get('_shouldGenerateSampleName')) {
         const sampleName = this._generateSampleName();
+        //eslint-disable-next-line ember/no-side-effects
         this.set('_sampleName', sampleName);
       }
       return this.get('_sampleName');
