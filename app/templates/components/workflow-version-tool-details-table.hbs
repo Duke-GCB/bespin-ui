@@ -26,8 +26,8 @@
         {{#each row.docker_images as |dockerImage|}}
           <li>
             <span class="tool-docker-image">
-            {{#if (docker-link dockerImage) as |dockerLink|}}
-              <a href="{{dockerLink}}">{{dockerImage}}</a>
+            {{#if (docker-link dockerImage)}}
+              <a href="{{docker-link dockerImage}}">{{dockerImage}}</a>
             {{else}}
               {{dockerImage}}
             {{/if}}
