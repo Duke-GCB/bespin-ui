@@ -1,5 +1,5 @@
+import EmberObject from '@ember/object';
 import { moduleForComponent, test } from 'ember-qunit';
-import Ember from 'ember';
 
 moduleForComponent('questionnaire/exomeseq-studytype-choice', 'Unit | Component | questionnaire/exomeseq studytype choice', {
   // Specify the other units that are required for this test
@@ -9,7 +9,7 @@ moduleForComponent('questionnaire/exomeseq-studytype-choice', 'Unit | Component 
 
 test('it sets component-specific error text to answerFormErrors', function(assert) {
   const expectedErrorText = 'Please choose a study type';
-  const mockAnswerFormErrors = Ember.Object.create({
+  const mockAnswerFormErrors = EmberObject.create({
     fieldName: null,
     errorText: null,
     setError(fieldName, text) {

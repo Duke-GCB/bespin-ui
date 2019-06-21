@@ -3,6 +3,8 @@
  * Users should call startWatching to
  * Websocket host determined by ENV.APP.JOB_WATCHER_HOST.
  */
+import Service, { inject as service } from '@ember/service';
+
 import Ember from 'ember';
 import ENV from 'bespin-ui/config/environment'; // This is how we load config variables from our environment.js file
 
@@ -26,9 +28,9 @@ function stopWatchingJob(socket, token, jobId) {
   socket.send(buildRequest("remove", token, jobId));
 }
 
-export default Ember.Service.extend({
-  store: Ember.inject.service(),
-  websockets: Ember.inject.service(),
+export default Service.extend({
+  store: service(),
+  websockets: service(),
   socketRef: null,
   startWatching(token, jobId) {
     var socket = this.get('socketRef');

@@ -1,8 +1,11 @@
-import Ember from 'ember';
+import { observer } from '@ember/object';
+import { on } from '@ember/object/evented';
+import { inject as service } from '@ember/service';
+import Controller from '@ember/controller';
 
-export default Ember.Controller.extend({
-  session: Ember.inject.service('session'),
-  user: Ember.inject.service('user'),
+export default Controller.extend({
+  session: service('session'),
+  user: service('user'),
   currentUser: null,
   actions: {
     invalidateSession() {
@@ -10,8 +13,8 @@ export default Ember.Controller.extend({
     }
   },
 
-  authenticatedDidChange: Ember.on('init',
-    Ember.observer('session.isAuthenticated', function() {
+  authenticatedDidChange: on('init',
+    observer('session.isAuthenticated', function() {
       if (this.get('session.isAuthenticated')) {
         this.get('user').currentUser().then(currentUser => {
           this.set('currentUser', currentUser);

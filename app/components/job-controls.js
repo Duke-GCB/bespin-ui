@@ -1,6 +1,7 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import Component from '@ember/component';
 
-const JobControls = Ember.Component.extend({
+const JobControls = Component.extend({
   classNames: ['btn-group', 'btn-group-justified'],
   tagName: 'div',
   job: null,
@@ -15,7 +16,7 @@ const JobControls = Ember.Component.extend({
       this.get('job').restart();
     }
   },
-  buttons: Ember.computed('job.state', function() {
+  buttons: computed('job.state', function() {
     let state = this.get('job.state');
     let buttons = [
       {type: 'primary', action: 'start', title: 'Start', enabled: false},

@@ -1,10 +1,11 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import Component from '@ember/component';
 
-const JobDetail = Ember.Component.extend({
+const JobDetail = Component.extend({
   tagName: 'div',
   classNames: ['job-detail','panel'],
   classNameBindings: 'panelType',
-  panelType: Ember.computed('job.isErrored', function() {
+  panelType: computed('job.isErrored', function() {
     if(this.get('job.isErrored')) {
       return 'panel-danger';
     } else {

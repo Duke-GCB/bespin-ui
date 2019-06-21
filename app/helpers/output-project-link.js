@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import { helper as buildHelper } from '@ember/component/helper';
 
 function projectLinkTag(projectId) {
   return `https://dataservice.duke.edu/#/project/${projectId}`;
@@ -12,4 +12,4 @@ export function outputProjectLink(params) {
   }
 }
 
-export default Ember.Helper.helper(outputProjectLink);
+export default buildHelper(outputProjectLink);

@@ -1,6 +1,6 @@
+import EmberObject from '@ember/object';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import Ember from 'ember';
 
 moduleForComponent('job-file-stage-group-detail', 'Integration | Component | job file stage group detail', {
   integration: true
@@ -13,8 +13,8 @@ test('it renders', function(assert) {
 });
 
 test('it renders a job-input-file-list for ddsFiles when there are ddsFiles', function(assert) {
-  let stageGroup = Ember.Object.create({
-    ddsFiles: [Ember.Object.create()]
+  let stageGroup = EmberObject.create({
+    ddsFiles: [EmberObject.create()]
   });
   this.set('stageGroup', stageGroup);
   this.render(hbs`{{job-file-stage-group-detail stageGroup}}`);
@@ -23,8 +23,8 @@ test('it renders a job-input-file-list for ddsFiles when there are ddsFiles', fu
 });
 
 test('it renders a job-input-file-list for url files when there are urlFiles', function(assert) {
-  let stageGroup = Ember.Object.create({
-    urlFiles: [Ember.Object.create()]
+  let stageGroup = EmberObject.create({
+    urlFiles: [EmberObject.create()]
   });
   this.set('stageGroup', stageGroup);
   this.render(hbs`{{job-file-stage-group-detail stageGroup}}`);
@@ -33,9 +33,9 @@ test('it renders a job-input-file-list for url files when there are urlFiles', f
 });
 
 test('it renders two job-input-file-lists for url files when there are both ddsFiles and urlFiles', function(assert) {
-  let stageGroup = Ember.Object.create({
-    ddsFiles: [Ember.Object.create()],
-    urlFiles: [Ember.Object.create()]
+  let stageGroup = EmberObject.create({
+    ddsFiles: [EmberObject.create()],
+    urlFiles: [EmberObject.create()]
   });
   this.set('stageGroup', stageGroup);
   this.render(hbs`{{job-file-stage-group-detail stageGroup}}`);
@@ -45,20 +45,20 @@ test('it renders two job-input-file-lists for url files when there are both ddsF
 });
 
 test('it renders sorted job-input-file-list for ddsFiles when there are multiple ddsFiles', function(assert) {
-  let stageGroup = Ember.Object.create({
-    ddsFiles: [Ember.Object.create(
+  let stageGroup = EmberObject.create({
+    ddsFiles: [EmberObject.create(
         {
           destinationPath:'file1.txt',
           sequenceGroup: 2,
           sequence: 2,
         }
-        ), Ember.Object.create(
+        ), EmberObject.create(
         {
           destinationPath:'file2.txt',
           sequenceGroup: 2,
           sequence: 1
         }
-        ), Ember.Object.create(
+        ), EmberObject.create(
         {
           destinationPath:'file3.txt',
           sequenceGroup: 0,
@@ -72,20 +72,20 @@ test('it renders sorted job-input-file-list for ddsFiles when there are multiple
 });
 
 test('it renders sorted job-input-file-list for urlFiles when there are multiple urlFiles', function(assert) {
-  let stageGroup = Ember.Object.create({
-    urlFiles: [Ember.Object.create(
+  let stageGroup = EmberObject.create({
+    urlFiles: [EmberObject.create(
       {
         destinationPath:'file1.txt',
         sequenceGroup: 2,
         sequence: 2,
       }
-    ), Ember.Object.create(
+    ), EmberObject.create(
       {
         destinationPath:'file2.txt',
         sequenceGroup: 2,
         sequence: 1
       }
-    ), Ember.Object.create(
+    ), EmberObject.create(
       {
         destinationPath:'file3.txt',
         sequenceGroup: 0,

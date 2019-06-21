@@ -1,7 +1,8 @@
+import EmberObject from '@ember/object';
+import { run } from '@ember/runloop';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import StoreStub from "../../../helpers/store-stub";
-import Ember from "ember";
 
 moduleForComponent('questionnaire/file-field', 'Integration | Component | questionnaire/file field', {
   integration: true,
@@ -11,7 +12,7 @@ moduleForComponent('questionnaire/file-field', 'Integration | Component | questi
 });
 
 test('it renders with no fileItem', function(assert) {
-  Ember.run(() => {
+  run(() => {
     this.set('fileItem', null);
     this.set('externalAction', () => {});
     this.render(hbs`{{questionnaire/file-field "SomeField" externalAction fileItem=fileItem}}`);
@@ -22,7 +23,7 @@ test('it renders with no fileItem', function(assert) {
 });
 
 test('it renders with a fileItem', function(assert) {
-  Ember.run(() => {
+  run(() => {
     this.set('fileItem', {name: 'foo.txt'});
     this.set('externalAction', () => {});
     this.render(hbs`{{questionnaire/file-field "SomeField" externalAction fileItem=fileItem}}`);
@@ -33,7 +34,7 @@ test('it renders with a fileItem', function(assert) {
 });
 
 test('it renders with fieldLabel instead of fieldName when provided', function(assert) {
-  Ember.run(() => {
+  run(() => {
     this.set('fileItem', null);
     this.set('externalAction', () => {});
     this.render(hbs`{{questionnaire/file-field "SomeField" externalAction fileItem=fileItem fieldLabel="Some Label"}}`);
@@ -46,7 +47,7 @@ test('it renders with fieldLabel instead of fieldName when provided', function(a
 test('it shows/hides errors based on answerFormErrors.show', function(assert) {
   this.set('fieldName', 'field-name');
   this.set('externalAction', () => {});
-  this.set('answerFormErrors', Ember.Object.create({
+  this.set('answerFormErrors', EmberObject.create({
     show: true,
     errors: [{field: 'field-name', message: 'Error Message'}],
     setError() { }
@@ -62,7 +63,7 @@ test('it shows/hides errors based on answerFormErrors.show', function(assert) {
 });
 
 test('it correctly observes error array', function(assert) {
-  const errors = Ember.Object.create({
+  const errors = EmberObject.create({
     show: true,
     errors: [{field: 'field-name', message: 'Empty'}],
     setError() { }
@@ -70,7 +71,7 @@ test('it correctly observes error array', function(assert) {
   this.set('answerFormErrors', errors);
   this.set('fieldName', 'field-name');
   this.set('externalAction', () => {});
-  Ember.run(() => {
+  run(() => {
     // Initially empty
     this.render(hbs`{{questionnaire/file-field fieldName=fieldName answerChanged=externalAction
                                                answerFormErrors=answerFormErrors}}`);

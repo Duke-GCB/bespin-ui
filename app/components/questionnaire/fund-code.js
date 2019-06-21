@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 
-const FundCode = Ember.Component.extend({
+const FundCode = Component.extend({
   classNames: ['row', 'fund-code']
 });
 

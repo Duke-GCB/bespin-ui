@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 
-const FileGroupFile = Ember.Component.extend({
+const FileGroupFile = Component.extend({
   file: null, // A dds-resource
   tagName: 'li',
   classNames: ['file-group-file'],

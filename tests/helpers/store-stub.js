@@ -1,6 +1,8 @@
-import Ember from 'ember';
+import { Promise } from 'rsvp';
+import EmberObject, { computed } from '@ember/object';
+import Service from '@ember/service';
 
-export default Ember.Service.extend({
+export default Service.extend({
   reset() {
     this.set('findCalls', []);
     this.set('queryCalls', []);
@@ -9,9 +11,9 @@ export default Ember.Service.extend({
   findCalls: null,
   queryCalls: null,
   createCalls: null,
-  findCount: Ember.computed('findCalls.length', function() { return this.get('findCalls.length'); }),
-  queryCount: Ember.computed('queryCalls.length', function() { return this.get('queryCalls.length'); }),
-  createCount: Ember.computed('createCalls.length', function() { return this.get('createCalls.length'); }),
+  findCount: computed('findCalls.length', function() { return this.get('findCalls.length'); }),
+  queryCount: computed('queryCalls.length', function() { return this.get('queryCalls.length'); }),
+  createCount: computed('createCalls.length', function() { return this.get('createCalls.length'); }),
 
   init() {
     this.reset();
@@ -20,19 +22,19 @@ export default Ember.Service.extend({
 
   // Functions that generate mock objects
   findAllFunction(modelName) {
-    let object = Ember.Object.create({id:'abc-123', kind: modelName});
+    let object = EmberObject.create({id:'abc-123', kind: modelName});
     return [object];
   },
 
   queryFunction(modelName, params) {
-    let object = Ember.Object.create(params);
+    let object = EmberObject.create(params);
     object.set('kind', modelName);
     object.set('id', 'def-456');
     return [object];
   },
 
   createFunction(modelName, params) {
-    let object = Ember.Object.create(params);
+    let object = EmberObject.create(params);
     object.set('__model_kind', modelName);
     return object;
   },
@@ -42,7 +44,7 @@ export default Ember.Service.extend({
     // For projects!
     this.get('findCalls').pushObject(modelName);
     let results = this.findAllFunction(modelName);
-    return new Ember.RSVP.Promise(function (resolve) {
+    return new Promise(function (resolve) {
       // returns one
       resolve(results);
     });
@@ -50,7 +52,7 @@ export default Ember.Service.extend({
   query(modelName, params) {
     this.get('queryCalls').pushObject({modelName: modelName, params: params});
     let results = this.queryFunction(modelName, params);
-    return new Ember.RSVP.Promise(function(resolve) {
+    return new Promise(function(resolve) {
       resolve(results);
     });
   },

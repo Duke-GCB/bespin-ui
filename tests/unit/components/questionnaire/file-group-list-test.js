@@ -1,5 +1,5 @@
+import EmberObject from '@ember/object';
 import { moduleForComponent, test } from 'ember-qunit';
-import Ember from 'ember';
 import StoreStub from '../../../helpers/store-stub';
 
 moduleForComponent('questionnaire/file-group-list', 'Unit | Component | questionnaire/file group list', {
@@ -27,7 +27,7 @@ test('it renders', function(assert) {
 
 test('it computes answer with field name and files', function (assert) {
   const fieldName = 'mock_files';
-  const mockFileItems = Ember.Object.create({
+  const mockFileItems = EmberObject.create({
     cwlObjectValue: [2,3,1]
   });
 
@@ -39,7 +39,7 @@ test('it computes answer with field name and files', function (assert) {
   });
   const answer = fileGroupList.get('answer');
 
-  const expected = Ember.Object.create({
+  const expected = EmberObject.create({
     mock_files: [2,3,1]
   });
   assert.deepEqual(answer, expected);
@@ -48,7 +48,7 @@ test('it computes answer with field name and files', function (assert) {
 
 test('it computes inputFiles array from the fileItems', function (assert) {
   const expected = ['foo', 'bar', 'baz'];
-  const mockFileItems = Ember.Object.create({
+  const mockFileItems = EmberObject.create({
     inputFiles: expected
   });
   const fileGroupList = this.subject({
@@ -63,7 +63,7 @@ test('it computes inputFiles array from the fileItems', function (assert) {
 
 test('it handles removeAt action', function (assert) {
   assert.expect(2);
-  const mockFileItems = Ember.Object.create({
+  const mockFileItems = EmberObject.create({
     removeFileItem(groupIndex, fileIndex) {
       assert.equal(groupIndex, 3);
       assert.equal(fileIndex, 0);
@@ -80,7 +80,7 @@ test('it handles removeAt action', function (assert) {
 
 test('it handles addFile action', function (assert) {
   assert.expect(4);
-  const mockDdsFile = Ember.Object.create({
+  const mockDdsFile = EmberObject.create({
     createJobInputFile(prefix, credential) {
       // Temporarily removing prefix to preserve original file names.
       // See https://github.com/Duke-GCB/bespin-ui/issues/39
@@ -96,7 +96,7 @@ test('it handles addFile action', function (assert) {
     }
   });
 
-  const mockFileItems = Ember.Object.create({
+  const mockFileItems = EmberObject.create({
     addFileItem(fileItem) {
       assert.ok(fileItem);
     }

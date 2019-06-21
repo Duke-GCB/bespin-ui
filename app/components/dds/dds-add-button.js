@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 
-const DDSAddButton = Ember.Component.extend({
+const DDSAddButton = Component.extend({
   resource: null,
   tagName: 'span',
   classNames: ['glyphicon','dds-add-button', 'glyphicon-file', 'dds-button'],

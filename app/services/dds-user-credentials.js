@@ -1,4 +1,5 @@
-import Ember from 'ember';
+import { resolve } from 'rsvp';
+import Service, { inject as service } from '@ember/service';
 
 /*
   This service is now only used when creating dds-job-input-files, and is problematic because
@@ -7,11 +8,11 @@ import Ember from 'ember';
    would be a promise or otherwise more reliable.
  */
 
-export default Ember.Service.extend({
-  store: Ember.inject.service(),
+export default Service.extend({
+  store: service(),
   primaryCredential() {
     return this.get('store').findAll('dds-user-credential').then(credentials => {
-      return Ember.RSVP.resolve(credentials.get('firstObject'));
+      return resolve(credentials.get('firstObject'));
     });
   }
 });

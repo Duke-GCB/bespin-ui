@@ -1,6 +1,7 @@
-import Ember from 'ember';
+import { hash } from 'rsvp';
+import Route from '@ember/routing/route';
 
-export default Ember.Route.extend({
+export default Route.extend({
   // Create an answer set and a job file questionnaire
   model(params) {
     const store = this.get('store');
@@ -8,7 +9,7 @@ export default Ember.Route.extend({
       questionnaire: store.findRecord('job-questionnaire', params.questionnaire_id, {include: 'questions'}),
       stageGroup: store.createRecord('job-file-stage-group', {})
     };
-    return Ember.RSVP.hash(promises).then(hash => {
+    return hash(promises).then(hash => {
       return store.createRecord('job-answer-set', {
         questionnaire: hash.questionnaire,
         stageGroup: hash.stageGroup

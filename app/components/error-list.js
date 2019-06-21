@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 
-const ErrorList = Ember.Component.extend({
+const ErrorList = Component.extend({
   classNames: ['error-list'],
   message: null,
   errors: null

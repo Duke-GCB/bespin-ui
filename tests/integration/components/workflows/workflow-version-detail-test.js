@@ -1,9 +1,10 @@
+import { resolve } from 'rsvp';
+import EmberObject from '@ember/object';
 import { moduleForComponent, test } from 'ember-qunit';
-import Ember from 'ember';
 import hbs from 'htmlbars-inline-precompile';
 
-const workflowVersion =  Ember.Object.create({
-  getVersionInfo() {return Ember.RSVP.resolve({content: btoa('# Version Info')})}
+const workflowVersion =  EmberObject.create({
+  getVersionInfo() {return resolve({content: btoa('# Version Info')});}
 });
 
 moduleForComponent('workflows/workflow-version-detail', 'Integration | Component | workflows/workflow version detail', {

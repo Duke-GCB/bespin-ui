@@ -1,8 +1,9 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
 
-const JobWatcher = Ember.Component.extend({
-  watcher: Ember.inject.service('bespin-job-watcher'),
-  session: Ember.inject.service('session'),
+const JobWatcher = Component.extend({
+  watcher: service('bespin-job-watcher'),
+  session: service('session'),
   job: null,
   getAuthToken() {
     const authData = this.get('session.data');

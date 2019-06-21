@@ -1,14 +1,14 @@
+import { computed } from '@ember/object';
 import DS from 'ember-data';
-import Ember from 'ember';
 const DDSKinds = {file:'dds-file', folder: 'dds-folder'};
 
 export default DS.Model.extend({
   kind: DS.attr('string'),
   name: DS.attr('string'),
-  isFile: Ember.computed('kind', function () {
+  isFile: computed('kind', function () {
     return this.get('kind') === DDSKinds.file;
   }),
-  isFolder: Ember.computed('kind', function () {
+  isFolder: computed('kind', function () {
     return this.get('kind') === DDSKinds.folder;
   }),
   project: DS.belongsTo('dds-project'),

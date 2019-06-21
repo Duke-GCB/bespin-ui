@@ -1,9 +1,10 @@
+import { Promise } from 'rsvp';
+import Service from '@ember/service';
 import { moduleFor, test } from 'ember-qunit';
-import Ember from 'ember';
 
-const sessionStub = Ember.Service.extend({
+const sessionStub = Service.extend({
   authenticate() {
-    return new Ember.RSVP.Promise((resolve) => { resolve(); });
+    return new Promise((resolve) => { resolve(); });
   }
 });
 

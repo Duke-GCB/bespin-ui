@@ -1,5 +1,6 @@
+import { resolve } from 'rsvp';
+import EmberObject from '@ember/object';
 import { moduleFor, test } from 'ember-qunit';
-import Ember from 'ember';
 
 moduleFor('controller:jobs/new/build-answer-set', 'Unit | Controller | jobs/new/build answer set', {
 });
@@ -12,7 +13,7 @@ test('it exists', function(assert) {
 
 test('it handles back action', function(assert) {
   let controller = this.subject({
-    model: Ember.Object.create({
+    model: EmberObject.create({
       questionnaire: {
         workflowVersion: {
           id: 7
@@ -31,10 +32,10 @@ test('it creates job and transitions to show route', function(assert) {
   assert.expect(3);
   let done = assert.async();
   let saveCount = 0;
-  const Saveable = Ember.Object.extend({
+  const Saveable = EmberObject.extend({
     save() {
       saveCount = saveCount + 1;
-      return Ember.RSVP.resolve(this);
+      return resolve(this);
     }
   });
 
@@ -45,11 +46,11 @@ test('it creates job and transitions to show route', function(assert) {
       Saveable.create({}),
     ]
   });
-  const stageGroupPromise = Ember.RSVP.resolve(mockStageGroup);
+  const stageGroupPromise = resolve(mockStageGroup);
   const mockAnswerSet = Saveable.create({
     stageGroup: stageGroupPromise,
     createJob() {
-      return Ember.RSVP.resolve('job-id');
+      return resolve('job-id');
     }
   });
   let controller = this.subject({

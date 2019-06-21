@@ -1,13 +1,15 @@
-import Ember from 'ember';
+import { computed, observer } from '@ember/object';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
 
-const DDSFilePicker = Ember.Component.extend({
+const DDSFilePicker = Component.extend({
   project: null,
-  store: Ember.inject.service(), // Needs access to store to query for children
+  store: service(), // Needs access to store to query for children
   children: null, // Can be files or folders
   onPick: (/* file */) => {},
   selectedResources: null,
   formatSettings: null,
-  isLoading: Ember.computed('project', 'children', function() {
+  isLoading: computed('project', 'children', function() {
     let project = this.get('project');
     let children = this.get('children');
     if(project != null && children == null) {
@@ -17,7 +19,7 @@ const DDSFilePicker = Ember.Component.extend({
       return false;
     }
   }),
-  headerTitle: Ember.computed('formatSettings.title', function() {
+  headerTitle: computed('formatSettings.title', function() {
     let formatSettingsTitle = this.get('formatSettings.title');
     if (formatSettingsTitle) {
       return 'Select All ' + formatSettingsTitle + ' Files';
@@ -39,14 +41,14 @@ const DDSFilePicker = Ember.Component.extend({
     let onPick = this.get('onPick');
     files.forEach(onPick);
   },
-  hasFiles: Ember.computed('children', function() {
+  hasFiles: computed('children', function() {
     const children = this.get('children');
     if(children == null) {
       return false;
     }
     return children.filterBy('isFile').get('length') > 0;
   }),
-  projectChanged: Ember.observer('project', function() {
+  projectChanged: observer('project', function() {
     this.set('children', null); // Clears out children so that loading indicator displays
     // This observer watches changes to the project and loads the project's top-level children when it changes.
     // Therefore, it only makes sense to change the project of the top-level dds-file-picker component

@@ -1,7 +1,7 @@
+import EmberObject from '@ember/object';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import StoreStub from '../../../helpers/store-stub';
-import Ember from 'ember';
 
 moduleForComponent('dds/dds-resource-tree', 'Integration | Component | dds/dds resource tree', {
   integration: true,
@@ -50,10 +50,10 @@ test('it fetches only on first expansion', function(assert) {
 });
 
 test('it renders dds-resource-list-header button only when there are files', function(assert) {
-  this.set('children', [Ember.Object.create({isFile: true})]);
+  this.set('children', [EmberObject.create({isFile: true})]);
   this.render(hbs`{{dds/dds-resource-tree children=children expanded=true}}`);
   assert.equal(this.$('.dds-resource-list-header').length, 1);
-  this.set('children', [Ember.Object.create({isFile: false})]);
+  this.set('children', [EmberObject.create({isFile: false})]);
   this.render(hbs`{{dds/dds-resource-tree children=children expanded=true}}`);
   assert.equal(this.$('.dds-resource-list-header').length, 0);
 });

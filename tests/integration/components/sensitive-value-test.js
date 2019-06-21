@@ -1,6 +1,6 @@
+import { run } from '@ember/runloop';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import Ember from "ember";
 
 moduleForComponent('sensitive-value', 'Integration | Component | sensitive value', {
   integration: true
@@ -23,7 +23,7 @@ test('it renders part of the value when hidden based on showLeadingCharacters', 
 test('it renders value once show button is clicked', function(assert) {
   this.set('secretValue', 'Secret123');
   this.render(hbs`{{sensitive-value secretValue}}`);
-  Ember.run(() => this.$('.sensitive-value-show-button').click());
+  run(() => this.$('.sensitive-value-show-button').click());
   assert.equal(this.$('.sensitive-value-span').text(), 'Secret123',
     'value should display normally after show button is clicked');
 });
@@ -37,6 +37,6 @@ test('it renders show button initially', function(assert) {
 test('it hides show button after it is clicked', function(assert) {
   this.set('secretValue', 'Secret123');
   this.render(hbs`{{sensitive-value secretValue}}`);
-  Ember.run(() => this.$('.sensitive-value-show-button').click());
+  run(() => this.$('.sensitive-value-show-button').click());
   assert.equal(this.$('.sensitive-value-show-button').text(), '', 'show button should be hidden after it is clicked');
 });

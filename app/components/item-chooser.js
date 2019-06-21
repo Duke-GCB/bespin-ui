@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 
-const ItemChooser = Ember.Component.extend({
+const ItemChooser = Component.extend({
   title: '',
   selectedItem: null,
   items: null,

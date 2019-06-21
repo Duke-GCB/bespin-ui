@@ -1,14 +1,14 @@
+import EmberObject from '@ember/object';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import Ember from 'ember';
 
 moduleForComponent('job-status-results', 'Integration | Component | job status results', {
   integration: true
 });
 
 test('it renders', function(assert) {
-  let job = Ember.Object.create({
-    outputProject: Ember.Object.create({
+  let job = EmberObject.create({
+    outputProject: EmberObject.create({
       project: {id: 'abv-123', name: 'project-name'},
       dirName: 'results-dir'
     })

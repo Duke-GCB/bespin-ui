@@ -1,10 +1,11 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import Component from '@ember/component';
 
-const SensitiveValue = Ember.Component.extend({
+const SensitiveValue = Component.extend({
   value: null,
   hideValue: true,
   showLeadingCharacters: 0,
-  displayedValue: Ember.computed('value', 'hideValue', 'hiddenValue', 'showLeadingCharacters', function () {
+  displayedValue: computed('value', 'hideValue', 'hiddenValue', 'showLeadingCharacters', function () {
     var value = this.get('value');
     if (value && this.get('hideValue')) {
       const showLeadingCharacters = this.get('showLeadingCharacters');

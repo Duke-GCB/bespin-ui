@@ -1,5 +1,6 @@
+import { computed } from '@ember/object';
+import { not } from '@ember/object/computed';
 import DS from 'ember-data';
-import Ember from 'ember';
 import { padStart } from 'ember-pad/utils/pad';
 
 const VERSION_SORT_LPAD_AMT = 10;
@@ -17,17 +18,17 @@ export default DS.Model.extend({
   toolDetails: DS.belongsTo('workflow-version-tool-detail'),
   versionInfoUrl: DS.attr('string'),
   enableUi: DS.attr('boolean'),
-  disableUi: Ember.computed.not('enableUi'),
+  disableUi: not('enableUi'),
   getVersionInfo() {
     let adapter = this.store.adapterFor(this.constructor.modelName);
     return adapter.getVersionInfo(this.get('id'));
   },
-  versionTag: Ember.computed('workflow.tag', 'version', function() {
+  versionTag: computed('workflow.tag', 'version', function() {
     const tag = this.get('workflow.tag');
     const version = this.get('version');
     return `${tag}/${version}`;
   }),
-  versionSort: Ember.computed('version', function () {
+  versionSort: computed('version', function () {
     const version = this.get('version');
     if (version) {
       // Splits semantic versioning string and left pad parts.

@@ -1,11 +1,11 @@
+import EmberObject from '@ember/object';
 import { moduleForComponent, test } from 'ember-qunit';
-import Ember from 'ember';
 
 moduleForComponent('questionnaire/fastq-file-pair-row', 'Unit | Component | questionnaire/fastq file pair row', {
   unit: true
 });
 
-const MockPair = Ember.Object.extend({
+const MockPair = EmberObject.extend({
   sampleName: null,
   size: 2,
   isFull: false,

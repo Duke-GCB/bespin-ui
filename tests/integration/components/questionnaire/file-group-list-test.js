@@ -1,7 +1,8 @@
+import { run } from '@ember/runloop';
+import EmberObject from '@ember/object';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import StoreStub from '../../../helpers/store-stub';
-import Ember from 'ember';
 
 moduleForComponent('questionnaire/file-group-list', 'Integration | Component | questionnaire/file group list', {
   integration: true,
@@ -24,7 +25,7 @@ test('it renders', function(assert) {
 
 test('it renders with GroupName', function(assert) {
   this.set('externalAction', () => {});
-  this.set('mysettings', Ember.Object.create({groupName: 'sample'}));
+  this.set('mysettings', EmberObject.create({groupName: 'sample'}));
   this.render(hbs`{{questionnaire/file-group-list "SomeField" (action externalAction) formatSettings=mysettings}}`);
   assert.equal(this.$('.file-group-list-picker label').text().trim(), 'Pick your sample pairs from Duke Data Service');
   assert.equal(this.$('.file-group-list-selections label').text().trim(), 'Selected sample pairs');
@@ -32,8 +33,8 @@ test('it renders with GroupName', function(assert) {
 
 test('it toggles empty selection', function(assert) {
   this.set('externalAction', () => {});
-  Ember.run(() => {
-    this.set('fileItems', Ember.Object.create({
+  run(() => {
+    this.set('fileItems', EmberObject.create({
       fileItemGroups: []
     }));
     this.render(hbs`{{questionnaire/file-group-list "SomeField" (action externalAction) fileItems=fileItems}}`);

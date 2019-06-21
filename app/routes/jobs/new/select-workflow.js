@@ -1,5 +1,5 @@
-import Ember from 'ember';
+import Route from '@ember/routing/route';
 import ActiveWorkflowsMixin from 'bespin-ui/mixins/active-workflows';
 
-export default Ember.Route.extend(ActiveWorkflowsMixin, {
+export default Route.extend(ActiveWorkflowsMixin, {
 });

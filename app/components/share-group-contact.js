@@ -1,11 +1,12 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import Component from '@ember/component';
 
-const ShareGroupContact = Ember.Component.extend({
+const ShareGroupContact = Component.extend({
   shareGroup: null,
   classNames: ['share-group-contact'],
   tagName: 'a',
   attributeBindings: ['href'],
-  href: Ember.computed('shareGroup.email', function() {
+  href: computed('shareGroup.email', function() {
     return `mailto:${this.get('shareGroup.email')}`;
   })
 });

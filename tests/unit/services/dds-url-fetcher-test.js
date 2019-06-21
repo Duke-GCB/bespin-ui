@@ -1,5 +1,5 @@
+import { resolve } from 'rsvp';
 import { moduleFor, test } from 'ember-qunit';
-import Ember from 'ember';
 
 moduleFor('service:dds-url-fetcher', 'Unit | Service | dds url fetcher', {
   // Specify the other units that are required for this test.
@@ -24,12 +24,12 @@ test('it fetches a readme url for an output project', function(assert) {
   const service = this.subject({
     fetchUrl(url) {
       assert.equal('http://somehost/someurl', url);
-      return Ember.RSVP.resolve(readmeData);
+      return resolve(readmeData);
     }
   });
   const outputProject = {
     readmeURL: function() {
-      return Ember.RSVP.resolve(urlInfo);
+      return resolve(urlInfo);
     }
   };
   const response = service.fetchReadmeUrl(outputProject);

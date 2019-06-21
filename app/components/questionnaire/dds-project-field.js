@@ -1,11 +1,12 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
 
-const DDSProjectField = Ember.Component.extend({
+const DDSProjectField = Component.extend({
   /**
    * Base class that populates credential and projects properties based on DukeDS Services
    */
-  ddsProjects: Ember.inject.service(),
-  ddsUserCredentials: Ember.inject.service(),
+  ddsProjects: service(),
+  ddsUserCredentials: service(),
   credential: null, // populated on didInsertElement
   projects: null, // populated on didInsertElement
 

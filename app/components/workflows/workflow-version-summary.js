@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 
-const WorkflowVersionSummary = Ember.Component.extend({
+const WorkflowVersionSummary = Component.extend({
   classNames: ['workflow-version-summary'],
   workflowVersion: null
 });

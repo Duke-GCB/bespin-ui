@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 
-const DDSExpandButton = Ember.Component.extend({
+const DDSExpandButton = Component.extend({
   expanded: false,
   tagName: 'span',
   classNames: ['glyphicon','dds-expand-button','dds-button'],

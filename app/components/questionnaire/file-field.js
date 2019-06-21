@@ -1,4 +1,5 @@
-import Ember from 'ember';
+import { on } from '@ember/object/evented';
+import EmberObject, { computed, observer } from '@ember/object';
 import { FileItem } from 'bespin-ui/utils/file-item-list';
 import DDSProjectField from './dds-project-field';
 import DisplayFieldLabelMixin from 'bespin-ui/mixins/display-field-label-mixin';
@@ -11,10 +12,10 @@ const FileField = DDSProjectField.extend(DisplayFieldLabelMixin, {
   tagName: 'div',
   classNames: ['file-field', 'row'],
   answerFormErrors: null,
-  fieldErrors: Ember.computed('answerFormErrors.errors.[]', 'fieldName', function() {
+  fieldErrors: computed('answerFormErrors.errors.[]', 'fieldName', function() {
     return this.get('answerFormErrors.errors').filterBy('field', this.get('fieldName'));
   }),
-  validityDidChange: Ember.on('init', Ember.observer('fileItem', function() {
+  validityDidChange: on('init', observer('fileItem', function() {
       const answerFormErrors = this.get('answerFormErrors');
       const fieldName = this.get('fieldName');
       if(!answerFormErrors) {
@@ -31,18 +32,18 @@ const FileField = DDSProjectField.extend(DisplayFieldLabelMixin, {
   formatSettings: null,  // settings based on cwl type and format
   fieldName: null,
   fieldLabel: null,
-  answer: Ember.computed('fieldName', 'fileItem.cwlObject', function() {
+  answer: computed('fieldName', 'fileItem.cwlObject', function() {
     const fieldName = this.get('fieldName');
-    const answer = Ember.Object.create();
+    const answer = EmberObject.create();
     answer.set(fieldName, this.get('fileItem.cwlObject'));
     return answer;
   }),
   fileItem: null,
-  inputFiles: Ember.computed('fileItem.inputFile', function() {
+  inputFiles: computed('fileItem.inputFile', function() {
     // returns a flat array of the job input files
     return [this.get('fileItem.inputFile')];
   }),
-  ddsFiles: Ember.computed('fileItem.ddsFile', function () {
+  ddsFiles: computed('fileItem.ddsFile', function () {
       return [this.get('fileItem.ddsFile')];
   }),
   actions: {

@@ -1,9 +1,10 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import Component from '@ember/component';
 
-const FileGroupRow = Ember.Component.extend({
+const FileGroupRow = Component.extend({
   classNames: ['file-group-row', 'well','well-sm'],
   groupName: "",
-  groupTitle: Ember.computed('groupName', function() {
+  groupTitle: computed('groupName', function() {
     const groupName = this.get('groupName');
     if (!groupName) {
       return 'Group';
@@ -11,7 +12,7 @@ const FileGroupRow = Ember.Component.extend({
     return groupName.capitalize();
   }),
   groupIndex: 0,
-  displayIndex: Ember.computed('groupIndex', function() {
+  displayIndex: computed('groupIndex', function() {
     return this.get('groupIndex') + 1;
   }),
   group: null,

@@ -1,5 +1,5 @@
+import EmberObject from '@ember/object';
 import { moduleForComponent, test } from 'ember-qunit';
-import Ember from 'ember';
 
 moduleForComponent('questionnaire/answer-form-list', 'Unit | Component | questionnaire/answer form list', {
   // Specify the other units that are required for this test
@@ -22,17 +22,17 @@ test('it computes fields property', function (assert) {
     {type: { type: 'array', items: { type: 'array', items: 'File' } }, name: 'fieldName1', label: 'label1' },
     {type: 'fieldType2', name: 'fieldName2', label: 'label2' }
   ];
-  let questionnaire = Ember.Object.create({ userFieldsJson: userFields});
-  let answerSet = Ember.Object.create({questionnaire: questionnaire});
+  let questionnaire = EmberObject.create({ userFieldsJson: userFields});
+  let answerSet = EmberObject.create({questionnaire: questionnaire});
   let component = this.subject({answerSet: answerSet});
   let fields = component.get('fields');
-  let expectedField1 = Ember.Object.create({
+  let expectedField1 = EmberObject.create({
     name: 'fieldName1',
     label: 'label1',
     componentName: 'questionnaire/file-group-list',
     formatSettings: undefined,
   });
-  let expectedField2 = Ember.Object.create({
+  let expectedField2 = EmberObject.create({
     name: 'fieldName2',
     label: 'label2',
     componentName: 'questionnaire/unknown-field',
@@ -47,11 +47,11 @@ test('it computes fields componentSettings', function (assert) {
       format: 'http://edamontology.org/format_1915', label: 'label1' },
     {type: 'fieldType2', name: 'fieldName2', label: 'label2' }
   ];
-  let questionnaire = Ember.Object.create({ userFieldsJson: userFields});
-  let answerSet = Ember.Object.create({questionnaire: questionnaire});
+  let questionnaire = EmberObject.create({ userFieldsJson: userFields});
+  let answerSet = EmberObject.create({questionnaire: questionnaire});
   let component = this.subject({answerSet: answerSet});
   let fields = component.get('fields');
-  let expectedField1 = Ember.Object.create({
+  let expectedField1 = EmberObject.create({
     name: 'fieldName1',
     label: 'label1',
     componentName: 'questionnaire/file-group-list',
@@ -61,7 +61,7 @@ test('it computes fields componentSettings', function (assert) {
       groupName: 'File Group'
     },
   });
-  let expectedField2 = Ember.Object.create({
+  let expectedField2 = EmberObject.create({
     name: 'fieldName2',
     label: 'label2',
     componentName: 'questionnaire/unknown-field'
@@ -93,15 +93,15 @@ test('it calculates formatSettingsForComponentAndFormat', function (assert) {
 });
 
 test('it handles answerChanged action', function (assert) {
-  let answerSet = Ember.Object.create({userJobOrderJson: Ember.Object.create({prop1: 'val1'})});
+  let answerSet = EmberObject.create({userJobOrderJson: EmberObject.create({prop1: 'val1'})});
   let component = this.subject({answerSet: answerSet});
 
-  let mockAnswerComponent = Ember.Object.create({
-    answer: Ember.Object.create({
+  let mockAnswerComponent = EmberObject.create({
+    answer: EmberObject.create({
       prop2: 'val2'
     }),
     inputFiles: [
-      Ember.Object.create({stageGroup: null}),
+      EmberObject.create({stageGroup: null}),
     ]
   });
 
@@ -112,17 +112,17 @@ test('it handles answerChanged action', function (assert) {
 
 test('it sets stageGroup on answerChanged', function(assert) {
   const stageGroup = 'sg';
-  const answerSet = Ember.Object.create({
+  const answerSet = EmberObject.create({
     stageGroup: stageGroup,
-    userJobOrderJson: Ember.Object.create({})
+    userJobOrderJson: EmberObject.create({})
   });
   const component = this.subject({answerSet: answerSet});
 
-  const inputFile1 = Ember.Object.create({});
-  const inputFile2 = Ember.Object.create({});
+  const inputFile1 = EmberObject.create({});
+  const inputFile2 = EmberObject.create({});
 
-  let mockAnswerComponent = Ember.Object.create({
-    answer: Ember.Object.create({}),
+  let mockAnswerComponent = EmberObject.create({
+    answer: EmberObject.create({}),
     inputFiles: [
       inputFile1,
       inputFile2
@@ -142,11 +142,11 @@ test('it sets stageGroup on answerChanged', function(assert) {
 });
 
 test('it tolerates answerComponents without inputFiles', function(assert) {
-  let answerSet = Ember.Object.create({userJobOrderJson: Ember.Object.create({prop1: 'val1'})});
+  let answerSet = EmberObject.create({userJobOrderJson: EmberObject.create({prop1: 'val1'})});
   let component = this.subject({answerSet: answerSet});
 
-  let mockAnswerComponent = Ember.Object.create({
-    answer: Ember.Object.create({
+  let mockAnswerComponent = EmberObject.create({
+    answer: EmberObject.create({
       prop2: 'val2'
     }),
   });

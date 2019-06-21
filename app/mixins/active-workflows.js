@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import Mixin from '@ember/object/mixin';
 
-export default Ember.Mixin.create({
+export default Mixin.create({
   model(){
     // reload is set to true to skip cached workflows to handle the scenario where the cache is not fully populated
     // with all active workflows.

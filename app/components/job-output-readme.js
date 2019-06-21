@@ -1,10 +1,11 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
+export default Component.extend({
   outputProject: null,
   readmeMarkdown: null,
   fetchReadmeErrors: null,
-  ddsUrlFetcher: Ember.inject.service(),
+  ddsUrlFetcher: service(),
   didInsertElement() {
     this._super(...arguments);
     const component = this;

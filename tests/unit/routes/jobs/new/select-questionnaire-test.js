@@ -1,5 +1,5 @@
+import EmberObject from '@ember/object';
 import { moduleFor, test } from 'ember-qunit';
-import Ember from 'ember';
 
 moduleFor('route:jobs/new/select-questionnaire', 'Unit | Route | jobs/new/select-questionnaire', {
 });
@@ -13,7 +13,7 @@ test('it sets model to job-questionnaires queried by workflow_version_id', funct
   let route = this.subject({
     store: {
       query(recordModel, params) {
-        return [Ember.Object.create({id: 3, kind: 'query_' + recordModel, params: params})];
+        return [EmberObject.create({id: 3, kind: 'query_' + recordModel, params: params})];
       }
     }
   });

@@ -1,11 +1,12 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import Component from '@ember/component';
 
-const JobFileStageGroupDetail = Ember.Component.extend({
+const JobFileStageGroupDetail = Component.extend({
   stageGroup: null,
-  ddsFiles: Ember.computed('stageGroup.ddsFiles', function() {
+  ddsFiles: computed('stageGroup.ddsFiles', function() {
     return this.get('stageGroup.ddsFiles').sortBy('sequenceGroup', 'sequence')
   }),
-  urlFiles: Ember.computed('stageGroup.urlFiles', function() {
+  urlFiles: computed('stageGroup.urlFiles', function() {
     return this.get('stageGroup.urlFiles').sortBy('sequenceGroup', 'sequence')
   })
 });

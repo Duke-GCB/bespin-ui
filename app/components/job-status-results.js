@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 
-const JobStatusResults = Ember.Component.extend({
+const JobStatusResults = Component.extend({
   job: null,
   tagName: 'span',
   classNames: ['job-status-results']

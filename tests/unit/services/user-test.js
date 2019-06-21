@@ -1,9 +1,10 @@
+import { resolve } from 'rsvp';
+import EmberObject from '@ember/object';
 import { moduleFor, test } from 'ember-qunit';
-import Ember from 'ember';
 
-const UserStoreStub = Ember.Object.extend({
+const UserStoreStub = EmberObject.extend({
   queryRecord(modelName) {
-    return Ember.RSVP.resolve({
+    return resolve({
       modelName: modelName,
       username: 'abc123'
     });

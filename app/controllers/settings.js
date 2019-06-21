@@ -1,7 +1,8 @@
-import Ember from 'ember';
+import { not } from '@ember/object/computed';
+import Controller from '@ember/controller';
 
-export default Ember.Controller.extend({
-  showGenerateTokenButton: Ember.computed.not('model.tokens.firstObject'),
+export default Controller.extend({
+  showGenerateTokenButton: not('model.tokens.firstObject'),
   actions: {
     generateToken() {
       this.get('store')

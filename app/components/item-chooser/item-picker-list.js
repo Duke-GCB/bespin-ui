@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 
-let ItemPickerList = Ember.Component.extend({
+let ItemPickerList = Component.extend({
   items: null,
   selectedItem: null,
   actions: {

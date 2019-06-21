@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 
-const TokenDetailRow = Ember.Component.extend({
+const TokenDetailRow = Component.extend({
   tagName: 'tr',
   token: null,
   onDeleteToken: null, /* function(token) run when user clicks Delete */

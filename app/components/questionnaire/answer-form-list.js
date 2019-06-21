@@ -1,16 +1,17 @@
-import Ember from 'ember';
+import EmberObject, { computed } from '@ember/object';
+import Component from '@ember/component';
 import ComponentSettings from 'bespin-ui/utils/component-settings';
 
-const AnswerFormList = Ember.Component.extend({
+const AnswerFormList = Component.extend({
   classNames: ['answer-form-list'],
   answerSet: null,
   answerFormErrors: null, // Client-side validation errors, passed down to each component
-  fields: Ember.computed('answerSet.questionnaire.userFieldsJson.@each', function() {
+  fields: computed('answerSet.questionnaire.userFieldsJson.@each', function() {
     const userFields = this.get('answerSet.questionnaire.userFieldsJson') || [];
     const fieldsToComponents = userFields.map(field => {
       let componentSettings = this.componentSettingsForCwlType(field.type);
       let formatSettings = this.formatSettingsForComponentAndFormat(componentSettings, field.format);
-      return Ember.Object.create({
+      return EmberObject.create({
         name: field.name,
         label: field.label,
         componentName: `questionnaire/${componentSettings.name}`,
@@ -60,7 +61,7 @@ const AnswerFormList = Ember.Component.extend({
       // Answer components will send this action when their answer changes
       // When that happens, update the answer and any input files
       const answerSet = this.get('answerSet');
-      let userJobOrder = Ember.Object.create(answerSet.get('userJobOrderJson'));
+      let userJobOrder = EmberObject.create(answerSet.get('userJobOrderJson'));
       userJobOrder.setProperties(answerComponent.get('answer'));
       answerSet.set('userJobOrderJson', userJobOrder);
       // If the component has any inputFiles, set their stage group

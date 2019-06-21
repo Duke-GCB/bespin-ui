@@ -1,9 +1,9 @@
+import Service from '@ember/service';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import Ember from 'ember';
 
 //Stub location service
-const ddsUrlFetcherStub = Ember.Service.extend({
+const ddsUrlFetcherStub = Service.extend({
   fetchReadmeUrl(outputProject) {
     return {
       then(onData, onFail) {

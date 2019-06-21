@@ -1,18 +1,19 @@
-import Ember from 'ember';
+import { resolve } from 'rsvp';
+import EmberObject from '@ember/object';
 import ActiveWorkflowsMixin from 'bespin-ui/mixins/active-workflows';
 import { module, test } from 'qunit';
 
 module('Unit | Mixin | active workflows');
 
 test('model method returns all active workflows sorted by name', function(assert) {
-  let ActiveWorkflowsObject = Ember.Object.extend(ActiveWorkflowsMixin);
+  let ActiveWorkflowsObject = EmberObject.extend(ActiveWorkflowsMixin);
   let subject = ActiveWorkflowsObject.create({
     store: {
       findAll(recordModel) {
-        return Ember.RSVP.resolve([
-            Ember.Object.create({id: 1, kind: 'find_' + recordModel, isActive: true, 'name': 'Zeta'}),
-            Ember.Object.create({id: 2, kind: 'find_' + recordModel, isActive: false}),
-            Ember.Object.create({id: 3, kind: 'find_' + recordModel, isActive: true, 'name': 'Alpha'})
+        return resolve([
+            EmberObject.create({id: 1, kind: 'find_' + recordModel, isActive: true, 'name': 'Zeta'}),
+            EmberObject.create({id: 2, kind: 'find_' + recordModel, isActive: false}),
+            EmberObject.create({id: 3, kind: 'find_' + recordModel, isActive: true, 'name': 'Alpha'})
         ]);
       }
     }

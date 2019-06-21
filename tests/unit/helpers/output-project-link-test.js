@@ -1,13 +1,13 @@
 
+import EmberObject from '@ember/object';
 import { outputProjectLink } from 'bespin-ui/helpers/output-project-link';
 import { module, test } from 'qunit';
-import Ember from 'ember';
 
 module('Unit | Helper | output project link');
 
 // Replace this with your real tests.
 test('it generates dataservice project url from output project object', function(assert) {
-  let outputProject = Ember.Object.create({
+  let outputProject = EmberObject.create({
     id: 5,
     project: {
       id: 'dc269c4e-28df-487c-9cb9-37ad95db1fdb'
@@ -20,7 +20,7 @@ test('it generates dataservice project url from output project object', function
 });
 
 test('it handles missing project url', function(assert) {
-  let outputProject = Ember.Object.create();
+  let outputProject = EmberObject.create();
   let result = outputProjectLink([outputProject]);
   assert.equal(result, '');
 });

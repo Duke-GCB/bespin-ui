@@ -1,6 +1,7 @@
+import { resolve } from 'rsvp';
+import { run } from '@ember/runloop';
 import { moduleForModel, test } from 'ember-qunit';
 import { testRelationship } from '../../helpers/test-relationships';
-import Ember from 'ember';
 
 moduleForModel('job', 'Unit | Model | job', {
   // Specify the other units that are required for this test.
@@ -33,7 +34,7 @@ test('it computes job state properties', function(assert) {
     ['C', 'isCanceled'],
   ];
   let job = this.subject();
-  Ember.run(() => {
+  run(() => {
     statesAndProperties.forEach(function(stateAndProperty) {
       const state = stateAndProperty[0];
       const property = stateAndProperty[1];
@@ -65,17 +66,17 @@ test('it sends actions to the adapter', function(assert) {
       start(id) {
         assert.equal(modelName, 'job', 'modelName in adapterFor should be job');
         assert.equal(id, 'startId', 'should call adapter.start() with id');
-        return Ember.RSVP.resolve({id: id, state: 'S'}); // Starting
+        return resolve({id: id, state: 'S'}); // Starting
       },
       cancel(id) {
         assert.equal(modelName, 'job', 'modelName in adapterFor should be job');
         assert.equal(id, 'cancelId', 'should call adapter.cancel() with id');
-        return Ember.RSVP.resolve({id: id, state: 'c'}); // canceling
+        return resolve({id: id, state: 'c'}); // canceling
       },
       restart(id) {
         assert.equal(modelName, 'job', 'modelName in adapterFor should be job');
         assert.equal(id, 'restartId', 'should call adapter.restart() with id');
-        return Ember.RSVP.resolve({id: id, state: 'r'}); // restarting
+        return resolve({id: id, state: 'r'}); // restarting
       },
       authorizeJob(id, token) {
         assert.equal(modelName, 'job', 'modelName in adapterFor should be job');
@@ -91,7 +92,7 @@ test('it sends actions to the adapter', function(assert) {
             }
           }
         };
-        return Ember.RSVP.resolve(jobTokensPayload); // Authorized job wrapped in a job-tokens object
+        return resolve(jobTokensPayload); // Authorized job wrapped in a job-tokens object
       }
     };
   });
@@ -127,28 +128,28 @@ test('it sends actions to the adapter', function(assert) {
   // these tests are run in 3 sequential Ember.run loops
 
   let store = this.store();
-  Ember.run(() => {
+  run(() => {
     store.set('pushPayload', stubPushPayloadStart);
     let model = this.subject();
     model.set('id', 'startId');
     model.start();
   });
 
-  Ember.run(() => {
+  run(() => {
     store.set('pushPayload', stubPushPayloadCancel);
     let model = this.subject();
     model.set('id', 'cancelId');
     model.cancel();
   });
 
-  Ember.run(() => {
+  run(() => {
     store.set('pushPayload', stubPushPayloadRestart);
     let model = this.subject();
     model.set('id', 'restartId');
     model.restart();
   });
 
-  Ember.run(() => {
+  run(() => {
     store.set('pushPayload', stubPushPayloadAuthorize);
     let model = this.subject();
     model.set('id', 'authorizeId');
@@ -158,7 +159,7 @@ test('it sends actions to the adapter', function(assert) {
 
 test('it computes lastJobError by most recently created', function(assert) {
   const store = this.store();
-  Ember.run(() => {
+  run(() => {
   const jobErrors = [
     store.createRecord('job-error', {id: 'oldest', created: new Date(0)}),
     store.createRecord('job-error', {id: 'newest', created: new Date(1506370813)}),
@@ -184,7 +185,7 @@ test('it computes isDeletable', function(assert) {
   ];
   assert.expect(statesAndDeletable.length);
   let job = this.subject();
-  Ember.run(() => {
+  run(() => {
     statesAndDeletable.forEach(function (stateAndDeletable) {
       const state = stateAndDeletable[0];
       const deletable = stateAndDeletable[1];

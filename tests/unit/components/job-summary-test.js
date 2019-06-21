@@ -1,15 +1,15 @@
+import EmberObject from '@ember/object';
 import { moduleForComponent, test } from 'ember-qunit';
-import Ember from 'ember';
 
 moduleForComponent('job-summary', 'Unit | Component | job summary', {
   unit: true
 });
 
 test('it computes workflowTitle', function(assert) {
-  const job = Ember.Object.create({
-    workflowVersion: Ember.Object.create({
+  const job = EmberObject.create({
+    workflowVersion: EmberObject.create({
       version: 3,
-      workflow: Ember.Object.create({
+      workflow: EmberObject.create({
         name: 'My Workflow'
       })
     })

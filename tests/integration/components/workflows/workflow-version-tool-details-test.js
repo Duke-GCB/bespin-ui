@@ -1,8 +1,8 @@
+import EmberObject from '@ember/object';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import Ember from 'ember';
 
-const workflowVersion =  Ember.Object.create({
+const workflowVersion =  EmberObject.create({
   toolDetails: [1,2,3]
 });
 
@@ -24,7 +24,7 @@ test('it renders a paragraph with description', function(assert) {
 });
 
 test('it renders no content if toolDetails is empty', function (assert) {
-  this.set('workflowVersion', Ember.Object.create({toolDetails: null}));
+  this.set('workflowVersion', EmberObject.create({toolDetails: null}));
   this.render(hbs`{{workflows/workflow-version-tool-details workflowVersion}}`);
   assert.equal(this.$('').text().trim(), '');
 });

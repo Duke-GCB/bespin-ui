@@ -1,5 +1,7 @@
+import { resolve } from 'rsvp';
+import { not } from '@ember/object/computed';
+import { computed } from '@ember/object';
 import DS from 'ember-data';
-import Ember from 'ember';
 
 export default DS.Model.extend({
   workflowVersion: DS.belongsTo('workflow-version'),
@@ -15,43 +17,43 @@ export default DS.Model.extend({
   stageGroup: DS.belongsTo('job-file-stage-group'),
   shareGroup: DS.belongsTo('share-group'),
   runToken: DS.attr('string'),
-  isNew: Ember.computed('state', function() {
+  isNew: computed('state', function() {
     return this.get('state') === 'N';
   }),
-  isAuthorized: Ember.computed('state', function() {
+  isAuthorized: computed('state', function() {
     return this.get('state') === 'A';
   }),
   // Distinct from isAuthorized - indicates whether a job needs authorization to proceed
-  hasAuthorization: Ember.computed.not('isNew'),
-  isStarting: Ember.computed('state', function() {
+  hasAuthorization: not('isNew'),
+  isStarting: computed('state', function() {
     return this.get('state') === 'S';
   }),
-  isRestarting: Ember.computed('state', function() {
+  isRestarting: computed('state', function() {
     return this.get('state') === 'r';
   }),
-  isRunning: Ember.computed('state', function() {
+  isRunning: computed('state', function() {
     return this.get('state') === 'R';
   }),
-  isFinished: Ember.computed('state', function() {
+  isFinished: computed('state', function() {
     return this.get('state') === 'F';
   }),
-  isErrored:  Ember.computed('state', function() {
+  isErrored:  computed('state', function() {
     return this.get('state') === 'E';
   }),
-  isCanceling: Ember.computed('state', function() {
+  isCanceling: computed('state', function() {
     return this.get('state') === 'c';
   }),
-  isCanceled: Ember.computed('state', function() {
+  isCanceled: computed('state', function() {
     return this.get('state') === 'C';
   }),
-  isDeletable: Ember.computed('state', function() {
+  isDeletable: computed('state', function() {
     const deletableStates = ['N','A','F','E','C'];
     return deletableStates.includes(this.get('state'));
   }),
   outputProject: DS.belongsTo('job-dds-output-project'),
   // Named jobErrors because DS.Model already has an errors property (contains validation error messages)
   jobErrors: DS.hasMany('job-error'),
-  lastJobError: Ember.computed('jobErrors.[]', function() {
+  lastJobError: computed('jobErrors.[]', function() {
     return this.get('jobErrors').sortBy('created').get('lastObject');
   }),
   usage: DS.attr('job-usage'),
@@ -59,7 +61,7 @@ export default DS.Model.extend({
     // The action methods respond with an updated job, so we must update the local store
     // with that payload. Remember, pushPayload doesn't return.
     this.store.pushPayload('job', data);
-    return Ember.RSVP.resolve(this.store.peekRecord(this.constructor.modelName, this.get('id')));
+    return resolve(this.store.peekRecord(this.constructor.modelName, this.get('id')));
   },
   start() {
     let adapter = this.store.adapterFor(this.constructor.modelName);

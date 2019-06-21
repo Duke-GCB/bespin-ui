@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 
-const AnswerForm = Ember.Component.extend({
+const AnswerForm = Component.extend({
   answerFormErrors: null,
   classNames: ['container']
 });

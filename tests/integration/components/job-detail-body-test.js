@@ -1,6 +1,6 @@
+import EmberObject from '@ember/object';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import Ember from 'ember';
 import UserStub from '../../helpers/user-stub';
 
 moduleForComponent('job-detail-body', 'Integration | Component | job detail body', {
@@ -13,7 +13,7 @@ moduleForComponent('job-detail-body', 'Integration | Component | job detail body
 test('it renders', function(assert) {
   this.render(hbs`{{job-detail-body}}`);
   assert.equal(this.$('p').text().trim(), '');
-  this.set('job', Ember.Object.create({isNew: true}));
+  this.set('job', EmberObject.create({isNew: true}));
   this.render(hbs`{{job-detail-body job}}`);
   assert.notEqual(this.$('p').text().trim(), '');
 });
@@ -32,7 +32,7 @@ const states = [
 test('it renders job-authorize only for isNew and isAuthorized,', function(assert) {
   assert.expect(states.length); // 2 assertions per state
   states.forEach((state) => {
-    let job = Ember.Object.create();
+    let job = EmberObject.create();
     job.set(state, true);
     this.set('job', job);
     this.render(hbs`{{job-detail-body job}}`);
@@ -47,7 +47,7 @@ test('it renders job-authorize only for isNew and isAuthorized,', function(asser
 test('it renders job-error only for isError,', function(assert) {
   assert.expect(states.length); // 2 assertions per state
   states.forEach((state) => {
-    let job = Ember.Object.create();
+    let job = EmberObject.create();
     job.set(state, true);
     this.set('job', job);
     this.render(hbs`{{job-detail-body job}}`);
@@ -62,7 +62,7 @@ test('it renders job-error only for isError,', function(assert) {
 test('it renders text for all valid states', function (assert) {
   assert.expect(states.length);
   states.forEach((state) => {
-    let job = Ember.Object.create();
+    let job = EmberObject.create();
     job.set(state, true);
     this.set('job', job);
     this.render(hbs`{{job-detail-body job}}`);
@@ -72,7 +72,7 @@ test('it renders text for all valid states', function (assert) {
 
 test('it renders no text for invalid valid states', function (assert) {
   assert.expect(states.length + 1);
-  let job = Ember.Object.create({});
+  let job = EmberObject.create({});
   states.forEach((state) => {
     assert.notOk(job.get(state), `${state} is a valid state, job should not be in a valid state`);
   });

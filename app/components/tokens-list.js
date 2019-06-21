@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 
-const TokensList = Ember.Component.extend({
+const TokensList = Component.extend({
   tagName: 'table',
   classNames: ['table','table-striped'],
   tokens: null,

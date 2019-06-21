@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 
-const DebugDetails = Ember.Component.extend({
+const DebugDetails = Component.extend({
   job: null,
   pickedFiles: null
 });

@@ -1,12 +1,14 @@
-import Ember from 'ember';
+import { observer } from '@ember/object';
+import { on } from '@ember/object/evented';
+import Component from '@ember/component';
 
-const JobState = Ember.Component.extend({
+const JobState = Component.extend({
   classNames: ['job-state', 'dl-horizontal'],
   tagName: 'dl',
   job: null,
   liveCpuHours: null,
   liveVmHours: null,
-  fetchLiveUsage: Ember.on('init', Ember.observer('job.lastUpdated', function() {
+  fetchLiveUsage: on('init', observer('job.lastUpdated', function() {
     const job = this.get('job');
     if (job) {
       job.getLiveUsage().then((liveUsage) => {

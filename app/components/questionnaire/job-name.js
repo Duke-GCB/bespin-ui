@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 
-const JobName = Ember.Component.extend({
+const JobName = Component.extend({
   classNames: ['row', 'job-name']
 });
 

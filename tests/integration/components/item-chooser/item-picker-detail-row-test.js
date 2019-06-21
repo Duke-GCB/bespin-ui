@@ -1,6 +1,6 @@
+import EmberObject from '@ember/object';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import Ember from 'ember';
 
 moduleForComponent('item-chooser/item-picker-detail-row', 'Integration | Component | item chooser/item picker detail row', {
   integration: true
@@ -8,13 +8,13 @@ moduleForComponent('item-chooser/item-picker-detail-row', 'Integration | Compone
 
 
 test('it renders workflow details', function(assert) {
-  this.set('workflow', Ember.Object.create({displayName: 'Workflow 123', selected: false}));
+  this.set('workflow', EmberObject.create({displayName: 'Workflow 123', selected: false}));
   this.render(hbs`{{item-chooser/item-picker-detail-row workflow}}`);
   assert.equal(this.$('.item-title').text().trim(), 'Workflow 123');
 });
 
 test('it renders block content', function(assert) {
-  this.set('workflow', Ember.Object.create({displayName:'Workflow 123', description: 'Sample workflow'}));
+  this.set('workflow', EmberObject.create({displayName:'Workflow 123', description: 'Sample workflow'}));
 // Template block usage:
   this.render(hbs`
     {{#item-chooser/item-picker-detail-row workflow}}
@@ -27,7 +27,7 @@ test('it renders block content', function(assert) {
 
 test('it selects on click', function(assert) {
   assert.expect(2);
-  let workflow = Ember.Object.create({displayName:'Workflow 123', description: 'Sample workflow'});
+  let workflow = EmberObject.create({displayName:'Workflow 123', description: 'Sample workflow'});
   this.set('workflow', workflow);
   this.set('onPick', function() {
     assert.ok(true, 'onPick was called');

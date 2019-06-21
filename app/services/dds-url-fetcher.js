@@ -1,6 +1,7 @@
-import Ember from 'ember';
+import $ from 'jquery';
+import Service from '@ember/service';
 
-export default Ember.Service.extend({
+export default Service.extend({
   fetchReadmeUrl(outputProject) {
     const fetchUrl = this.get('fetchUrl');
     return outputProject.readmeURL().then(function (response) {
@@ -10,6 +11,6 @@ export default Ember.Service.extend({
     });
   },
   fetchUrl(url) {
-    return Ember.$.get(url);
+    return $.get(url);
   }
 });

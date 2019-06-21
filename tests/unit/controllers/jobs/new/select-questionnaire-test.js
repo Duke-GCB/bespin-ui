@@ -1,5 +1,5 @@
+import EmberObject from '@ember/object';
 import { moduleFor, test } from 'ember-qunit';
-import Ember from 'ember';
 
 moduleFor('controller:jobs/new/select-questionnaire', 'Unit | Controller | jobs/new/select-questionnaire', {
 });
@@ -25,6 +25,6 @@ test('it handles next action', function(assert) {
       assert.equal(id, 532, 'next action should extract questionnaire id');
     }
   });
-  let questionnaire = Ember.Object.create({id: 532});
+  let questionnaire = EmberObject.create({id: 532});
   controller.send('next', questionnaire);
 });

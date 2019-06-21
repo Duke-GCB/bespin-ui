@@ -1,9 +1,10 @@
-import Ember from 'ember';
+import { readOnly } from '@ember/object/computed';
+import Component from '@ember/component';
 
-const WorkflowVersionToolDetails = Ember.Component.extend({
+const WorkflowVersionToolDetails = Component.extend({
   classNames: ['workflow-version-tool-details'],
   workflowVersion: null,
-  toolDetails: Ember.computed.readOnly('workflowVersion.toolDetails')
+  toolDetails: readOnly('workflowVersion.toolDetails')
 });
 
 WorkflowVersionToolDetails.reopenClass({

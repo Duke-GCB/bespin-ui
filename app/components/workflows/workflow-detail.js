@@ -1,9 +1,10 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import Component from '@ember/component';
 
-const WorkflowDetail = Ember.Component.extend({
+const WorkflowDetail = Component.extend({
   classNames: ['workflow-detail'],
   workflow: null,
-  sortedVersionsNewestFirst: Ember.computed('workflow.versions.@each.versionSort', function() {
+  sortedVersionsNewestFirst: computed('workflow.versions.@each.versionSort', function() {
     return this.get('workflow.versions').sortBy('versionSort').reverse();
   })
 });

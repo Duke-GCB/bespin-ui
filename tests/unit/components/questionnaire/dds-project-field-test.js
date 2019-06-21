@@ -1,5 +1,6 @@
+import { run } from '@ember/runloop';
+import { resolve } from 'rsvp';
 import { moduleForComponent, test } from 'ember-qunit';
-import Ember from "ember";
 
 moduleForComponent('questionnaire/dds-project-field', 'Unit | Component | questionnaire/dds project field', {
   // Specify the other units that are required for this test
@@ -12,12 +13,12 @@ test('didInsertElement populates credential and projects', function(assert) {
   const component = this.subject();
   const ddsProjects = {
     projects: function () {
-      return Ember.RSVP.resolve('someprojects')
+      return resolve('someprojects');
     }
   };
   const ddsUserCredentials = {
     primaryCredential: function () {
-      return Ember.RSVP.resolve('somecredentials');
+      return resolve('somecredentials');
     }
   };
   component.set('ddsProjects', ddsProjects);
@@ -26,7 +27,7 @@ test('didInsertElement populates credential and projects', function(assert) {
   assert.equal(component.get('credential'), null);
   assert.equal(component.get('projects'), null);
 
-  Ember.run(() => {
+  run(() => {
     component.didInsertElement();
   });
 

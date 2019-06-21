@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 
-const DDSOutputDirectoryPicker = Ember.Component.extend({
+const DDSOutputDirectoryPicker = Component.extend({
   projects: null,
   project: null,
   directoryName: null,

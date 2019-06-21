@@ -1,5 +1,5 @@
+import EmberObject from '@ember/object';
 import { moduleForComponent, test } from 'ember-qunit';
-import Ember from "ember";
 
 moduleForComponent('questionnaire/int-field', 'Unit | Component | questionnaire/int field', {
   // Specify the other units that are required for this test
@@ -9,7 +9,7 @@ moduleForComponent('questionnaire/int-field', 'Unit | Component | questionnaire/
 
 test('it sets notIntegerText error for non-integer decimal values', function(assert) {
   assert.expect(2);
-  const mockErrors = Ember.Object.create({
+  const mockErrors = EmberObject.create({
     setError( fieldName, errorText ) {
       assert.equal(fieldName, 'somefield');
       assert.equal(errorText, 'Please enter an integer value for this field.');
@@ -30,7 +30,7 @@ test('it sets notIntegerText error for non-integer decimal values', function(ass
 
 test('it sets invalidErrorText error for alpha values', function(assert) {
   assert.expect(2);
-  const mockErrors = Ember.Object.create({
+  const mockErrors = EmberObject.create({
     setError(fieldName, errorText) {
       assert.equal(fieldName, 'somefield'); // Should not call this!
       assert.equal(errorText, 'Please enter an integer value for this field.'); // Should not call this!
@@ -51,7 +51,7 @@ test('it sets invalidErrorText error for alpha values', function(assert) {
 
 test('it clears form error for integer values', function(assert) {
   assert.expect(1);
-  const mockErrors = Ember.Object.create({
+  const mockErrors = EmberObject.create({
     setError() {
       assert.notOk(true); // Should not call this!
     },

@@ -1,7 +1,8 @@
+import { run } from '@ember/runloop';
+import EmberObject from '@ember/object';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import StoreStub from '../../../helpers/store-stub';
-import Ember from 'ember';
 
 moduleForComponent('questionnaire/fastq-file-pair-list', 'Integration | Component | questionnaire/fastq file pair list', {
   integration: true,
@@ -13,7 +14,7 @@ moduleForComponent('questionnaire/fastq-file-pair-list', 'Integration | Componen
 test('it shows/hides errors based on answerFormErrors.show', function(assert) {
   this.set('fieldName', 'field-name');
   this.set('externalAction', () => {});
-  this.set('answerFormErrors', Ember.Object.create({
+  this.set('answerFormErrors', EmberObject.create({
     show: true,
     errors: [{field: 'field-name', message: 'Error Message'}],
     setError() { }
@@ -29,7 +30,7 @@ test('it shows/hides errors based on answerFormErrors.show', function(assert) {
 });
 
 test('it renders a fastq-file-pair-row for each selected pair', function(assert) {
-  const fileItems = Ember.Object.create({
+  const fileItems = EmberObject.create({
       samples: [{},{}]
     }
   );
@@ -40,7 +41,7 @@ test('it renders a fastq-file-pair-row for each selected pair', function(assert)
 });
 
 test('it correctly observes error array', function(assert) {
-  const errors = Ember.Object.create({
+  const errors = EmberObject.create({
     show: true,
     errors: [{field: 'field-name', message: 'Empty'}],
     setError() { }
@@ -48,7 +49,7 @@ test('it correctly observes error array', function(assert) {
   this.set('answerFormErrors', errors);
   this.set('fieldName', 'field-name');
   this.set('externalAction', () => {});
-  Ember.run(() => {
+  run(() => {
     // Initially empty
     this.render(hbs`{{questionnaire/fastq-file-pair-list fieldName=fieldName answerChanged=(action externalAction)
                                                          answerFormErrors=answerFormErrors}}`);
@@ -61,7 +62,7 @@ test('it correctly observes error array', function(assert) {
 });
 
 test('it shows no featureSupportMessage', function(assert) {
-  const fileItems = Ember.Object.create({
+  const fileItems = EmberObject.create({
       samples: [{},{}]
     }
   );

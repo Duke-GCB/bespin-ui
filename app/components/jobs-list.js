@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 
-const JobsListComponent = Ember.Component.extend({
+const JobsListComponent = Component.extend({
   tagName: 'table',
   classNames: ['table','table-striped']
 });

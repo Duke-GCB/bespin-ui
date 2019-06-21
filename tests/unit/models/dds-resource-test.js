@@ -1,6 +1,6 @@
+import { run } from '@ember/runloop';
 import { moduleForModel, test } from 'ember-qunit';
 import { testRelationship } from '../../helpers/test-relationships';
-import Ember from 'ember';
 
 moduleForModel('dds-resource', 'Unit | Model | dds resource', {
   needs: ['model:dds-project', 'model:dds-job-input-file', 'model:dds-user-credential', 'model:job-file-stage-group']
@@ -14,14 +14,14 @@ test('it exists', function(assert) {
 
 test('it computes file kind', function(assert) {
   let model = this.subject();
-  Ember.run(() => {model.set('kind', 'dds-file');});
+  run(() => {model.set('kind', 'dds-file');});
   assert.ok(model.get('isFile'));
   assert.notOk(model.get('isFolder'));
 });
 
 test('it computes folder kind', function(assert){
   let model = this.subject();
-  Ember.run(() => {model.set('kind', 'dds-folder');});
+  run(() => {model.set('kind', 'dds-folder');});
   assert.ok(model.get('isFolder'));
   assert.notOk(model.get('isFile'));
 });
@@ -30,7 +30,7 @@ testRelationship('dds-resource', {key: 'project', kind: 'belongsTo', type: 'dds-
 
 test('it generates prefixed file names', function(assert) {
   let model = this.subject();
-  Ember.run(() => {
+  run(() => {
     model.set('name', 'myfile.txt');
     let prefixed = model.getNameWithPrefix('prefix_');
     assert.equal(prefixed, 'prefix_myfile.txt');
@@ -50,7 +50,7 @@ test('it generates a CWL File object', function(assert) {
 });
 
 test('It works with map', function (assert) {
-  Ember.run(() => {
+  run(() => {
     const files = [
       this.store().createRecord('dds-resource', {name: 'file1.txt'}),
       this.store().createRecord('dds-resource', {name: 'file2.txt'}),
@@ -78,7 +78,7 @@ test('It works with map', function (assert) {
 });
 
 test('It creates job input files with DDS IDs', function (assert) {
-  Ember.run(() => {
+  run(() => {
     const projectId = 'project-abc';
     const fileId = 'file-def';
     const project = this.store().createRecord('dds-project', { id: projectId });

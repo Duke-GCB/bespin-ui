@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import { helper as buildHelper } from '@ember/component/helper';
 
 function makeDockerLink(dockerImageName) {
   const matches = dockerImageName.match('(([^:/]*)\/)?([^:/]*)\/([^:/]*)(\:(.*))?');
@@ -26,4 +26,4 @@ export function dockerLink(params) {
   }
 }
 
-export default Ember.Helper.helper(dockerLink);
+export default buildHelper(dockerLink);

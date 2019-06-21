@@ -1,10 +1,11 @@
-import Ember from 'ember';
+import { resolve } from 'rsvp';
+import Service, { inject as service } from '@ember/service';
 
-export default Ember.Service.extend({
-  store: Ember.inject.service(),
+export default Service.extend({
+  store: service(),
   projects() {
     return this.get('store').findAll('dds-project').then(projects => {
-      return Ember.RSVP.resolve(projects.sortBy('name'));
+      return resolve(projects.sortBy('name'));
     });
   }
 });

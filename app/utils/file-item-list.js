@@ -1,6 +1,8 @@
-import Ember from 'ember';
+import { isEmpty } from '@ember/utils';
+import { oneWay, mapBy } from '@ember/object/computed';
+import EmberObject, { get, computed } from '@ember/object';
 
-const FileItem = Ember.Object.extend({
+const FileItem = EmberObject.extend({
   ddsFile: null, // a dds-resource
   inputFile: null, // a dds-job-input-file,
   cwlFile: null, // { "class":"File", "path":"reads_0_0_S001_R1.fastq"}
@@ -17,15 +19,15 @@ const FileItem = Ember.Object.extend({
   destroy() {
     this.get('inputFile').destroyRecord();
   },
-  name: Ember.computed.oneWay('ddsFile.name')
+  name: oneWay('ddsFile.name')
 });
 
-const FileItemList = Ember.Object.extend({
+const FileItemList = EmberObject.extend({
   content: null,
   unique: true,
   init() {
     this._super(...arguments);
-    if(Ember.isEmpty(this.get('content'))) {
+    if(isEmpty(this.get('content'))) {
       this.set('content', []);
     }
   },
@@ -33,7 +35,7 @@ const FileItemList = Ember.Object.extend({
   includesFileItem(fileItem) {
     // Check inclusion based on the ddsFile property by default
     // If the fileItem does not have this property, fallback to object equality
-    const ddsFile = Ember.get(fileItem, 'ddsFile');
+    const ddsFile = get(fileItem, 'ddsFile');
     if(ddsFile) {
       return this.get('ddsFiles').includes(ddsFile);
     } else {
@@ -57,7 +59,7 @@ const FileItemList = Ember.Object.extend({
     this.get('content').removeAt(index);
   },
   // Computed properites for presentation
-  fileItemGroups: Ember.computed('content.[]', 'groupSize', function() {
+  fileItemGroups: computed('content.[]', 'groupSize', function() {
     let fileCount = this.get('content.length');
     let groupSize = this.get('groupSize');
     let fileItemGroups = [];
@@ -70,7 +72,7 @@ const FileItemList = Ember.Object.extend({
     }
     return fileItemGroups;
   }),
-  cwlObjectValue: Ember.computed('fileItemGroups.[]', function() {
+  cwlObjectValue: computed('fileItemGroups.[]', function() {
     /*
      Example: returns CWL File[][] structure from the following read data:
 
@@ -98,7 +100,7 @@ const FileItemList = Ember.Object.extend({
       });
     });
   }),
-  inputFiles: Ember.computed('fileItemGroups.[]', function() {
+  inputFiles: computed('fileItemGroups.[]', function() {
     // returns a flat array of the job input files
     const inputFiles = [];
     const fileItemGroups = this.get('fileItemGroups');
@@ -110,7 +112,7 @@ const FileItemList = Ember.Object.extend({
     });
     return inputFiles;
   }),
-  ddsFiles: Ember.computed.mapBy('content', 'ddsFile')
+  ddsFiles: mapBy('content', 'ddsFile')
 });
 
 function commonPrefix(filename1, filename2) {

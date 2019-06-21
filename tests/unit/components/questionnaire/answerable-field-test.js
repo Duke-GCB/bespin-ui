@@ -1,5 +1,5 @@
+import EmberObject from '@ember/object';
 import { moduleForComponent, test } from 'ember-qunit';
-import Ember from "ember";
 
 moduleForComponent('questionnaire/answerable-field', 'Unit | Component | questionnaire/answerable field', {
   unit: true
@@ -7,7 +7,7 @@ moduleForComponent('questionnaire/answerable-field', 'Unit | Component | questio
 
 test('it records error with empty value', function(assert) {
   assert.expect(2);
-  const mockErrors = Ember.Object.create({
+  const mockErrors = EmberObject.create({
     setError(fieldName, errorText) {
       assert.equal(fieldName, 'field1');
       assert.equal(errorText, 'Please enter a value for this field.');
@@ -27,7 +27,7 @@ test('it records error with empty value', function(assert) {
 
 test('it records no error when everything good', function(assert) {
   assert.expect(1);
-  const mockErrors = Ember.Object.create({
+  const mockErrors = EmberObject.create({
     setError(/* fieldName, errorText */) {
       assert.notOk(true); // Should not call this!
     },
@@ -69,11 +69,11 @@ test('it computes answer', function(assert) {
   const fieldName = 'field_A';
   const answerValue = 'answer value 123';
   const field = this.subject({fieldName: fieldName, answerValue: answerValue, answerChanged: ()=>{}});
-  assert.deepEqual(field.get('answer'), Ember.Object.create({field_A: 'answer value 123'}));
+  assert.deepEqual(field.get('answer'), EmberObject.create({field_A: 'answer value 123'}));
 });
 
 test('it filters fieldErrors for errors that match the field of this component', function(assert) {
-  const mockAnswerFormErrors = Ember.Object.create({
+  const mockAnswerFormErrors = EmberObject.create({
     errors: [
       {field: 'thisField', error: 'invalid'},
       {field: 'otherField', error: 'specific error'}

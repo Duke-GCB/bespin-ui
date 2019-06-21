@@ -1,10 +1,12 @@
-import Ember from 'ember';
+import { isEmpty } from '@ember/utils';
+import EmberObject, { computed } from '@ember/object';
+import { alias } from '@ember/object/computed';
 import FileGroupRow from 'bespin-ui/components/questionnaire/file-group-row';
 
 const FASTQFilePairRow = FileGroupRow.extend({
   classNames: ['fastq-file-pair-row', 'well','well-sm'],
-  pairName: Ember.computed.alias('pair.sampleName'),
-  errors: Ember.computed('pair.isFull', 'pairName', 'pair.size', 'pair.userSetSampleName', function() {
+  pairName: alias('pair.sampleName'),
+  errors: computed('pair.isFull', 'pairName', 'pair.size', 'pair.userSetSampleName', function() {
     const errors = [];
     const isFull = this.get('pair.isFull');
     const name = this.get('pairName');
@@ -16,15 +18,15 @@ const FASTQFilePairRow = FileGroupRow.extend({
       message = `Please select ${size} files to detect sample name.`;
     } else if(userSetSampleName === true && isFull === false) {
       message = `Please select ${size} files.`;
-    } else if(userSetSampleName === false && Ember.isEmpty(name)) {
+    } else if(userSetSampleName === false && isEmpty(name)) {
       // If files are chosen, indicate the automatic naming failed
       message = 'No sample name could be detected. Please enter a sample name.';
-    } else if(userSetSampleName === true && Ember.isEmpty(name)) {
+    } else if(userSetSampleName === true && isEmpty(name)) {
       // If files are chosen, indicate the automatic naming failed
       message = 'Please enter a sample name.';
     }
     if(message) {
-      errors.addObject(Ember.Object.create({message: message}));
+      errors.addObject(EmberObject.create({message: message}));
     }
     return errors;
   })

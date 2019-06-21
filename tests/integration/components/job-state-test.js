@@ -1,6 +1,8 @@
+import { run } from '@ember/runloop';
+import { resolve } from 'rsvp';
+import EmberObject from '@ember/object';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import Ember from 'ember';
 
 moduleForComponent('job-state', 'Integration | Component | job state', {
   integration: true
@@ -12,10 +14,10 @@ test('it renders', function(assert) {
 });
 
 test('it renders job properties', function(assert) {
-  let job = Ember.Object.create({
+  let job = EmberObject.create({
     id: 314,
     state: 'R',
-    getLiveUsage: () => Ember.RSVP.resolve({})
+    getLiveUsage: () => resolve({})
   });
   this.set('job',job);
   this.render(hbs`{{job-state job}}`);
@@ -25,11 +27,11 @@ test('it renders job properties', function(assert) {
 
 
 test('it shows authorization code if job has a runToken', function(assert) {
-  let job = Ember.Object.create({
-    getLiveUsage: () => Ember.RSVP.resolve({})
+  let job = EmberObject.create({
+    getLiveUsage: () => resolve({})
   });
   this.set('job', job);
-  Ember.run(() => {
+  run(() => {
     this.render(hbs`{{job-state job}}`);
     assert.equal(this.$('dd.run_token').length, 0);
     this.set('job.runToken', 'abc123');
@@ -39,11 +41,11 @@ test('it shows authorization code if job has a runToken', function(assert) {
 });
 
 test('it shows decoded job step if step is not empty', function(assert) {
-  let job = Ember.Object.create({
-    getLiveUsage: () => Ember.RSVP.resolve({})
+  let job = EmberObject.create({
+    getLiveUsage: () => resolve({})
   });
   this.set('job', job);
-  Ember.run(() => {
+  run(() => {
     this.render(hbs`{{job-state job}}`);
     assert.equal(this.$('dd.step').length, 0);
     this.set('job.step', 'S');
@@ -53,17 +55,17 @@ test('it shows decoded job step if step is not empty', function(assert) {
 });
 
 test('it shows vm and cpu hours', function(assert) {
-  let job = Ember.Object.create({
-    getLiveUsage: () => Ember.RSVP.resolve({
+  let job = EmberObject.create({
+    getLiveUsage: () => resolve({
       vmHours: 1.21,
       cpuHours: 4.84,
     }),
   });
   this.set('job', job);
-  Ember.run(() => {
+  run(() => {
     this.render(hbs`{{job-state job}}`);
   });
-  Ember.run(() => {
+  run(() => {
     assert.equal(this.$('.running-hours').text(), '1.2');
     assert.equal(this.$('.cpu-hours').text(), '4.8');
   });

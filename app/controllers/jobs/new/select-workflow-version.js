@@ -1,8 +1,9 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import Controller from '@ember/controller';
 
-export default Ember.Controller.extend({
+export default Controller.extend({
   workflowVersion: null,
-  sortedVersions: Ember.computed('model.versions.@each.versionSort', function() {
+  sortedVersions: computed('model.versions.@each.versionSort', function() {
     return this.get('model.versions').sortBy('versionSort');
   }),
   actions: {

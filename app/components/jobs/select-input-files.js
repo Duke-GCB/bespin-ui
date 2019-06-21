@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 
-const SelectInputFiles = Ember.Component.extend({
+const SelectInputFiles = Component.extend({
   project: null,
   pickedFiles: null
 });

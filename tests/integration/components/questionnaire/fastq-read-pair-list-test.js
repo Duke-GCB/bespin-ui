@@ -1,7 +1,7 @@
+import EmberObject from '@ember/object';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import StoreStub from '../../../helpers/store-stub';
-import Ember from 'ember';
 
 moduleForComponent('questionnaire/fastq-read-pair-list', 'Integration | Component | questionnaire/fastq read pair list', {
   integration: true,
@@ -11,7 +11,7 @@ moduleForComponent('questionnaire/fastq-read-pair-list', 'Integration | Componen
 });
 
 test('it renders using the fastq-file-pair-list template', function(assert) {
-  const fileItems = Ember.Object.create({
+  const fileItems = EmberObject.create({
       samples: [{},{}]
     }
   );
@@ -24,7 +24,7 @@ test('it renders using the fastq-file-pair-list template', function(assert) {
 });
 
 test('It shows the featureSupportMessage', function(assert) {
-  const fileItems = Ember.Object.create({
+  const fileItems = EmberObject.create({
       samples: [{},{}]
     }
   );

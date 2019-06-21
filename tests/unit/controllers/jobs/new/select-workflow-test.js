@@ -1,5 +1,5 @@
+import EmberObject from '@ember/object';
 import { moduleFor, test } from 'ember-qunit';
-import Ember from 'ember';
 
 moduleFor('controller:jobs/new/select-workflow', 'unit | controller | jobs/new/select workflow', {
 });
@@ -19,7 +19,7 @@ test('it handles back action', function(assert) {
 });
 
 test('it handles next action', function(assert) {
-  let workflow = Ember.Object.create({ latestVersion: { id: 3 } });
+  let workflow = EmberObject.create({ latestVersion: { id: 3 } });
   let controller = this.subject({
     workflow: workflow,
     transitionToRoute(routeName, id) {

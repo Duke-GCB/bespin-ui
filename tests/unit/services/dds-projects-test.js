@@ -1,14 +1,14 @@
+import EmberObject from '@ember/object';
 import { moduleFor, test } from 'ember-qunit';
 import StoreStub from '../../helpers/store-stub';
-import Ember from 'ember';
 
 const ProjectsStoreStub = StoreStub.extend({
   findAllFunction() {
     return [
-      Ember.Object.create({id: 1, name: 'C'}),
-      Ember.Object.create({id: 2, name: 'A'}),
-      Ember.Object.create({id: 3, name: 'D'}),
-      Ember.Object.create({id: 4, name: 'B'})
+      EmberObject.create({id: 1, name: 'C'}),
+      EmberObject.create({id: 2, name: 'A'}),
+      EmberObject.create({id: 3, name: 'D'}),
+      EmberObject.create({id: 4, name: 'B'})
     ];
   }
 });

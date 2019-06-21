@@ -1,6 +1,7 @@
+import { run } from '@ember/runloop';
+import EmberObject from '@ember/object';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import Ember from 'ember';
 
 moduleForComponent('questionnaire/string-field', 'Integration | Component | questionnaire/string field', {
   integration: true
@@ -23,7 +24,7 @@ test('it renders with label when provided', function(assert) {
 test('it shows/hides errors based on answerFormErrors.show', function(assert) {
   this.set('fieldName', 'field-name');
   this.set('externalAction', () => {});
-  this.set('answerFormErrors', Ember.Object.create({
+  this.set('answerFormErrors', EmberObject.create({
     show: true,
     errors: [{field: 'field-name', message: 'Error Message'}],
     setError() { }
@@ -39,7 +40,7 @@ test('it shows/hides errors based on answerFormErrors.show', function(assert) {
 });
 
 test('it correctly observes error array', function(assert) {
-  const errors = Ember.Object.create({
+  const errors = EmberObject.create({
     show: true,
     errors: [{field: 'field-name', message: 'Empty'}],
     setError() { }
@@ -47,7 +48,7 @@ test('it correctly observes error array', function(assert) {
   this.set('answerFormErrors', errors);
   this.set('externalAction', () => {});
   this.set('fieldName', 'field-name');
-  Ember.run(() => {
+  run(() => {
     // Initially empty
     this.render(hbs`{{questionnaire/string-field fieldName=fieldName answerChanged=(action externalAction) 
                                                  answerFormErrors=answerFormErrors}}`);

@@ -1,6 +1,8 @@
-import Ember from 'ember';
+import { computed, observer } from '@ember/object';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
 
-const DDSResourceTree = Ember.Component.extend({
+const DDSResourceTree = Component.extend({
   tagName: 'span',
   classNames: ['dds-resource-tree'],
   project: null,
@@ -8,9 +10,9 @@ const DDSResourceTree = Ember.Component.extend({
   expanded: false,
   children: null,
   onPick: () => {},
-  store: Ember.inject.service('store'),
+  store: service('store'),
   formatSettings: null,
-  fetchedOnce: Ember.computed('children', function () {
+  fetchedOnce: computed('children', function () {
     return this.get('children') != null;
   }),
   fetchChildren() {
@@ -24,7 +26,7 @@ const DDSResourceTree = Ember.Component.extend({
       this.set('children', children.sortBy('name'));
     });
   },
-  didToggleExpanded: Ember.observer('expanded', function() {
+  didToggleExpanded: observer('expanded', function() {
     if(!this.get('fetchedOnce')) {
       this.fetchChildren();
     }
