@@ -86,8 +86,10 @@ const Faqs = [
 export default Component.extend({
   classNames: ['faq-list'],
   faqs: null,
-  init() {
+  didReceiveAttrs() {
     this._super(...arguments);
-    this.set('faqs', Faqs);
+    if (!this.get('faqs')) {
+      this.set('faqs', Faqs);
+    }
   }
 });
