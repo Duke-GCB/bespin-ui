@@ -1,4 +1,4 @@
-import { htmlSafe } from '@ember/template';
+import { htmlSafe } from '@ember/string';
 import EmberObject, { computed } from '@ember/object';
 import FASTQFilePairList from './fastq-file-pair-list';
 
