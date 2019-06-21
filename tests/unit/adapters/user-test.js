@@ -1,18 +1,18 @@
-import { moduleFor, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleFor('adapter:user', 'Unit | Adapter | user', {
-  // Specify the other units that are required for this test.
-  needs: ['service:session']
-});
+module('Unit | Adapter | user', function(hooks) {
+  setupTest(hooks);
 
-// Replace this with your real tests.
-test('it exists', function(assert) {
-  let adapter = this.subject();
-  assert.ok(adapter);
-});
+  // Replace this with your real tests.
+  test('it exists', function(assert) {
+    let adapter = this.owner.lookup('adapter:user');
+    assert.ok(adapter);
+  });
 
-test('it returns current-user url for queryRecord', function(assert) {
-  let adapter = this.subject();
-  let url = adapter.urlForQueryRecord({}, 'user');
-  assert.equal(url, '/users/current-user/')
+  test('it returns current-user url for queryRecord', function(assert) {
+    let adapter = this.owner.lookup('adapter:user');
+    let url = adapter.urlForQueryRecord({}, 'user');
+    assert.equal(url, '/users/current-user/')
+  });
 });

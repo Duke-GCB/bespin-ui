@@ -1,14 +1,17 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 import { testRelationship } from '../../helpers/test-relationships';
 
-moduleForModel('workflow-version-tool-detail', 'Unit | Model | workflow version tool detail', {
-  needs: ['model:workflow-version']
-});
+import { run } from '@ember/runloop';
 
-test('it exists', function(assert) {
-  let model = this.subject();
-  // let store = this.store();
-  assert.ok(!!model);
-});
+module('Unit | Model | workflow version tool detail', function(hooks) {
+  setupTest(hooks);
 
-testRelationship('workflow-version-tool-detail', {key: 'workflowVersion', kind: 'belongsTo', type: 'workflow-version'});
+  test('it exists', function(assert) {
+    let model = run(() => this.owner.lookup('service:store').createRecord('workflow-version-tool-detail'));
+    // let store = this.store();
+    assert.ok(!!model);
+  });
+
+  testRelationship('workflow-version-tool-detail', {key: 'workflowVersion', kind: 'belongsTo', type: 'workflow-version'});
+});

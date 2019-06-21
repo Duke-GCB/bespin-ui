@@ -1,5 +1,6 @@
 import EmberObject from '@ember/object';
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 import BaseUserStub from '../../helpers/user-stub'
 
 const mockUser = EmberObject.create({
@@ -11,16 +12,17 @@ const UserStub = BaseUserStub.extend({
   user: mockUser
 });
 
-moduleForComponent('job-detail-body', 'Unit | Component | job detail body', {
-  unit: true,
-  beforeEach() {
-    this.register('service:user', UserStub);
-  }
-});
+module('Unit | Component | job detail body', function(hooks) {
+  setupTest(hooks);
 
-test('it resolves currentUser() from user service', function(assert) {
-  const job = EmberObject.create({});
-  let component = this.subject({job: job});
-  this.render();
-  assert.equal(component.get('currentUser'), mockUser);
+  hooks.beforeEach(function() {
+    this.owner.register('service:user', UserStub);
+  });
+
+  test('it resolves currentUser() from user service', function(assert) {
+    const job = EmberObject.create({});
+    let component = this.owner.factoryFor('component:job-detail-body').create({job: job});
+    this.render();
+    assert.equal(component.get('currentUser'), mockUser);
+  });
 });

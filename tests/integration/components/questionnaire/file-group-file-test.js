@@ -1,35 +1,42 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('questionnaire/file-group-file', 'Integration | Component | questionnaire/file group file', {
-  integration: true
-});
+module('Integration | Component | questionnaire/file group file', function(hooks) {
+  setupRenderingTest(hooks);
 
-test('it renders', function(assert) {
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
-
-  this.render(hbs`{{questionnaire/file-group-file}}`);
-
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#questionnaire/file-group-file}}
-      template block text
-    {{/questionnaire/file-group-file}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
-});
-
-test('it calls supplied click action', function (assert) {
-  this.on('clickHandler', function(index) {
-    assert.equal(index, 42);
+  hooks.beforeEach(function() {
+    this.actions = {};
+    this.send = (actionName, ...args) => this.actions[actionName].apply(this, args);
   });
 
-  this.set('file', {});
-  this.set('index', 42);
-  this.render(hbs`{{questionnaire/file-group-file file index (action 'clickHandler')}}`);
-  this.$('.dds-remove-button').click();
+  test('it renders', async function(assert) {
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.on('myAction', function(val) { ... });
+
+    await render(hbs`{{questionnaire/file-group-file}}`);
+
+    assert.equal(this.$().text().trim(), '');
+
+    // Template block usage:
+    await render(hbs`
+      {{#questionnaire/file-group-file}}
+        template block text
+      {{/questionnaire/file-group-file}}
+    `);
+
+    assert.equal(this.$().text().trim(), 'template block text');
+  });
+
+  test('it calls supplied click action', async function(assert) {
+    this.actions.clickHandler = function(index) {
+      assert.equal(index, 42);
+    };
+
+    this.set('file', {});
+    this.set('index', 42);
+    await render(hbs`{{questionnaire/file-group-file file index (action 'clickHandler')}}`);
+    this.$('.dds-remove-button').click();
+  });
 });

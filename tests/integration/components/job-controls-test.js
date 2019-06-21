@@ -1,50 +1,52 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('job-controls', 'Integration | Component | job controls', {
-  integration: true
-});
+module('Integration | Component | job controls', function(hooks) {
+  setupRenderingTest(hooks);
 
-test('it renders 3 buttons', function(assert) {
-  let job = {id: 6, name: 'Job Six', state: 'N'};
-  this.set('job', job);
-  this.render(hbs`{{job-controls job}}`);
-  assert.equal(this.$('button').length, 3, 'Renders 3 buttons');
-});
-
-test('it enables start when Authorized', function(assert) {
-  let job = {id: 6, name: 'Job Six', state: 'A'};
-  this.set('job', job);
-  this.render(hbs`{{job-controls job}}`);
-  assert.equal(this.$('button:not(:disabled)').text(), 'Start');
-  assert.equal(this.$('button[disabled]').length, 2);
-});
-
-test('it enables restart when Canceled, or Error', function(assert) {
-  assert.expect(4);
-  let states = ['C','E'];
-  states.forEach(state => {
-    let job = {id: 6, name: 'Job Six', state: state};
+  test('it renders 3 buttons', async function(assert) {
+    let job = {id: 6, name: 'Job Six', state: 'N'};
     this.set('job', job);
-    this.render(hbs`{{job-controls job}}`);
-    assert.equal(this.$('button:not(:disabled)').text(), 'Restart');
+    await render(hbs`{{job-controls job}}`);
+    assert.equal(this.$('button').length, 3, 'Renders 3 buttons');
+  });
+
+  test('it enables start when Authorized', async function(assert) {
+    let job = {id: 6, name: 'Job Six', state: 'A'};
+    this.set('job', job);
+    await render(hbs`{{job-controls job}}`);
+    assert.equal(this.$('button:not(:disabled)').text(), 'Start');
     assert.equal(this.$('button[disabled]').length, 2);
   });
-});
 
-test('it enables nothing when Finished', function(assert) {
-  assert.expect(2);
-  let job = {id: 6, name: 'Job Six', state: 'F'};
-  this.set('job', job);
-  this.render(hbs`{{job-controls job}}`);
-  assert.equal(this.$('button:not(:disabled)').text(), '');
-  assert.equal(this.$('button[disabled]').length, 3);
-});
+  test('it enables restart when Canceled, or Error', function(assert) {
+    assert.expect(4);
+    let states = ['C','E'];
+    states.forEach(async state => {
+      let job = {id: 6, name: 'Job Six', state: state};
+      this.set('job', job);
+      await render(hbs`{{job-controls job}}`);
+      assert.equal(this.$('button:not(:disabled)').text(), 'Restart');
+      assert.equal(this.$('button[disabled]').length, 2);
+    });
+  });
 
-test('it enables cancel when Running', function(assert) {
-  let job = {id: 6, name: 'Job Six', state: 'R'};
-  this.set('job', job);
-  this.render(hbs`{{job-controls job}}`);
-  assert.equal(this.$('button:not(:disabled)').text(), 'Cancel');
-  assert.equal(this.$('button[disabled]').length, 2);
+  test('it enables nothing when Finished', async function(assert) {
+    assert.expect(2);
+    let job = {id: 6, name: 'Job Six', state: 'F'};
+    this.set('job', job);
+    await render(hbs`{{job-controls job}}`);
+    assert.equal(this.$('button:not(:disabled)').text(), '');
+    assert.equal(this.$('button[disabled]').length, 3);
+  });
+
+  test('it enables cancel when Running', async function(assert) {
+    let job = {id: 6, name: 'Job Six', state: 'R'};
+    this.set('job', job);
+    await render(hbs`{{job-controls job}}`);
+    assert.equal(this.$('button:not(:disabled)').text(), 'Cancel');
+    assert.equal(this.$('button[disabled]').length, 2);
+  });
 });

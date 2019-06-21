@@ -1,79 +1,81 @@
 import { run } from '@ember/runloop';
 import EmberObject from '@ember/object';
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('questionnaire/int-field', 'Integration | Component | questionnaire/int field', {
-  integration: true
-});
+module('Integration | Component | questionnaire/int field', function(hooks) {
+  setupRenderingTest(hooks);
 
-test('it renders', function(assert) {
-  this.set('fieldName', 'field');
-  this.set('externalAction', () => {});
-  this.render(hbs`{{questionnaire/int-field fieldName (action externalAction)}}`);
-  assert.equal(this.$().text().trim(), 'Field');
-});
-
-test('it renders with label when provided', function(assert) {
-  this.set('fieldName', 'field');
-  this.set('externalAction', () => {});
-  this.render(hbs`{{questionnaire/int-field fieldName (action externalAction) fieldLabel="MyLabel"}}`);
-  assert.equal(this.$().text().trim(), 'MyLabel');
-});
-
-test('it shows/hides errors based on answerFormErrors.show', function(assert) {
-  this.set('fieldName', 'field-name');
-  this.set('externalAction', () => {});
-  this.set('answerFormErrors', EmberObject.create({
-    show: true,
-    errors: [{field: 'field-name', message: 'Error Message'}],
-    setError() { }
-  }));
-  this.render(hbs`{{questionnaire/int-field fieldName=fieldName answerChanged=(action externalAction)
-                                            answerFormErrors=answerFormErrors}}`);
-  assert.equal(this.$('.error-panel').text().trim(), 'Error Message');
-
-  this.set('answerFormErrors.show', false);
-  this.render(hbs`{{questionnaire/int-field fieldName=fieldName answerChanged=(action externalAction)
-                                            answerFormErrors=answerFormErrors}}`);
-  assert.equal(this.$('.error-panel').text().trim(), '');
-});
-
-test('it correctly observes error array', function(assert) {
-  const errors = EmberObject.create({
-    show: true,
-    errors: [{field: 'field-name', message: 'Empty'}],
-    setError() { }
+  test('it renders', async function(assert) {
+    this.set('fieldName', 'field');
+    this.set('externalAction', () => {});
+    await render(hbs`{{questionnaire/int-field fieldName (action externalAction)}}`);
+    assert.equal(this.$().text().trim(), 'Field');
   });
-  this.set('answerFormErrors', errors);
-  this.set('fieldName', 'field-name');
-  this.set('externalAction', () => {});
-  run(() => {
-    // Initially empty
-    this.render(hbs`{{questionnaire/int-field fieldName=fieldName answerChanged=(action externalAction)
+
+  test('it renders with label when provided', async function(assert) {
+    this.set('fieldName', 'field');
+    this.set('externalAction', () => {});
+    await render(hbs`{{questionnaire/int-field fieldName (action externalAction) fieldLabel="MyLabel"}}`);
+    assert.equal(this.$().text().trim(), 'MyLabel');
+  });
+
+  test('it shows/hides errors based on answerFormErrors.show', async function(assert) {
+    this.set('fieldName', 'field-name');
+    this.set('externalAction', () => {});
+    this.set('answerFormErrors', EmberObject.create({
+      show: true,
+      errors: [{field: 'field-name', message: 'Error Message'}],
+      setError() { }
+    }));
+    await render(hbs`{{questionnaire/int-field fieldName=fieldName answerChanged=(action externalAction)
                                               answerFormErrors=answerFormErrors}}`);
-    assert.equal(this.$('.error-panel').text().trim(), 'Empty');
+    assert.equal(this.$('.error-panel').text().trim(), 'Error Message');
 
-    // Now replace the errors and verify the new error is displayed
-    this.set('answerFormErrors.errors', [{field: 'field-name', message: 'Incomplete'}]);
-    assert.equal(this.$('.error-panel').text().trim(), 'Incomplete');
+    this.set('answerFormErrors.show', false);
+    await render(hbs`{{questionnaire/int-field fieldName=fieldName answerChanged=(action externalAction)
+                                              answerFormErrors=answerFormErrors}}`);
+    assert.equal(this.$('.error-panel').text().trim(), '');
   });
-});
 
-test('it sets errors based on validityDidChange', function(assert) {
-  this.set('fieldName', 'field-name');
-  this.set('externalAction', () => {});
-  this.set('answerFormErrors', EmberObject.create({
-    show: true,
-    errors: [{field: 'field-name', message: 'Error Message'}],
-    setError() { }
-  }));
-  this.render(hbs`{{questionnaire/int-field fieldName=fieldName answerChanged=(action externalAction)
-                                            answerFormErrors=answerFormErrors}}`);
-  assert.equal(this.$('.error-panel').text().trim(), 'Error Message');
+  test('it correctly observes error array', function(assert) {
+    const errors = EmberObject.create({
+      show: true,
+      errors: [{field: 'field-name', message: 'Empty'}],
+      setError() { }
+    });
+    this.set('answerFormErrors', errors);
+    this.set('fieldName', 'field-name');
+    this.set('externalAction', () => {});
+    run(async () => {
+      // Initially empty
+      await render(hbs`{{questionnaire/int-field fieldName=fieldName answerChanged=(action externalAction)
+                                                answerFormErrors=answerFormErrors}}`);
+      assert.equal(this.$('.error-panel').text().trim(), 'Empty');
 
-  this.set('answerFormErrors.show', false);
-  this.render(hbs`{{questionnaire/int-field fieldName=fieldName answerChanged=(action externalAction)
-                                            answerFormErrors=answerFormErrors}}`);
-  assert.equal(this.$('.error-panel').text().trim(), '');
+      // Now replace the errors and verify the new error is displayed
+      this.set('answerFormErrors.errors', [{field: 'field-name', message: 'Incomplete'}]);
+      assert.equal(this.$('.error-panel').text().trim(), 'Incomplete');
+    });
+  });
+
+  test('it sets errors based on validityDidChange', async function(assert) {
+    this.set('fieldName', 'field-name');
+    this.set('externalAction', () => {});
+    this.set('answerFormErrors', EmberObject.create({
+      show: true,
+      errors: [{field: 'field-name', message: 'Error Message'}],
+      setError() { }
+    }));
+    await render(hbs`{{questionnaire/int-field fieldName=fieldName answerChanged=(action externalAction)
+                                              answerFormErrors=answerFormErrors}}`);
+    assert.equal(this.$('.error-panel').text().trim(), 'Error Message');
+
+    this.set('answerFormErrors.show', false);
+    await render(hbs`{{questionnaire/int-field fieldName=fieldName answerChanged=(action externalAction)
+                                              answerFormErrors=answerFormErrors}}`);
+    assert.equal(this.$('.error-panel').text().trim(), '');
+  });
 });

@@ -1,27 +1,26 @@
 import EmberObject from '@ember/object';
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForComponent('questionnaire/exomeseq-studytype-choice', 'Unit | Component | questionnaire/exomeseq studytype choice', {
-  // Specify the other units that are required for this test
-  // needs: ['component:foo', 'helper:bar'],
-  unit: true
-});
+module('Unit | Component | questionnaire/exomeseq studytype choice', function(hooks) {
+  setupTest(hooks);
 
-test('it sets component-specific error text to answerFormErrors', function(assert) {
-  const expectedErrorText = 'Please choose a study type';
-  const mockAnswerFormErrors = EmberObject.create({
-    fieldName: null,
-    errorText: null,
-    setError(fieldName, text) {
-      this.set('fieldName', fieldName);
-      this.set('errorText', text);
-    }
+  test('it sets component-specific error text to answerFormErrors', function(assert) {
+    const expectedErrorText = 'Please choose a study type';
+    const mockAnswerFormErrors = EmberObject.create({
+      fieldName: null,
+      errorText: null,
+      setError(fieldName, text) {
+        this.set('fieldName', fieldName);
+        this.set('errorText', text);
+      }
+    });
+    let component = this.owner.factoryFor('component:questionnaire/exomeseq-studytype-choice').create({
+      fieldName: 'somefield',
+      answerChanged: ()=>{},
+    });
+    component.set('answerFormErrors', mockAnswerFormErrors);
+    assert.equal(mockAnswerFormErrors.get('errorText'), expectedErrorText);
   });
-  let component = this.subject({
-    fieldName: 'somefield',
-    answerChanged: ()=>{},
-  });
-  component.set('answerFormErrors', mockAnswerFormErrors);
-  assert.equal(mockAnswerFormErrors.get('errorText'), expectedErrorText);
 });
 

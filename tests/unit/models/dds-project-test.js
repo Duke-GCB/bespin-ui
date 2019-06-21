@@ -1,13 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('dds-project', 'Unit | Model | project', {
-  // Specify the other units that are required for this test.
-  needs: []
-});
+import { run } from '@ember/runloop';
 
-test('it exists', function(assert) {
-  // Not much to test in project model yet
-  let model = this.subject();
-  // let store = this.store();
-  assert.ok(!!model);
+module('Unit | Model | project', function(hooks) {
+  setupTest(hooks);
+
+  test('it exists', function(assert) {
+    // Not much to test in project model yet
+    let model = run(() => this.owner.lookup('service:store').createRecord('dds-project'));
+    // let store = this.store();
+    assert.ok(!!model);
+  });
 });

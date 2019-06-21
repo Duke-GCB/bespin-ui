@@ -1,5 +1,7 @@
 import Service from '@ember/service';
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 //Stub location service
@@ -23,43 +25,44 @@ const ddsUrlFetcherStub = Service.extend({
   }
 });
 
-moduleForComponent('job-output-readme', 'Integration | Component | job output readme', {
-  integration: true,
-  beforeEach: function () {
-    this.register('service:dds-url-fetcher', ddsUrlFetcherStub);
-    this.inject.service('dds-url-fetcher', { as: 'ddsUrlFetcher' });
-  }
-});
+module('Integration | Component | job output readme', function(hooks) {
+  setupRenderingTest(hooks);
 
-test('it renders loading', function(assert) {
-  this.set('outputProject', {
-    stubHint: 'neverload'
+  hooks.beforeEach(function () {
+    this.owner.register('service:dds-url-fetcher', ddsUrlFetcherStub);
+    this.ddsUrlFetcher = this.owner.lookup('service:dds-url-fetcher');
   });
 
-  this.render(hbs`{{job-output-readme outputProject=outputProject}}`);
-  assert.equal(this.$().text().trim(), 'Loading...');
+  test('it renders loading', async function(assert) {
+    this.set('outputProject', {
+      stubHint: 'neverload'
+    });
 
-  // Template block usage:
-  this.render(hbs`
-    {{#job-output-readme outputProject=outputProject}}
-      template block text
-    {{/job-output-readme}}
-  `);
-  assert.equal(this.$().text().trim().replace(/ +/, ''), 'Loading...\ntemplate block text');
-});
+    await render(hbs`{{job-output-readme outputProject=outputProject}}`);
+    assert.equal(this.$().text().trim(), 'Loading...');
 
-test('it renders content for readme', function(assert) {
-  this.set('outputProject', {
-    stubHint: 'loaddata'
+    // Template block usage:
+    await render(hbs`
+      {{#job-output-readme outputProject=outputProject}}
+        template block text
+      {{/job-output-readme}}
+    `);
+    assert.equal(this.$().text().trim().replace(/ +/, ''), 'Loading...\ntemplate block text');
   });
-  this.render(hbs`{{job-output-readme outputProject=outputProject}}`);
-  assert.equal(this.$().text().trim(), 'MarkdownData');
-});
 
-test('it renders error on failure for readme', function(assert) {
-  this.set('outputProject', {
-    stubHint: 'showerror'
+  test('it renders content for readme', async function(assert) {
+    this.set('outputProject', {
+      stubHint: 'loaddata'
+    });
+    await render(hbs`{{job-output-readme outputProject=outputProject}}`);
+    assert.equal(this.$().text().trim(), 'MarkdownData');
   });
-  this.render(hbs`{{job-output-readme outputProject=outputProject}}`);
-  assert.equal(this.$('.error-details').text().trim(), 'Not Found');
+
+  test('it renders error on failure for readme', async function(assert) {
+    this.set('outputProject', {
+      stubHint: 'showerror'
+    });
+    await render(hbs`{{job-output-readme outputProject=outputProject}}`);
+    assert.equal(this.$('.error-details').text().trim(), 'Not Found');
+  });
 });

@@ -1,19 +1,22 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 import testRelationships from '../../helpers/test-relationships';
 
-moduleForModel('job-file-stage-group', 'Unit | Model | job file stage group', {
-  needs: ['model:dds-job-input-file', 'model:url-job-input-file']
+import { run } from '@ember/runloop';
+
+module('Unit | Model | job file stage group', function(hooks) {
+  setupTest(hooks);
+
+  test('it exists', function(assert) {
+    let model = run(() => this.owner.lookup('service:store').createRecord('job-file-stage-group'));
+    // let store = this.store();
+    assert.ok(!!model);
+  });
+
+  const testRels = [
+    {key: 'ddsFiles', kind: 'hasMany', type: 'dds-job-input-file'},
+    {key: 'urlFiles', kind: 'hasMany', type: 'url-job-input-file'}
+  ];
+
+  testRelationships('job-file-stage-group', testRels);
 });
-
-test('it exists', function(assert) {
-  let model = this.subject();
-  // let store = this.store();
-  assert.ok(!!model);
-});
-
-const testRels = [
-  {key: 'ddsFiles', kind: 'hasMany', type: 'dds-job-input-file'},
-  {key: 'urlFiles', kind: 'hasMany', type: 'url-job-input-file'}
-];
-
-testRelationships('job-file-stage-group', testRels);

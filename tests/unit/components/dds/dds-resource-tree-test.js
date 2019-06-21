@@ -2,7 +2,8 @@ import { run } from '@ember/runloop';
 import EmberObject from '@ember/object';
 import { resolve } from 'rsvp';
 import Service from '@ember/service';
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
 const StoreStub = Service.extend({
   query() {
@@ -15,21 +16,22 @@ const StoreStub = Service.extend({
   }
 });
 
-moduleForComponent('dds/dds-resource-tree', 'Unit | Component | dds/dds resource tree', {
-  unit: true,
-  beforeEach() {
-    this.register('service:store', StoreStub);
-  }
-});
+module('Unit | Component | dds/dds resource tree', function(hooks) {
+  setupTest(hooks);
 
-test('it sorts files by name', function(assert) {
-  let component = this.subject({resource: EmberObject.create()});
-  // Run in two separate Ember.run blocks, since side effect of fetchChildren must complete before we can check children
-  run(() => {
-    component.fetchChildren()
+  hooks.beforeEach(function() {
+    this.owner.register('service:store', StoreStub);
   });
-  run(() => {
-    assert.deepEqual(component.get('children').mapBy('name'), ['A', 'B', 'C', 'D']);
-    assert.ok(component.get('fetchedOnce'));
+
+  test('it sorts files by name', function(assert) {
+    let component = this.owner.factoryFor('component:dds/dds-resource-tree').create({resource: EmberObject.create()});
+    // Run in two separate Ember.run blocks, since side effect of fetchChildren must complete before we can check children
+    run(() => {
+      component.fetchChildren()
+    });
+    run(() => {
+      assert.deepEqual(component.get('children').mapBy('name'), ['A', 'B', 'C', 'D']);
+      assert.ok(component.get('fetchedOnce'));
+    });
   });
 });

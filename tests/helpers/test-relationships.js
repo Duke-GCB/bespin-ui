@@ -1,5 +1,5 @@
 import { get } from '@ember/object';
-import { test } from 'ember-qunit';
+import { test } from 'qunit';
 
 function testRelationship(modelName, rel) {
   test(`it has relationship: ${rel.kind} ${rel.type}`, function(assert) {

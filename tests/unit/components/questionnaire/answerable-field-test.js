@@ -1,99 +1,100 @@
 import EmberObject from '@ember/object';
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForComponent('questionnaire/answerable-field', 'Unit | Component | questionnaire/answerable field', {
-  unit: true
-});
+module('Unit | Component | questionnaire/answerable field', function(hooks) {
+  setupTest(hooks);
 
-test('it records error with empty value', function(assert) {
-  assert.expect(2);
-  const mockErrors = EmberObject.create({
-    setError(fieldName, errorText) {
-      assert.equal(fieldName, 'field1');
-      assert.equal(errorText, 'Please enter a value for this field.');
-    },
-    clearError(/* fieldName */) {
-      assert.notOk(true); // clearError should not be called
-    }
+  test('it records error with empty value', function(assert) {
+    assert.expect(2);
+    const mockErrors = EmberObject.create({
+      setError(fieldName, errorText) {
+        assert.equal(fieldName, 'field1');
+        assert.equal(errorText, 'Please enter a value for this field.');
+      },
+      clearError(/* fieldName */) {
+        assert.notOk(true); // clearError should not be called
+      }
+    });
+
+    this.owner.factoryFor('component:questionnaire/answerable-field').create({
+      fieldName: 'field1',
+      answerChanged: ()=>{},
+      answerValue: '',
+      answerFormErrors: mockErrors
+    });
   });
 
-  this.subject({
-    fieldName: 'field1',
-    answerChanged: ()=>{},
-    answerValue: '',
-    answerFormErrors: mockErrors
+  test('it records no error when everything good', function(assert) {
+    assert.expect(1);
+    const mockErrors = EmberObject.create({
+      setError(/* fieldName, errorText */) {
+        assert.notOk(true); // Should not call this!
+      },
+      clearError(fieldName) {
+        assert.equal(fieldName, 'field2');
+      }
+    });
+
+    this.owner.factoryFor('component:questionnaire/answerable-field').create({
+      fieldName: 'field2',
+      answerChanged: ()=>{},
+      answerValue: 'Something',
+      answerFormErrors: mockErrors
+    });
   });
-});
 
-test('it records no error when everything good', function(assert) {
-  assert.expect(1);
-  const mockErrors = EmberObject.create({
-    setError(/* fieldName, errorText */) {
-      assert.notOk(true); // Should not call this!
-    },
-    clearError(fieldName) {
-      assert.equal(fieldName, 'field2');
-    }
+  test('it computes an answer object from the fieldName and value', function(assert) {
+    const fieldName = 'field3';
+    const field = this.owner.factoryFor('component:questionnaire/answerable-field').create({fieldName: fieldName, answerChanged: ()=>{}});
+    assert.notOk(field.get('answer').get(fieldName));
+    field.set('answerValue','value123');
+    assert.equal(field.get('answer').get('field3'), 'value123');
   });
 
-  this.subject({
-    fieldName: 'field2',
-    answerChanged: ()=>{},
-    answerValue: 'Something',
-    answerFormErrors: mockErrors
+  test('it computes displayLabel using fieldName with capitalization', function(assert) {
+    const fieldName = 'field';
+    const field = this.owner.factoryFor('component:questionnaire/answerable-field').create({fieldName: fieldName, answerChanged: ()=>{}});
+    assert.equal(field.get('displayLabel'), 'Field'); // simple capitalization
   });
-});
 
-test('it computes an answer object from the fieldName and value', function(assert) {
-  const fieldName = 'field3';
-  const field = this.subject({fieldName: fieldName, answerChanged: ()=>{}});
-  assert.notOk(field.get('answer').get(fieldName));
-  field.set('answerValue','value123');
-  assert.equal(field.get('answer').get('field3'), 'value123');
-});
-
-test('it computes displayLabel using fieldName with capitalization', function(assert) {
-  const fieldName = 'field';
-  const field = this.subject({fieldName: fieldName, answerChanged: ()=>{}});
-  assert.equal(field.get('displayLabel'), 'Field'); // simple capitalization
-});
-
-test('it computes displayLabel using fieldLabel with no changes', function(assert) {
-  const fieldName = 'field name';
-  const fieldLabel = 'field label';
-  const field = this.subject({fieldName: fieldName, fieldLabel: fieldLabel, answerChanged: ()=>{}});
-  assert.equal(field.get('displayLabel'), 'field label');
-});
-
-test('it computes answer', function(assert) {
-  const fieldName = 'field_A';
-  const answerValue = 'answer value 123';
-  const field = this.subject({fieldName: fieldName, answerValue: answerValue, answerChanged: ()=>{}});
-  assert.deepEqual(field.get('answer'), EmberObject.create({field_A: 'answer value 123'}));
-});
-
-test('it filters fieldErrors for errors that match the field of this component', function(assert) {
-  const mockAnswerFormErrors = EmberObject.create({
-    errors: [
-      {field: 'thisField', error: 'invalid'},
-      {field: 'otherField', error: 'specific error'}
-    ],
-    setError() {}
+  test('it computes displayLabel using fieldLabel with no changes', function(assert) {
+    const fieldName = 'field name';
+    const fieldLabel = 'field label';
+    const field = this.owner.factoryFor('component:questionnaire/answerable-field').create({fieldName: fieldName, fieldLabel: fieldLabel, answerChanged: ()=>{}});
+    assert.equal(field.get('displayLabel'), 'field label');
   });
-  const field = this.subject({fieldName: 'thisField', answerFormErrors: mockAnswerFormErrors, answerChanged: ()=>{}});
-  const errors = field.get('fieldErrors');
-  assert.deepEqual(errors, [{field: 'thisField', error: 'invalid'}]);
-});
 
-test('it requires fieldName and answerChanged', function(assert) {
-  assert.throws(() => {
-    this.subject({});
+  test('it computes answer', function(assert) {
+    const fieldName = 'field_A';
+    const answerValue = 'answer value 123';
+    const field = this.owner.factoryFor('component:questionnaire/answerable-field').create({fieldName: fieldName, answerValue: answerValue, answerChanged: ()=>{}});
+    assert.deepEqual(field.get('answer'), EmberObject.create({field_A: 'answer value 123'}));
   });
-  assert.throws(() => {
-    this.subject({fieldName: "SomeField"});
+
+  test('it filters fieldErrors for errors that match the field of this component', function(assert) {
+    const mockAnswerFormErrors = EmberObject.create({
+      errors: [
+        {field: 'thisField', error: 'invalid'},
+        {field: 'otherField', error: 'specific error'}
+      ],
+      setError() {}
+    });
+    const field = this.owner.factoryFor('component:questionnaire/answerable-field').create({fieldName: 'thisField', answerFormErrors: mockAnswerFormErrors, answerChanged: ()=>{}});
+    const errors = field.get('fieldErrors');
+    assert.deepEqual(errors, [{field: 'thisField', error: 'invalid'}]);
   });
-  assert.throws(() => {
-    this.subject({answerChanged: ()=>{}});
+
+  test('it requires fieldName and answerChanged', function(assert) {
+    assert.throws(() => {
+      this.owner.factoryFor('component:questionnaire/answerable-field').create({});
+    });
+    assert.throws(() => {
+      this.owner.factoryFor('component:questionnaire/answerable-field').create({fieldName: "SomeField"});
+    });
+    assert.throws(() => {
+      this.owner.factoryFor('component:questionnaire/answerable-field').create({answerChanged: ()=>{}});
+    });
+    this.owner.factoryFor('component:questionnaire/answerable-field').create({fieldName: "SomeField", answerChanged: ()=>{}});
   });
-  this.subject({fieldName: "SomeField", answerChanged: ()=>{}});
 });

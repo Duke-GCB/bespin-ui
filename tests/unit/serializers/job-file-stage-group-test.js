@@ -1,16 +1,16 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('job-file-stage-group', 'Unit | Serializer | job file stage group', {
-  // Specify the other units that are required for this test.
-  needs: [
-    'serializer:job-file-stage-group',
-    'model:dds-job-input-file',
-    'model:url-job-input-file'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  let record = this.subject({ddsFiles:[], urlFiles:[]});
-  let serializedRecord = record.serialize();
-  assert.ok(serializedRecord);
+module('Unit | Serializer | job file stage group', function(hooks) {
+  setupTest(hooks);
+
+  test('it serializes records', function(assert) {
+    let record = run(
+      () => this.owner.lookup('service:store').createRecord('job-file-stage-group', {ddsFiles:[], urlFiles:[]})
+    );
+    let serializedRecord = record.serialize();
+    assert.ok(serializedRecord);
+  });
 });

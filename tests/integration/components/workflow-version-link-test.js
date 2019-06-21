@@ -1,23 +1,28 @@
 import EmberObject from '@ember/object';
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('workflow-version-link', 'Integration | Component | workflow version link', {
-  integration: true,
-  setup() {
-    this.container.lookup('router:main').setupRouter();
-  }
-});
+module('Integration | Component | workflow version link', function(hooks) {
+  setupRenderingTest(hooks);
 
-test('it renders the workflowVersion version number and a link', function(assert) {
-  this.set('workflowVersion', EmberObject.create({
-    id: 111,
-    workflow: EmberObject.create({
-      id: 333
-    })
-  }));
+  hooks.beforeEach(function() {
+    this.setup = function() {
+      this.owner.lookup('router:main').setupRouter();
+    };
+  });
 
-  this.render(hbs`{{#workflow-version-link workflowVersion}}link text{{/workflow-version-link}}`);
-  assert.equal(this.$('a').attr('href').trim(), '/workflows/333/versions/111');
-  assert.equal(this.$('.workflow-version-link-text').text().trim(), 'link text');
+  test('it renders the workflowVersion version number and a link', async function(assert) {
+    this.set('workflowVersion', EmberObject.create({
+      id: 111,
+      workflow: EmberObject.create({
+        id: 333
+      })
+    }));
+
+    await render(hbs`{{#workflow-version-link workflowVersion}}link text{{/workflow-version-link}}`);
+    assert.equal(this.$('a').attr('href').trim(), '/workflows/333/versions/111');
+    assert.equal(this.$('.workflow-version-link-text').text().trim(), 'link text');
+  });
 });

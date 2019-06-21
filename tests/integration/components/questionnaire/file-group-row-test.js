@@ -1,23 +1,25 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('questionnaire/file-group-row', 'Integration | Component | questionnaire/file group row', {
-  integration: true
-});
+module('Integration | Component | questionnaire/file group row', function(hooks) {
+  setupRenderingTest(hooks);
 
-test('it renders', function(assert) {
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
+  test('it renders', async function(assert) {
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.on('myAction', function(val) { ... });
 
-  this.render(hbs`{{questionnaire/file-group-row 0 0}}`);
-  assert.equal(this.$().text().trim(), 'Group 1', 'It computes the display index as group + 1');
+    await render(hbs`{{questionnaire/file-group-row 0 0}}`);
+    assert.equal(this.$().text().trim(), 'Group 1', 'It computes the display index as group + 1');
 
-  this.render(hbs`{{questionnaire/file-group-row 3 8}}`);
-  assert.equal(this.$().text().trim(), 'Group 9', 'It computes the display index as group + 1');
+    await render(hbs`{{questionnaire/file-group-row 3 8}}`);
+    assert.equal(this.$().text().trim(), 'Group 9', 'It computes the display index as group + 1');
 
-  this.set('groupName', 'sample');
-  this.render(hbs`{{questionnaire/file-group-row 3 8 groupName=groupName}}`);
-  assert.equal(this.$().text().trim(), 'Sample 9', 'It computes the display index as group + 1');
+    this.set('groupName', 'sample');
+    await render(hbs`{{questionnaire/file-group-row 3 8 groupName=groupName}}`);
+    assert.equal(this.$().text().trim(), 'Sample 9', 'It computes the display index as group + 1');
 
+  });
 });
 

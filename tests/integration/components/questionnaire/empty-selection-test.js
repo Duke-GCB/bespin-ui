@@ -1,11 +1,13 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('questionnaire/empty-selection', 'Integration | Component | questionnaire/empty selection', {
-  integration: true
-});
+module('Integration | Component | questionnaire/empty selection', function(hooks) {
+  setupRenderingTest(hooks);
 
-test('it renders', function(assert) {
-  this.render(hbs`{{questionnaire/empty-selection}}`);
-  assert.equal(this.$().text().trim(), 'None selected');
+  test('it renders', async function(assert) {
+    await render(hbs`{{questionnaire/empty-selection}}`);
+    assert.equal(this.$().text().trim(), 'None selected');
+  });
 });

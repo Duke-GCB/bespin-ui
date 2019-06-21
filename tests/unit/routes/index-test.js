@@ -1,15 +1,15 @@
-import { moduleFor, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleFor('route:index', 'Unit | Route | index', {
-  // Specify the other units that are required for this test.
-  // needs: ['controller:foo']
-});
+module('Unit | Route | index', function(hooks) {
+  setupTest(hooks);
 
-test('should transition to jobs route', function(assert) {
-  let route = this.subject({
-    replaceWith(routeName) {
-      assert.equal(routeName, 'jobs','replace with route name jobs');
-    }
+  test('should transition to jobs route', function(assert) {
+    let route = this.owner.factoryFor('route:index').create({
+      replaceWith(routeName) {
+        assert.equal(routeName, 'jobs','replace with route name jobs');
+      }
+    });
+    route.beforeModel();
   });
-  route.beforeModel();
 });

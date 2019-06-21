@@ -1,21 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('job', 'Unit | Serializer | job', {
-  // Specify the other units that are required for this test.
-  needs: [
-    'serializer:job',
-    'model:workflow-version',
-    'model:job-dds-output-project',
-    'model:job-error',
-    'model:job-file-stage-group',
-    'model:share-group',
-    'transform:job-usage',
-  ]
-});
+import { run } from '@ember/runloop';
 
-// Replace this with your real tests.
-test('it serializes records', function(assert) {
-  let record = this.subject({jobErrors:[]});
-  let serializedRecord = record.serialize();
-  assert.ok(serializedRecord);
+module('Unit | Serializer | job', function(hooks) {
+  setupTest(hooks);
+
+  // Replace this with your real tests.
+  test('it serializes records', function(assert) {
+    let record = run(() => this.owner.lookup('service:store').createRecord('job', {jobErrors:[]}));
+    let serializedRecord = record.serialize();
+    assert.ok(serializedRecord);
+  });
 });

@@ -1,5 +1,6 @@
 import EmberObject from '@ember/object';
-import { moduleFor, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 import StoreStub from '../../helpers/store-stub';
 
 const ProjectsStoreStub = StoreStub.extend({
@@ -13,31 +14,31 @@ const ProjectsStoreStub = StoreStub.extend({
   }
 });
 
-moduleFor('service:dds-projects', 'Unit | Service | dds projects', {
-  // Specify the other units that are required for this test.
-  needs: ['model:dds-project'],
-  beforeEach() {
-    this.register('service:store', ProjectsStoreStub);
-    this.inject.service('store', {as: 'store'});
-  }
-});
+module('Unit | Service | dds projects', function(hooks) {
+  setupTest(hooks);
 
-// Replace this with your real tests.
-test('it exists', function(assert) {
-  let service = this.subject();
-  assert.ok(service);
-});
-
-test('it fetches projects', function(assert) {
-  let service = this.subject();
-  service.projects().then(projects => {
-    assert.equal(projects.length, 4);
+  hooks.beforeEach(function() {
+    this.owner.register('service:store', ProjectsStoreStub);
+    this.store = this.owner.lookup('service:store');
   });
-});
 
-test('it sorts projects by name', function(assert) {
-  let service = this.subject();
-  service.projects().then(projects => {
-    assert.deepEqual(projects.mapBy('name'), ['A','B','C','D']);
+  // Replace this with your real tests.
+  test('it exists', function(assert) {
+    let service = this.owner.lookup('service:dds-projects');
+    assert.ok(service);
+  });
+
+  test('it fetches projects', function(assert) {
+    let service = this.owner.lookup('service:dds-projects');
+    service.projects().then(projects => {
+      assert.equal(projects.length, 4);
+    });
+  });
+
+  test('it sorts projects by name', function(assert) {
+    let service = this.owner.lookup('service:dds-projects');
+    service.projects().then(projects => {
+      assert.deepEqual(projects.mapBy('name'), ['A','B','C','D']);
+    });
   });
 });

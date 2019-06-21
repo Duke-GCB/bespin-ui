@@ -2,7 +2,8 @@ import { run } from '@ember/runloop';
 import EmberObject from '@ember/object';
 import { resolve } from 'rsvp';
 import Service from '@ember/service';
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
 const StoreStub = Service.extend({
   query() {
@@ -15,33 +16,34 @@ const StoreStub = Service.extend({
   }
 });
 
-moduleForComponent('dds/dds-file-picker', 'Unit | Component | dds/dds file picker', {
-  unit: true,
-  beforeEach() {
-    this.register('service:store', StoreStub);
-  }
-});
+module('Unit | Component | dds/dds file picker', function(hooks) {
+  setupTest(hooks);
 
-test('it sorts files by name', function(assert) {
-  let component = this.subject();
-  // Run in two separate Ember.run blocks, since resources are fetched as a side effect of setting project
-  run(() => {
-    component.set('project', EmberObject.create({id:7}));
+  hooks.beforeEach(function() {
+    this.owner.register('service:store', StoreStub);
   });
-  run(() => {
-    assert.deepEqual(component.get('children').mapBy('name'), ['A', 'B', 'C', 'D']);
-  });
-});
 
-test('it will filter based on formatSettings.fileNameRegexStr', function(assert) {
-  let component = this.subject();
-  component.set('formatSettings', EmberObject.create({fileNameRegexStr:'A|D'}));
-  let pickedItems = [];
-  component.set('onPick', (item) => {pickedItems.push(item.get('name'))});
-  // Run in two separate Ember.run blocks, since resources are fetched as a side effect of setting project
-  run(() => {
-    component.set('project', EmberObject.create({id:7}));
+  test('it sorts files by name', function(assert) {
+    let component = this.owner.factoryFor('component:dds/dds-file-picker').create();
+    // Run in two separate Ember.run blocks, since resources are fetched as a side effect of setting project
+    run(() => {
+      component.set('project', EmberObject.create({id:7}));
+    });
+    run(() => {
+      assert.deepEqual(component.get('children').mapBy('name'), ['A', 'B', 'C', 'D']);
+    });
   });
-  component.pickAllFiles();
-  assert.deepEqual(['A','D'], pickedItems);
+
+  test('it will filter based on formatSettings.fileNameRegexStr', function(assert) {
+    let component = this.owner.factoryFor('component:dds/dds-file-picker').create();
+    component.set('formatSettings', EmberObject.create({fileNameRegexStr:'A|D'}));
+    let pickedItems = [];
+    component.set('onPick', (item) => {pickedItems.push(item.get('name'))});
+    // Run in two separate Ember.run blocks, since resources are fetched as a side effect of setting project
+    run(() => {
+      component.set('project', EmberObject.create({id:7}));
+    });
+    component.pickAllFiles();
+    assert.deepEqual(['A','D'], pickedItems);
+  });
 });

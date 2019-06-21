@@ -1,20 +1,19 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForComponent('questionnaire/file-field', 'Unit | Component | questionnaire/file field', {
-  // Specify the other units that are required for this test
-  needs: ['service:dds-projects', 'service:dds-user-credentials'],
-  unit: true
-});
+module('Unit | Component | questionnaire/file field', function(hooks) {
+  setupTest(hooks);
 
-test('it requires fieldName and answerChanged', function(assert) {
-  assert.throws(() => {
-    this.subject({});
+  test('it requires fieldName and answerChanged', function(assert) {
+    assert.throws(() => {
+      this.owner.factoryFor('component:questionnaire/file-field').create({});
+    });
+    assert.throws(() => {
+      this.owner.factoryFor('component:questionnaire/file-field').create({fieldName: "SomeField"});
+    });
+    assert.throws(() => {
+      this.owner.factoryFor('component:questionnaire/file-field').create({answerChanged: ()=>{}});
+    });
+    this.owner.factoryFor('component:questionnaire/file-field').create({fieldName: "SomeField", answerChanged: ()=>{}});
   });
-  assert.throws(() => {
-    this.subject({fieldName: "SomeField"});
-  });
-  assert.throws(() => {
-    this.subject({answerChanged: ()=>{}});
-  });
-  this.subject({fieldName: "SomeField", answerChanged: ()=>{}});
 });

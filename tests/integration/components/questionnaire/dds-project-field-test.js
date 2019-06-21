@@ -1,25 +1,28 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import StoreStub from "../../../helpers/store-stub";
 
-moduleForComponent('questionnaire/dds-project-field', 'Integration | Component | questionnaire/dds project field', {
-  integration: true,
-  beforeEach: function() {
-    this.register('service:store', StoreStub);
-  }
-});
+module('Integration | Component | questionnaire/dds project field', function(hooks) {
+  setupRenderingTest(hooks);
 
-test('it renders', function(assert) {
-  this.render(hbs`{{questionnaire/dds-project-field}}`);
+  hooks.beforeEach(function() {
+    this.owner.register('service:store', StoreStub);
+  });
 
-  assert.equal(this.$().text().trim(), '');
+  test('it renders', async function(assert) {
+    await render(hbs`{{questionnaire/dds-project-field}}`);
 
-  // Template block usage:
-  this.render(hbs`
-    {{#questionnaire/dds-project-field}}
-      template block text
-    {{/questionnaire/dds-project-field}}
-  `);
+    assert.equal(this.$().text().trim(), '');
 
-  assert.equal(this.$().text().trim(), 'template block text');
+    // Template block usage:
+    await render(hbs`
+      {{#questionnaire/dds-project-field}}
+        template block text
+      {{/questionnaire/dds-project-field}}
+    `);
+
+    assert.equal(this.$().text().trim(), 'template block text');
+  });
 });

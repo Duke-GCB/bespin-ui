@@ -1,36 +1,35 @@
 import { run } from '@ember/runloop';
 import { resolve } from 'rsvp';
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForComponent('questionnaire/dds-project-field', 'Unit | Component | questionnaire/dds project field', {
-  // Specify the other units that are required for this test
-  needs: ['service:ddsProjects', 'service:ddsUserCredentials', 'model:dds-user-credential', 'model:dds-project'],
-  unit: true
-});
+module('Unit | Component | questionnaire/dds project field', function(hooks) {
+  setupTest(hooks);
 
-test('didInsertElement populates credential and projects', function(assert) {
-  // Creates the component instance
-  const component = this.subject();
-  const ddsProjects = {
-    projects: function () {
-      return resolve('someprojects');
-    }
-  };
-  const ddsUserCredentials = {
-    primaryCredential: function () {
-      return resolve('somecredentials');
-    }
-  };
-  component.set('ddsProjects', ddsProjects);
-  component.set('ddsUserCredentials', ddsUserCredentials);
+  test('didInsertElement populates credential and projects', function(assert) {
+    // Creates the component instance
+    const component = this.owner.factoryFor('component:questionnaire/dds-project-field').create();
+    const ddsProjects = {
+      projects: function () {
+        return resolve('someprojects');
+      }
+    };
+    const ddsUserCredentials = {
+      primaryCredential: function () {
+        return resolve('somecredentials');
+      }
+    };
+    component.set('ddsProjects', ddsProjects);
+    component.set('ddsUserCredentials', ddsUserCredentials);
 
-  assert.equal(component.get('credential'), null);
-  assert.equal(component.get('projects'), null);
+    assert.equal(component.get('credential'), null);
+    assert.equal(component.get('projects'), null);
 
-  run(() => {
-    component.didInsertElement();
+    run(() => {
+      component.didInsertElement();
+    });
+
+    assert.equal(component.get('credential'), 'somecredentials');
+    assert.equal(component.get('projects'), 'someprojects');
   });
-
-  assert.equal(component.get('credential'), 'somecredentials');
-  assert.equal(component.get('projects'), 'someprojects');
 });

@@ -1,17 +1,19 @@
 import EmberObject from '@ember/object';
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('questionnaire/job-name', 'Integration | Component | questionnaire/job name', {
-  integration: true
-});
+module('Integration | Component | questionnaire/job name', function(hooks) {
+  setupRenderingTest(hooks);
 
-test('it renders a job name', function(assert) {
-  let answerSet = EmberObject.create({
-    jobName: 'test'
+  test('it renders a job name', async function(assert) {
+    let answerSet = EmberObject.create({
+      jobName: 'test'
+    });
+    this.set('answerSet', answerSet);
+    await render(hbs`{{questionnaire/job-name answerSet}}`);
+    assert.equal(this.$('label').text(), 'Job Name:');
+    assert.equal(this.$('.job-name-input').val(), 'test');
   });
-  this.set('answerSet', answerSet);
-  this.render(hbs`{{questionnaire/job-name answerSet}}`);
-  assert.equal(this.$('label').text(), 'Job Name:');
-  assert.equal(this.$('.job-name-input').val(), 'test');
 });

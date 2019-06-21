@@ -1,15 +1,17 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('next-back-buttons', 'Integration | Component | next back buttons', {
-  integration: true
-});
+module('Integration | Component | next back buttons', function(hooks) {
+  setupRenderingTest(hooks);
 
-test('it renders', function(assert) {
+  test('it renders', async function(assert) {
 
-  this.render(hbs`{{next-back-buttons}}`);
+    await render(hbs`{{next-back-buttons}}`);
 
-  assert.equal(this.$('.back-button').text().trim(), 'Back');
-  assert.equal(this.$('.next-button').text().trim(), 'Next');
+    assert.equal(this.$('.back-button').text().trim(), 'Back');
+    assert.equal(this.$('.next-button').text().trim(), 'Next');
 
+  });
 });

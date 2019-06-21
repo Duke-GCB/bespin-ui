@@ -1,11 +1,13 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('faqs/faq-heading', 'Integration | Component | faqs/faq heading', {
-  integration: true
-});
+module('Integration | Component | faqs/faq heading', function(hooks) {
+  setupRenderingTest(hooks);
 
-test('it renders', function(assert) {
-  this.render(hbs`{{faqs/faq-heading}}`);
-  assert.equal(this.$('.faq-heading').text().trim().indexOf('Bespin: Frequently Asked Questions'), 0);
+  test('it renders', async function(assert) {
+    await render(hbs`{{faqs/faq-heading}}`);
+    assert.equal(this.$('.faq-heading').text().trim().indexOf('Bespin: Frequently Asked Questions'), 0);
+  });
 });

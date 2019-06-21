@@ -1,16 +1,18 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 import { testRelationship } from '../../helpers/test-relationships';
 
-moduleForModel('job-dds-output-project', 'Unit | Model | job dds output project', {
-  // Specify the other units that are required for this test.
-  needs: ['model:dds-project', 'model:job', 'model:dds-user-credential']
-});
+import { run } from '@ember/runloop';
 
-test('it exists', function(assert) {
-  let model = this.subject();
-  assert.ok(!!model);
-});
+module('Unit | Model | job dds output project', function(hooks) {
+  setupTest(hooks);
 
-testRelationship('job-dds-output-project', {key: 'job', kind: 'belongsTo', type: 'job'});
-testRelationship('job-dds-output-project', {key: 'project', kind: 'belongsTo', type: 'dds-project'});
-testRelationship('job-dds-output-project', {key: 'ddsUserCredentials', kind: 'belongsTo', type: 'dds-user-credential'});
+  test('it exists', function(assert) {
+    let model = run(() => this.owner.lookup('service:store').createRecord('job-dds-output-project'));
+    assert.ok(!!model);
+  });
+
+  testRelationship('job-dds-output-project', {key: 'job', kind: 'belongsTo', type: 'job'});
+  testRelationship('job-dds-output-project', {key: 'project', kind: 'belongsTo', type: 'dds-project'});
+  testRelationship('job-dds-output-project', {key: 'ddsUserCredentials', kind: 'belongsTo', type: 'dds-user-credential'});
+});

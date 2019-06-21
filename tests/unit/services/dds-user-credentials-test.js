@@ -1,19 +1,20 @@
-import { moduleFor, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 import StoreStub from '../../helpers/store-stub';
 
-moduleFor('service:dds-user-credentials', 'Unit | Service | dds user credentials', {
-  // Specify the other units that are required for this test.
-  needs: ['model:dds-user-credential'],
-  beforeEach() {
-    this.register('service:store', StoreStub);
-    this.inject.service('store', {as: 'store'});
-  }
-});
+module('Unit | Service | dds user credentials', function(hooks) {
+  setupTest(hooks);
 
-// Replace this with your real tests.
-test('it exists', function(assert) {
-  let service = this.subject();
-  assert.ok(service);
-});
+  hooks.beforeEach(function() {
+    this.owner.register('service:store', StoreStub);
+    this.store = this.owner.lookup('service:store');
+  });
 
-// Todo: Test the promise resolving, but the service doesn't report when that happens
+  // Replace this with your real tests.
+  test('it exists', function(assert) {
+    let service = this.owner.lookup('service:dds-user-credentials');
+    assert.ok(service);
+  });
+
+  // Todo: Test the promise resolving, but the service doesn't report when that happens
+});
