@@ -4,10 +4,7 @@ const DDSExpandButton = Component.extend({
   expanded: false,
   tagName: 'span',
   classNames: ['glyphicon','dds-expand-button','dds-button'],
-  classNameBindings: ['expanded:glyphicon-folder-open:glyphicon-folder-close'],
-  click() {
-    this.sendAction();
-  }
+  classNameBindings: ['expanded:glyphicon-folder-open:glyphicon-folder-close']
 });
 
 DDSExpandButton.reopenClass({

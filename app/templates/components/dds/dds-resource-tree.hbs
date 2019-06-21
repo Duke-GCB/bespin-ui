@@ -1,9 +1,9 @@
 {{#dds/dds-resource-node resource expanded selectedResources action='clicked' formatSettings=formatSettings}}
   {{! The node yields to allow the caller (us) to pick what icon/button to render}}
   {{#if resource.isFolder}}
-    {{dds/dds-expand-button expanded}}
+    {{dds/dds-expand-button expanded click=(action 'clicked') }}
   {{else}}
-    {{dds/dds-add-button resource}}
+    {{dds/dds-add-button resource click=(action 'clicked') }}
   {{/if}}
 {{/dds/dds-resource-node}}
 {{#if expanded}}

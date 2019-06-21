@@ -39,6 +39,6 @@ test('it sends action on click', function(assert) {
   this.on('clicked', function() {
     assert.ok(true);
   });
-  this.render(hbs`{{dds/dds-expand-button action="clicked"}}`);
+  this.render(hbs`{{dds/dds-expand-button click=(action 'clicked')}}`);
   this.$('span.dds-expand-button').click();
 });
