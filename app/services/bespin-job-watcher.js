@@ -50,7 +50,7 @@ export default Service.extend({
     if (socket) {
       stopWatchingJob(socket, token, jobId);
     } else {
-      //eslint-disable-next-line no-console
+      // eslint-disable-next-line no-console
       console.log("Job watcher websocket not connected.");
     }
   },
@@ -64,7 +64,7 @@ export default Service.extend({
         job.reload();
       });
     } else {
-      //eslint-disable-next-line no-console
+      // eslint-disable-next-line no-console
       console.log("Job Watcher Error:", response.data.message);
     }
   },
