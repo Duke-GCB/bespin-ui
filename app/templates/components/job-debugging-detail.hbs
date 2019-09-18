@@ -1,0 +1,46 @@
+{{#if isSSHMode}}
+  {{#if isSettingUp}}
+    <b>
+      <span class="glyphicon glyphicon-refresh spinning" aria-hidden="true"></span>
+      Setting up SSH server.
+    </b>
+    <p>
+      This will allow access to files from your failed workflow.
+    </p>
+
+  {{else}}
+    <b>SSH server is now running.</b>
+    <p>
+      Using a terminal you can view files from your failed workflow.
+      This server is secured with the public key setup for your account.
+      To connect from a terminal run the following:
+    <pre>ssh -p 30001 bespin@10.12.137.43</pre>
+    Within this server the workflow runnner log is at <pre>/bespin/output-data/bespin-workflow-output.log</pre>
+
+    </p>
+  {{/if}}
+{{else}}
+  {{#if isSettingUp}}
+    <b>
+      <span class="glyphicon glyphicon-refresh spinning" aria-hidden="true"></span>
+      Setting up Jupyter Notebook server.
+    </b>
+    <p>
+      This will allow access to files from your failed workflow.
+    </p>
+
+  {{else}}
+    <b>Jupyter server is now running.</b>
+    <p>
+      Click the following link to view files from your failed workflow.
+    </p>
+    <p>
+      <a href="http://debug-job-{{job.id}}.apps.hardspin.genome.duke.edu">debug-job-{{job.id}}.apps.hardspin.genome.duke.edu</a>
+    </p>
+    The workflow runnner log is at <pre>output-data/bespin-workflow-output.log</pre>
+
+
+  {{/if}}
+{{/if}}
+
+{{yield}}

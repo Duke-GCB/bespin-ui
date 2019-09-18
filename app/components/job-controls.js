@@ -4,6 +4,7 @@ const JobControls = Ember.Component.extend({
   classNames: ['btn-group', 'btn-group-justified'],
   tagName: 'div',
   job: null,
+  sshDebug: true,
   actions: {
     start() {
       this.get('job').start();
@@ -13,15 +14,42 @@ const JobControls = Ember.Component.extend({
     },
     restart() {
       this.get('job').restart();
+    },
+    debug() {
+      var sshDebug = this.get('sshDebug');
+      if (this.get('sshDebug')) {
+        this.set('job.state', 'sshdebugsetup');
+        Ember.run.later(() => this.set('job.state', 'sshdebug'), 3000);
+      } else {
+        this.set('job.state', 'debugsetup');
+        Ember.run.later(() => this.set('job.state', 'debug'), 3000);
+      }
+      this.set('sshDebug', !sshDebug)
+    },
+    cancelDebug() {
+      this.set('job.state', 'E');
     }
   },
   buttons: Ember.computed('job.state', function() {
     let state = this.get('job.state');
-    let buttons = [
-      {type: 'primary', action: 'start', title: 'Start', enabled: false},
-      {type: 'danger', action: 'cancel', title: 'Cancel', enabled: false},
-      {type: 'default', action: 'restart', title: 'Restart', enabled: false},
-    ];
+    let buttons = [];
+    if (state === 'sshdebugsetup' || state == 'sshdebug' || state === 'debugsetup' || state == 'debug') {
+      buttons.push({type: 'default', action: 'cancelDebug', title: 'Cancel Debug', enabled: true});
+    } else {
+      buttons = [
+        {type: 'primary', action: 'start', title: 'Start', enabled: false},
+        {type: 'danger', action: 'cancel', title: 'Cancel', enabled: false},
+        {type: 'default', action: 'restart', title: 'Restart', enabled: false},
+      ];
+    }
+    if (state === 'E') {
+      var sshDebug = this.get('sshDebug');
+      var debugTitle = "Debug web";
+      if (sshDebug) {
+        debugTitle = "Debug ssh";
+      }
+      buttons.push({type: 'default', action: 'debug', title: debugTitle, enabled: true});
+    }
 
     let actionToEnable = null;
     if(state === 'A' ) { // New

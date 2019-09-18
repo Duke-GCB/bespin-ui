@@ -25,4 +25,6 @@
   <p>You can restart the job by clicking <strong>Restart</strong>.</p>
 {{else if job.isRestarting}}
   <p>The job will restart once resources are available.</p>
+{{else if job.isDebugging}}
+  {{job-debugging-detail job}}
 {{/if}}
